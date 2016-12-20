@@ -1,5 +1,7 @@
 package e2.isa.grupa5.model;
 
+import e2.isa.grupa5.model.users.Guest;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -29,7 +31,7 @@ public class Reservation {
 	private Date terminDo; 
 	
 	@ManyToOne
-	private Guest guest; 
+	private Guest guest;
 	
 	public Reservation() {
 		

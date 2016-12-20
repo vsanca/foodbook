@@ -1,12 +1,13 @@
 package e2.isa.grupa5.model;
 
+import e2.isa.grupa5.model.users.Guest;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,7 +23,7 @@ public class FrendshipRequest {
 	private boolean confirmed; 
 	
 	@OneToMany
-	private Guest from; 
+	private Guest from;
 	
 	@OneToMany
 	private Guest to; 

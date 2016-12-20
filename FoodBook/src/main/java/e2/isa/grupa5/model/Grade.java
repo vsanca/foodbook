@@ -1,5 +1,7 @@
 package e2.isa.grupa5.model;
 
+import e2.isa.grupa5.model.users.User;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +22,7 @@ public class Grade {
 	private Long id; 
 	
 	@ManyToOne
-	private User user; 
+	private User user;
 	
 	@Column(name="grade_date")
 	private Date date; 

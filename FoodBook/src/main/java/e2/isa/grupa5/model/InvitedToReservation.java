@@ -1,5 +1,7 @@
 package e2.isa.grupa5.model;
 
+import e2.isa.grupa5.model.users.Guest;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +20,7 @@ public class InvitedToReservation {
 	private Long id;
 	
 	@ManyToOne
-	private Guest guest; 
+	private Guest guest;
 	
 	@ManyToOne
 	private Reservation reservation; 
