@@ -4,7 +4,7 @@ import e2.isa.grupa5.model.users.Guest;
 import e2.isa.grupa5.model.users.User;
 import e2.isa.grupa5.model.users.UserRoles;
 import e2.isa.grupa5.service.GuestService;
-import e2.isa.grupa5.service.MailManager;
+import e2.isa.grupa5.service.MailService;
 import e2.isa.grupa5.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +29,7 @@ public class UserController {
     private GuestService guestService;
 
     @Autowired
-    private MailManager mailManager;
+    private MailService mailManager;
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
@@ -56,9 +56,15 @@ public class UserController {
 
         Guest saved = guestService.save(guest);
 
-        mailManager.sendMail(guest);
+        System.out.println((User)saved);
 
-        return new ResponseEntity<User>(guest, HttpStatus.CREATED);
+        if(saved!=null) {
+            System.out.println("MAIL SENT TO "+guest.getEmail());
+            mailManager.sendMail(guest);
+
+            return new ResponseEntity<User>(guest, HttpStatus.CREATED);
+
+        } else return new ResponseEntity<User>(guest, HttpStatus.IM_USED);
     }
 
     @RequestMapping(value = "/confirmRegistration", method = RequestMethod.POST, consumes = "application/json")
