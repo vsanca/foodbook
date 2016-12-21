@@ -5,6 +5,8 @@ import e2.isa.grupa5.model.Restaurant;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * Restaurant manager is a type of {@link User} who manages a {@link Restaurant}.
@@ -12,8 +14,11 @@ import javax.persistence.InheritanceType;
  * @author Viktor
  *
  */
+
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public class RestaurantManager extends User {
-	
+@Table(name = "restaurant_manager")
+public class RestaurantManager extends User implements Serializable {
+
+    public RestaurantManager() {
+    }
 }

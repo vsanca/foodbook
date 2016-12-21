@@ -5,6 +5,8 @@ import e2.isa.grupa5.model.Restaurant;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * Bidder represents a type of {@link User} who competes for providing groceries and 
@@ -13,8 +15,10 @@ import javax.persistence.InheritanceType;
  * @author Viktor
  *
  */
+
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public class Bidder extends User {
-	
+@Table(name = "bidder")
+public class Bidder extends User implements Serializable {
+    public Bidder() {
+    }
 }

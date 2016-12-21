@@ -1,33 +1,28 @@
 package e2.isa.grupa5.model.users;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name="User")
-public class User {
+@Table(name="user")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class User implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="user_id")
+	@Column(name="id")
 	private Long id; 
 	
-	@Column(name="user_password")
+	@Column(name="user_password", nullable = false)
 	private String password;
 	
-	@Column(name="user_email")
+	@Column(name="user_email", nullable = false)
 	private String email; 
 	
-	@Column(name="user_name")
+	@Column(name="user_name", nullable = false)
 	private String name; 
 	
-	@Column(name="user_surname")
+	@Column(name="user_surname", nullable = false)
 	private String surname;
 	
 	@Column(name="user_address")
@@ -38,10 +33,20 @@ public class User {
 	
 	@Column(name="user_role")
 	@Enumerated(EnumType.STRING)
-	private Roles role;
+	private UserRoles role;
 	
 	public User() {
 		
+	}
+
+	public User(User user){
+		this.id = user.id;
+		this.password = user.password;
+		this.email = user.email;
+		this.name = user.name;
+		this.surname = user.surname;
+		this.address = user.address;
+		this.role = user.role;
 	}
 
 	public Long getId() {
@@ -100,11 +105,11 @@ public class User {
 		this.active = active;
 	}
 
-	public Roles getRole() {
+	public UserRoles getRole() {
 		return role;
 	}
 
-	public void setRole(Roles role) {
+	public void setRole(UserRoles role) {
 		this.role = role;
 	}
 	

@@ -19,22 +19,22 @@ public class Grade {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="grade_id")
-	private Long id; 
-	
+	private Long id;
+
 	@ManyToOne
 	private User user;
-	
+
 	@Column(name="grade_date")
-	private Date date; 
-	
+	private Date date;
+
 	@Column(name="grade_value")
-	private int value; 
-	
+	private int value;
+
 	@ManyToOne
-	private Reservation reservation; 
-	
+	private Reservation reservation;
+
 	public Grade() {
-		
+
 	}
 
 	public Long getId() {
@@ -76,5 +76,5 @@ public class Grade {
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
 	}
-	
+
 }
