@@ -36,7 +36,7 @@ public class UserController {
     public ResponseEntity<User> login(@RequestBody User tempUser){
         User user = userService.findByEmail(tempUser.getEmail());
 
-        if(user instanceof Guest){
+        if(user.getRole() == UserRoles.GUEST){
             if(user.isActive())
                 return new ResponseEntity<User>(user, HttpStatus.OK);
             else
