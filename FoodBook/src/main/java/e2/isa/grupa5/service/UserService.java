@@ -48,8 +48,9 @@ public class UserService implements IUserService {
     public User findByEmail(String email) {
         List<User> userList = userRepository.findByEmail(email);
 
-        User user = userList.get(0);
-
-        return user;
+        if(!userList.isEmpty())
+            return userList.get(0);
+        else
+            return null;
     }
 }
