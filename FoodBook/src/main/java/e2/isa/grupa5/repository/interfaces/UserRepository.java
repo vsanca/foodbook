@@ -1,4 +1,4 @@
-package e2.isa.grupa5.repository;
+package e2.isa.grupa5.repository.interfaces;
 
 import e2.isa.grupa5.model.users.User;
 import e2.isa.grupa5.model.users.UserRoles;

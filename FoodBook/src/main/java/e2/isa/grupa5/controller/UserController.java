@@ -1,11 +1,11 @@
-package e2.isa.grupa5.controller.DTO;
+package e2.isa.grupa5.controller;
 
 import e2.isa.grupa5.model.users.Guest;
 import e2.isa.grupa5.model.users.User;
 import e2.isa.grupa5.model.users.UserRoles;
-import e2.isa.grupa5.service.GuestService;
-import e2.isa.grupa5.service.MailService;
-import e2.isa.grupa5.service.UserService;
+import e2.isa.grupa5.service.jpa.GuestService;
+import e2.isa.grupa5.service.jpa.MailService;
+import e2.isa.grupa5.service.jpa.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,10 +1,8 @@
 package e2.isa.grupa5.model.users;
 
-import e2.isa.grupa5.model.Restaurant;
+import e2.isa.grupa5.model.restaurant.Restaurant;
 
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import java.io.Serializable;
 

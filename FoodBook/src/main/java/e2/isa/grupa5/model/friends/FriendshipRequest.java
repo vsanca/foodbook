@@ -1,4 +1,4 @@
-package e2.isa.grupa5.model;
+package e2.isa.grupa5.model.friends;
 
 import e2.isa.grupa5.model.users.Guest;
 

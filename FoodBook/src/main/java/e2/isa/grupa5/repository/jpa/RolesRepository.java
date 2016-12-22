@@ -1,4 +1,4 @@
-package e2.isa.grupa5.repository;
+package e2.isa.grupa5.repository.jpa;
 
 /*
 public interface RolesRepository extends JpaRepository<UserRoles, Long> {

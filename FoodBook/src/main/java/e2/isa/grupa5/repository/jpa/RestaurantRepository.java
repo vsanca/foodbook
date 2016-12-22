@@ -1,10 +1,4 @@
-package e2.isa.grupa5.repository;
-
-import e2.isa.grupa5.model.Restaurant;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
+package e2.isa.grupa5.repository.jpa;
 
 /*
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {

@@ -1,7 +1,8 @@
-package e2.isa.grupa5.service;
+package e2.isa.grupa5.service.jpa;
 
 import e2.isa.grupa5.model.users.Guest;
-import e2.isa.grupa5.repository.GuestRepository;
+import e2.isa.grupa5.repository.interfaces.GuestRepository;
+import e2.isa.grupa5.service.interfaces.IGuestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

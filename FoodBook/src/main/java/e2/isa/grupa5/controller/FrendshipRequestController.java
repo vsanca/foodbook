@@ -1,6 +1,6 @@
-package e2.isa.grupa5.controller.DTO;
+package e2.isa.grupa5.controller;
 
-//import e2.isa.grupa5.model.FriendshipRequest;
+//import e2.isa.grupa5.model.friends.FriendshipRequest;
 //import e2.isa.grupa5.service.FriendshipRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

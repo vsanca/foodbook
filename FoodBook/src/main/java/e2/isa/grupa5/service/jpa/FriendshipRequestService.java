@@ -1,4 +1,4 @@
-package e2.isa.grupa5.service;
+package e2.isa.grupa5.service.jpa;
 
 /*import e2.isa.grupa5.model.FriendshipRequest;
 import e2.isa.grupa5.model.users.Guest;

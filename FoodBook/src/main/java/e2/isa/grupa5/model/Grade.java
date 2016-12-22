@@ -1,5 +1,6 @@
 package e2.isa.grupa5.model;
 
+import e2.isa.grupa5.model.reservation.Reservation;
 import e2.isa.grupa5.model.users.User;
 
 import java.util.Date;

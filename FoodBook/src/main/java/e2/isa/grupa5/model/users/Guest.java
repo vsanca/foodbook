@@ -1,7 +1,5 @@
 package e2.isa.grupa5.model.users;
 
-import e2.isa.grupa5.model.Reservation;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

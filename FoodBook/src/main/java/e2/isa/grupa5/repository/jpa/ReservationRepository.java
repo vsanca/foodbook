@@ -1,14 +1,4 @@
-package e2.isa.grupa5.repository;
-
-import e2.isa.grupa5.model.Reservation;
-import e2.isa.grupa5.model.Restaurant;
-import e2.isa.grupa5.model.users.Guest;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-
-import java.util.List;
-import java.lang.Long;
-import java.util.Date;
+package e2.isa.grupa5.repository.jpa;
 
 /*
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
