@@ -1,12 +1,12 @@
 language: java
 jdk:
-  - oraclejdk7
+  - oraclejdk8
 sudo: false
 before_install:
   - chmod +x FoodBook/mvnw
 install:
   - cd FoodBook
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -e -X
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script: 
   - cd FoodBook
   - mvn clean verify
