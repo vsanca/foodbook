@@ -7,6 +7,5 @@ before_install:
 install:
   - cd FoodBook
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-script: 
-  - cd FoodBook
+script:
   - mvn clean verify
