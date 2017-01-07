@@ -2,4 +2,8 @@ language: java
 sudo: false
 before_install:
   - chmod +x FoodBook/mvnw
-script: ./FoodBook/mvnw test -B
+install:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+script: 
+  - cd FoodBook
+  - mvn clean verify
