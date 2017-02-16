@@ -11,9 +11,9 @@
         .service('authorizationService', authorizationService);
     
     
-    authorizationService.$inject = ['$q'];
+    authorizationService.$inject = ['$q', 'sessionService'];
 
-    function authorizationService($q) {
+    function authorizationService($q, sessionService) {
 
         return {
         	login: login,
@@ -36,25 +36,25 @@
                 password: password
             };
             
+            // prepare a deffered promise that will be resolved after auth. was completed
             var deferred = $q.defer();
 
              $http({
-                method: 'GET',
-                body: payload,
-                url: '/rest/guest/get-profile-page-info/' + id,
-                headers: {
-                   /* 'Authorization': "" + sessionService.getSessionData().accessToken */
-                 'JeleninHeader' : 'POYY'
-                }
+                method: 'POST',
+                data: payload,
+                url: '/rest/auth/login'
             }).then(function(response) {
-                response.   
-                
-                deferred.resolve(); 
+                let authToken = response.headers('Authorization');
+                sessionService.setToken()
+                // resolve promise in order to notify controller 
+                // that login was successfull 
+                deferred.resolve(response); 
             }, function(error) {
-
+                // reject promise in order to notify controller that 
+                // login failed
             });
             
-
+            // return promise to controller, promise will be resolved after authentication was completed
              return deferred.promise;
         }
         

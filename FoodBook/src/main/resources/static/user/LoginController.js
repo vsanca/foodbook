@@ -16,9 +16,9 @@
     }]).controller('LoginController', LoginController)
     .service('authenticationService', authenticationService);
 
-  LoginController.$inject = ['$scope', '$http', 'authenticationService', '$state'];
+  LoginController.$inject = ['$scope', '$http', 'authenticationService', 'userRoles', '$location'];
   
-  function LoginController($scope, $http, authenticationService) {
+  function LoginController($scope, $http, authenticationService, userRoles, $location) {
       $scope.user = {
         username: null,
         password: null

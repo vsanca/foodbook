@@ -2,6 +2,8 @@ package e2.isa.grupa5.security;
 
 import java.io.Serializable;
 
+import e2.isa.grupa5.model.users.UserRoles;
+
 /**
  * 
  * @author Jelena Jankovic RA139-2013
@@ -21,9 +23,16 @@ public class JwtAuthenticationResponse implements Serializable {
      * @param token
      */
     private final long userId;
+    
+    /**
+     * Maps to {@link UserRoles} via @JsonValue
+     * 
+     */
+    private final UserRoles role;
 
-    public JwtAuthenticationResponse(String token, long userId) {
+    public JwtAuthenticationResponse(String token, long userId, UserRoles role) {
         this.token = token;
+        this.role = role;
         this.userId = userId;
     }
 
@@ -34,6 +43,12 @@ public class JwtAuthenticationResponse implements Serializable {
 	public long getUserId() {
 		return userId;
 	}
+
+	public UserRoles getRole() {
+		return role;
+	}
+	
+	
     
     
 }
