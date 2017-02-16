@@ -16,7 +16,7 @@
     }]).controller('LoginController', LoginController)
     .service('authenticationService', authenticationService);
 
-  LoginController.$inject = ['$scope', '$http', 'authenticationService'];
+  LoginController.$inject = ['$scope', '$http', 'authenticationService', '$state'];
   
   function LoginController($scope, $http, authenticationService) {
       $scope.user = {
@@ -25,9 +25,14 @@
       };
       
       $scope.login = function() {
-        authenticationService.login($scope.user.username, $scope.user.password).then(
-            
-        )
+        authenticationService.login($scope.user.username, $scope.user.password).then(function(data) {
+          
+          if(data.role === "GUEST") {
+               $location.path( "/guest/home");
+          }
+        }, function(error) {
+
+        });
       };
   }
 

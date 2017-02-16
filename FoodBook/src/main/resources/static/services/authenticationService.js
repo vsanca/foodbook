@@ -10,7 +10,10 @@
         .module('foodBook')
         .service('authorizationService', authorizationService);
     
-    function authorizationService() {
+    
+    authorizationService.$inject = ['$q'];
+
+    function authorizationService($q) {
 
         return {
         	login: login,
@@ -18,24 +21,41 @@
         };
 
         
+      
         /**
-         * Sets JWT auth token in localStorage
-         * @param  {string} token - value received as Authorization header value
+         * Abstracts away login mechanicm, returns a new Q deffered promise to  Controller
+         * After performing a successful login, stores the token and user id to Session Service
+         * 
+         * @param  {string} username
+         * @param  {string} password
+         * @returns {Promise} - deffered promise 
          */
         function login(username, password) {
             var payload = {
                 username: username,
                 password: password
             };
-            return $http({
+            
+            var deferred = $q.defer();
+
+             $http({
                 method: 'GET',
                 body: payload,
                 url: '/rest/guest/get-profile-page-info/' + id,
                 headers: {
-                   /* 'Authorization': "Bearer " + sessionService.getSessionData().accessToken */
+                   /* 'Authorization': "" + sessionService.getSessionData().accessToken */
                  'JeleninHeader' : 'POYY'
                 }
+            }).then(function(response) {
+                response.   
+                
+                deferred.resolve(); 
+            }, function(error) {
+
             });
+            
+
+             return deferred.promise;
         }
         
         /**

@@ -10,11 +10,15 @@
         .module('foodBook')
         .service('sessionService', sessionService);
     
+    sessionService.inject
+
     function sessionService() {
 
         return {
         	getAuthToken: getAuthToken,
-        	setAuthToken: setAuthToken
+        	setAuthToken: setAuthToken,
+            getUserId: getUserId,
+            setUserId: setUserId
         };
 
         
@@ -36,6 +40,19 @@
         function getAuthToken() {
         	return localStorage.getItem('token');
         }
+        /**
+         * Stores userId , if null is specified, deletes userId from localStorage
+         * @param  {long} userId
+         */
+        function setUserId(userId) {
+            if(userId === null) {
+                localStorage.removeItem('userId');
+                return;
+            }
+            localStorage.setItem('userId', userId);
+        }
+
+        
 
     }
 
