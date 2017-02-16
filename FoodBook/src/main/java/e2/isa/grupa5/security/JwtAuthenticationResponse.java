@@ -15,12 +15,25 @@ public class JwtAuthenticationResponse implements Serializable {
      * Value of JWT token generated for logged in Restaurant user
      */
     private final String token;
+    
+    /**
+     * User ID, to be used for REST calls for front-end
+     * @param token
+     */
+    private final long userId;
 
-    public JwtAuthenticationResponse(String token) {
+    public JwtAuthenticationResponse(String token, long userId) {
         this.token = token;
+        this.userId = userId;
     }
 
     public String getToken() {
         return this.token;
     }
+
+	public long getUserId() {
+		return userId;
+	}
+    
+    
 }

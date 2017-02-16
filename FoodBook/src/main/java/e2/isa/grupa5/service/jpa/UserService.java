@@ -13,6 +13,7 @@ import java.util.List;
  * Created by Viktor on 12/21/2016.
  */
 
+
 @Service
 @Transactional
 public class UserService implements IUserService {

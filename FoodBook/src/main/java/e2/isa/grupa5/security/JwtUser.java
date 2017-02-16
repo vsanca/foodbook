@@ -2,6 +2,7 @@ package e2.isa.grupa5.security;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,11 +27,11 @@ public class JwtUser implements UserDetails {
     private final String email;
     private final boolean active;
     private UserRoles userRoles;
+	private List<GrantedAuthority> authorities;
     
-    
-    
+   
 	public JwtUser(Long id, String name, String surname, String email, String password, boolean active,
-			UserRoles role) {
+			UserRoles role, List<GrantedAuthority> authorities) {
 		this.id = id;
 		this.firstname = name;
 		this.surname = surname;
@@ -38,6 +39,7 @@ public class JwtUser implements UserDetails {
 		this.active = active;
 		this.userRoles = role;
 		this.password = password;
+		this.authorities = authorities;
 	}
 
 	public UserRoles getUserRoles() {
@@ -96,7 +98,7 @@ public class JwtUser implements UserDetails {
     @JsonIgnore
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-    	 return Collections.singletonList(new SimpleGrantedAuthority(userRoles.name()));
+    	 return authorities;
 	}
 
 	@Override

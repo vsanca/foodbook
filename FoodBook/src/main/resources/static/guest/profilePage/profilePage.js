@@ -1,30 +1,33 @@
-'use strict';
+(function () {
 
-angular.module('foodbookApp.guest', ['ngRoute'])
+  'use strict';
 
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/guest/profile-page', {
-    templateUrl: 'guest/profilePage/profilePage.html'
-  });
-}]).controller('ProfilePageController', ProfilePageController)
-.service('GuestService', GuestService);
+  angular.module('foodbookApp.guest', ['ngRoute'])
 
-ProfilePageController.$inject = ['$scope', '$http', 'GuestService'];
+    .config(['$routeProvider', function ($routeProvider) {
+      $routeProvider.when('/guest/profile-page', {
+        templateUrl: 'guest/profilePage/profilePage.html'
+      });
+    }]).controller('ProfilePageController', ProfilePageController)
+    .service('GuestService', GuestService);
 
-function ProfilePageController($scope, $http, GuestService) {
+  ProfilePageController.$inject = ['$scope', '$http', 'GuestService'];
+
+  function ProfilePageController($scope, $http, GuestService) {
     alert("Poyyy");
 
-   $scope.init = function() {
+    $scope.init = function () {
 
-         GuestService.getProfilePageInfo(1).then(function(response) {
-           $scope.profilePageDTO = response.data;
-           $scope.name = response.data.name;
-           $scope.surname = response.data.surname;
-           $scope.address = response.data.address;
-           $scope.numberOfVisits = response.data.numberOfVisits;
-         }, function() {
-         });
-   };
+      GuestService.getProfilePageInfo(1).then(function (response) {
+        $scope.profilePageDTO = response.data;
+        $scope.name = response.data.name;
+        $scope.surname = response.data.surname;
+        $scope.address = response.data.address;
+        $scope.numberOfVisits = response.data.numberOfVisits;
+      }, function () {
+      });
+    };
 
 
-}
+  }
+})();

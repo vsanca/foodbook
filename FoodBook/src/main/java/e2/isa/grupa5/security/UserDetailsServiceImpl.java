@@ -44,7 +44,8 @@ public class UserDetailsServiceImpl  implements UserDetailsService {
         }
 
         final List<GrantedAuthority> grantedAuthorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().name()));
-        return new org.springframework.security.core.userdetails.User(username, user.getPassword(), grantedAuthorities);
+        JwtUser jwtUser = JwtUserFactory.create(user, grantedAuthorities);
+        return jwtUser;
     }
 
     

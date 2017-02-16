@@ -13,7 +13,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,11 +60,11 @@ public class AuthenticationController {
 	        SecurityContextHolder.getContext().setAuthentication(authentication);
 
 	        // Reload password post-security so we can generate token
-	        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+	        final JwtUser userDetails = (JwtUser)userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 	        final String token = jwtTokenUtil.generateToken(userDetails);
-
+	        
 	        // Return the token
-	        return ResponseEntity.ok(new JwtAuthenticationResponse(token));
+	        return ResponseEntity.ok(new JwtAuthenticationResponse(token, userDetails.getId()));
 	    }
 
 }
