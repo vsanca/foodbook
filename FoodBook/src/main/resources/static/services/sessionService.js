@@ -7,7 +7,7 @@
     'use strict';
 
     angular
-        .module('website')
+        .module('foodBook')
         .service('sessionService', sessionService);
     
     function sessionService() {

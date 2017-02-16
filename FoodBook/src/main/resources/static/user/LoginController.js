@@ -1,27 +1,34 @@
 /**
- * Created by Viktor on 12/21/2016.
+ * Displays guest profile information, provides methods for editing guest account information
+ * @author Jelena Jankovic RA139-2013
+ *
  */
+(function () {
 
-angular.module('foodbookApp.LoginController', [])
-    .controller('LoginController', function ($localStorage, $scope, $location, LoginFactory) {
-        function init() {
+  'use strict';
 
-        }
+  angular.module('foodbookApp', ['ngRoute'])
 
-        init();
+    .config(['$routeProvider', function ($routeProvider) {
+      $routeProvider.when('/login', {
+        templateUrl: 'user/login.html'
+      });
+    }]).controller('LoginController', LoginController)
+    .service('authenticationService', authenticationService);
 
-        $scope.login = function (user) {
-            LoginFactory.getUser(user)
-                .success(function (data) {
-                    if(data){
-                        $localStorage.logged = data;
-                        if($localStorage.logged.type == 'GUEST') {
-                            $location.path('/guestProfile');
-                        }
-                    }
-                })
-                .error(function (data) {
-                    alert('!');
-                })
-        }
-    });
+  LoginController.$inject = ['$scope', '$http', 'authenticationService'];
+  
+  function LoginController($scope, $http, authenticationService) {
+      $scope.user = {
+        username: null,
+        password: null
+      };
+      
+      $scope.login = function() {
+        authenticationService.login($scope.user.username, $scope.user.password).then(
+            
+        )
+      };
+  }
+
+})();

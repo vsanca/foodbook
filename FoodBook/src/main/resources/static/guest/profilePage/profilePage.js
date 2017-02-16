@@ -1,3 +1,8 @@
+/**
+ * Displays guest profile information, provides methods for editing guest account information
+ * @author Jelena Jankovic RA139-2013
+ *
+ */
 (function () {
 
   'use strict';

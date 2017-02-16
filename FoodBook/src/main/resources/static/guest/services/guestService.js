@@ -3,11 +3,11 @@
          'use strict';
 
          angular
-             .module('foodbookApp.guest').service('GuestService', GuestService);
+             .module('foodbookApp.guest').service('guestService', guestService);
              
              
-             GuestService.$inject = ['$scope', '$http' /*'sessionService' */ ];
-         function GuestService($scope, $http/*, sessionService*/) {
+             guestService.$inject = ['$scope', '$http' /*'sessionService' */ ];
+         function guestService($scope, $http/*, sessionService*/) {
 
 
          return {
