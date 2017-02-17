@@ -1,4 +1,4 @@
-package e2.isa.grupa5.controller;
+package e2.isa.grupa5.rest.guest;
 
 //import e2.isa.grupa5.model.friends.FriendshipRequest;
 //import e2.isa.grupa5.service.FriendshipRequestService;

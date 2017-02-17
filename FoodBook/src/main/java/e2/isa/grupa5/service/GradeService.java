@@ -1,4 +1,4 @@
-package e2.isa.grupa5.service.jpa;
+package e2.isa.grupa5.service;
 
 public class GradeService {
 

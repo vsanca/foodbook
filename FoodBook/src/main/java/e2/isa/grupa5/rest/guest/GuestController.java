@@ -1,4 +1,4 @@
-package e2.isa.grupa5.rest;
+package e2.isa.grupa5.rest.guest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,9 +17,9 @@ import e2.isa.grupa5.model.users.Guest;
 import e2.isa.grupa5.model.users.User;
 import e2.isa.grupa5.model.users.UserRoles;
 import e2.isa.grupa5.rest.dto.guest.ProfilePageDTO;
+import e2.isa.grupa5.service.MailService;
+import e2.isa.grupa5.service.UserService;
 import e2.isa.grupa5.service.guest.GuestService;
-import e2.isa.grupa5.service.jpa.MailService;
-import e2.isa.grupa5.service.jpa.UserService;
 
 /**
  * 

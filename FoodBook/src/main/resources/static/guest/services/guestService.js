@@ -14,6 +14,7 @@
              getProfileDetail: getProfileDetail
          };
 
+
          /** getProfileDetails (secured)
          * @param {int} id - GuestID
          */
@@ -27,7 +28,7 @@
                 }
             });
          }
-
+-ub
 
          }
 

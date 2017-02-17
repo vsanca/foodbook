@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import e2.isa.grupa5.model.users.User;
-import e2.isa.grupa5.repository.interfaces.UserRepository;
+import e2.isa.grupa5.repository.UserRepository;
 
 
 /**

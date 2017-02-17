@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import e2.isa.grupa5.model.users.Guest;
-import e2.isa.grupa5.repository.GuestRepository;
-import e2.isa.grupa5.repository.InvitedToReservationRepository;
-import e2.isa.grupa5.repository.ReservationRepository;
+import e2.isa.grupa5.repository.guest.GuestRepository;
+import e2.isa.grupa5.repository.guest.InvitedToReservationRepository;
+import e2.isa.grupa5.repository.guest.ReservationRepository;
 import e2.isa.grupa5.rest.dto.guest.ProfilePageDTO;
 
 

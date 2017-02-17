@@ -1,4 +1,4 @@
-package e2.isa.grupa5.rest;
+package e2.isa.grupa5.rest.guest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import e2.isa.grupa5.model.friends.FriendshipRequest;
 import e2.isa.grupa5.model.users.Guest;
 import e2.isa.grupa5.model.users.UserRoles;
-import e2.isa.grupa5.repository.FriendshipRequestRepository;
-import e2.isa.grupa5.repository.GuestRepository;
+import e2.isa.grupa5.repository.guest.FriendshipRequestRepository;
+import e2.isa.grupa5.repository.guest.GuestRepository;
 
 @RestController
 @RequestMapping("/test")

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import e2.isa.grupa5.model.friends.FriendshipRequest;
 import e2.isa.grupa5.model.users.Guest;
-import e2.isa.grupa5.repository.FriendshipRequestRepository;
-import e2.isa.grupa5.repository.GuestRepository;
+import e2.isa.grupa5.repository.guest.FriendshipRequestRepository;
+import e2.isa.grupa5.repository.guest.GuestRepository;
 
 
 @Service

@@ -1,4 +1,4 @@
-package e2.isa.grupa5.service.jpa;
+package e2.isa.grupa5.service;
 
 import e2.isa.grupa5.model.users.SystemManager;
 import e2.isa.grupa5.model.users.User;

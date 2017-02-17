@@ -1,4 +1,4 @@
-package e2.isa.grupa5.repository.jpa;
+package e2.isa.grupa5.repository;
 
 /*
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
