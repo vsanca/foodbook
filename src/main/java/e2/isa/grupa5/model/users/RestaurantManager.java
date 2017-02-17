@@ -20,6 +20,7 @@ import java.io.Serializable;
 @Table(name = "restaurant_manager")
 public class RestaurantManager extends User implements Serializable {
 	
+	
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant", nullable = false)
     private Restaurant restaurant;

@@ -4,15 +4,15 @@ import javax.persistence.*;
 
 /**
  * 
- * Restaurant beverage menu.
+ * Restaurant menu.
  * 
  * @author Viktor
  *
  */
 
 @Entity
-@Table(name = "drink_menu")
-public class DrinkMenu {
+@Table(name = "menu")
+public class Menu {
 
     @Id
     @GeneratedValue
@@ -23,11 +23,11 @@ public class DrinkMenu {
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
     
-    public DrinkMenu() {
+    public Menu() {
     	
     }
     
-    public DrinkMenu(Restaurant restaurant) {
+    public Menu(Restaurant restaurant) {
     	this.restaurant = restaurant;
     }
     
