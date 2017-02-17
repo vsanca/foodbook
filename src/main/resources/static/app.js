@@ -9,12 +9,12 @@
         $routeProvider
 
             .when('/login', {
-                templateUrl: 'user/login.html',
+                templateUrl: 'pages/user/login.html',
                 controller: 'LoginController'
             })
 
             .when('/guest/profile-page', {
-                templateUrl: 'guest/profilePage/profilePage.html',
+                templateUrl: 'pages/guest/profilePage/profilePage.html',
                 controller: 'ProfilePageController'
             });
 
