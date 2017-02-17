@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Rseservation")
+@Table(name="Reservation")
 public class Reservation {
 
 	@Id

@@ -8,5 +8,6 @@ var app = angular.module('foodbookApp', [
     'foodbookApp.controllers',
     'foodbookApp.services',
     'foodbookApp.directives',
-    'ngStorage'
+    'ngStorage', 
+    'foodbookApp.guest'
 ]);

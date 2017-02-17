@@ -10,13 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import e2.isa.grupa5.model.friends.FriendshipRequest;
+import e2.isa.grupa5.service.guest.FriendshipRequestService;
 
 import java.util.List;
-/*
+
 @RequestMapping("/rest/frendship-request")
 @RestController
 public class FrendshipRequestController {
-
+/*
 	@Autowired
 	private FriendshipRequestService friendshipRequestService;
 	//findByFrom
@@ -47,6 +49,6 @@ public class FrendshipRequestController {
 		else 
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);	
 	}
-
-}
 */
+}
+
