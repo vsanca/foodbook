@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -50,6 +51,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
         return new JwtAuthenticationTokenFilter();
     }
+    
+    @Override
+	public void configure(WebSecurity webSecurity) {
+    	
+    }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -71,14 +77,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         HttpMethod.GET,
                         "/",
                         "/*.html",
+                        "/fonts/**",
+                        "/img/**",
                         "/favicon.ico",
                         "/**/*.html",
                         "/**/*.css",
-                        "/**/*.js"
+                        "/**/*.js",
+                        "/**/*.png",
+                        "/**/*.jpg",
+                        "/**/*.gif",
+                        "/**/*.svg"
                 ).permitAll()
                 .antMatchers("/rest/auth/login",
                 		 "/rest/guest/register-guest",
-                		 "/rest/guest/confirm-registration").permitAll()
+                		 "/rest/guest/confirm-registration",
+                		/*  FOR DEVELOPMENT PURPOSES ONLY! */
+                		 "/test/**"
+                		).permitAll()
                 .anyRequest().authenticated();
 
         // Custom JWT based security filter

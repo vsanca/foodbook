@@ -7,13 +7,13 @@
     'use strict';
 
     angular
-        .module('foodBook')
-        .service('authorizationService', authorizationService);
+        .module('foodbook')
+        .service('authenticationService', authenticationService);
     
     
-    authorizationService.$inject = ['$q', 'sessionService'];
+    authenticationService.$inject = ['$q', '$http', 'sessionService'];
 
-    function authorizationService($q, sessionService) {
+    function authenticationService($q, $http, sessionService) {
 
         return {
         	login: login,
@@ -45,13 +45,20 @@
                 url: '/rest/auth/login'
             }).then(function(response) {
                 let authToken = response.headers('Authorization');
-                sessionService.setToken()
+                sessionService.getAuthToken(response.data.token);
+                let userObj = {
+                    userId: response.data.userId,
+                    role: response.data.role
+                };
+
+                sessionService.setUserInfo(userObj);
                 // resolve promise in order to notify controller 
                 // that login was successfull 
-                deferred.resolve(response); 
+                deferred.resolve(userObj); 
             }, function(error) {
                 // reject promise in order to notify controller that 
                 // login failed
+                deferred.reject("Authorization failed!");
             });
             
             // return promise to controller, promise will be resolved after authentication was completed

@@ -7,8 +7,8 @@
     'use strict';
 
     angular
-        .module('foodBook')
-        .constant('userRole', {
+        .module('foodbook')
+        .constant('userRoles', {
             'GUEST' : 0,
             'CHEF' : 1,
             'WAITER': 2,

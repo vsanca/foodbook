@@ -7,23 +7,16 @@
 
   'use strict';
 
-  angular.module('foodbookApp.guest', ['ngRoute'])
+  angular.module('foodbook').controller('ProfilePageController', ProfilePageController);
 
-    .config(['$routeProvider', function ($routeProvider) {
-      $routeProvider.when('/guest/profile-page', {
-        templateUrl: 'guest/profilePage/profilePage.html'
-      });
-    }]).controller('ProfilePageController', ProfilePageController)
-    .service('GuestService', GuestService);
+  ProfilePageController.$inject = ['$scope', '$http', 'guestService'];
 
-  ProfilePageController.$inject = ['$scope', '$http', 'GuestService'];
-
-  function ProfilePageController($scope, $http, GuestService) {
+  function ProfilePageController($scope, $http, guestService) {
     alert("Poyyy");
 
     $scope.init = function () {
 
-      GuestService.getProfilePageInfo(1).then(function (response) {
+      guestService.getProfilePageInfo(1).then(function (response) {
         $scope.profilePageDTO = response.data;
         $scope.name = response.data.name;
         $scope.surname = response.data.surname;

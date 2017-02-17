@@ -7,18 +7,16 @@
     'use strict';
 
     angular
-        .module('foodBook')
+        .module('foodbook')
         .service('sessionService', sessionService);
     
-    sessionService.inject
-
     function sessionService() {
 
         return {
         	getAuthToken: getAuthToken,
         	setAuthToken: setAuthToken,
-            getUserId: getUserId,
-            setUserId: setUserId
+            getUserInfo: getUserInfo,
+            setUserInfo: setUserInfo
         };
 
         
@@ -40,19 +38,38 @@
         function getAuthToken() {
         	return localStorage.getItem('token');
         }
+
         /**
-         * Stores userId , if null is specified, deletes userId from localStorage
-         * @param  {long} userId
+         *    @typedef UserInfo
+         *    @type {object}
+         *    @property {int} role - user role 
+         *    @property {long} userId - user ID
          */
-        function setUserId(userId) {
-            if(userId === null) {
-                localStorage.removeItem('userId');
+
+        /**
+         * Stores userInfo as a JSON string within localStorage , if null is specified, deletes userId from localStorage
+         * @param  {UserInfo} userInfo
+         */
+        function setUserInfo(userInfo) {
+            if(userInfo === null) {
+                localStorage.removeItem('userInfo');
                 return;
             }
-            localStorage.setItem('userId', userId);
+            localStorage.setItem('userInfo', JSON.stringify(userInfo));
         }
 
-        
+         /**
+         * Stores userInfo , if null is specified, deletes userInfo from localStorage
+         * 
+         * @param  {UserInfo} userInfo as an object
+         */
+        function getUserInfo() {
+            let value = localStorage.getItem('userInfo');
+            if(value == null) {
+                return null;
+            }
+            return JSON.parse(value);
+        }
 
     }
 

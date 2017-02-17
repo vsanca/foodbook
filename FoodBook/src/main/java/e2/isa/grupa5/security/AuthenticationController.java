@@ -46,7 +46,7 @@ public class AuthenticationController {
 	    
 	    @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
 	    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest, Device device) throws AuthenticationException {
-	    	logger.info("Performing login for user" + authenticationRequest.getUsername());
+	    	logger.info("Performing login for user:" + authenticationRequest.getUsername());
 	    	// UserServiceImpl sets passwordEncoder in order to PERFORM HASH on user input in order to compare with salted database value
 	   
 	    	

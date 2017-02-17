@@ -3,7 +3,7 @@
          'use strict';
 
          angular
-             .module('foodbookApp.guest').service('guestService', guestService);
+             .module('foodbook').service('guestService', guestService);
              
              
              guestService.$inject = ['$scope', '$http' /*'sessionService' */ ];
