@@ -31,11 +31,10 @@ public class MenuItem {
 	@Column(name = "price", nullable = false)
 	private double price;
 	
-	@Column(name = "name", nullable = false)
-	private String name;
-	
-	@Column(name = "description", nullable = false)
-	private String description;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "item_id", nullable = false)
+    private Item item;
+
 	
 	@JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -46,10 +45,41 @@ public class MenuItem {
 		
 	}
 	
-	public MenuItem(String name, String description, double price, Menu menu) {
-		this.name = name;
-		this.description = description;
+	public MenuItem(double price, Item item, Menu menu) {
 		this.price = price;
+		this.item = item;
+		this.menu = menu;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public Item getItem() {
+		return item;
+	}
+
+	public void setItem(Item item) {
+		this.item = item;
+	}
+
+	public Menu getMenu() {
+		return menu;
+	}
+
+	public void setMenu(Menu menu) {
 		this.menu = menu;
 	}
 	

@@ -10,15 +10,15 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "BiddingList")
-public class BiddingList {
+@Table(name = "bidding")
+public class Bidding {
 
     @Id
     @GeneratedValue
     @Column(name = "id")
     private Long id;
 
-    public BiddingList() {
+    public Bidding() {
     }
 
     public Long getId() {

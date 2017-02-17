@@ -17,6 +17,12 @@ import java.io.Serializable;
 @Entity
 @Table(name = "bidder")
 public class Bidder extends User implements Serializable {
+	
     public Bidder() {
+    	this.setRole(UserRoles.BIDDER);
+    }
+    
+    public Bidder(String mail, String pass, String name, String address, String surname) {
+    	super(mail, pass, name, surname, address, UserRoles.BIDDER);
     }
 }
