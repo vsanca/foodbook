@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,10 +22,10 @@ public class FriendshipRequest {
 	@Column(name="frendship_request_confirmed")
 	private boolean confirmed;
 
-	@OneToOne
+	//@OneToMany
 	private Guest from;
 
-	@OneToOne
+	//@OneToMany
 	private Guest to;
 
 	public FriendshipRequest() {
@@ -64,5 +63,7 @@ public class FriendshipRequest {
 	public void setTo(Guest to) {
 		this.to = to;
 	}
+	////////////////////////////////////////
+	///// create, delete, update, read    CRUD
 
 }

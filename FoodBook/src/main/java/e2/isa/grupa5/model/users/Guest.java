@@ -6,22 +6,20 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import e2.isa.grupa5.model.reservation.Reservation;
-
 @Entity
 @Table(name = "guest")
 public class Guest extends User implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	 @JoinTable(
-	   name = "guestfriends", 
-	   joinColumns = @JoinColumn(name = "guest_id"), 
-	   inverseJoinColumns = @JoinColumn(name = "friend_id")
-	 )
+	/*@JoinTable(name = "Guest", joinColumns = {
+			@JoinColumn(name = "user_id", nullable = false, updatable = false) },
+			inverseJoinColumns = { @JoinColumn(name = "user_id",
+					nullable = false, updatable = false) })*/
+	@JoinColumn(name = "id")
 	private List<Guest> friends = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	private List<Reservation> reservations = new ArrayList<>();
+    //@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	//private List<Reservation> reservations = new ArrayList<>();
 
 
 	public Guest() {
@@ -40,13 +38,13 @@ public class Guest extends User implements Serializable {
 	}
 
 
-	public List<Reservation> getReservations() {
+	/*public List<Reservation> getReservations() {
 		return reservations;
 	}
 
 	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
-	}
+	}*/
 
 }
 
