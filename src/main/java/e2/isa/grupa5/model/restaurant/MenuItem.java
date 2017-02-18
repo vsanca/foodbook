@@ -26,7 +26,7 @@ public class MenuItem {
 
 	@Id
 	@GeneratedValue
-	private Long id;
+	private long id;
 	
 	@Column(name = "price", nullable = false)
 	private double price;

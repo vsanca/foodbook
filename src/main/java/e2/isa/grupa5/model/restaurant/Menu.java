@@ -17,7 +17,7 @@ public class Menu {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private Long id;
+    private long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
