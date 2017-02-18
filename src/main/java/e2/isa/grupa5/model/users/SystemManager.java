@@ -5,12 +5,17 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * Created by Viktor on 12/21/2016.
+ * SystemManager is a type of {@link User} who manages the entire system. (ADMIN)
+ * 
+ * @author Boris
+ *
  */
 
 @Entity
 @Table(name = "sys_manager")
 public class SystemManager extends User implements Serializable {
-    public SystemManager() {
+    
+	public SystemManager() {
+		
     }
 }
