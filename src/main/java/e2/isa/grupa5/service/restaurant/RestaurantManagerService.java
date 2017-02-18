@@ -47,7 +47,7 @@ public class RestaurantManagerService {
 	 * @param rmDTO
 	 * @return
 	 */
-	public RestaurantManager setFromDTO(RestaurantManager rm, RestaurantManagerDTO rmDTO) {
+	private RestaurantManager setFromDTO(RestaurantManager rm, RestaurantManagerDTO rmDTO) {
 		try {
 			userService.copyData(rm, rmDTO);
 			
@@ -69,14 +69,10 @@ public class RestaurantManagerService {
 		}
 	}
 	
-	public void updateData(RestaurantManager rm, RestaurantManagerDTO rmDTO) {
-		userService.setVariableAttributes(rm, rmDTO);
-	}
-	
 	public RestaurantManager edit(RestaurantManagerDTO rmDTO) {
 		RestaurantManager current = restaurantManagerRepository.findByEmail(rmDTO.getEmail());
 		
-		updateData(current, rmDTO);
+		userService.setVariableAttributes(current, rmDTO);
 		
 		try {
 			current = restaurantManagerRepository.save(current);
