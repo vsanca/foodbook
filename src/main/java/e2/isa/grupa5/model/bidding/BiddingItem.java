@@ -32,7 +32,7 @@ public class BiddingItem {
     private Bidding bidding;
 
     @Column(name = "price", nullable = false)
-    private float price;
+    private double price;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "grocery_item_unit_id", nullable = false)
@@ -59,11 +59,11 @@ public class BiddingItem {
         this.id = id;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
