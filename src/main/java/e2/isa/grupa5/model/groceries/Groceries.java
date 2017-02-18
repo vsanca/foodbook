@@ -22,10 +22,10 @@ public class Groceries {
 	
 	// PAZITI NA KLJUČNE REČI SQL (from, to...)!!! POLJA SE NE SMEJU TAKO ZVATI!
 	@Column(name = "from_date", nullable = false)
-	private Date from;
+	private Date from_date;
 	
 	@Column(name = "to_date", nullable = false)
-	private Date to;
+	private Date to_date;
 	
 	@Column(name = "status", nullable = false)
 	private String status;
@@ -45,22 +45,6 @@ public class Groceries {
 		this.id = id;
 	}
 
-	public Date getFrom() {
-		return from;
-	}
-
-	public void setFrom(Date from) {
-		this.from = from;
-	}
-
-	public Date getTo() {
-		return to;
-	}
-
-	public void setTo(Date to) {
-		this.to = to;
-	}
-
 	public String getStatus() {
 		return status;
 	}
@@ -75,6 +59,22 @@ public class Groceries {
 
 	public void setRestaurant(Restaurant restaurant) {
 		this.restaurant = restaurant;
+	}
+
+	public Date getFrom_date() {
+		return from_date;
+	}
+
+	public void setFrom_date(Date from_date) {
+		this.from_date = from_date;
+	}
+
+	public Date getTo_date() {
+		return to_date;
+	}
+
+	public void setTo_date(Date to_date) {
+		this.to_date = to_date;
 	}
 	
 }

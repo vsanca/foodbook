@@ -1,7 +1,10 @@
 package e2.isa.grupa5.model.bidding;
 
 import javax.persistence.*;
-import java.io.Serializable;
+
+import e2.isa.grupa5.model.groceries.GroceryItem;
+import e2.isa.grupa5.model.groceries.GroceryItemQty;
+
 import java.util.Date;
 
 /**
@@ -12,19 +15,33 @@ import java.util.Date;
 
 @Entity
 @Table(name = "bidding_item")
-public class BiddingItem implements Serializable {
+public class BiddingItem {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
     private Long id;
 
-    @Version
-    private int version;
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @Column(name = "quantity", nullable = false)
+    private double quantity;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "bidding_id", nullable = false)
+    private Bidding bidding;
 
     @Column(name = "price", nullable = false)
     private float price;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "grocery_item_unit_id", nullable = false)
+    private GroceryItemQty groceryItemQty;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "grocery_item_id", nullable = false)
+    private GroceryItem groceryItem;
+    
     @Column(name = "deliveryTime", nullable = false)
     private Date deliveryTime;
 
@@ -40,14 +57,6 @@ public class BiddingItem implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
     }
 
     public float getPrice() {
@@ -73,4 +82,45 @@ public class BiddingItem implements Serializable {
     public void setGuarantee(String guarantee) {
         this.guarantee = guarantee;
     }
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public double getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(double quantity) {
+		this.quantity = quantity;
+	}
+
+	public Bidding getBidding() {
+		return bidding;
+	}
+
+	public void setBidding(Bidding bidding) {
+		this.bidding = bidding;
+	}
+
+	public GroceryItemQty getGroceryItemQty() {
+		return groceryItemQty;
+	}
+
+	public void setGroceryItemQty(GroceryItemQty groceryItemQty) {
+		this.groceryItemQty = groceryItemQty;
+	}
+
+	public GroceryItem getGroceryItem() {
+		return groceryItem;
+	}
+
+	public void setGroceryItem(GroceryItem groceryItem) {
+		this.groceryItem = groceryItem;
+	}
+    
 }

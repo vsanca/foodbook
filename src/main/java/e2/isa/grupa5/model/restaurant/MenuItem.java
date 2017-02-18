@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
- * Single item on a menu (food).
+ * Single item on a menu (items of different types can be provided).
  * 
  * @author Viktor
  *
