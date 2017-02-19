@@ -6,6 +6,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
+/**
+ * 
+ * Quantity details for {@link GroceryItem}. Depending on the type of the item quantity can be expressed in different units.
+ * 
+ * Funkcionalnost 2.3:
+ * - Objavljivanje ponude sa spiskom namirnica i pića koji su potrebni, kao i datumom od kad do kad je prikupljanje ponuda aktivno.
+ * 
+ * @author Viktor
+ *
+ */
 @Entity
 @Table(name = "grocery_item_quantity")
 public class GroceryItemQty {

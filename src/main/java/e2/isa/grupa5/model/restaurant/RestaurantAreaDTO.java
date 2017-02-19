@@ -4,6 +4,10 @@ package e2.isa.grupa5.model.restaurant;
 /**
  * {@link RestaurantArea} for use in communication (DTO).
  * 
+ * Funkcionalnost 2.3:
+ * - Uređuje konfiguraciju sedenja u restoranu sa naznakom segmenata u restoranu
+ * - Dodeljuje reon koji će svaki konobar služiti u smeni
+ * 
  * @author Viktor
  *
  */

@@ -11,7 +11,19 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import e2.isa.grupa5.model.restaurant.Restaurant;
+import e2.isa.grupa5.model.users.Bidder;
+import e2.isa.grupa5.model.users.RestaurantManager;
 
+/**
+ * Groceries are necessary items needed for a restaurant to work. {@link RestaurantManager} makes a call for {@link Bidder}(s) to get the needed groceries. (Type of an auction).
+ * 
+ * Funkcionalnost 2.3:
+ * - Objavljivanje ponude sa spiskom namirnica i pića koji su potrebni, kao i datumom od kad do kad je prikupljanje ponuda aktivno.
+ * 
+ * 
+ * @author Viktor
+ *
+ */
 @Entity
 @Table(name = "groceries")
 public class Groceries {

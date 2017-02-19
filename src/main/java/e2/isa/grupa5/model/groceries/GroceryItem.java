@@ -9,6 +9,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * Single item in call for {@link Groceries}. 
+ * 
+ * Funkcionalnost 2.3:
+ * - Objavljivanje ponude sa spiskom namirnica i pića koji su potrebni, kao i datumom od kad do kad je prikupljanje ponuda aktivno.
+ * 
+ * @author Viktor
+ *
+ */
 @Entity
 @Table(name = "grocery_item")
 public class GroceryItem {

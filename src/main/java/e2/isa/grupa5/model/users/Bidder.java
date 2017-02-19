@@ -10,6 +10,8 @@ import java.io.Serializable;
  * Bidder represents a type of {@link User} who competes for providing groceries and 
  * services for the {@link Restaurant}.
  * 
+ * Tip korisnika 5.
+ * 
  * @author Viktor
  *
  */

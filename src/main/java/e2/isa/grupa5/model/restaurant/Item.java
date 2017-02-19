@@ -9,6 +9,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * Single item type describing {@link MenuItem} in {@link Menu}.
+ * 
+ * Funkcionalnost 2.3:
+ * - jelovnik, karta pića, dodatni opis stavke nalazi se u ovoj klasi kako bi meni bio generički, a ne vezan za tip. Dodatno se definiše vrsta stavke {@link ItemType}.
+ * 
+ * @author Viktor
+ *
+ */
 @Entity
 @Table(name = "item")
 public class Item {

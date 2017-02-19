@@ -12,6 +12,8 @@ import java.io.Serializable;
 /**
  * Restaurant manager is a type of {@link User} who manages a {@link Restaurant}.
  * 
+ * Tip korisnika 2.
+ * 
  * @author Viktor
  *
  */

@@ -3,6 +3,9 @@ package e2.isa.grupa5.model.restaurant;
 
 /**
  * {@link Restaurant} for use in communication (DTO).
+ *
+ * Funkcionalnost 2.3:
+ * - Menadžer restorana može da uređuje profil restorana.
  * 
  * @author Viktor
  *

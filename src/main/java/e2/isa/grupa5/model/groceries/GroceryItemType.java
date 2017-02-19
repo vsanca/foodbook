@@ -6,6 +6,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * There can be different types of {@link GroceryItem}(s), (drink, food...), so this is generalized as a possibility to add other types of groceries as well.
+ * 
+ * Funkcionalnost 2.3:
+ * - Objavljivanje ponude sa spiskom namirnica i pića koji su potrebni, kao i datumom od kad do kad je prikupljanje ponuda aktivno.
+ * 
+ * @author Viktor
+ *
+ */
 @Entity
 @Table(name = "grocery_item_type")
 public class GroceryItemType {

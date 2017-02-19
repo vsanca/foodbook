@@ -14,12 +14,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
- * Single item on a menu (items of different types can be provided).
+ * Single {@link Item} on a menu (items of different types can be provided).
+ * 
+ * Funkcionalnost 2.3:
+ * - jelovnik, karta pića, u ovom slučaju konkretna stavka menija sa cenom. Dodatni opis stavke nalazi se u klasi {@link Item} kako bi meni bio generički, a ne vezan za tip.
  * 
  * @author Viktor
  *
  */
-
 @Entity
 @Table(name = "menu_item")
 public class MenuItem {

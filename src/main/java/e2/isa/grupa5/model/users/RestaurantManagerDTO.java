@@ -4,6 +4,8 @@ package e2.isa.grupa5.model.users;
 /**
  * {@link RestaurantManager} for use in communication (DTO).
  * 
+ * Tip korisnika 2.
+ * 
  * @author Viktor
  *
  */

@@ -4,6 +4,9 @@ package e2.isa.grupa5.model.restaurant;
 /**
  * {@link Item} for use in communication (DTO).
  * 
+ * Funkcionalnost 2.3:
+ * - jelovnik, karta pića, dodatni opis stavke nalazi se u ovoj klasi kako bi meni bio generički, a ne vezan za tip. Dodatno se definiše vrsta stavke {@link ItemType}.
+ * 
  * @author Viktor
  *
  */

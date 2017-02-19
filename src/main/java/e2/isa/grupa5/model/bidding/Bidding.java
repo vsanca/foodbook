@@ -10,6 +10,9 @@ import e2.isa.grupa5.model.users.Bidder;
 /**
  * BiddingList consists of BiddingItems. It is used by Bidders for sending their offers to open
  * calls for groceries by Restaurants, specifically for calls made by Restaurant Managers.
+ * 
+ * Funkcionalnost 2.5:
+ * - Porudžbina
  *
  * Created by Viktor on 12/21/2016.
  */

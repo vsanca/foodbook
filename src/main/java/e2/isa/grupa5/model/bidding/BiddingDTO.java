@@ -5,6 +5,8 @@ import java.util.Date;
 /**
  * {@link Bidding} for use in communication (DTO).
  * 
+ * (Functionality 2.5)
+ * 
  * @author Viktor
  *
  */

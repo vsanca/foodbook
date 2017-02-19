@@ -4,6 +4,9 @@ package e2.isa.grupa5.model.restaurant;
 /**
  * {@link MenuItem} for use in communication (DTO).
  * 
+ * Funkcionalnost 2.3:
+ * - jelovnik, karta pića, u ovom slučaju konkretna stavka menija sa cenom. Dodatni opis stavke nalazi se u klasi {@link Item} kako bi meni bio generički, a ne vezan za tip.
+ * 
  * @author Viktor
  *
  */

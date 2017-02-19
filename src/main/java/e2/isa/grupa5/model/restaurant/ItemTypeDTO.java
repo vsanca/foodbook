@@ -4,6 +4,9 @@ package e2.isa.grupa5.model.restaurant;
 /**
  * {@link ItemType} for use in communication (DTO).
  * 
+ * Funkcionalnost 2.3:
+ * - jelovnik, karta pića. Kako bi se ograničili na trenutni opseg sistema, tip hrane će biti "hrana", a tip pića "pice".
+ * 
  * @author Viktor
  *
  */

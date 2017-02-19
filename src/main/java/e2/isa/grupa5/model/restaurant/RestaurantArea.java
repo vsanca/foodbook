@@ -9,7 +9,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
+/**
+ * Defined area in a {@link Restaurant}.
+ * 
+ * Funkcionalnost 2.3:
+ * - Uređuje konfiguraciju sedenja u restoranu sa naznakom segmenata u restoranu.
+ * - Dodeljuje reon koji će svaki konobar služiti u smeni
+ * 
+ * @author Viktor
+ *
+ */
 @Entity
 @Table(name = "restaurant_area")
 public class RestaurantArea {

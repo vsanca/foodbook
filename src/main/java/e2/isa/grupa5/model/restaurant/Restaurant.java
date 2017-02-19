@@ -10,6 +10,9 @@ import javax.persistence.Table;
 /**
  * Describes a restaurant instance.
  * 
+ * Funkcionalnost 2.3:
+ * - Menadžer restorana može da uređuje profil restorana.
+ * 
  * @author Viktor
  *
  */

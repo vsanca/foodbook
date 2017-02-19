@@ -4,6 +4,8 @@ package e2.isa.grupa5.model.bidding;
 /**
  * {@link BiddingItem} for use in communication (DTO).
  * 
+ * (Functionality 2.5)
+ * 
  * @author Viktor
  *
  */

@@ -4,12 +4,14 @@ import javax.persistence.*;
 
 /**
  * 
- * Restaurant menu.
+ * {@link Restaurant} menu.
+ * 
+ * Funkcionalnost 2.3:
+ * - jelovnik, karta pića (u ovom slučaju meni obuhvata sve, razlikuju se tipovi stavki ({@link MenuItem})).
  * 
  * @author Viktor
  *
  */
-
 @Entity
 @Table(name = "menu")
 public class Menu {

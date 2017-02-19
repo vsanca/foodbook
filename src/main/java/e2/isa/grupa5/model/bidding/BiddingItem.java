@@ -8,7 +8,10 @@ import e2.isa.grupa5.model.groceries.GroceryItemQty;
 import java.util.Date;
 
 /**
- * Bidding item is one item on a BiddingList.
+ * Bidding item is one item on a BiddingList. 
+ * 
+ * Funkcionalnost 2.5:
+ * - deo porudžbine (jedna stavka)
  *
  * Created by Viktor on 12/21/2016.
  */

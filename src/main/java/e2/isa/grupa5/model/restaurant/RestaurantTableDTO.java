@@ -4,6 +4,9 @@ package e2.isa.grupa5.model.restaurant;
 /**
  * {@link RestaurantTable} for use in communication (DTO).
  * 
+ * Funkcionalnost 2.3:
+ * - Uređuje konfiguraciju sedenja u restoranu sa naznakom segmenata u restoranu
+ * 
  * @author Viktor
  *
  */

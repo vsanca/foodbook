@@ -4,6 +4,9 @@ package e2.isa.grupa5.model.groceries;
 /**
  * {@link GroceryItemQty} for use in communication (DTO).
  * 
+ * Funkcionalnost 2.3:
+ * - Objavljivanje ponude sa spiskom namirnica i pića koji su potrebni, kao i datumom od kad do kad je prikupljanje ponuda aktivno.
+ * 
  * @author Viktor
  *
  */
