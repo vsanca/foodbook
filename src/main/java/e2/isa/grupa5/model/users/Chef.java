@@ -15,6 +15,8 @@ import e2.isa.grupa5.model.restaurant.Restaurant;
 /**
  * Chef is a type of {@link User} who cooks food in a {@link Restaurant}.
  * 
+ * * {@link User} type 3.
+ * 
  * @author Boris
  *
  */

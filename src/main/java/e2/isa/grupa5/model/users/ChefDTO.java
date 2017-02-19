@@ -5,6 +5,8 @@ import java.sql.Date;
 /**
  * {@link Chef} for use in communication (DTO).
  * 
+ * * {@link User} type 3.
+ * 
  * @author Boris
  *
  */

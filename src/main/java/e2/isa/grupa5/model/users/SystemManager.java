@@ -7,6 +7,8 @@ import java.io.Serializable;
 /**
  * SystemManager is a type of {@link User} who manages the entire system. (ADMIN)
  * 
+ * * {@link User} type 4.
+ * 
  * @author Boris
  *
  */

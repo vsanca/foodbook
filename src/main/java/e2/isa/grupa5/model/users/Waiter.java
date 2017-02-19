@@ -15,6 +15,8 @@ import e2.isa.grupa5.model.restaurant.Restaurant;
 /**
  * Waiter is a type of {@link User} who attends customers in a {@link Restaurant}.
  * 
+ * * {@link User} type 3.
+ * 
  * @author Boris
  *
  */

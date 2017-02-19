@@ -15,6 +15,8 @@ import e2.isa.grupa5.model.restaurant.Restaurant;
 /**
  * Bartender is a type of {@link User} who serves drinks in a {@link Restaurant} behind the bar.
  * 
+ * {@link User} type 3.
+ * 
  * @author Boris
  *
  */
