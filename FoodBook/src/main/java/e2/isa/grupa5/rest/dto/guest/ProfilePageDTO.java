@@ -7,8 +7,7 @@ public class ProfilePageDTO {
 	private String surname;
 	private String address;
 	private long numberOfVisits;
-	private long id;
-	
+
 	List<ProfilePageDTO> friends;
 
 	public ProfilePageDTO() {
@@ -54,14 +53,5 @@ public class ProfilePageDTO {
 	public void setFriends(List<ProfilePageDTO> friends) {
 		this.friends = friends;
 	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-	
 
 }

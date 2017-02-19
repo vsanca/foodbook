@@ -10,11 +10,16 @@
     <!--Bootstrap CSS-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-    <link href="libs/boostrap.min.js"></script>
+    <link href="css/angular-notify.min.css" rel="stylesheet">
+    
+    <link href="libs/boostrap.min.js">
+    <script src="libs/validator.min.js"></script>
 
     <!--Angular-->
     <script src="libs/angular.min.js"></script>
     <script src="libs/angular-route.js"></script>
+    <script src="libs/angular-notify.min.js"></script>
+    
 </head>
 <body>
     <div role="main">
@@ -44,11 +49,18 @@
 
     <!-- User Controllers-->
     <script src="user/loginController.js"></script>
-
+   
     <!-- Guest Profile Page -->
     <script src="guest/services/guestService.js"></script>
+    <script src="guest/services/notifyService.js"></script>
     <link href="guest/assets/guest.css" rel="stylesheet">
-    <script src="guest/profilePage/profilePage.js"></script>
+    <script src="guest/profilePage/profilePageController.js"></script>
+    <script src="guest/register/registerGuestController.js"></script>
+    <script src="guest/confirmRegistration/confirmRegistrationController.js"></script>
+    <script src="guest/homePage/homePageController.js"></script>
+    <script src="guest/friendsPage/friendsPageController.js"></script>
+    
+    
   
 
 

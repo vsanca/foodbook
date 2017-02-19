@@ -1,0 +1,43 @@
+<div class="container">
+  <nav class="navbar navbar-default" role="navigation">
+      <!-- Brand and toggle get grouped for better mobile display -->
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+              <li class="active"><a href="#/guest/restaurants-page"><span class="glyphicon glyphicon-home"></span>Restorani</a></li>
+              <li class="active"><a href="#/guest/friends-page"><span class="glyphicon glyphicon-list-alt"></span>Prijatelji</a></li>
+              <li class="active"><a href="#/guest/profile-page"><span class="glyphicon glyphicon-list-alt"></span>Moj nalog</a></li>
+          </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+  </nav>
+<div>
+
+<div>
+    <div>
+        <div id="custom-search-input" style="float:right">
+                            <div class="input-group col-md-2">
+                                <input type="text" class=" search-query form-control" placeholder="Search" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-danger" type="button">
+                                        <span class=" glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+        </div>
+    </div>
+
+    <table border="1">
+        <tr>
+            <th>Ime i prezime</th>
+            <th>Poseta</th>
+        </tr>
+        <tr ng-repeat="friend in friendsPage">
+            <td>{{ friend.nameAndSurname }}</td>
+            <td>{{ friend.numberOfVisits }}</td>
+        </tr>
+    </table>
+
+    
+</div>

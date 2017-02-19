@@ -9,22 +9,22 @@
 
   angular.module('foodbook').controller('ProfilePageController', ProfilePageController);
 
-  ProfilePageController.$inject = ['$scope', '$http', 'guestService'];
+  ProfilePageController.$inject = ['$scope', '$http', 'guestService', 'sessionService'];
 
-  function ProfilePageController($scope, $http, guestService) {
+  function ProfilePageController($scope, $http, guestService , sessionService) {
     alert("Poyyy");
+    $scope.userInfo = sessionService.getUserInfo();
 
-    $scope.init = function () {
-
-      guestService.getProfilePageInfo(1).then(function (response) {
+      guestService.getProfileDetails($scope.userInfo.userId).then(function (response) {
         $scope.profilePageDTO = response.data;
         $scope.name = response.data.name;
         $scope.surname = response.data.surname;
         $scope.address = response.data.address;
         $scope.numberOfVisits = response.data.numberOfVisits;
-      }, function () {
+      }, function (err) {
+
       });
-    };
+    
 
 
   }

@@ -9,11 +9,14 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
+
+import java.net.URLEncoder;
 import java.util.Properties;
 
 /**
@@ -25,6 +28,15 @@ public class MailService {
 
     private JavaMailSender javaMailSender;
 
+    
+    /** 
+     * Request BCrypt2 encoder
+     * @return
+     */
+   @Autowired 
+   private PasswordEncoder passwordEncoder;
+
+    
     public MailService(@Autowired JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
     }
@@ -37,12 +49,14 @@ public class MailService {
         simpleMailMessage.setFrom("panel@reservation4.me");
         simpleMailMessage.setSubject("Registration");
 
-        String mailContent = "Thank You for registering on FoodBook! Please follow this link to confirm your registration : localhost:8080/#/confirmRegistration \n\n";
-
-
+        String mailContent = "Thank You for registering on FoodBook! Please follow this link to confirm your registration :{URL_VALUE} \n\n";
+       
+        
+        String url = "http://localhost:8080/#/guest/confirm-registration?token=" + user.getId();
+        mailContent = mailContent.replace("{URL_VALUE}", url);
+        
+ 
         System.out.println("BEFORE SENDING TO "+user.getEmail());
-
-        System.out.println(javaMailSender.toString());
 
         simpleMailMessage.setText(mailContent);
         javaMailSender.send(simpleMailMessage);

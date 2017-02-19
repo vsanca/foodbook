@@ -22,7 +22,7 @@
       authenticationService.login($scope.user.username, $scope.user.password).then(function (data) {
 
         if (data.role === userRoles["GUEST"]) {
-          $location.path("/guest/profile-page");
+          $location.path("/guest/home-page");
         } else if (data.role === userRoles['CHEF']) {
           $location.path("/");
         } else if (data.role === userRoles['WAITER']) {
@@ -43,6 +43,10 @@
         alert("Login failed!");
       });
     };
+
+    $scope.register = function () {
+      $location.path("/guest/register");
+    }
   }
 
 })();
