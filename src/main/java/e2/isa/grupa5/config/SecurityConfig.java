@@ -90,7 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 ).permitAll()
                 .antMatchers("/rest/auth/login",
                 		 "/rest/guest/register-guest",
-                		 "/rest/guest/confirm-registration",
+                		 "/rest/guest/confirm-registration/**",
                 		/*  FOR DEVELOPMENT PURPOSES ONLY! */
                 		 "/test/**"
                 		).permitAll()

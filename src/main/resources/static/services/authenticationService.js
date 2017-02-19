@@ -45,7 +45,7 @@
                 url: '/rest/auth/login'
             }).then(function(response) {
                 let authToken = response.headers('Authorization');
-                sessionService.getAuthToken(response.data.token);
+                sessionService.setAuthToken(response.data.token);
                 let userObj = {
                     userId: response.data.userId,
                     role: response.data.role

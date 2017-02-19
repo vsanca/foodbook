@@ -16,4 +16,5 @@ public interface InvitedToReservationRepository extends JpaRepository<InvitedToR
 	List<InvitedToReservation> findById(Long id);
 	List<InvitedToReservation> findByReservation(Reservation reservation);
 	Long countByGuest(Guest guest);
+	List<InvitedToReservation> findByReservationAndGuest(Reservation reservation, Guest guest); 
 }

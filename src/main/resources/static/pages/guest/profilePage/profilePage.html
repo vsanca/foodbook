@@ -9,78 +9,54 @@
               <li class="active"><a href="#"><span class="glyphicon glyphicon-list-alt"></span>Prijatelji</a></li>
               <li class="active"><a href="#"><span class="glyphicon glyphicon-list-alt"></span>Moj nalog</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
-              <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
-                  class="glyphicon glyphicon-user"></span>Admin <b class="caret"></b></a>
-                  <ul class="dropdown-menu">
-                      <li><a href="#"><span class="glyphicon glyphicon-user"></span>Profile</a></li>
-                      <li><a href="#"><span class="glyphicon glyphicon-cog"></span>Settings</a></li>
-                      <li class="divider"></li>
-                      <li><a href="#"><span class="glyphicon glyphicon-off"></span>Logout</a></li>
-                  </ul>
-              </li>
-          </ul>
       </div>
       <!-- /.navbar-collapse -->
   </nav>
 <div>
-<img src="pic_angular.jpg">
-<div style="display:inline-block" >
-  <strong>Ime i prezime:</strong><input type="text" ng-model="imePrezime">
-  <strong>Adresa:</strong><input type="text" ng-model="adresa">
-  <strong>Broj poseta:</strong><span>{{brojPoseta}}</span>
-</div>
+
+<div style="display:inline-block">
+    <img src="/img/defaultImage.jpg" style="width: 200px; height: 200px">
+        <strong>Ime:</strong><input type="text" ng-model="profilePage.name">
+        <strong>Prezime:</strong><input type="text" ng-model="profilePage.surname">
+        <strong>Adresa:</strong><input type="text" ng-model="profilePage.address">
+        <strong>Broj poseta:</strong><span>{{profilePage.numberOfVisits}}</span>
+    
 </div>
 
 <div>
-<span>Dodaj prijatelja</span>
-<div id="custom-search-input">
-                          <div class="input-group col-md-12">
-                              <input type="text" class="  search-query form-control" placeholder="Search" />
-                              <span class="input-group-btn">
-                                  <button class="btn btn-danger" type="button">
-                                      <span class=" glyphicon glyphicon-search"></span>
-                                  </button>
-                              </span>
-                          </div>
-</div>
-</div>
+    <span>Dodaj prijatelja</span>
+    <div id="custom-search-input">
+                            <div class="input-group col-md-5">
+                                <input type="text" class="  search-query form-control" placeholder="Search" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-danger" type="button">
+                                        <span class=" glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+    </div>
+
+
+
+
 <div>
-<table>
-  <tr>
-    <th>Moji prijatelji</th>
-  </tr>
-  <tr>
-    <td>Pera Peric</td>
-  </tr>
- </table>
+    <h4>Moji prijatelji</h4>
+    <table border="1">
+        <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+        </tr>
+        <tr ng-repeat="friend in profilePage.friends">
+            <td>{{ friend.name }}</td>  
+            <td>{{ friend.surname }}</td>  
+        </tr>
+    </table>
+    
+<button ng-click="saveChanges()">
+  Save changes
+</button>
 </div>
 
 
-
-<div class="medium-8 large-8 columns form">
-
-    <form novalidate name="registerForm">
-        <div class="row column ">
-            <h4 class="text-center">Edit info</h4>
-            <label>
-                <input type="image" src="../img/150.png" alt="Submit">
-            </label>
-            <p style="color: red;" ng-hide="user.confirmed">Nije</p>
-            <label>Ime
-                <input type="text" required ng-model="user.name" required>
-            </label>
-            <label>Prezime
-                <input type="text" required ng-model="user.surname">
-            </label>
-            <label>Datum rodenja
-                <input ng-model="user.birthDate" type="date" required onfocus="(this.type='date')" onblur="(this.type='date')">
-            </label>
-            <label>Telefon
-                <input type="text" required ng-model="user.phoneNumber">
-            </label>
-            <p><a type="submit" class="button expanded" ng-click="modifyUserInfo()">SAve</a></p>
-            <p><a type="submit" class="button expanded alert" ng-click="cancel()">Cancel</a></p>
-        </div>
-    </form>
 </div>
+
