@@ -14,6 +14,8 @@ import e2.isa.grupa5.repository.restaurant.RestaurantManagerRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantTableRepository;
 
 /**
+ * Funkcionalnost 2.3:
+ * - kreiranje i ažuriranje rasporeda sedenja u restoranu.
  * 
  * @author Viktor
  *

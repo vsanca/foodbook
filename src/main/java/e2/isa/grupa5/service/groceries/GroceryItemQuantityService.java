@@ -8,6 +8,8 @@ import e2.isa.grupa5.model.groceries.GroceryItemQtyDTO;
 import e2.isa.grupa5.repository.groceries.GroceryItemQuantityRepository;
 
 /**
+ * Funkcionalnost 2.3:
+ * - Objavljivanje ponude
  * 
  * @author Viktor
  *

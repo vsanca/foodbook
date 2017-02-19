@@ -10,6 +10,8 @@ import e2.isa.grupa5.repository.restaurant.MenuRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
 
 /**
+ * Funkcionalnost 2.5:
+ * - kreiranje menija, za sada je jedan meni po restoranu koji se kreira prilikom kreiranja restorana!
  * 
  * @author Viktor
  *

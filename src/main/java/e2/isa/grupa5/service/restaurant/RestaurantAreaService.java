@@ -14,6 +14,8 @@ import e2.isa.grupa5.repository.restaurant.RestaurantManagerRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
 
 /**
+ * Funkcionalnost 2.3:
+ * - kreiranje konfiguracije sedenja u smislu regiona restorana
  * 
  * @author Viktor
  *

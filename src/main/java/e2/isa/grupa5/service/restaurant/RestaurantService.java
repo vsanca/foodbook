@@ -10,6 +10,10 @@ import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
 /**
  * Services available for {@link Restaurant}.
  * 
+ * Funkcionalnost 2.3 i 2.9:
+ * - kreiranje restorana
+ * - ažuriranje restorana
+ * 
  * @author Viktor
  *
  */

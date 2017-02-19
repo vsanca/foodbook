@@ -14,6 +14,8 @@ import e2.isa.grupa5.repository.groceries.GroceryItemQuantityRepository;
 import e2.isa.grupa5.repository.groceries.GroceryItemRepository;
 
 /**
+ * Funkcionalnost 2.5:
+ * - kreiranje i promena ponude.
  * 
  * @author Viktor
  *

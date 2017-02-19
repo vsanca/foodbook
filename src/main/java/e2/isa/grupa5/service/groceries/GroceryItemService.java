@@ -17,6 +17,8 @@ import e2.isa.grupa5.repository.groceries.GroceryItemRepository;
 import e2.isa.grupa5.repository.groceries.GroceryItemTypeRepository;
 
 /**
+ * Funkcionalnost 2.3:
+ * - Objavljivanje ponude
  * 
  * @author Viktor
  *

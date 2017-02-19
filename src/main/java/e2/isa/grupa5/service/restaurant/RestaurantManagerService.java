@@ -11,6 +11,9 @@ import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
 import e2.isa.grupa5.service.UserService;
 
 /**
+ * Funkcionalnost 2.9 i 2.5:
+ * - kreiranje menadžera restorana
+ * - ažuriranje njihovih profila
  * 
  * @author Viktor
  *

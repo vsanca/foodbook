@@ -12,6 +12,11 @@ import e2.isa.grupa5.model.users.UserDTO;
 import e2.isa.grupa5.repository.UserRepository;
 import e2.isa.grupa5.repository.guest.GuestRepository;
 
+/**
+ * 
+ * General operations that can be performed on any {@link User}.
+ *
+ */
 @Service
 @Transactional
 public class UserService {

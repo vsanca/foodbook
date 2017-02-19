@@ -14,6 +14,8 @@ import e2.isa.grupa5.repository.restaurant.MenuItemRepository;
 import e2.isa.grupa5.repository.restaurant.MenuRepository;
 
 /**
+ * Funkcija 2.5:
+ * - kreiranje stavki menija restorana
  * 
  * @author Viktor
  *

@@ -9,6 +9,8 @@ import e2.isa.grupa5.repository.bidding.BidderRepository;
 import e2.isa.grupa5.service.UserService;
 
 /**
+ * Funkcionalnost 2.5:
+ * - ažurira svoje lične podatke i da promeni lozinku
  * 
  * @author Viktor
  *

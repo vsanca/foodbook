@@ -9,6 +9,8 @@ import e2.isa.grupa5.repository.groceries.GroceriesRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
 
 /**
+ * Funkcionalnost 2.3:
+ * - Objavljivanje ponude
  * 
  * @author Viktor
  *

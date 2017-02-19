@@ -12,6 +12,8 @@ import e2.isa.grupa5.repository.bidding.BiddingRepository;
 import e2.isa.grupa5.repository.groceries.GroceriesRepository;
 
 /**
+ * Funkcionalnost 2.5:
+ * - kreiranje i promena ponude.
  * 
  * @author Viktor
  *
