@@ -28,11 +28,14 @@ import e2.isa.grupa5.repository.waiter.WaiterRepository;
 import e2.isa.grupa5.service.UserService;
 
 /**
+ * Funkcionalnost 2.3:
+ * - definisanje smene i segmenta restorana
+ * 
  * Funkcionalnost 2.4:
  * stavka: ažurira svoje lične podatke i da promeni lozinku
  * 
  * @author Boris
- *
+ * @author Viktor
  */
 @Service
 public class WaiterService {

@@ -23,10 +23,14 @@ import e2.isa.grupa5.repository.shifts.ShiftRepository;
 import e2.isa.grupa5.service.UserService;
 
 /**
+ * Funkcionalnost 2.3:
+ * - dodavanje smene
+ * 
  * Funkcionalnost 2.4:
  * stavka: ažurira svoje lične podatke i da promeni lozinku
  * 
  * @author Boris
+ * @author Viktor
  *
  */
 @Service
