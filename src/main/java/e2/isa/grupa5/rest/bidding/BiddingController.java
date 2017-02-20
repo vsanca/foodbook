@@ -52,6 +52,7 @@ public class BiddingController {
 	BiddingItemRepository biddingItemRepository;
 	
 	
+	// + Ograničenje da se ne može kreirati kad je ponuda neaktivna (dok traje konkurs)!
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public ResponseEntity newBidding(@RequestBody BiddingDTO bDTO) {
 		
@@ -60,6 +61,7 @@ public class BiddingController {
 		return new ResponseEntity<>(b, HttpStatus.CREATED);
 	}
 	
+	// + Ograničenje da se ne može kreirati kad je ponuda neaktivna (dok traje konkurs)!
 	@RequestMapping(value = "/biddingItem/new", method = RequestMethod.POST)
 	public ResponseEntity newBiddingItem(@RequestBody BiddingItemDTO biDTO) {
 		
@@ -100,6 +102,7 @@ public class BiddingController {
 
 	}
 	
+	// + Ograničenje da se ne može ažurirati kad je ponuda završena (dok traje konkurs)!
 	@RequestMapping(value = "/update/{bId}", method = RequestMethod.POST)
 	public ResponseEntity updateBidding(@PathVariable long bId, @RequestBody BiddingDTO bDTO) {
 		
@@ -108,6 +111,7 @@ public class BiddingController {
 		return new ResponseEntity<>(b, HttpStatus.OK);
 	}
 	
+	// + Ograničenje da se ne može ažurirati kad je ponuda završena (dok traje konkurs)!
 	@RequestMapping(value = "/biddingItem/update/{biId}", method = RequestMethod.POST)
 	public ResponseEntity updateBiddingItem(@PathVariable long biId, @RequestBody BiddingItemDTO biDTO) {
 		

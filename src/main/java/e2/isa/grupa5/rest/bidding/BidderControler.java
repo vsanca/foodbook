@@ -41,6 +41,8 @@ public class BidderControler {
 	public ResponseEntity create(@RequestBody Bidder bidder) {
 		
 		bidder.setRole(UserRoles.BIDDER);
+		bidder.setActive(false);
+		
 		bidder = bidderRepository.save(bidder);
 
 		return new ResponseEntity<>(bidder, HttpStatus.OK);
