@@ -1,4 +1,4 @@
-package e2.isa.grupa5.model;
+package e2.isa.grupa5.model.grade;
 
 import e2.isa.grupa5.model.reservation.Reservation;
 import e2.isa.grupa5.model.users.User;

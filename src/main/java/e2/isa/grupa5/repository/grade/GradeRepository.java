@@ -1,4 +1,4 @@
-package e2.isa.grupa5.repository;
+package e2.isa.grupa5.repository.grade;
 
 /*
 public interface GradeRepository extends JpaRepository<Grade, Long> {
