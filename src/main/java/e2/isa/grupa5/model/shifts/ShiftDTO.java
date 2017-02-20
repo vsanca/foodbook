@@ -20,6 +20,7 @@ public class ShiftDTO {
 	private String startTime;
 	private String endTime;
 	private long areaId;
+	private long restaurantId;
 	
 	public ShiftDTO() {
 		
@@ -91,5 +92,14 @@ public class ShiftDTO {
 	public void setAreaId(long areaId) {
 		this.areaId = areaId;
 	}
+
+	public long getRestaurantId() {
+		return restaurantId;
+	}
+
+	public void setRestaurantId(long restaurantId) {
+		this.restaurantId = restaurantId;
+	}
+	
 	
 }
