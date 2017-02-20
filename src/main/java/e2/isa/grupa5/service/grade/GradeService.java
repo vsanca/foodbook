@@ -31,10 +31,10 @@ public class GradeService {
 		
 		
 		List<Grade> myGrades = new ArrayList<Grade>();
-		List<Grade> allGrades = gradeRepository.findAll();
+		
 		
 		List<Reservation> allReservation = reservationRepository.findAll();
-		List<Reservation> myReservations = new ArrayList();
+		List<Reservation> myReservations = new ArrayList<Reservation>();
 		
 		
 		
@@ -47,12 +47,8 @@ public class GradeService {
 				}
 			}
 			// za sve rezervacije restorana, vraca sve njegove ocene
-			for(Grade g : allGrades){
-				for(Reservation r2 : myReservations){
-					if(r2.getId() == g.getReservation().getId()){
-						myGrades.add(g);
-					}
-				}
+			for(Reservation r2 : myReservations){
+				myGrades.addAll(gradeRepository.findByReservation_id(r2.getId()));
 			}
 			return myGrades;
 			
