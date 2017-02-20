@@ -1,7 +1,12 @@
 package e2.isa.grupa5.model.shifts;
 
 import e2.isa.grupa5.model.users.Chef;
-
+/**
+ * {@link ShiftChef} for use in communication (DTO).
+ * 
+ * @author Juri
+ *
+ */
 public class ShiftChefDTO {
 	
 	private long id;
@@ -13,6 +18,7 @@ public class ShiftChefDTO {
 	}
 	
 	public ShiftChefDTO(Chef chef, Shift shift) {
+		this.id = chef.getId();
 		this.chef = chef;
 		this.shift = shift;
 	}
