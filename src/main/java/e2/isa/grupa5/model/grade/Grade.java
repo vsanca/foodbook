@@ -1,7 +1,8 @@
 package e2.isa.grupa5.model.grade;
 
 import e2.isa.grupa5.model.reservation.Reservation;
-import e2.isa.grupa5.model.users.User;
+import e2.isa.grupa5.model.users.Guest;
+
 
 import java.util.Date;
 
@@ -23,13 +24,25 @@ public class Grade {
 	private Long id;
 
 	@ManyToOne
-	private User user;  //Guest
+	private Guest guest;  
 
 	@Column(name="grade_date")
 	private Date date;
-
-	@Column(name="grade_value")
-	private int value;
+	
+	@Column(name="meal_grade")
+	private int mealGrade;
+	
+	@Column(name="bartender_grade")
+	private int bartenderGrade;
+	
+	@Column(name="atmosphere_grade")
+	private int atmosphereGrade;
+	
+	@Column(name="environment_grade")
+	private int environmentGrade;
+	
+	@Column(name="restaurant_grade")
+	private double restaurantGrade;
 
 	@ManyToOne
 	private Reservation reservation;
@@ -46,12 +59,12 @@ public class Grade {
 		this.id = id;
 	}
 
-	public User getUser() {
-		return user;
+	public Guest getGuest() {
+		return guest;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setGuest(Guest guest) {
+		this.guest = guest;
 	}
 
 	public Date getDate() {
@@ -62,12 +75,44 @@ public class Grade {
 		this.date = date;
 	}
 
-	public int getValue() {
-		return value;
+	public int getMealGrade() {
+		return mealGrade;
 	}
 
-	public void setValue(int value) {
-		this.value = value;
+	public void setMealGrade(int mealGrade) {
+		this.mealGrade = mealGrade;
+	}
+
+	public int getBartenderGrade() {
+		return bartenderGrade;
+	}
+
+	public void setBartenderGrade(int bartenderGrade) {
+		this.bartenderGrade = bartenderGrade;
+	}
+
+	public int getAtmosphereGrade() {
+		return atmosphereGrade;
+	}
+
+	public void setAtmosphereGrade(int atmosphereGrade) {
+		this.atmosphereGrade = atmosphereGrade;
+	}
+
+	public int getEnvironmentGrade() {
+		return environmentGrade;
+	}
+
+	public void setEnvironmentGrade(int environmentGrade) {
+		this.environmentGrade = environmentGrade;
+	}
+
+	public double getRestaurantGrade() {
+		return restaurantGrade;
+	}
+
+	public void setRestaurantGrade(double restaurantGrade) {
+		this.restaurantGrade = restaurantGrade;
 	}
 
 	public Reservation getReservation() {
