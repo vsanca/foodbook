@@ -15,7 +15,7 @@ import e2.isa.grupa5.model.users.Bartender;
 /**
  * Entity for joining {@link Bartender} with {@link Shift}.
  * 
- * @author Viktor
+ * @author Boris
  *
  */
 @Entity

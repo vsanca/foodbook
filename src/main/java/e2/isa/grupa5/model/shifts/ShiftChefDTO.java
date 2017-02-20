@@ -7,48 +7,10 @@ import e2.isa.grupa5.model.users.Chef;
  * @author Juri
  *
  */
-public class ShiftChefDTO {
+public class ShiftChefDTO extends ShiftDTO{
 	
-	private long id;
-	private Chef chef;
-	private Shift shift;
-	
-	public ShiftChefDTO(){
-		
+	public ShiftChefDTO() {
+		super();
 	}
-	
-	public ShiftChefDTO(Chef chef, Shift shift) {
-		this.id = chef.getId();
-		this.chef = chef;
-		this.shift = shift;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public Chef getChef() {
-		return chef;
-	}
-
-	public void setChef(Chef chef) {
-		this.chef = chef;
-	}
-
-	public Shift getShift() {
-		return shift;
-	}
-
-	public void setShift(Shift shift) {
-		this.shift = shift;
-	}
-	
-	
-	
-	
 	
 }
