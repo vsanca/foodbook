@@ -85,11 +85,11 @@ public class GradeDTO {
 		this.mealGrade = mealGrade;
 	}
 
-	public int getBartenderGrade() {
+	public int getWaiterGrade() {
 		return waiterGrade;
 	}
 
-	public void setBartenderGrade(int waiterGrade) {
+	public void setWaiterGrade(int waiterGrade) {
 		this.waiterGrade = waiterGrade;
 	}
 

@@ -93,7 +93,7 @@ public class RestaurantService {
 		if(restaurantGrades.size() == 0) {
 			return 0;
 		} else {
-			return res/restaurantGrades.size();
+			return res/((double)restaurantGrades.size());
 		}
 	}
 	
@@ -108,7 +108,7 @@ public class RestaurantService {
 		if(restaurantGrades.size() == 0) {
 			return 0;
 		} else {
-			return res/restaurantGrades.size();
+			return res/((double)restaurantGrades.size());
 		}
 	}
 
@@ -117,13 +117,13 @@ public class RestaurantService {
 	double res = 0;
 	
 	for(GradeDTO gDTO : restaurantGrades) {
-		//res += gDTO.getBartenderGrade();
+		res += gDTO.getWaiterGrade();
 	}
 	
 	if(restaurantGrades.size() == 0) {
 		return 0;
 	} else {
-		return res/restaurantGrades.size();
+		return res/((double)restaurantGrades.size());
 	}
 }
 }
