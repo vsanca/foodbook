@@ -16,6 +16,12 @@ import e2.isa.grupa5.repository.bidding.BidderRepository;
 import e2.isa.grupa5.service.bidding.BidderService;
 
 /**
+ * REST services for {@link Bidder}s.
+ * 
+ * Funkcionalnost 2.5:
+ * - ažuriranje podataka ponuđača
+ * - ažuriranje lozinke
+ * 
  * 
  * @author Viktor
  *
@@ -53,6 +59,7 @@ public class BidderControler {
 		
 	}
 	
+	
 	@RequestMapping(value = "/bidder/profile/{id}", method = RequestMethod.GET)
 	public ResponseEntity get(@PathVariable long id) {
 		
@@ -62,6 +69,22 @@ public class BidderControler {
 			return new ResponseEntity<>(b, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@RequestMapping(value = "/bidder/updatePassword", method = RequestMethod.POST) 
+	public ResponseEntity updatePassword(@RequestBody BidderDTO bDTO) {
+		
+		Bidder b = bidderRepository.findById(bDTO.getId());
+		
+		if(bDTO.getPassword().equals(b.getPassword())){
+			b.setPassword(bDTO.getNewPassword());
+			
+			b = bidderRepository.save(b);
+			
+			return new ResponseEntity<>(b, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 }

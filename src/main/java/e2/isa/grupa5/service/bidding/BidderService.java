@@ -38,4 +38,5 @@ public class BidderService {
 			return null;
 		}
 	}
+	
 }
