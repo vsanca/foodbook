@@ -12,6 +12,9 @@ import e2.isa.grupa5.model.users.Chef;
 /**
  * Entity for joining {@link Chef} with {@link Shift}.
  * 
+ * Funkcionalnost 2.3:
+ * - definisanje smena kuvarima
+ * 
  * @author Viktor
  *
  */

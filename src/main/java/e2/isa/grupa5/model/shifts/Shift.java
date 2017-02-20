@@ -18,6 +18,9 @@ import e2.isa.grupa5.model.users.Waiter;
 /**
  * General shift description for all of the workers: {@link Chef}, {@link Waiter}, {@link Bartender}.
  * 
+ * Funkcionalnost 2.3:
+ * - definisanje smena
+ * 
  * @author Viktor
  *
  */

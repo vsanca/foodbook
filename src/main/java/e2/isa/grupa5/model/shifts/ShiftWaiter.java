@@ -19,6 +19,9 @@ import e2.isa.grupa5.model.users.Waiter;
 /**
  * Entity for joining {@link Waiter} with {@link Shift} and assigned {@link RestaurantArea}s.
  * 
+ * Funkcionalnost 2.3:
+ * - definisanje smena konobarima
+ * 
  * @author Viktor
  *
  */
