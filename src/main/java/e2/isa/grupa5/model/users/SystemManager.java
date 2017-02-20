@@ -18,6 +18,6 @@ import java.io.Serializable;
 public class SystemManager extends User implements Serializable {
     
 	public SystemManager() {
-		
+		this.setRole(UserRoles.SYS_MANAGER);
     }
 }
