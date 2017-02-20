@@ -7,6 +7,7 @@ import org.jvnet.hk2.annotations.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import e2.isa.grupa5.model.grade.Grade;
+import e2.isa.grupa5.model.grade.GradeDTO;
 import e2.isa.grupa5.model.reservation.Reservation;
 import e2.isa.grupa5.model.restaurant.Restaurant;
 import e2.isa.grupa5.repository.grade.GradeRepository;
@@ -27,11 +28,11 @@ public class GradeService {
 	GradeRepository gradeRepository;
 	
 	// Za dat restoran vraca sve ocene
-	public List<Grade> getGradesForRestaurant(Restaurant r) {
+	public List<GradeDTO> getGradesForRestaurant(Restaurant r) {
 		
 		
 		List<Grade> myGrades = new ArrayList<Grade>();
-		
+		List<GradeDTO> myGradesDTO = new ArrayList<GradeDTO>();
 		
 		List<Reservation> allReservation = reservationRepository.findAll();
 		List<Reservation> myReservations = new ArrayList<Reservation>();
@@ -50,7 +51,13 @@ public class GradeService {
 			for(Reservation r2 : myReservations){
 				myGrades.addAll(gradeRepository.findByReservation_id(r2.getId()));
 			}
-			return myGrades;
+			
+			for(Grade g : myGrades){
+				GradeDTO myDTO = new GradeDTO(g);
+				myGradesDTO.add(myDTO);
+			}
+			
+			return myGradesDTO;
 			
 		} catch (Exception e) {
 			e.printStackTrace();

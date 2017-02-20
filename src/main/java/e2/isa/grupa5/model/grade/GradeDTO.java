@@ -41,4 +41,90 @@ public class GradeDTO {
 		
 	}
 	
+	public GradeDTO(Grade g){
+		this.id = g.getId();
+		this.guest = g.getGuest();
+		this.date = g.getDate();
+		this.mealGrade = g.getMealGrade();
+		this.bartenderGrade = g.getBartenderGrade();
+		this.atmosphereGrade = g.getAtmosphereGrade();
+		this.environmentGrade = g.getEnvironmentGrade();
+		this.restaurantGrade = g.getRestaurantGrade();
+		this.reservation = g.getReservation();
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Guest getGuest() {
+		return guest;
+	}
+
+	public void setGuest(Guest guest) {
+		this.guest = guest;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public int getMealGrade() {
+		return mealGrade;
+	}
+
+	public void setMealGrade(int mealGrade) {
+		this.mealGrade = mealGrade;
+	}
+
+	public int getBartenderGrade() {
+		return bartenderGrade;
+	}
+
+	public void setBartenderGrade(int bartenderGrade) {
+		this.bartenderGrade = bartenderGrade;
+	}
+
+	public int getAtmosphereGrade() {
+		return atmosphereGrade;
+	}
+
+	public void setAtmosphereGrade(int atmosphereGrade) {
+		this.atmosphereGrade = atmosphereGrade;
+	}
+
+	public int getEnvironmentGrade() {
+		return environmentGrade;
+	}
+
+	public void setEnvironmentGrade(int environmentGrade) {
+		this.environmentGrade = environmentGrade;
+	}
+
+	public double getRestaurantGrade() {
+		return restaurantGrade;
+	}
+
+	public void setRestaurantGrade(double restaurantGrade) {
+		this.restaurantGrade = restaurantGrade;
+	}
+
+	public Reservation getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
+	}
+	
+	
+	
 }
