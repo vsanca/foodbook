@@ -156,14 +156,26 @@ public class TestController {
 		
 		Restaurant re = new Restaurant(); 
 		re.setName("Restoran 1");
+		re.setAddress("Adresa 1");
+		re.setDescription("Opis 1");
+		re.setEmail("r1@r1.com");
+		re.setPhone("132456");
 		restaurantRepository.save(re); 
 		
 		Restaurant re1 = new Restaurant(); 
 		re1.setName("Restoran 2");
+		re1.setAddress("Adresa 2");
+		re1.setDescription("Opis 2");
+		re1.setEmail("r2@r2.com");
+		re1.setPhone("132456");
 		restaurantRepository.save(re1); 
 		
 		Restaurant re2 = new Restaurant(); 
 		re2.setName("Restoran 3");
+		re2.setAddress("Adresa 3");
+		re2.setDescription("Opis 3");
+		re2.setEmail("r3@r3.com");
+		re2.setPhone("123456");
 		restaurantRepository.save(re2); 
 		
 		Reservation r = new Reservation(); 
