@@ -15,6 +15,11 @@ import e2.isa.grupa5.repository.restaurant.RestaurantManagerRepository;
 import e2.isa.grupa5.service.restaurant.RestaurantManagerService;
 
 /**
+ * REST services for handling {@link RestaurantManager}s.
+ * 
+ * Funkcionalnost 2.9:
+ * - registracija menadžera restorana
+ * - ažuriranje i pregled informacija profila
  * 
  * @author Viktor
  *

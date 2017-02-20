@@ -82,6 +82,6 @@ public class MenuController {
             }
         }
         
-        return new ResponseEntity(menuItems, HttpStatus.OK);
+        return new ResponseEntity<>(menuItems, HttpStatus.OK);
 	}
 }

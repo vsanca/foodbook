@@ -10,7 +10,7 @@ import javax.persistence.Table;
  * Possible type of {@link Item} in {@link MenuItem} that can be found in a {@link Menu}.
  * 
  * Funkcionalnost 2.3:
- * - jelovnik, karta pića. Kako bi se ograničili na trenutni opseg sistema, tip hrane će biti "hrana", a tip pića "pice".
+ * - jelovnik, karta pića. Kako bi se ograničili na trenutni opseg sistema, tip hrane će biti diktiran konstantama u {@link ItemTypeConstants}.
  * 
  * @author Viktor
  *
