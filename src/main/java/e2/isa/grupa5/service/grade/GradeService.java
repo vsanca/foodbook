@@ -27,7 +27,7 @@ public class GradeService {
 	GradeRepository gradeRepository;
 	
 	// Za dat restoran vraca sve ocene
-	public List<Grade> updateData(Restaurant r) {
+	public List<Grade> getGradesForRestaurant(Restaurant r) {
 		
 		
 		List<Grade> myGrades = new ArrayList<Grade>();
