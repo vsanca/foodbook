@@ -42,8 +42,8 @@ public class Grade {
 	@Column(name="meal_grade")
 	private int mealGrade;
 	
-	@Column(name="bartender_grade")
-	private int bartenderGrade;
+	@Column(name="waiter_grade")
+	private int waiterGrade;
 	
 	@Column(name="atmosphere_grade")
 	private int atmosphereGrade;
@@ -94,12 +94,14 @@ public class Grade {
 		this.mealGrade = mealGrade;
 	}
 
-	public int getBartenderGrade() {
-		return bartenderGrade;
+	
+
+	public int getWaiterGrade() {
+		return waiterGrade;
 	}
 
-	public void setBartenderGrade(int bartenderGrade) {
-		this.bartenderGrade = bartenderGrade;
+	public void setWaiterGrade(int waiterGrade) {
+		this.waiterGrade = waiterGrade;
 	}
 
 	public int getAtmosphereGrade() {

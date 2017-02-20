@@ -17,7 +17,7 @@ public class GradeDTO {
 	private Guest guest; 
 	private Date date;
 	private int mealGrade;
-	private int bartenderGrade;
+	private int waiterGrade;
 	private int atmosphereGrade;
 	private int environmentGrade;
 	private double restaurantGrade;
@@ -27,13 +27,13 @@ public class GradeDTO {
 		
 	}
 	
-	public GradeDTO(long id, Guest guest, Date date, int mealGrade, int bartenderGrade, int atmosphereGrade, int environmentGrade, double restraurantGrade, Reservation reservation){
+	public GradeDTO(long id, Guest guest, Date date, int mealGrade, int waiterGrade, int atmosphereGrade, int environmentGrade, double restraurantGrade, Reservation reservation){
 		
 		this.id = id;
 		this.guest = guest;
 		this.date = date;
 		this.mealGrade = mealGrade;
-		this.bartenderGrade = bartenderGrade;
+		this.waiterGrade = waiterGrade;
 		this.atmosphereGrade = atmosphereGrade;
 		this.environmentGrade = environmentGrade;
 		this.restaurantGrade = restraurantGrade;
@@ -46,7 +46,7 @@ public class GradeDTO {
 		this.guest = g.getGuest();
 		this.date = g.getDate();
 		this.mealGrade = g.getMealGrade();
-		this.bartenderGrade = g.getBartenderGrade();
+		this.waiterGrade = g.getWaiterGrade();
 		this.atmosphereGrade = g.getAtmosphereGrade();
 		this.environmentGrade = g.getEnvironmentGrade();
 		this.restaurantGrade = g.getRestaurantGrade();
@@ -86,11 +86,11 @@ public class GradeDTO {
 	}
 
 	public int getBartenderGrade() {
-		return bartenderGrade;
+		return waiterGrade;
 	}
 
-	public void setBartenderGrade(int bartenderGrade) {
-		this.bartenderGrade = bartenderGrade;
+	public void setBartenderGrade(int waiterGrade) {
+		this.waiterGrade = waiterGrade;
 	}
 
 	public int getAtmosphereGrade() {
