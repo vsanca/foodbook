@@ -23,7 +23,7 @@ public class Grade {
 	private Long id;
 
 	@ManyToOne
-	private User user;
+	private User user;  //Guest
 
 	@Column(name="grade_date")
 	private Date date;
