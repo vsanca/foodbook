@@ -12,15 +12,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import e2.isa.grupa5.model.reservation.InvitedToReservation;
 import e2.isa.grupa5.model.reservation.Reservation;
+import e2.isa.grupa5.model.restaurant.Item;
+import e2.isa.grupa5.model.restaurant.ItemType;
+import e2.isa.grupa5.model.restaurant.ItemTypeConstants;
+import e2.isa.grupa5.model.restaurant.Menu;
+import e2.isa.grupa5.model.restaurant.MenuItem;
 import e2.isa.grupa5.model.restaurant.Restaurant;
 import e2.isa.grupa5.model.users.Guest;
+import e2.isa.grupa5.model.users.RestaurantManager;
+import e2.isa.grupa5.model.users.SystemManager;
 import e2.isa.grupa5.model.users.UserRoles;
 
 import e2.isa.grupa5.repository.guest.FriendshipRequestRepository;
 import e2.isa.grupa5.repository.guest.GuestRepository;
 import e2.isa.grupa5.repository.guest.InvitedToReservationRepository;
 import e2.isa.grupa5.repository.guest.ReservationRepository;
+import e2.isa.grupa5.repository.restaurant.ItemRepository;
+import e2.isa.grupa5.repository.restaurant.ItemTypeRepository;
+import e2.isa.grupa5.repository.restaurant.MenuItemRepository;
+import e2.isa.grupa5.repository.restaurant.MenuRepository;
+import e2.isa.grupa5.repository.restaurant.RestaurantManagerRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
+import e2.isa.grupa5.repository.sysmanager.SystemManagerRepository;
 
 @RestController
 @RequestMapping("/test")
@@ -40,7 +53,25 @@ public class TestController {
 	
 	@Autowired
 	private FriendshipRequestRepository friendshipRequestRespository;
-
+	
+	@Autowired
+	private SystemManagerRepository systemManagerRepository;
+	
+	@Autowired
+	private RestaurantManagerRepository restaurantManagerRepository;
+	
+	@Autowired
+	private MenuRepository menuRepository;
+	
+	@Autowired
+	private MenuItemRepository menuItemRepository;
+	
+	@Autowired
+	private ItemTypeRepository itemTypeRepository;
+	
+	@Autowired
+	private ItemRepository itemRepository;
+	
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
@@ -154,35 +185,76 @@ public class TestController {
 		g2.getFriends().add(g); 
 		guestRepository.save(g2); 
 		
-		Restaurant re = new Restaurant(); 
-		re.setName("Restoran 1");
-		re.setAddress("Adresa 1");
-		re.setDescription("Opis 1");
-		re.setEmail("r1@r1.com");
-		re.setPhone("132456");
-		restaurantRepository.save(re); 
+		// SYSTEM MANAGERS:
+		SystemManager sm1 = new SystemManager();
+		sm1.setActive(true);
+		sm1.setEmail("sm1@sm1.com");
+		sm1.setPassword(passwordEncoder.encode("sm1"));
+		sm1.setName("Admin");
+		sm1.setSurname("Admin");
+		sm1.setAddress("Secret admin address");
+		systemManagerRepository.save(sm1);
 		
-		Restaurant re1 = new Restaurant(); 
-		re1.setName("Restoran 2");
-		re1.setAddress("Adresa 2");
-		re1.setDescription("Opis 2");
-		re1.setEmail("r2@r2.com");
-		re1.setPhone("132456");
+		// RESTAURANTS:
+		// Napravio sam parametrizovani konstruktor kako se ne bi propustilo obavezno polje (biće database error sa integritetima).
+		Restaurant re1 = new Restaurant("Puno mesa","Stvarno dobar restoran sa mesom", "555-12345", "Bulevar Oslobodjenja 6 Novi Sad", "punomesa@restorani.com");
 		restaurantRepository.save(re1); 
 		
-		Restaurant re2 = new Restaurant(); 
-		re2.setName("Restoran 3");
-		re2.setAddress("Adresa 3");
-		re2.setDescription("Opis 3");
-		re2.setEmail("r3@r3.com");
-		re2.setPhone("123456");
+		Restaurant re2 = new Restaurant("Malo mesa","Ne bas sjajan restoran sa mesom", "555-12346", "Somborski Bulevar 56 Novi Sad", "malomesa@restorani.com"); 
 		restaurantRepository.save(re2); 
+		
+		Restaurant re3 = new Restaurant("Bilje i zacini","Ako bas ne volite meso", "555-12489", "Jevrejska 20 Novi Sad", "biljeizacini@restorani.com"); 
+		restaurantRepository.save(re3); 
+		
+		// RESTAURANT MANAGERS:
+		RestaurantManager rm1 = new RestaurantManager("rm1@rm1.com", passwordEncoder.encode("rm1"), "Zika", "Menadzer", "Zikina Adresa", re1);
+		restaurantManagerRepository.save(rm1);
+		
+		// RESTAURANT MENU:
+		Menu mnu1 = new Menu(re1);
+		menuRepository.save(mnu1);
+		
+		// RESTAURANT ITEM TYPES;
+		ItemType food = new ItemType(ItemTypeConstants.FOOD);
+		itemTypeRepository.save(food);
+		ItemType drink = new ItemType(ItemTypeConstants.DRINK);
+		itemTypeRepository.save(drink);
+		
+		// RESTAURANT ITEMS:
+		Item it1 = new Item("Burger", "Bas dobar mesni burger", food);
+		itemRepository.save(it1);
+		Item it2 = new Item("Pica", "Vrlo mesnata pica", food);
+		itemRepository.save(it2);
+		Item it3 = new Item("Pomfrit", "U masti pravljen krompir", food);
+		itemRepository.save(it3);
+		Item it4 = new Item("Sok", "Ima tragova mesa", drink);
+		itemRepository.save(it4);
+		Item it5 = new Item("Pivo", "Najbolje uz meso", drink);
+		itemRepository.save(it5);
+		Item it6 = new Item("Vino", "Ide dobro uz sve", drink);
+		itemRepository.save(it6);
+		
+		// RESTAURAN MENU ITEMS:
+		MenuItem mi1 = new MenuItem(500, it1, mnu1);
+		menuItemRepository.save(mi1);
+		MenuItem mi2 = new MenuItem(800, it2, mnu1);
+		menuItemRepository.save(mi2);
+		MenuItem mi3 = new MenuItem(300, it3, mnu1);
+		menuItemRepository.save(mi3);
+		MenuItem mi4 = new MenuItem(150, it4, mnu1);
+		menuItemRepository.save(mi4);
+		MenuItem mi5 = new MenuItem(300, it5, mnu1);
+		menuItemRepository.save(mi5);
+		MenuItem mi6 = new MenuItem(300, it6, mnu1);
+		menuItemRepository.save(mi6);
+		
+		
 		
 		Reservation r = new Reservation(); 
 		r.setGuest(g);
 		r.setTerminDo(new Date());
 		r.setTerminOd(new Date());
-		r.setRestaurant(re);
+		r.setRestaurant(re1);
 		reservationRepository.save(r);
 		
 		InvitedToReservation i = new InvitedToReservation(); 
