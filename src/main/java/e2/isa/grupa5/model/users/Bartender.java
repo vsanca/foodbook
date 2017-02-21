@@ -44,6 +44,10 @@ public class Bartender extends User implements Serializable{
     
     public Bartender(String mail, String pass, String name, String surname, String address, Restaurant restaurant, Date birthDate, int dressSize, int shoeSize) {
     	super(mail,pass,name,surname,address, UserRoles.BARTENDER);
+    	this.birthDate = birthDate;
+    	this.dressSize = dressSize;
+    	this.shoeSize = shoeSize;
+    	this.restaurant = restaurant;
     }
 
 	public Restaurant getRestaurant() {

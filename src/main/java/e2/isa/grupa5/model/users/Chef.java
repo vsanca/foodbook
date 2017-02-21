@@ -44,6 +44,10 @@ public class Chef extends User implements Serializable{
     
     public Chef(String mail, String pass, String name, String surname, String address, Restaurant restaurant, Date birthDate, int dressSize, int shoeSize) {
     	super(mail,pass,name,surname,address, UserRoles.CHEF);
+    	this.birthDate = birthDate;
+    	this.dressSize = dressSize;
+    	this.shoeSize = shoeSize;
+    	this.restaurant = restaurant;
     }
 
 	public Restaurant getRestaurant() {

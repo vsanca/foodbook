@@ -119,6 +119,10 @@ public class TestController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/fill-database")
 	public ResponseEntity<?> getProfilePageInfo() {
+		
+		
+		//restaurantRepository.deleteAll();
+		
 /*
 		List<Guest> guests = guestRepository.findAll();
 		for (Guest guest : guests) {
@@ -187,6 +191,7 @@ public class TestController {
 //		gTest.setRole(UserRoles.GUEST);
 //		guestRepository.save(gTest);
 //		
+		
 		Guest g = new Guest(); 
 		g.setActive(true);
 		g.setAddress("g adresa");
@@ -217,6 +222,8 @@ public class TestController {
 		g2.setRole(UserRoles.GUEST);
 		guestRepository.save(g2); 
 		
+		
+		
 		g1.getFriends().add(g); 
 		guestRepository.save(g1);
 		
@@ -226,6 +233,7 @@ public class TestController {
 		
 		g2.getFriends().add(g); 
 		guestRepository.save(g2); 
+		
 		
 		// SYSTEM MANAGERS:
 		SystemManager sm1 = new SystemManager();
@@ -318,7 +326,6 @@ public class TestController {
 		
 		ShiftChef sc1 = new ShiftChef(ch1, sh1);
 		shiftChefRepository.save(sc1);
-		
 		
 		
 		Reservation r = new Reservation(); 
