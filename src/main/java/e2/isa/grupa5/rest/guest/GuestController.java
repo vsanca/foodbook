@@ -30,7 +30,7 @@ import e2.isa.grupa5.rest.dto.guest.UpdateProfileDTO;
 import e2.isa.grupa5.service.UserService;
 import e2.isa.grupa5.service.grade.GradeService;
 import e2.isa.grupa5.service.guest.GuestService;
-import scala.annotation.meta.setter;
+
 
 /**
  * Funkcionalnost 2.8 - ocenjivanje restorana
