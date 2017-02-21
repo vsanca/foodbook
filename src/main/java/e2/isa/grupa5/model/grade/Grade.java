@@ -19,7 +19,7 @@ import javax.persistence.Table;
 /**
  * Grade is important for {@link Restaurant} rating.
  * 
- * @author Juri
+ * @author Boris
  *
  */
 
@@ -31,7 +31,7 @@ public class Grade {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="grade_id")
 	private long id;
-
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "guest", nullable = false)
 	private Guest guest;  
@@ -57,6 +57,9 @@ public class Grade {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "reservation", nullable = false)
 	private Reservation reservation;
+	
+	@Column(name="is_rated")
+	private boolean isRated;
 
 	public Grade() {
 
@@ -135,5 +138,15 @@ public class Grade {
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
 	}
+
+	public boolean isRated() {
+		return isRated;
+	}
+
+	public void setRated(boolean isRated) {
+		this.isRated = isRated;
+	}
+	
+	
 
 }

@@ -10,7 +10,7 @@ import e2.isa.grupa5.service.UserService;
 
 /**
  * 
- * @author Juri
+ * @author Boris
  *
  */
 @Service

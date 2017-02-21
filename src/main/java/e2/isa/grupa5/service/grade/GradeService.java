@@ -6,6 +6,8 @@ import java.util.List;
 import org.jvnet.hk2.annotations.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import e2.isa.grupa5.model.bidding.Bidding;
+import e2.isa.grupa5.model.bidding.BiddingDTO;
 import e2.isa.grupa5.model.grade.Grade;
 import e2.isa.grupa5.model.grade.GradeDTO;
 import e2.isa.grupa5.model.reservation.Reservation;
@@ -27,7 +29,35 @@ public class GradeService {
 	@Autowired
 	GradeRepository gradeRepository;
 	
-	// Za dat restoran vraca sve ocene
+	
+	/**
+	 * Helper method for setting possible variable attributes.
+	 * 
+	 * @param g
+	 * @param gDTO
+	 */
+	public void setVariableAttributes(Grade g, GradeDTO gDTO) {
+		g.setId(gDTO.getId());
+		g.setGuest(gDTO.getGuest());
+		g.setDate(gDTO.getDate());
+		g.setMealGrade(gDTO.getMealGrade());
+		g.setWaiterGrade(gDTO.getWaiterGrade());
+		g.setAtmosphereGrade(gDTO.getAtmosphereGrade());
+		g.setEnvironmentGrade(gDTO.getEnvironmentGrade());
+		g.setRestaurantGrade(gDTO.getRestaurantGrade());
+		g.setReservation(gDTO.getReservation());
+		g.setRated(gDTO.isRated());
+	}
+	
+	
+	/**
+	 * Vraca sve ocene koje pripadaju prosledjenom restoranu
+	 * 
+	 * @author Boris
+	 * 
+	 * @param Restaurant
+	 * @return List<Grade> 
+	 */
 	public List<GradeDTO> getGradesForRestaurant(Restaurant r) {
 		
 		

@@ -8,7 +8,7 @@ import e2.isa.grupa5.model.users.Guest;
 /**
  * {@link Grade} for use in communication (DTO).
  * 
- * @author Juri
+ * @author Boris
  *
  */
 public class GradeDTO {
@@ -22,12 +22,13 @@ public class GradeDTO {
 	private int environmentGrade;
 	private double restaurantGrade;
 	private Reservation reservation;
+	private boolean isRated;
 	
 	public GradeDTO(){
 		
 	}
 	
-	public GradeDTO(long id, Guest guest, Date date, int mealGrade, int waiterGrade, int atmosphereGrade, int environmentGrade, double restraurantGrade, Reservation reservation){
+	public GradeDTO(long id, Guest guest, Date date, int mealGrade, int waiterGrade, int atmosphereGrade, int environmentGrade, double restraurantGrade, Reservation reservation,boolean isRated){
 		
 		this.id = id;
 		this.guest = guest;
@@ -36,8 +37,9 @@ public class GradeDTO {
 		this.waiterGrade = waiterGrade;
 		this.atmosphereGrade = atmosphereGrade;
 		this.environmentGrade = environmentGrade;
-		this.restaurantGrade = restraurantGrade;
+		this.restaurantGrade = (this.mealGrade + this.waiterGrade + this.atmosphereGrade + this.environmentGrade)/4;
 		this.reservation = reservation;
+		this.isRated = isRated;
 		
 	}
 	
@@ -124,6 +126,15 @@ public class GradeDTO {
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
 	}
+
+	public boolean isRated() {
+		return isRated;
+	}
+
+	public void setRated(boolean isRated) {
+		this.isRated = isRated;
+	}
+	
 	
 	
 	

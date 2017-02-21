@@ -20,5 +20,6 @@ public interface GradeRepository extends JpaRepository<Grade, Long> {
 	
 	public Grade findById(long id);
 	public List<Grade> findByReservation_id(long id);
+	public Grade findByReservation_idAndGuest_id(long reservationId, long guestId);
 	
 }
