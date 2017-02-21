@@ -1,6 +1,8 @@
 package e2.isa.grupa5.rest.guest;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,11 +20,21 @@ import e2.isa.grupa5.model.restaurant.ItemTypeConstants;
 import e2.isa.grupa5.model.restaurant.Menu;
 import e2.isa.grupa5.model.restaurant.MenuItem;
 import e2.isa.grupa5.model.restaurant.Restaurant;
+import e2.isa.grupa5.model.restaurant.RestaurantArea;
+import e2.isa.grupa5.model.restaurant.RestaurantTable;
+import e2.isa.grupa5.model.shifts.Shift;
+import e2.isa.grupa5.model.shifts.ShiftChef;
+import e2.isa.grupa5.model.users.Bartender;
+import e2.isa.grupa5.model.users.Bidder;
+import e2.isa.grupa5.model.users.Chef;
 import e2.isa.grupa5.model.users.Guest;
 import e2.isa.grupa5.model.users.RestaurantManager;
 import e2.isa.grupa5.model.users.SystemManager;
 import e2.isa.grupa5.model.users.UserRoles;
-
+import e2.isa.grupa5.model.users.Waiter;
+import e2.isa.grupa5.repository.bartender.BartenderRepository;
+import e2.isa.grupa5.repository.bidding.BidderRepository;
+import e2.isa.grupa5.repository.chef.ChefRepository;
 import e2.isa.grupa5.repository.guest.FriendshipRequestRepository;
 import e2.isa.grupa5.repository.guest.GuestRepository;
 import e2.isa.grupa5.repository.guest.InvitedToReservationRepository;
@@ -31,9 +43,15 @@ import e2.isa.grupa5.repository.restaurant.ItemRepository;
 import e2.isa.grupa5.repository.restaurant.ItemTypeRepository;
 import e2.isa.grupa5.repository.restaurant.MenuItemRepository;
 import e2.isa.grupa5.repository.restaurant.MenuRepository;
+import e2.isa.grupa5.repository.restaurant.RestaurantAreaRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantManagerRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
+import e2.isa.grupa5.repository.restaurant.RestaurantTableRepository;
+import e2.isa.grupa5.repository.shifts.ShiftChefRepository;
+import e2.isa.grupa5.repository.shifts.ShiftRepository;
 import e2.isa.grupa5.repository.sysmanager.SystemManagerRepository;
+import e2.isa.grupa5.repository.waiter.WaiterRepository;
+import e2.isa.grupa5.service.chef.ChefService;
 
 @RestController
 @RequestMapping("/test")
@@ -73,7 +91,32 @@ public class TestController {
 	private ItemRepository itemRepository;
 	
 	@Autowired
+	private BartenderRepository bartenderRepository;
+	
+	@Autowired
+	private ChefRepository chefRepository;
+	
+	@Autowired
+	private WaiterRepository waiterRepository;
+	
+	@Autowired
+	private RestaurantAreaRepository restaurantAreaRepository;
+	
+	@Autowired
+	private RestaurantTableRepository restaurantTableRepository;
+	
+	@Autowired
+	private BidderRepository bidderRepository;
+	
+	@Autowired
+	private ShiftRepository shiftRepository;
+	
+	@Autowired
+	private ShiftChefRepository shiftChefRepository;
+	
+	@Autowired
 	PasswordEncoder passwordEncoder;
+	
 
 	@RequestMapping(method = RequestMethod.GET, value = "/fill-database")
 	public ResponseEntity<?> getProfilePageInfo() {
@@ -206,6 +249,14 @@ public class TestController {
 		Restaurant re3 = new Restaurant("Bilje i zacini","Ako bas ne volite meso", "555-12489", "Jevrejska 20 Novi Sad", "biljeizacini@restorani.com"); 
 		restaurantRepository.save(re3); 
 		
+		// RESTAURANT AREAS:
+		RestaurantArea ra1 = new RestaurantArea("nepusacka zona", re1);
+		restaurantAreaRepository.save(ra1);
+		
+		// RESTAURANT TABLES:
+		RestaurantTable rt1 = new RestaurantTable("sto 1", 2, ra1);
+		restaurantTableRepository.save(rt1);
+		
 		// RESTAURANT MANAGERS:
 		RestaurantManager rm1 = new RestaurantManager("rm1@rm1.com", passwordEncoder.encode("rm1"), "Zika", "Menadzer", "Zikina Adresa", re1);
 		restaurantManagerRepository.save(rm1);
@@ -247,6 +298,27 @@ public class TestController {
 		menuItemRepository.save(mi5);
 		MenuItem mi6 = new MenuItem(300, it6, mnu1);
 		menuItemRepository.save(mi6);
+		
+		// BIDDERS:
+		Bidder bd1 = new Bidder("bd1@bd1.com", passwordEncoder.encode("bd1"), "Marko", "Markova adresa", "Ponudic");
+		bidderRepository.save(bd1);
+		
+		// RESTAURANT WORKERS:
+		Bartender bt1 = new Bartender("bt1@bt1.com", passwordEncoder.encode("bt1"), "Milan", "Pivic", "Milanova adresa", re1, new Date(), 15, 42);
+		bartenderRepository.save(bt1);
+		
+		Chef ch1 = new Chef("ch1@ch1.com", passwordEncoder.encode("ch1"), "Slavko", "Mesic", "Slavkova adresa", re1, new Date(), 15, 42);
+		chefRepository.save(ch1);
+		
+		Waiter wa1 = new Waiter("wa1@wa1.com", passwordEncoder.encode("wa1"), "Pera", "Usluzic", "Perina adresa", re1, new Date(), 15, 42);
+		waiterRepository.save(wa1);
+		
+		// RESTAURANT WORKER SHIFTS:
+		Shift sh1 = new Shift(new Date(), "08:00", "20:00", true, re1);
+		shiftRepository.save(sh1);
+		
+		ShiftChef sc1 = new ShiftChef(ch1, sh1);
+		shiftChefRepository.save(sc1);
 		
 		
 		
