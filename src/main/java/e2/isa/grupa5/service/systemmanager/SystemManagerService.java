@@ -1,7 +1,9 @@
 package e2.isa.grupa5.service.systemmanager;
 
-import org.jvnet.hk2.annotations.Service;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import e2.isa.grupa5.model.users.SystemManager;
 import e2.isa.grupa5.model.users.SystemManagerDTO;

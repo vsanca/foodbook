@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import e2.isa.grupa5.model.grade.Grade;
 import e2.isa.grupa5.model.grade.GradeDTO;
-import e2.isa.grupa5.model.restaurant.MenuDTO;
-import e2.isa.grupa5.model.restaurant.Restaurant;
-import e2.isa.grupa5.model.restaurant.RestaurantDTO;
+
 import e2.isa.grupa5.model.users.Guest;
 import e2.isa.grupa5.model.users.User;
 import e2.isa.grupa5.repository.grade.GradeRepository;
@@ -49,14 +47,15 @@ public class GuestController {
     private UserService userService;
     
     @Autowired
+    private GradeService gradeService;
+    
+    @Autowired
     private RestaurantRepository restaurantRepository;
     
     @Autowired
     private GradeRepository gradeRepository;
     
-    @Autowired
-    private GradeService gradeService;
-    
+  
 
 
     @RequestMapping(value = "/register-guest", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)

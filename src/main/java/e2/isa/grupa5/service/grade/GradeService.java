@@ -3,17 +3,15 @@ package e2.isa.grupa5.service.grade;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jvnet.hk2.annotations.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import e2.isa.grupa5.model.bidding.Bidding;
-import e2.isa.grupa5.model.bidding.BiddingDTO;
 import e2.isa.grupa5.model.grade.Grade;
 import e2.isa.grupa5.model.grade.GradeDTO;
 import e2.isa.grupa5.model.reservation.Reservation;
 import e2.isa.grupa5.model.restaurant.Restaurant;
 import e2.isa.grupa5.repository.grade.GradeRepository;
-import e2.isa.grupa5.repository.reservation.ReservationRepository;
+import e2.isa.grupa5.repository.guest.ReservationRepository;
 
 /**
  * 

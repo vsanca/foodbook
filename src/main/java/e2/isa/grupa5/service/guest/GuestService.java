@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ import e2.isa.grupa5.repository.guest.ReservationRepository;
 import e2.isa.grupa5.rest.dto.guest.FriendsPageDTO;
 import e2.isa.grupa5.rest.dto.guest.HomePageDTO;
 import e2.isa.grupa5.rest.dto.guest.ProfilePageDTO;
-import e2.isa.grupa5.rest.dto.guest.UpdateProfileDTO;
+
 import e2.isa.grupa5.service.MailService;
 
 @Service
