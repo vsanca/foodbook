@@ -20,6 +20,12 @@
     <script src="libs/angular-route.js"></script>
     <script src="libs/angular-notify.min.js"></script>
     
+    <!-- Calendar -->
+    <link href="css/fullcalendar.css" rel='stylesheet' />
+    <link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
+    
+    <link href="pages/guest/assets/guest.css" rel="stylesheet" />
+    
 </head>
 <body>
     <div role="main">
@@ -43,6 +49,14 @@
     <!--Application-->
     <script src="app.js"></script>
     <script src="constants.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.6.2/fabric.min.js"></script>
+    <script src="libs/fabric.canvasex.js"></script>
+    <script src="libs/moment.min.js"></script>
+    <script src="libs/jquery-ui.js"></script>
+    <script src="libs/Chart.js"></script>
+    <script src="libs/angular-chart.js"></script>
+    <script src="libs/angular-chart.min.js"></script>
+    
     <!-- Application-wide services -->
     <script src="services/sessionService.js"></script>
     <script src="services/authenticationService.js"></script>
@@ -53,7 +67,7 @@
     <!-- Guest Profile Page -->
     <script src="pages/guest/services/guestService.js"></script>
     <script src="pages/guest/services/notifyService.js"></script>
-    <link href="pages/guest/assets/guest.css" rel="stylesheet">
+
     <script src="pages/guest/profilePage/profilePageController.js"></script>
     <script src="pages/guest/register/registerGuestController.js"></script>
     <script src="pages/guest/confirmRegistration/confirmRegistrationController.js"></script>
