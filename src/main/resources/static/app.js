@@ -94,7 +94,7 @@ foodbook.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     		controller: 'bidderHomeController'
     	})
 	    .state('bartender', {
-			url: '/bartender',
+			url: '/br',
 			templateUrl: 'pages/bartender/profile.html',
 			controller: 'bartenderProfileController'
 		})
