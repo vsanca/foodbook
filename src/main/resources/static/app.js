@@ -111,12 +111,12 @@
     function run($rootScope, $location, sessionService) {
         console.log("Application ready to go!");
 
-        if (sessionService.getUserInfo() === null && $location.path() !== 'pages/guest/confirm-registration') {
+        if (sessionService.getUserInfo === null && $location.path() !== 'pages/guest/confirm-registration') {
             $state.go('login');
         }
 
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
-            if (sessionService.getUserInfo() === null) {
+            if (sessionService().getUserInfo() === null) {
                 // no logged user, we should be going to #login
                 if (next.templateUrl !== "pages/user/login.html" && next.templateUrl !== "pages/guest/register/registerGuest.html" && next.templateUrl !== "pages/guest/confirmRegistration/confirmRegistration.html") {
                     console.log("Not logged in! Redirecting to login...");
