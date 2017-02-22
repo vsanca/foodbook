@@ -92,7 +92,18 @@ foodbook.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     		url: 'panel',
     		templateUrl: 'pages/bidder/home.html',
     		controller: 'bidderHomeController'
-    	});
+    	})
+	    .state('bartender', {
+			url: '/bartender',
+			templateUrl: 'pages/bartender/profile.html',
+			controller: 'bartenderProfileController'
+		})
+		.state('bartender.home', {
+			url: 'panel',
+			templateUrl: 'pages/bartender/home.html',
+			controller: 'bartenderHomeController'
+		});
+    	
 
 }).run(function($rootScope, $state, $location, sessionService) {
     console.log("Application ready to go!");
