@@ -25,7 +25,7 @@
         } else if (data.role === userRoles['CHEF']) {
         	$state.go('chef')
         } else if (data.role === userRoles['WAITER']) {
-        	$state.go('waiters')
+        	$state.go('waiter')
         } else if (data.role === userRoles['MANAGER']) {
         	$state.go('manager');
         } else if (data.role === userRoles['BIDDER']) {
