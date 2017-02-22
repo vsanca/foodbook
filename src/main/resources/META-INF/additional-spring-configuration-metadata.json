@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "jwt.header",
+    "type": "java.lang.String",
+    "description": "Security config, specifies HTTP Response header name to be used 'jwt.header'"
+  },
+  {
+    "name": "jwt.secret",
+    "type": "java.lang.String",
+    "description": "Salt used for salthing BCrypt hashes and JWT crypted content 'jwt.secret'"
+  },
+  {
+    "name": "jwt.expiration",
+    "type": "java.lang.String",
+    "description": "Expiration date for generated JWT tokens 'jwt.expiration'"
+  }
+]}
