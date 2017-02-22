@@ -11,6 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+
+import org.springframework.beans.factory.annotation.Value;
+import com.google.maps.DistanceMatrixApi;
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.model.DistanceMatrix;
+import com.google.maps.model.DistanceMatrixElement;
+import com.google.maps.model.DistanceMatrixRow;
+import com.google.maps.model.GeocodingResult;
+import e2.isa.grupa5.rest.dto.guest.DistanceDTO;
+
+
 import e2.isa.grupa5.model.reservation.InvitedToReservation;
 import e2.isa.grupa5.model.reservation.Reservation;
 import e2.isa.grupa5.model.restaurant.Item;
@@ -116,6 +128,43 @@ public class TestController {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
+		@Value("${jelena.google.key}")
+	private String jelenaApiKey;
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/test-geo-api") 
+	public DistanceDTO getAddress() {
+		DistanceDTO dto = new DistanceDTO();
+		
+		GeoApiContext context = new GeoApiContext().setApiKey(jelenaApiKey);
+		GeocodingResult[] origins = null;
+		GeocodingResult[] destinations = null;
+		try {
+//			origins = GeocodingApi.geocode(context,
+//			    "Narodnog fronta 23, Novi Sad 21102").await();
+//			destinations = GeocodingApi.geocode(context, "Trg Dositeja Obradovića, Novi Sad 106314").await();
+//			System.out.println(origins[0].formattedAddress);
+//			System.out.println(destinations[0].formattedAddress);
+			String[] guestAddress = new String[] {  "Narodnog fronta 33, Novi Sad 21102" };
+			String[] restaurantAddress = new String[] {"Trg Dositeja Obradovića, Novi Sad 106314"};
+			DistanceMatrix udaljenost = DistanceMatrixApi.getDistanceMatrix(context,guestAddress, restaurantAddress).await();
+			for(DistanceMatrixRow row : udaljenost.rows) {
+				for(int i = 0; i < row.elements.length; i++) {
+					System.out.println("DISTANCEE:" + row.elements[i].distance);
+					dto.setDistanceKm(row.elements[i].distance.inMeters/1000.0);
+				}
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return dto;
+		
+		
+	}
+
 
 	@RequestMapping(method = RequestMethod.GET, value = "/fill-database")
 	public ResponseEntity<?> getProfilePageInfo() {

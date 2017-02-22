@@ -8,7 +8,6 @@
   'use strict';
 
   angular.module('foodbook').controller('LoginController', LoginController);
-
   LoginController.$inject = ['$scope', '$http', 'authenticationService', 'userRoles', '$location', '$state'];
 
   function LoginController($scope, $http, authenticationService, userRoles, $location, $state) {
@@ -22,7 +21,6 @@
       authenticationService.login($scope.user.username, $scope.user.password).then(function (data) {
     	  
         if (data.role === userRoles["GUEST"]) {
-          //$location.path("/guest/profile-page");
         	$state.go('guest-profile')
         } else if (data.role === userRoles['CHEF']) {
           $location.path("/");
@@ -44,6 +42,11 @@
         alert("Login failed!");
       });
     };
+
+
+    $scope.register = function () {
+      $location.path("/guest/register");
+    }
   }
 
 })();
