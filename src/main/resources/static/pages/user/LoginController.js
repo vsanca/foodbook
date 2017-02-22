@@ -23,15 +23,15 @@
         if (data.role === userRoles["GUEST"]) {
         	$state.go('guest-profile')
         } else if (data.role === userRoles['CHEF']) {
-          $location.path("/");
+        	$state.go('chef')
         } else if (data.role === userRoles['WAITER']) {
-          $location.path("/");
+        	$state.go('waiters')
         } else if (data.role === userRoles['MANAGER']) {
         	$state.go('manager');
         } else if (data.role === userRoles['BIDDER']) {
         	$state.go('bidder');
         } else if (data.role === userRoles['BARTENDER']) {
-          $location.path("/");
+        	$state.go('bartender')
         } else if (data.role === userRoles['SYS_MANAGER']) {
         	$state.go('sysmanager');
         } else {

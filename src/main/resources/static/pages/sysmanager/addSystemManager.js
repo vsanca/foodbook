@@ -1,3 +1,3 @@
-foodbook.controller('sysmanagerAddSystemManagerController', function($scope, $http, $state) {
+angular.module('foodbook').controller('sysmanagerAddSystemManagerController', function($scope, $http, $state) {
 	$scope.activePageNumber = 4;
 });

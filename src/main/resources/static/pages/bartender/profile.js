@@ -1,4 +1,4 @@
-foodbook.controller('bartenderProfileController', function($scope, $http, $state, $location) {
+angular.module('foodbook').controller('bartenderProfileController', function($scope, $http, $state, $location) {
 	
 	$scope.activePageNumber = 0;
 	

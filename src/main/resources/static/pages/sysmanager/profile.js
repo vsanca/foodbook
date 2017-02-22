@@ -1,6 +1,8 @@
-foodbook.controller('sysmanagerProfileController', function($scope, $http, $state, $location) {
+angular.module('foodbook').controller('sysmanagerProfileController', function($scope, $http, $state, $location) {
 	
 	$scope.activePageNumber = 0;
+	
+	$state.transitionTo('sysmanager.home');
 	
 	$scope.home = function() {
         $state.transitionTo('sysmanager.home');

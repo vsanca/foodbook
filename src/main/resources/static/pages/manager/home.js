@@ -1,3 +1,3 @@
-foodbook.controller('managerHomeController', function($scope, $http, $state) {
+angular.module('foodbook').controller('managerHomeController', function($scope, $http, $state) {
 	
 });
