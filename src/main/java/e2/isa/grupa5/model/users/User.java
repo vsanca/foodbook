@@ -35,6 +35,9 @@ public class User implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private UserRoles role;
 	
+	@Column(name="password_set")
+	private boolean password_set;
+	
 	public User() {
 		
 	}
@@ -120,6 +123,14 @@ public class User implements Serializable{
 
 	public void setRole(UserRoles role) {
 		this.role = role;
+	}
+
+	public boolean isPassword_set() {
+		return password_set;
+	}
+
+	public void setPassword_set(boolean password_set) {
+		this.password_set = password_set;
 	}
 	
 }

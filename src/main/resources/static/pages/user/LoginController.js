@@ -9,9 +9,9 @@
 
   angular.module('foodbook').controller('LoginController', LoginController);
 
-  LoginController.$inject = ['$scope', '$http', 'authenticationService', 'userRoles', '$location'];
+  LoginController.$inject = ['$scope', '$http', 'authenticationService', 'userRoles', '$location', '$state'];
 
-  function LoginController($scope, $http, authenticationService, userRoles, $location) {
+  function LoginController($scope, $http, authenticationService, userRoles, $location, $state) {
     console.log("LoginController ready!");
     $scope.user = {
       username: null,
@@ -20,21 +20,22 @@
 
     $scope.login = function () {
       authenticationService.login($scope.user.username, $scope.user.password).then(function (data) {
-
+    	  
         if (data.role === userRoles["GUEST"]) {
-          $location.path("/guest/profile-page");
+          //$location.path("/guest/profile-page");
+        	$state.go('guest-profile')
         } else if (data.role === userRoles['CHEF']) {
           $location.path("/");
         } else if (data.role === userRoles['WAITER']) {
           $location.path("/");
         } else if (data.role === userRoles['MANAGER']) {
-          $location.path("/");
+        	$state.go('manager');
         } else if (data.role === userRoles['BIDDER']) {
-          $location.path("/");
+        	$state.go('bidder');
         } else if (data.role === userRoles['BARTENDER']) {
           $location.path("/");
         } else if (data.role === userRoles['SYS_MANAGER']) {
-          $location.path("/");
+        	$state.go('sysmanager');
         } else {
           alert("LoginController::Invalid user role:::" + data.role);
           $location.path("/");

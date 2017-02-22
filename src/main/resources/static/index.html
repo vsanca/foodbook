@@ -12,17 +12,17 @@
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="css/angular-notify.min.css" rel="stylesheet">
     
-    <link href="libs/boostrap.min.js">
+    <link href="libs/bootstrap.min.js">
     <script src="libs/validator.min.js"></script>
 
     <!--Angular-->
     <script src="libs/angular.min.js"></script>
     <script src="libs/angular-route.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
     <script src="libs/angular-notify.min.js"></script>
     
     <!-- Calendar -->
     <link href="css/fullcalendar.css" rel='stylesheet' />
-    <link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
     
     <link href="pages/guest/assets/guest.css" rel="stylesheet" />
     
@@ -40,7 +40,7 @@
             </div>
         </header>
 
-        <div ng-view>
+        <div ui-view>
 
         </div>
     </div>
@@ -62,7 +62,7 @@
     <script src="services/authenticationService.js"></script>
 
     <!-- User Controllers-->
-    <script src="pages/user/loginController.js"></script>
+    <script src="pages/user/LoginController.js"></script>
    
     <!-- Guest Profile Page -->
     <script src="pages/guest/services/guestService.js"></script>
@@ -73,9 +73,6 @@
     <script src="pages/guest/confirmRegistration/confirmRegistrationController.js"></script>
     <script src="pages/guest/homePage/homePageController.js"></script>
     <script src="pages/guest/friendsPage/friendsPageController.js"></script>
-    
-    
-  
 
 
 </body>

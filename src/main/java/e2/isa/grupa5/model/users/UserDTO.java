@@ -16,6 +16,7 @@ public class UserDTO {
 	protected String surname;
 	protected String address;
 	protected UserRoles role;
+	protected boolean passwordSet;
 	
 	public UserDTO() {
 		
@@ -75,6 +76,14 @@ public class UserDTO {
 
 	public void setRole(UserRoles role) {
 		this.role = role;
+	}
+
+	public boolean isPasswordSet() {
+		return passwordSet;
+	}
+
+	public void setPasswordSet(boolean passwordSet) {
+		this.passwordSet = passwordSet;
 	}
 	
 }

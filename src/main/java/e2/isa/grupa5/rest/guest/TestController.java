@@ -266,6 +266,7 @@ public class TestController {
 		
 		// RESTAURANT MANAGERS:
 		RestaurantManager rm1 = new RestaurantManager("rm1@rm1.com", passwordEncoder.encode("rm1"), "Zika", "Menadzer", "Zikina Adresa", re1);
+		rm1.setActive(true);
 		restaurantManagerRepository.save(rm1);
 		
 		// RESTAURANT MENU:
@@ -308,16 +309,20 @@ public class TestController {
 		
 		// BIDDERS:
 		Bidder bd1 = new Bidder("bd1@bd1.com", passwordEncoder.encode("bd1"), "Marko", "Markova adresa", "Ponudic");
+		bd1.setActive(true);
 		bidderRepository.save(bd1);
 		
 		// RESTAURANT WORKERS:
 		Bartender bt1 = new Bartender("bt1@bt1.com", passwordEncoder.encode("bt1"), "Milan", "Pivic", "Milanova adresa", re1, new Date(), 15, 42);
+		bt1.setActive(true);
 		bartenderRepository.save(bt1);
 		
 		Chef ch1 = new Chef("ch1@ch1.com", passwordEncoder.encode("ch1"), "Slavko", "Mesic", "Slavkova adresa", re1, new Date(), 15, 42);
+		ch1.setActive(true);
 		chefRepository.save(ch1);
 		
 		Waiter wa1 = new Waiter("wa1@wa1.com", passwordEncoder.encode("wa1"), "Pera", "Usluzic", "Perina adresa", re1, new Date(), 15, 42);
+		wa1.setActive(true);
 		waiterRepository.save(wa1);
 		
 		// RESTAURANT WORKER SHIFTS:
