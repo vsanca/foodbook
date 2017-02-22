@@ -23,17 +23,17 @@
     	  
         if (data.role === userRoles["GUEST"]) {
           //$location.path("/guest/profile-page");
-        	$state.go('guest-profile')
+        	$state.go('guest-profile');
         } else if (data.role === userRoles['CHEF']) {
-          $location.path("chef");
+        	$state.go('chef');
         } else if (data.role === userRoles['WAITER']) {
-          $location.path("waiter");
+        	$state.go('waiter');
         } else if (data.role === userRoles['MANAGER']) {
         	$state.go('manager');
         } else if (data.role === userRoles['BIDDER']) {
         	$state.go('bidder');
         } else if (data.role === userRoles['BARTENDER']) {
-          $location.path("bartender");
+        	$state.go('bartender');
         } else if (data.role === userRoles['SYS_MANAGER']) {
         	$state.go('sysmanager');
         } else {

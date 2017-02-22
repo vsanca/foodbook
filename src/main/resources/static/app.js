@@ -89,7 +89,7 @@ foodbook.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     		controller: 'bidderProfileController'
     	})
     	.state('bidder.home', {
-    		url: 'panel',
+    		url: '/panel',
     		templateUrl: 'pages/bidder/home.html',
     		controller: 'bidderHomeController'
     	})
@@ -99,7 +99,7 @@ foodbook.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 			controller: 'bartenderProfileController'
 		})
 		.state('bartender.home', {
-			url: 'panel',
+			url: '/panel',
 			templateUrl: 'pages/bartender/home.html',
 			controller: 'bartenderHomeController'
 		});
