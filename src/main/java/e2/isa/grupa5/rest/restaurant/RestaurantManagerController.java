@@ -39,6 +39,8 @@ public class RestaurantManagerController {
 	public ResponseEntity create(@RequestBody RestaurantManagerDTO rmDTO) {
 		
 		RestaurantManager rm = restaurantManagerService.create(rmDTO);
+		rm.setActive(true);
+		rm.setPassword_set(false);
 		
 		if(rm != null) {
 			return new ResponseEntity<>(rm, HttpStatus.OK);

@@ -43,6 +43,8 @@ public class SystemManagerController {
 		
 		SystemManager sm = new SystemManager();
 		userService.copyData(sm, smDTO);
+		sm.setActive(true);
+		sm.setPassword_set(false);
 		
 		sm = systemManagerRepository.save(sm);
 		

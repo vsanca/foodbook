@@ -1,25 +1,30 @@
-foodbook.controller('sysmanagerProfileController', function($scope, $http, $state) {
+foodbook.controller('sysmanagerProfileController', function($scope, $http, $state, $location) {
+	
+	$scope.activePageNumber = 0;
+	
 	$scope.home = function() {
-        $state.transitionTo('system_manager.home');
+        $state.transitionTo('sysmanager.home');
     };
 
+    $scope.addBidder = function() {
+        $state.transitionTo('sysmanager.addBidder');
+    };
+    
     $scope.addRestaurant = function() {
-        $state.transitionTo('system_manager.addRestaurant');
+        $state.transitionTo('sysmanager.addRestaurant');
     };
 
     $scope.addRestaurantManager = function() {
-        $state.transitionTo('system_manager.addRestaurantManager');
+        $state.transitionTo('sysmanager.addRestaurantManager');
     };
 
-    $scope.addSystemManager = function() {
-        $state.transitionTo('system_manager.addSystemManager');
+    $scope.addSysmanager = function() {
+        $state.transitionTo('sysmanager.addSystemManager');
     };
 
-    $scope.addProvider = function() {
-        $state.transitionTo('system_manager.addProvider');
-    };
-
+    /*
     $scope.logout = function () {
         $state.transitionTo('logout');
     };
+    */
 });

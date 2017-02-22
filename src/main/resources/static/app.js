@@ -2,7 +2,7 @@
  * Created by Viktor on 12/18/2016.
  */
 
-var foodbook = angular.module('foodbook', ['ngRoute', 'cgNotify', 'ui.router']);
+var foodbook = angular.module('foodbook', ['ngRoute', 'cgNotify', 'ui.router', 'ui.bootstrap']);
 
 foodbook.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 	
@@ -52,6 +52,26 @@ foodbook.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
     		url: '/panel',
     		templateUrl: 'pages/sysmanager/home.html',
     		controller: 'sysmanagerHomeController'
+    	})
+    	.state('sysmanager.addSystemManager', {
+    		url: '/addSystemManager',
+    		templateUrl: 'pages/sysmanager/addSystemManager.html',
+    		controller: 'sysmanagerAddSystemManagerController'
+    	})
+    	.state('sysmanager.addRestaurantManager', {
+    		url: '/addRestaurantManager',
+    		templateUrl: 'pages/sysmanager/addRestaurantManager.html',
+    		controller: 'sysmanagerAddRestaurantManagerController'
+    	})
+    	.state('sysmanager.addRestaurant', {
+    		url: '/addRestaurant',
+    		templateUrl: 'pages/sysmanager/addRestaurant.html',
+    		controller: 'sysmanagerAddRestaurantController'
+    	})
+    	.state('sysmanager.addBidder', {
+    		url: '/addBidder',
+    		templateUrl: 'pages/sysmanager/addBidder.html',
+    		controller: 'sysmanagerAddBidderController'
     	})
     	.state('manager', {
     		url: '/rm',
