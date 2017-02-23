@@ -2,47 +2,47 @@
 	<div ng-controller="managerProfileController">
 	
 	<uib-tabset justified="false" class="tabs">
-		<uib-tab index="0" heading="Početna" ng-click="home()">
+		<uib-tab active="tabs[0].active" heading="Početna" ng-click="home()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="1" heading="Restoran" ng-click="restaurant()">
+		<uib-tab active="tabs[1].active" heading="Restoran" ng-click="restaurant()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="2" heading="Radnici" ng-click="workers()">
+		<uib-tab active="tabs[2].active" heading="Radnici" ng-click="workers()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="3" heading="Registruj radnika" ng-click="registerWorker()">
+		<uib-tab active="tabs[3].active" heading="Registruj radnika" ng-click="registerWorker()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="4" heading="Raspored stolova" ng-click="setLayout()">
+		<uib-tab active="tabs[4].active" heading="Raspored stolova" ng-click="setLayout()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="5" heading="Raspored smena" ng-click="setTimetable()">
+		<uib-tab active="tabs[5].active" heading="Raspored smena" ng-click="setTimetable()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="6" heading="Meni" ng-click="menu()">
+		<uib-tab active="tabs[6].active" heading="Meni" ng-click="menu()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="7" heading="Nabavka namirnica" ng-click="groceries()">
+		<uib-tab active="tabs[7].active" heading="Nabavka namirnica" ng-click="groceries()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="8" heading="Izveštaj" ng-click="report()">
+		<uib-tab active="tabs[8].active" heading="Izveštaj" ng-click="report()">
 			<div>
 				<ui-view></ui-view>
 			</div>

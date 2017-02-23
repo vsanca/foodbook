@@ -20,13 +20,13 @@
 			        <th>Uloga</th>
 			        <th>Postavi smenu</th>
 			    </tr>
-			    <tr ng-repeat="worker in workers | filter: query | orderBy: orderList " >
+			    <tr ng-repeat="worker in workers | filter: query | orderBy: 'name' " >
 			        <td><span>{{worker.name}}</span></td>
 			        <td>{{worker.surname}}</td>
-			        <td ng-if="worker.cook">KUVAR</td>
-			        <td ng-if="worker.waiter">KONOBAR</td>
-			        <td ng-if="worker.bartender">ŠANKER</td>
-			        <td> <a ng-click="setShift()" class="btn btn-block">smena</a></td>
+			        <td ng-if="worker.chef">Kuvar</td>
+			        <td ng-if="worker.waiter">Kelner</td>
+			        <td ng-if="worker.bartender">Barista</td>
+			        <td> <button ng-click="setShift()" class="btn btn-primary">Pregled smena</button></td>
 			    </tr>
 			</table>
 			

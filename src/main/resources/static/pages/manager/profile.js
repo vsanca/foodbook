@@ -38,4 +38,8 @@ angular.module('foodbook').controller('managerProfileController', function($scop
         $state.transitionTo('manager.workers');
     };
     
+    $scope.changeTabTo = function(number) {
+    	$scope.tabs[number].active = true;
+    }
+    
 });
