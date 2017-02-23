@@ -7,102 +7,104 @@
     'use strict';
 
     angular.module('foodbook', ['ngRoute', 'cgNotify', 'ui.router', 'ui.bootstrap']).config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
-           $stateProvider
-    	.state('login', {
-    		url: '/login',
-    		controller: 'LoginController',
-    		templateUrl: 'pages/user/login.html',
-    	})
-        .state('register', {
-        	url: '/guest/register',
-        	templateUrl: 'pages/guest/register/registerGuest.html',
-            controller: 'RegisterGuestController'
-        })
-        .state('guest-profile', {
-        	url: '/guest/profile-page',
-        	templateUrl: 'pages/guest/profilePage/profilePage.html',
-            controller: 'ProfilePageController'
-        })
-        .state('guest-confirm', {
-        	url: '/guest/confirm-registration',
-        	templateUrl: 'pages/guest/confirmRegistration/confirmRegistration.html',
-            controller: 'ConfirmRegistrationController'  
-        })
-        .state('guest-home', {
-            url: '/guest/home-page',
-        	templateUrl: 'pages/guest/homePage/homePage.html',
-            controller: 'HomePageController'
-        })
-        .state('guest-friends', {
-            url: '/guest/friends-page',
-        	templateUrl: 'pages/guest/friendsPage/friendsPage.html',
-            controller: 'FriendsPageController'
-        })
-        .state('guest-restaurants', {
-            url: '/guest/restaurants-page',
-        	templateUrl: 'pages/guest/restaurantsPage/restaurantsPage.html',
-            controller: 'RestaurantsPageController'
-        })
-    	.state('sysmanager', {
-    		url: '/sm',
-    		templateUrl: 'pages/sysmanager/profile.html',
-    		controller: 'sysmanagerProfileController'
-    	})
-    	.state('sysmanager.home', {
-    		url: '/panel',
-    		templateUrl: 'pages/sysmanager/home.html',
-    		controller: 'sysmanagerHomeController'
-    	})
-    	.state('sysmanager.addSystemManager', {
-    		url: '/addSystemManager',
-    		templateUrl: 'pages/sysmanager/addSystemManager.html',
-    		controller: 'sysmanagerAddSystemManagerController'
-    	})
-    	.state('sysmanager.addRestaurantManager', {
-    		url: '/addRestaurantManager',
-    		templateUrl: 'pages/sysmanager/addRestaurantManager.html',
-    		controller: 'sysmanagerAddRestaurantManagerController'
-    	})
-    	.state('sysmanager.addRestaurant', {
-    		url: '/addRestaurant',
-    		templateUrl: 'pages/sysmanager/addRestaurant.html',
-    		controller: 'sysmanagerAddRestaurantController'
-    	})
-    	.state('sysmanager.addBidder', {
-    		url: '/addBidder',
-    		templateUrl: 'pages/sysmanager/addBidder.html',
-    		controller: 'sysmanagerAddBidderController'
-    	})
-    	.state('manager', {
-    		url: '/rm',
-    		templateUrl: 'pages/manager/profile.html',
-    		controller: 'managerProfileController'
-    	})
-    	.state('manager.home', {
-    		url: '/panel',
-    		templateUrl: 'pages/manager/home.html',
-    		controller: 'managerHomeController'
-    	})
-    	.state('bidder', {
-    		url: '/bd',
-    		templateUrl: 'pages/bidder/profile.html',
-    		controller: 'bidderProfileController'
-    	})
-    	.state('bidder.home', {
-    		url: '/panel',
-    		templateUrl: 'pages/bidder/home.html',
-    		controller: 'bidderHomeController'
-    	})
-	    .state('bartender', {
-			url: '/br',
-			templateUrl: 'pages/bartender/profile.html',
-			controller: 'bartenderProfileController'
-		})
-		.state('bartender.home', {
-			url: '/panel',
-			templateUrl: 'pages/bartender/home.html',
-			controller: 'bartenderHomeController'
-		});
+    	
+    	$urlRouterProvider.otherwise('/login');
+    	$stateProvider
+	    	.state('login', {
+	    		url: '/login',
+	    		controller: 'LoginController',
+	    		templateUrl: 'pages/user/login.html',
+	    	})
+	        .state('register', {
+	        	url: '/guest/register',
+	        	templateUrl: 'pages/guest/register/registerGuest.html',
+	            controller: 'RegisterGuestController'
+	        })
+	        .state('guest-profile', {
+	        	url: '/guest/profile-page',
+	        	templateUrl: 'pages/guest/profilePage/profilePage.html',
+	            controller: 'ProfilePageController'
+	        })
+	        .state('guest-confirm', {
+	        	url: '/guest/confirm-registration',
+	        	templateUrl: 'pages/guest/confirmRegistration/confirmRegistration.html',
+	            controller: 'ConfirmRegistrationController'  
+	        })
+	        .state('guest-home', {
+	            url: '/guest/home-page',
+	        	templateUrl: 'pages/guest/homePage/homePage.html',
+	            controller: 'HomePageController'
+	        })
+	        .state('guest-friends', {
+	            url: '/guest/friends-page',
+	        	templateUrl: 'pages/guest/friendsPage/friendsPage.html',
+	            controller: 'FriendsPageController'
+	        })
+	        .state('guest-restaurants', {
+	            url: '/guest/restaurants-page',
+	        	templateUrl: 'pages/guest/restaurantsPage/restaurantsPage.html',
+	            controller: 'RestaurantsPageController'
+	        })
+	    	.state('sysmanager', {
+	    		url: '/sm',
+	    		templateUrl: 'pages/sysmanager/profile.html',
+	    		controller: 'sysmanagerProfileController'
+	    	})
+	    	.state('sysmanager.home', {
+	    		url: '/panel',
+	    		templateUrl: 'pages/sysmanager/home.html',
+	    		controller: 'sysmanagerHomeController'
+	    	})
+	    	.state('sysmanager.addSystemManager', {
+	    		url: '/addSystemManager',
+	    		templateUrl: 'pages/sysmanager/addSystemManager.html',
+	    		controller: 'sysmanagerAddSystemManagerController'
+	    	})
+	    	.state('sysmanager.addRestaurantManager', {
+	    		url: '/addRestaurantManager',
+	    		templateUrl: 'pages/sysmanager/addRestaurantManager.html',
+	    		controller: 'sysmanagerAddRestaurantManagerController'
+	    	})
+	    	.state('sysmanager.addRestaurant', {
+	    		url: '/addRestaurant',
+	    		templateUrl: 'pages/sysmanager/addRestaurant.html',
+	    		controller: 'sysmanagerAddRestaurantController'
+	    	})
+	    	.state('sysmanager.addBidder', {
+	    		url: '/addBidder',
+	    		templateUrl: 'pages/sysmanager/addBidder.html',
+	    		controller: 'sysmanagerAddBidderController'
+	    	})
+	    	.state('manager', {
+	    		url: '/rm',
+	    		templateUrl: 'pages/manager/profile.html',
+	    		controller: 'managerProfileController'
+	    	})
+	    	.state('manager.home', {
+	    		url: '/panel',
+	    		templateUrl: 'pages/manager/home.html',
+	    		controller: 'managerHomeController'
+	    	})
+	    	.state('bidder', {
+	    		url: '/bd',
+	    		templateUrl: 'pages/bidder/profile.html',
+	    		controller: 'bidderProfileController'
+	    	})
+	    	.state('bidder.home', {
+	    		url: '/panel',
+	    		templateUrl: 'pages/bidder/home.html',
+	    		controller: 'bidderHomeController'
+	    	})
+		    .state('bartender', {
+				url: '/br',
+				templateUrl: 'pages/bartender/profile.html',
+				controller: 'bartenderProfileController'
+			})
+			.state('bartender.home', {
+				url: '/panel',
+				templateUrl: 'pages/bartender/home.html',
+				controller: 'bartenderHomeController'
+			});
     }).run(run);
 
     // required DependencyInjection
