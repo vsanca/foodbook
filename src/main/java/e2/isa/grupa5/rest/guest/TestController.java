@@ -364,19 +364,37 @@ public class TestController {
 		// RESTAURANT WORKERS:
 		Bartender bt1 = new Bartender("bt1@bt1.com", passwordEncoder.encode("bt1"), "Milan", "Pivic", "Milanova adresa", re1, new Date(), 15, 42);
 		bt1.setActive(true);
+		bt1.setPassword_set(true);
 		bartenderRepository.save(bt1);
+		
+		Bartender bt2 = new Bartender("bt2@bt2.com", passwordEncoder.encode("bt2"), "Jovan", "Jovic", "Jovina adresa", re1, new Date(), 15, 42);
+		bt2.setActive(true);
+		bt2.setPassword_set(false);
+		bartenderRepository.save(bt2);
 		
 		Chef ch1 = new Chef("ch1@ch1.com", passwordEncoder.encode("ch1"), "Slavko", "Mesic", "Slavkova adresa", re1, new Date(), 15, 42);
 		ch1.setActive(true);
+		ch1.setPassword_set(true);
 		chefRepository.save(ch1);
+		
+		Chef ch2 = new Chef("ch2@ch2.com", passwordEncoder.encode("ch2"), "Strudla","Mesic", "Strudlina adresa", re1, new Date(), 15, 42);
+		ch1.setActive(true);
+		ch1.setPassword_set(false);
+		chefRepository.save(ch2);
+		
+		Waiter wt1 = new Waiter("wt1@wt1.com", passwordEncoder.encode("wt1"), "Rob", "Sluskic", "Adresa roba", re1, new Date(), 15, 42);
+		wt1.setActive(true);
+		wt1.setPassword_set(true);
+		waiterRepository.save(wt1);
+		
+		Waiter wt2 = new Waiter("wt2@wt2.com", passwordEncoder.encode("wt2"), "Slusko", "Sluzic", "Sluskova adresa", re1, new Date(), 15, 42);
+		wt1.setActive(true);
+		wt1.setPassword_set(false);
+		waiterRepository.save(wt1);
 		
 		Waiter wa1 = new Waiter("wa1@wa1.com", passwordEncoder.encode("wa1"), "Pera", "Usluzic", "Perina adresa", re1, new Date(), 15, 42);
 		wa1.setActive(true);
 		waiterRepository.save(wa1);
-		
-		Waiter wt1 = new Waiter("wt1@wt1.com", passwordEncoder.encode("wt1"), "Rob", "Sluskic", "Adresa roba", re1, new Date(), 15, 42);
-		wt1.setActive(true);
-		waiterRepository.save(wt1);
 		
 		// RESTAURANT WORKER SHIFTS:
 		Shift sh1 = new Shift(new Date(), "08:00", "20:00", true, re1);
