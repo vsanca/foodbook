@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import e2.isa.grupa5.model.shifts.ShiftWaiter;
 import e2.isa.grupa5.model.shifts.ShiftWaiterDTO;
 import e2.isa.grupa5.model.users.ChefDTO;
+import e2.isa.grupa5.model.users.RestaurantManager;
+import e2.isa.grupa5.model.users.RestaurantManagerDTO;
 import e2.isa.grupa5.model.users.Waiter;
 import e2.isa.grupa5.model.users.WaiterDTO;
 import e2.isa.grupa5.repository.shifts.ShiftWaiterRepository;
@@ -31,7 +33,7 @@ import e2.isa.grupa5.service.waiter.WaiterService;
  *
  */
 @RestController
-@RequestMapping("/waiter")
+@RequestMapping("/user")
 public class WaiterController {
 	
 	@Autowired
@@ -44,7 +46,7 @@ public class WaiterController {
 	ShiftWaiterRepository shiftWaiterRepository;
 	
 	
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@RequestMapping(value = "/waiter/create", method = RequestMethod.POST)
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity create(@RequestBody WaiterDTO wDTO) {
 		
@@ -57,8 +59,21 @@ public class WaiterController {
 		}
 	}
 	
+	@RequestMapping(value = "/waiter/update", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity update(@RequestBody WaiterDTO wtDTO) {
+		
+		Waiter wt = waiterService.edit(wtDTO);
+		
+		if(wt != null) {
+			return new ResponseEntity<>(wt, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
 	
-	@RequestMapping(value = "/profile/{id}", method = RequestMethod.GET)
+	
+	@RequestMapping(value = "/waiter/profile/{id}", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getById(@PathVariable long id) {
 		
@@ -71,7 +86,7 @@ public class WaiterController {
 		}
 	}
 	
-	@RequestMapping(value="/forRestaurant/{rId}",  method = RequestMethod.GET)
+	@RequestMapping(value="/waiter/forRestaurant/{rId}",  method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getWaitersForRestaurant(@PathVariable long rId) {
 		Set<Waiter> waiters = new HashSet<>();
@@ -83,7 +98,7 @@ public class WaiterController {
         return new ResponseEntity<>(waiters, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/newShift", method = RequestMethod.POST)
+	@RequestMapping(value = "/waiter/newShift", method = RequestMethod.POST)
 	@PreAuthorize("isAuthenticated()")
     public ResponseEntity newShift(@RequestBody ShiftWaiterDTO swDTO) {
 		waiterService.createShift(swDTO);
@@ -91,7 +106,7 @@ public class WaiterController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/forRestaurantShifts/{rId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/waiter/forRestaurantShifts/{rId}", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
     public ResponseEntity getAllShifts(@PathVariable long rId) {
         
@@ -105,7 +120,7 @@ public class WaiterController {
         return new ResponseEntity<>(retval, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/getShift/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/waiter/getShift/{id}", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity getBartenderShift(@PathVariable long id) {
         return new ResponseEntity<>(shiftWaiterRepository.findByWaiter_Id(id), HttpStatus.OK);

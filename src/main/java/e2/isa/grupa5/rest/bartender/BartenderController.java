@@ -36,7 +36,7 @@ import e2.isa.grupa5.service.bartender.BartenderService;
  *
  */
 @RestController
-@RequestMapping("/bartender")
+@RequestMapping("/user")
 public class BartenderController {
 	
 	@Autowired
@@ -49,7 +49,7 @@ public class BartenderController {
 	ShiftBartenderRepository shiftBartenderRepository;
 	
 	
-	@RequestMapping(value = "/profile/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/bartender/profile/{id}", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getById(@PathVariable long id) {
 		
@@ -62,7 +62,7 @@ public class BartenderController {
 		}
 	}
 	
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@RequestMapping(value = "/bartender/create", method = RequestMethod.POST)
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity create(@RequestBody BartenderDTO bDTO) {
 		
@@ -75,7 +75,7 @@ public class BartenderController {
 		}
 	}
 	
-	@RequestMapping(value="/forRestaurant/{rId}",  method = RequestMethod.GET)
+	@RequestMapping(value="/bartender/forRestaurant/{rId}",  method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getBartendersForRestaurant(@PathVariable long rId) {
 		Set<Bartender> bartenders = new HashSet<>();
@@ -87,7 +87,7 @@ public class BartenderController {
         return new ResponseEntity<>(bartenders, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/newShift", method = RequestMethod.POST)
+	@RequestMapping(value = "/bartender/newShift", method = RequestMethod.POST)
 	@PreAuthorize("isAuthenticated()")
     public ResponseEntity newShift(@RequestBody ShiftBartenderDTO sbDTO) {
 		bartenderService.createShift(sbDTO);
@@ -95,7 +95,7 @@ public class BartenderController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/forRestaurantShifts/{rId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/bartender/forRestaurantShifts/{rId}", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
     public ResponseEntity getAllShifts(@PathVariable long rId) {
         
@@ -109,7 +109,7 @@ public class BartenderController {
         return new ResponseEntity<>(retval, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/getShift/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/bartender/getShift/{id}", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity getBartenderShift(@PathVariable long id) {
         return new ResponseEntity<>(shiftBartenderRepository.findByBartender_Id(id), HttpStatus.OK);

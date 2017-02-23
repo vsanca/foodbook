@@ -35,7 +35,7 @@ import e2.isa.grupa5.service.chef.ChefService;
  *
  */
 @RestController
-@RequestMapping("/chef")
+@RequestMapping("/user")
 public class ChefController {
 	
 	@Autowired
@@ -48,7 +48,7 @@ public class ChefController {
 	ShiftChefRepository shiftChefRepository;
 	
 	
-	@RequestMapping(value = "/profile/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/chef/profile/{id}", method = RequestMethod.GET)
 	public ResponseEntity getById(@PathVariable long id) {
 		
 		Chef ch = chefRepository.findById(id);
@@ -60,7 +60,7 @@ public class ChefController {
 		}
 	}
 	
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@RequestMapping(value = "/chef/create", method = RequestMethod.POST)
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity create(@RequestBody ChefDTO cDTO) {
 		
@@ -73,7 +73,7 @@ public class ChefController {
 		}
 	}
 	
-	@RequestMapping(value="/forRestaurant/{rId}",  method = RequestMethod.GET)
+	@RequestMapping(value="/chef/forRestaurant/{rId}",  method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getChefsForRestaurant(@PathVariable long rId) {
 		Set<Chef> chefs = new HashSet<>();
@@ -85,7 +85,7 @@ public class ChefController {
         return new ResponseEntity<>(chefs, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/newShift", method = RequestMethod.POST)
+	@RequestMapping(value = "/chef/newShift", method = RequestMethod.POST)
 	@PreAuthorize("isAuthenticated()")
     public ResponseEntity newShift(@RequestBody ShiftChefDTO scDTO) {
 		chefService.createShift(scDTO);
@@ -93,7 +93,7 @@ public class ChefController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/forRestaurantShifts/{rId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/chef/forRestaurantShifts/{rId}", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
     public ResponseEntity getAllShifts(@PathVariable long rId) {
         
@@ -107,7 +107,7 @@ public class ChefController {
         return new ResponseEntity<>(retval, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/getShift/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/chef/getShift/{id}", method = RequestMethod.GET)
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity getChefShift(@PathVariable long id) {
         return new ResponseEntity<>(shiftChefRepository.findByChef_Id(id), HttpStatus.OK);

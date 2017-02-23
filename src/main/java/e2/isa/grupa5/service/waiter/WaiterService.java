@@ -19,6 +19,8 @@ import e2.isa.grupa5.model.shifts.ShiftWaiter;
 import e2.isa.grupa5.model.shifts.ShiftWaiterDTO;
 import e2.isa.grupa5.model.users.Chef;
 import e2.isa.grupa5.model.users.ChefDTO;
+import e2.isa.grupa5.model.users.RestaurantManager;
+import e2.isa.grupa5.model.users.RestaurantManagerDTO;
 import e2.isa.grupa5.model.users.Waiter;
 import e2.isa.grupa5.model.users.WaiterDTO;
 import e2.isa.grupa5.repository.restaurant.RestaurantAreaRepository;
@@ -132,6 +134,21 @@ public class WaiterService {
 			shiftRepository.save(shifts);
 			shiftWaiterRepository.save(wShifts);
 			
+		}
+	}
+	
+	public Waiter edit(WaiterDTO wtDTO) {
+		Waiter current = waiterRepository.findByEmail(wtDTO.getEmail());
+		
+		userService.setVariableAttributes(current, wtDTO);
+		
+		try {
+			current = waiterRepository.save(current);
+			return current;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 }
