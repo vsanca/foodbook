@@ -62,6 +62,10 @@ public class WaiterService {
 	ShiftWaiterRepository shiftWaiterRepository;
 	
 	/**
+	 * Pomocna metoda
+	 * 
+	 * @param wt
+	 * @param wtDTO
 	 */
 	private void helpUpdateData(Waiter wt, WaiterDTO wtDTO){
 		
