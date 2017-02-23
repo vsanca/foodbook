@@ -4,12 +4,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="user")
+@Table(name="user_fb")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User implements Serializable{
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue
 	@Column(name="id")
 	private long id; 
 	
