@@ -1,19 +1,37 @@
 package e2.isa.grupa5.rest.chef;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import e2.isa.grupa5.model.shifts.ShiftChef;
+import e2.isa.grupa5.model.shifts.ShiftChefDTO;
+import e2.isa.grupa5.model.shifts.ShiftWaiter;
+import e2.isa.grupa5.model.shifts.ShiftWaiterDTO;
+import e2.isa.grupa5.model.users.Bartender;
+import e2.isa.grupa5.model.users.BartenderDTO;
 import e2.isa.grupa5.model.users.Chef;
+import e2.isa.grupa5.model.users.ChefDTO;
+import e2.isa.grupa5.model.users.Waiter;
 import e2.isa.grupa5.repository.chef.ChefRepository;
+import e2.isa.grupa5.repository.shifts.ShiftChefRepository;
+import e2.isa.grupa5.service.chef.ChefService;
 
 /**
  * 
  * @author Boris
+ * @author Viktor
  *
  */
 @RestController
@@ -23,7 +41,11 @@ public class ChefController {
 	@Autowired
 	ChefRepository chefRepository;
 	
+	@Autowired
+	ChefService chefService;
 	
+	@Autowired
+	ShiftChefRepository shiftChefRepository;
 	
 	
 	@RequestMapping(value = "/profile/{id}", method = RequestMethod.GET)
@@ -38,7 +60,58 @@ public class ChefController {
 		}
 	}
 	
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity create(@RequestBody ChefDTO cDTO) {
+		
+		Chef c = chefService.create(cDTO);
+		
+		if(c != null) {
+			return new ResponseEntity<>(c, HttpStatus.OK);
+		} else {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+	}
 	
+	@RequestMapping(value="/forRestaurant/{rId}",  method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity getChefsForRestaurant(@PathVariable long rId) {
+		Set<Chef> chefs = new HashSet<>();
+		
+        for (Chef c : chefRepository.findAll())
+            if (c.getRestaurant().getId() == rId)
+                chefs.add(c);
+        
+        return new ResponseEntity<>(chefs, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/newShift", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
+    public ResponseEntity newShift(@RequestBody ShiftChefDTO scDTO) {
+		chefService.createShift(scDTO);
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/forRestaurantShifts/{rId}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+    public ResponseEntity getAllShifts(@PathVariable long rId) {
+        
+		List<ShiftChef> retval = new ArrayList<>();
+		
+        for (ShiftChef sc : shiftChefRepository.findAll()){
+            if (sc.getChef().getRestaurant().getId() == rId)
+                retval.add(sc);
+        }
+        
+        return new ResponseEntity<>(retval, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getShift/{id}", method = RequestMethod.GET)
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity getChefShift(@PathVariable long id) {
+        return new ResponseEntity<>(shiftChefRepository.findByChef_Id(id), HttpStatus.OK);
+    }
 	
 	
 }
