@@ -14,6 +14,7 @@ import e2.isa.grupa5.model.users.Bidder;
 import e2.isa.grupa5.model.users.BidderDTO;
 import e2.isa.grupa5.model.users.UserRoles;
 import e2.isa.grupa5.repository.bidding.BidderRepository;
+import e2.isa.grupa5.service.UserService;
 import e2.isa.grupa5.service.bidding.BidderService;
 
 /**
@@ -37,18 +38,24 @@ public class BidderControler {
 	@Autowired
 	BidderService bidderService;
 	
+	@Autowired
+	UserService userService;
+	
 	
 	@RequestMapping(value = "/bidder/create", method = RequestMethod.POST)
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity create(@RequestBody Bidder bidder) {
+	public ResponseEntity create(@RequestBody BidderDTO bDTO) {
 		
-		bidder.setRole(UserRoles.BIDDER);
-		bidder.setActive(true);
-		bidder.setPassword_set(false);
+		Bidder b = new Bidder();
+		userService.copyData(b, bDTO);
 		
-		bidder = bidderRepository.save(bidder);
+		b.setRole(UserRoles.BIDDER);
+		b.setActive(true);
+		b.setPassword_set(false);
+		
+		b = bidderRepository.save(b);
 
-		return new ResponseEntity<>(bidder, HttpStatus.OK);
+		return new ResponseEntity<>(b, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/bidder/update", method = RequestMethod.POST)
