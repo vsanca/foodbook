@@ -82,6 +82,7 @@ public class WaiterService {
 		w.setShoeSize(wDTO.getShoeSize());
 		w.setDressSize(wDTO.getDressSize());
 		w.setRestaurant(restaurantRepository.findById(wDTO.getRestaurantId()));
+		w.setBirthDate(wDTO.getBirthDate());
 		
 		try {
 			w = waiterRepository.save(w);

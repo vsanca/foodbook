@@ -1,4 +1,4 @@
-angular.module('foodbook').controller('managerRestaurantController', function($scope, $http, $state, $window, sessionService, NgMap) {
+angular.module('foodbook').controller('managerRestaurantController', function($scope, $http, $state, $window, sessionService, NgMap, notifyService) {
 	
 	$scope.restaurant = {};
 	
@@ -13,10 +13,10 @@ angular.module('foodbook').controller('managerRestaurantController', function($s
 		$http.post('/restaurants/update', $scope.restaurant,
 				{ headers: { 'Authorization': sessionService.getAuthToken() } })
 				.success(function (data) {
-					
+					notifyService.showSuccess('Uspešno izvršena modifikacija.');
 				})
 				.error(function() {
-					alert('Greška prilikom modifikacije.');
+					notifyService.showError('Greška prilikom modifikacije.');
 				});
 	};
 	

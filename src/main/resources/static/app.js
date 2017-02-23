@@ -70,11 +70,6 @@
 	    		templateUrl: 'pages/sysmanager/addRestaurant.html',
 	    		controller: 'sysmanagerAddRestaurantController'
 	    	})
-	    	.state('sysmanager.addBidder', {
-	    		url: '/addBidder',
-	    		templateUrl: 'pages/sysmanager/addBidder.html',
-	    		controller: 'sysmanagerAddBidderController'
-	    	})
 	    	.state('manager', {
 	    		url: '/rm',
 	    		templateUrl: 'pages/manager/profile.html',
@@ -99,6 +94,11 @@
 	    		url: '/registerWorker',
 	    		templateUrl: 'pages/manager/registerWorker.html',
 	    		controller: 'managerRegisterWorkerController'
+	    	})
+	    	.state('manager.registerBidder', {
+	    		url: '/registerBidder',
+	    		templateUrl: 'pages/manager/addBidder.html',
+	    		controller: 'managerAddBidderController'
 	    	})
 	    	.state('manager.report', {
 	    		url: '/report',

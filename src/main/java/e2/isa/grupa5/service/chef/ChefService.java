@@ -74,6 +74,7 @@ public class ChefService {
 		c.setShoeSize(chDTO.getShoeSize());
 		c.setDressSize(chDTO.getDressSize());
 		c.setRestaurant(restaurantRepository.findById(chDTO.getRestaurantId()));
+		c.setBirthDate(chDTO.getBirthDate());
 		
 		try {
 			c = chefRepository.save(c);

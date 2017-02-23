@@ -83,6 +83,7 @@ public class BartenderService {
 		b.setShoeSize(bDTO.getShoeSize());
 		b.setDressSize(bDTO.getDressSize());
 		b.setRestaurant(restaurantRepository.findById(bDTO.getRestaurantId()));
+		b.setBirthDate(bDTO.getBirthDate());
 		
 		try {
 			b = bartenderRepository.save(b);
