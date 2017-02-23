@@ -58,13 +58,27 @@ public class BartenderService {
 	@Autowired
 	ShiftRepository shiftRepository;
 	
+	/**
+	 * Pomocna metoda
+	 * 
+	 * @param bt
+	 * @param btDTO
+	 */
+	private void helpUpdateData(Bartender bt, BartenderDTO btDTO){
+			
+		bt.setPassword(btDTO.getPassword());
+		bt.setEmail(btDTO.getEmail());
+		bt.setName(btDTO.getName());
+		bt.setSurname(btDTO.getSurname());
+		bt.setAddress(btDTO.getAddress());
+		bt.setDressSize(btDTO.getDressSize());
+		bt.setShoeSize(btDTO.getShoeSize());
+	}
 	
-	public Bartender updateData(WaiterDTO bDTO) {
+	public Bartender updateData(BartenderDTO bDTO) {
 		Bartender b = bartenderRepository.findById(bDTO.getId());
 		
-		userService.setVariableAttributes(b, bDTO);
-		b.setShoeSize(bDTO.getShoeSize());
-		b.setDressSize(bDTO.getDressSize());
+		helpUpdateData(b, bDTO);
 		
 		try {
 			b = bartenderRepository.save(b);
