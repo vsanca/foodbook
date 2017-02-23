@@ -85,6 +85,46 @@
 	    		templateUrl: 'pages/manager/home.html',
 	    		controller: 'managerHomeController'
 	    	})
+	    	.state('manager.groceries', {
+	    		url: '/groceries',
+	    		templateUrl: 'pages/manager/groceries.html',
+	    		controller: 'managerGroceriesController'
+	    	})
+	    	.state('manager.menu', {
+	    		url: '/menu',
+	    		templateUrl: 'pages/manager/menu.html',
+	    		controller: 'managerMenuController'
+	    	})
+	    	.state('manager.registerWorker', {
+	    		url: '/registerWorker',
+	    		templateUrl: 'pages/manager/registerWorker.html',
+	    		controller: 'managerRegisterWorkerController'
+	    	})
+	    	.state('manager.report', {
+	    		url: '/report',
+	    		templateUrl: 'pages/manager/report.html',
+	    		controller: 'managerReportController'
+	    	})
+	    	.state('manager.restaurant', {
+	    		url: '/restaurant',
+	    		templateUrl: 'pages/manager/restaurant.html',
+	    		controller: 'managerRestaurantController'
+	    	})
+	    	.state('manager.setLayout', {
+	    		url: '/layout',
+	    		templateUrl: 'pages/manager/setLayout.html',
+	    		controller: 'managerSetLayoutController'
+	    	})
+	    	.state('manager.setTimetable', {
+	    		url: '/timetable',
+	    		templateUrl: 'pages/manager/setTimetable.html',
+	    		controller: 'managerSetTimetableController'
+	    	})
+	    	.state('manager.workers', {
+	    		url: '/workers',
+	    		templateUrl: 'pages/manager/workers.html',
+	    		controller: 'managerWorkersController'
+	    	})
 	    	.state('bidder', {
 	    		url: '/bd',
 	    		templateUrl: 'pages/bidder/profile.html',
@@ -94,6 +134,21 @@
 	    		url: '/panel',
 	    		templateUrl: 'pages/bidder/home.html',
 	    		controller: 'bidderHomeController'
+	    	})
+	    	.state('bidder.overview', {
+	    		url: '/overview',
+	    		templateUrl: 'pages/bidder/overviewBidding.html',
+	    		controller: 'bidderOverviewBiddingController'
+	    	})
+	    	.state('bidder.biddings', {
+	    		url: '/biddings',
+	    		templateUrl: 'pages/bidder/biddings.html',
+	    		controller: 'bidderBiddingsController'
+	    	})
+	    	.state('bidder.newBidding', {
+	    		url: '/newBidding',
+	    		templateUrl: 'pages/bidder/newBidding.html',
+	    		controller: 'bidderNewBiddingController'
 	    	})
 		    .state('bartender', {
 				url: '/bartender',

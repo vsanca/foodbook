@@ -1,1 +1,48 @@
-<h1>RESTAURANT MANAGER LANDING PAGE</h1>
+<div>
+	<div ng-controller="managerProfileController">
+	
+	<uib-tabset justified="true" class="tabs">
+		<uib-tab index="0" heading="Početna" ng-click="home()">
+			<div>
+				<ui-view></ui-view>
+			</div>
+		</uib-tab>
+		<uib-tab index="1" heading="Restoran" ng-click="newBidding()">
+			<div>
+				<ui-view></ui-view>
+			</div>
+		</uib-tab>
+		<uib-tab index="2" heading="Radnici" ng-click="overview()">
+			<div>
+				<ui-view></ui-view>
+			</div>
+		</uib-tab>
+		<uib-tab index="4" heading="Registruj radnika" ng-click="biddings()">
+			<div>
+				<ui-view></ui-view>
+			</div>
+		</uib-tab>
+		<uib-tab index="5" heading="Raspored stolova" ng-click="biddings()">
+			<div>
+				<ui-view></ui-view>
+			</div>
+		</uib-tab>
+		<uib-tab index="6" heading="Meni" ng-click="biddings()">
+			<div>
+				<ui-view></ui-view>
+			</div>
+		</uib-tab>
+		<uib-tab index="7" heading="Nabavka namirnica" ng-click="biddings()">
+			<div>
+				<ui-view></ui-view>
+			</div>
+		</uib-tab>
+		<uib-tab index="3" heading="Izveštaj" ng-click="viewReport()">
+			<div>
+				<ui-view></ui-view>
+			</div>
+		</uib-tab>
+	</uib-tabset>
+	
+	</div>
+</div>
