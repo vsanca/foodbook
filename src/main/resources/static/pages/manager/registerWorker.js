@@ -16,7 +16,7 @@ angular.module('foodbook').controller('managerRegisterWorkerController', functio
 					$scope.worker.restaurantId = $scope.restaurant.id;
 					
 					//alert($scope.selected);
-					$http.post('/'+$scope.selected+'/create', $scope.worker,
+					$http.post('/user/'+$scope.selected+'/create', $scope.worker,
 							{ headers: { 'Authorization': sessionService.getAuthToken() } })
 							.success(function (data) {
 								notifyService.showSuccess('Uspešno dodat radnik.');

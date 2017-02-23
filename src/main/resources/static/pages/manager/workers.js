@@ -20,7 +20,7 @@ angular.module('foodbook').controller('managerWorkersController', function($scop
 				$scope.restaurant = data;
 				
 				//GET WAITERS
-				$http.get('/waiter/forRestaurant/'+$scope.restaurant.id, 
+				$http.get('user/waiter/forRestaurant/'+$scope.restaurant.id, 
 						{ headers: { 'Authorization': sessionService.getAuthToken() } })
 						.success(function (data) {
 							waiters = data;	
@@ -32,7 +32,7 @@ angular.module('foodbook').controller('managerWorkersController', function($scop
 							}
 							
 							//GET BARTENDERS
-							$http.get('/bartender/forRestaurant/'+$scope.restaurant.id, 
+							$http.get('user/bartender/forRestaurant/'+$scope.restaurant.id, 
 									{ headers: { 'Authorization': sessionService.getAuthToken() } })
 									.success(function (data) {
 										bartenders = data;	
@@ -44,7 +44,7 @@ angular.module('foodbook').controller('managerWorkersController', function($scop
 										}
 										
 										//GET CHEFS
-										$http.get('/chef/forRestaurant/'+$scope.restaurant.id, 
+										$http.get('user/chef/forRestaurant/'+$scope.restaurant.id, 
 												{ headers: { 'Authorization': sessionService.getAuthToken() } })
 												.success(function (data) {
 													chefs = data;	
