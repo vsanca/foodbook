@@ -18,6 +18,7 @@ import e2.isa.grupa5.model.shifts.Shift;
 import e2.isa.grupa5.model.shifts.ShiftWaiter;
 import e2.isa.grupa5.model.shifts.ShiftWaiterDTO;
 import e2.isa.grupa5.model.users.Chef;
+import e2.isa.grupa5.model.users.ChefDTO;
 import e2.isa.grupa5.model.users.Waiter;
 import e2.isa.grupa5.model.users.WaiterDTO;
 import e2.isa.grupa5.repository.restaurant.RestaurantAreaRepository;
@@ -68,6 +69,23 @@ public class WaiterService {
 			w = waiterRepository.save(w);
 			return w;
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public Waiter create(WaiterDTO wDTO) {
+		
+		Waiter w = new Waiter();
+		userService.copyData(w, wDTO);
+		w.setShoeSize(wDTO.getShoeSize());
+		w.setDressSize(wDTO.getDressSize());
+		w.setRestaurant(restaurantRepository.findById(wDTO.getRestaurantId()));
+		
+		try {
+			w = waiterRepository.save(w);
+			return w;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

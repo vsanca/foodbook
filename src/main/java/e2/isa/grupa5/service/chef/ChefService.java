@@ -67,6 +67,23 @@ public class ChefService {
 		}
 	}
 	
+	public Chef create(ChefDTO chDTO) {
+		
+		Chef c = new Chef();
+		userService.copyData(c, chDTO);
+		c.setShoeSize(chDTO.getShoeSize());
+		c.setDressSize(chDTO.getDressSize());
+		c.setRestaurant(restaurantRepository.findById(chDTO.getRestaurantId()));
+		
+		try {
+			c = chefRepository.save(c);
+			return c;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public void createShift(ShiftChefDTO scDTO) {
 		
 		Chef c = chefRepository.getOne(scDTO.getWorkerId());

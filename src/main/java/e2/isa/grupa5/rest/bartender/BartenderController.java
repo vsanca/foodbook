@@ -10,12 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import e2.isa.grupa5.model.users.Bartender;
 import e2.isa.grupa5.repository.bartender.BartenderRepository;
+import e2.isa.grupa5.repository.shifts.ShiftBartenderRepository;
+import e2.isa.grupa5.service.bartender.BartenderService;
 
 
 
 /**
  * 
  * @author Boris
+ * @author Viktor
  *
  */
 @RestController
@@ -25,7 +28,11 @@ public class BartenderController {
 	@Autowired
 	BartenderRepository bartenderRepository;
 	
+	@Autowired
+	BartenderService bartenderService;
 	
+	@Autowired
+	ShiftBartenderRepository shiftBartenderRepository;
 	
 	
 	@RequestMapping(value = "/profile/{id}", method = RequestMethod.GET)

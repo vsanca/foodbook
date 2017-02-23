@@ -19,6 +19,9 @@ import e2.isa.grupa5.model.shifts.Shift;
 import e2.isa.grupa5.model.shifts.ShiftBartender;
 import e2.isa.grupa5.model.shifts.ShiftBartenderDTO;
 import e2.isa.grupa5.model.users.Bartender;
+import e2.isa.grupa5.model.users.BartenderDTO;
+import e2.isa.grupa5.model.users.Chef;
+import e2.isa.grupa5.model.users.ChefDTO;
 import e2.isa.grupa5.model.users.WaiterDTO;
 import e2.isa.grupa5.repository.bartender.BartenderRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
@@ -67,6 +70,23 @@ public class BartenderService {
 			b = bartenderRepository.save(b);
 			return b;
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public Bartender create(BartenderDTO bDTO) {
+		
+		Bartender b = new Bartender();
+		userService.copyData(b, bDTO);
+		b.setShoeSize(bDTO.getShoeSize());
+		b.setDressSize(bDTO.getDressSize());
+		b.setRestaurant(restaurantRepository.findById(bDTO.getRestaurantId()));
+		
+		try {
+			b = bartenderRepository.save(b);
+			return b;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

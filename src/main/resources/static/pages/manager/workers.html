@@ -1,1 +1,38 @@
-<h2>WORKERS</h2>
+<div class="container-fluid">
+
+<div class="row">
+	<div class="col-md-8 col-lg-8 form">
+	
+		<form novalidate name="workersListForm">
+			
+			<h4 class="text-center">Radnici u restoranu</h4>
+			
+			<div class="form-group">
+				<label for="searchWorkerManager">Pretražuj radnike</label>
+				<input type="text" ng-model="query.name" placeholder="Radnik" class="form-control" id="searchWorkerManager"/>
+			</div>
+			
+			
+			<table class="table table-striped">
+			    <tr>
+			        <th>Ime</th>
+			        <th>Prezime</th>
+			        <th>Uloga</th>
+			        <th>Postavi smenu</th>
+			    </tr>
+			    <tr ng-repeat="worker in workers | filter: query | orderBy: orderList " >
+			        <td><span>{{worker.name}}</span></td>
+			        <td>{{worker.surname}}</td>
+			        <td ng-if="worker.cook">KUVAR</td>
+			        <td ng-if="worker.waiter">KONOBAR</td>
+			        <td ng-if="worker.bartender">ŠANKER</td>
+			        <td> <a ng-click="setShift()" class="btn btn-block">smena</a></td>
+			    </tr>
+			</table>
+			
+		</form>
+	</div>
+
+
+</div>
+</div>
