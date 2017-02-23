@@ -18,23 +18,23 @@
 <div>
 	<div ng-controller="waiterProfileController">
 	
-	<uib-tabset justified="true" class="tabs">
-		<uib-tab index="0" heading="My Profile" ng-click="home()">
+	<uib-tabset justified="false" class="tabs">
+		<uib-tab index="0" heading="Početna" ng-click="home()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="1" heading="My Work Schedule" ng-click="seeWorkSchedule()">
+		<uib-tab index="1" heading="Radni kalendar" ng-click="seeWorkSchedule()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="2" heading="My Restaurant Region" ng-click="seeRestaurantRegion()">
+		<uib-tab index="2" heading="Region restorana" ng-click="seeRestaurantRegion()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="3" heading="Orders 4 Me" ng-click="seeOrders()">
+		<uib-tab index="3" heading="Porudžbine" ng-click="seeOrders()">
 			<div>
 				<ui-view></ui-view>
 			</div>
