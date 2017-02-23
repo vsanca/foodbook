@@ -3,6 +3,7 @@ package e2.isa.grupa5.rest.bidding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,7 @@ public class BidderControler {
 	
 	
 	@RequestMapping(value = "/bidder/create", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity create(@RequestBody Bidder bidder) {
 		
 		bidder.setRole(UserRoles.BIDDER);
@@ -49,6 +51,7 @@ public class BidderControler {
 	}
 	
 	@RequestMapping(value = "/bidder/update", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity update(@RequestBody BidderDTO bidderDTO) {
 		
 		Bidder b = bidderService.updateData(bidderDTO);
@@ -63,6 +66,7 @@ public class BidderControler {
 	
 	
 	@RequestMapping(value = "/bidder/profile/{id}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity get(@PathVariable long id) {
 		
 		Bidder b = bidderRepository.findById(id);
@@ -74,7 +78,8 @@ public class BidderControler {
 		}
 	}
 	
-	@RequestMapping(value = "/bidder/updatePassword", method = RequestMethod.POST) 
+	@RequestMapping(value = "/bidder/updatePassword", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity updatePassword(@RequestBody BidderDTO bDTO) {
 		
 		Bidder b = bidderRepository.findById(bDTO.getId());

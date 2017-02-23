@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,7 @@ public class RestaurantAreaController {
 	
 	
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity create(@RequestBody RestaurantAreaDTO raDTO) {
 		
 		RestaurantArea ra = restaurantAreaService.create(raDTO);
@@ -49,6 +51,7 @@ public class RestaurantAreaController {
 	}
 	
 	@RequestMapping(value = "/manager/{id}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity get(@PathVariable long id) {
 		RestaurantManager rm = restaurantManagerService.findById(id);
 		

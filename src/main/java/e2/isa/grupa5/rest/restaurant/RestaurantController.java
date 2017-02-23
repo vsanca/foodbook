@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +50,7 @@ public class RestaurantController {
 	
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity create(@RequestBody RestaurantDTO rDTO) {
 		
 		Restaurant r = restaurantService.addRestaurant(rDTO);
@@ -67,6 +69,7 @@ public class RestaurantController {
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity update(@RequestBody RestaurantDTO rDTO) {
 		
 		Restaurant r = restaurantService.editRestaurant(rDTO);
@@ -79,6 +82,7 @@ public class RestaurantController {
 	}
 	
 	@RequestMapping(value = "/profile/{id}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getById(@PathVariable long id) {
 		
 		Restaurant r = restaurantRepository.findById(id);
@@ -91,6 +95,7 @@ public class RestaurantController {
 	}
 	
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getAll() {
 		
 		List<Restaurant> all = restaurantRepository.findAll();
@@ -113,6 +118,7 @@ public class RestaurantController {
 	}
 	
 	@RequestMapping(value = "/manager/{mId}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getForManager(@PathVariable long mId) {
 		
 		try {

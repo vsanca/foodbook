@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,6 +55,7 @@ public class BiddingController {
 	
 	// + Ograničenje da se ne može kreirati kad je ponuda neaktivna (dok traje konkurs)!
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity newBidding(@RequestBody BiddingDTO bDTO) {
 		
 		Bidding b = biddingService.create(bDTO);
@@ -63,6 +65,7 @@ public class BiddingController {
 	
 	// + Ograničenje da se ne može kreirati kad je ponuda neaktivna (dok traje konkurs)!
 	@RequestMapping(value = "/biddingItem/new", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity newBiddingItem(@RequestBody BiddingItemDTO biDTO) {
 		
 		BiddingItem bi = biddingItemService.create(biDTO);
@@ -71,6 +74,7 @@ public class BiddingController {
 	}
 	
 	@RequestMapping(value = "/accept", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity acceptBidding(@RequestBody long bId) {
 	
 		Bidding b = biddingRepository.findById(bId);
@@ -87,6 +91,7 @@ public class BiddingController {
 	}
 	
 	@RequestMapping(value = "/reject", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity rejectBidding(@RequestBody long bId) {
 	
 		Bidding b = biddingRepository.findById(bId);
@@ -104,6 +109,7 @@ public class BiddingController {
 	
 	// + Ograničenje da se ne može ažurirati kad je ponuda završena (dok traje konkurs)!
 	@RequestMapping(value = "/update/{bId}", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity updateBidding(@PathVariable long bId, @RequestBody BiddingDTO bDTO) {
 		
 		Bidding b = biddingService.update(bDTO, bId);
@@ -113,6 +119,7 @@ public class BiddingController {
 	
 	// + Ograničenje da se ne može ažurirati kad je ponuda završena (dok traje konkurs)!
 	@RequestMapping(value = "/biddingItem/update/{biId}", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity updateBiddingItem(@PathVariable long biId, @RequestBody BiddingItemDTO biDTO) {
 		
 		BiddingItem bi = biddingItemService.update(biDTO, biId);
@@ -121,6 +128,7 @@ public class BiddingController {
 	}
 	
 	@RequestMapping(value = "/getByBidder/{id}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getBiddingByBidder(@PathVariable long id) {
 		
 		List<Bidding> biddings = biddingRepository.findAll();
@@ -136,6 +144,7 @@ public class BiddingController {
 	}
 	
 	@RequestMapping(value = "/getActiveByBidder/{id}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getActiveBiddingByBidder(@PathVariable long id) {
 		
 		List<Bidding> biddings = biddingRepository.findAll();
@@ -151,6 +160,7 @@ public class BiddingController {
 	}
 	
 	@RequestMapping(value = "/getBiddingForGroceries/{gId}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getBiddingForGroceries(@PathVariable long gId) {
 		
 		List<Bidding> all = biddingRepository.findAll();
@@ -166,6 +176,7 @@ public class BiddingController {
 	}
 	
 	@RequestMapping(value = "/getBidItemsByBidding/{bId}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getBidItemsByBidding(@PathVariable long bId) {
 		
 		List<BiddingItem> all = biddingItemRepository.findAll();

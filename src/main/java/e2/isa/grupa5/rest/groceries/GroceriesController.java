@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +45,7 @@ public class GroceriesController {
 	
 	
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity create(@RequestBody GroceriesDTO gDTO) {
 		
 		Groceries g = groceriesService.create(gDTO);
@@ -52,6 +54,7 @@ public class GroceriesController {
 	}
 	
 	@RequestMapping(value = "/item/new", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity createItem(@RequestBody GroceryItemDTO giDTO) {
 		
 		GroceryItem gi = groceryItemService.addItem(giDTO);
@@ -60,12 +63,14 @@ public class GroceriesController {
 	}
 	
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getAll() {
 		
 		return new ResponseEntity<>(groceriesRepository.findAll(), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/getItems/{id}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getGroceriesItems(@PathVariable long id) {
 		
 		List<GroceryItem> giList = groceryItemService.getItemsByGroceriesId(id);
@@ -74,6 +79,7 @@ public class GroceriesController {
 	}
 	
 	@RequestMapping(value = "/open", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity open(@RequestBody long id) {
 		
 		Groceries g = groceriesRepository.findById(id);
@@ -84,6 +90,7 @@ public class GroceriesController {
 	}
 	
 	@RequestMapping(value = "/close", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity close(@RequestBody long id) {
 		
 		Groceries g = groceriesRepository.findById(id);
@@ -94,6 +101,7 @@ public class GroceriesController {
 	}
 	
 	@RequestMapping(value = "/expire", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity expire(@RequestBody long id) {
 		
 		Groceries g = groceriesRepository.findById(id);

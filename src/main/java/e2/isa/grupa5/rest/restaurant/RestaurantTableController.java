@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,7 @@ public class RestaurantTableController {
 	
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity create(@RequestBody RestaurantTableDTO rtDTO) {
 		
 		RestaurantTable rt = restaurantTableService.create(rtDTO);
@@ -43,18 +45,21 @@ public class RestaurantTableController {
 	}
 	
 	@RequestMapping(value = "/getForRestaurant/{rId}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getForRestaurant(@PathVariable long rId) {
 		
 		return new ResponseEntity<>(restaurantTableService.findAllByRestaurantId(rId), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/getForManager/{mId}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getForManager(@PathVariable long mId) {
 		
 		return new ResponseEntity<>(restaurantTableService.findAllByManagerId(mId), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/update/{mId}", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity completeUpdateAndReturn(@PathVariable long mId, @RequestBody RestaurantTableDTO[] tDTOs){
 		
 		restaurantTableService.updateAllTables(Arrays.asList(tDTOs));

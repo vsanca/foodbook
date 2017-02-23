@@ -6,6 +6,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +40,7 @@ public class MenuController {
 	
 	
 	@RequestMapping(value = "/menu/{id_restaurant}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getRestaurantMenu(@PathVariable long id_restaurant) {
 		
 		for(Menu m : menuRepository.findAll()) {
@@ -52,6 +54,7 @@ public class MenuController {
 	}
 	
 	@RequestMapping(value = "/menuItem/create", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity createItem(@RequestBody MenuItemDTO miDTO) {
 		
 		MenuItem mi = menuItemService.create(miDTO);
@@ -64,6 +67,7 @@ public class MenuController {
 	}
 	
 	@RequestMapping(value = "/menuItem/all/{id_restaurant}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getRestaurantMenuItems(@PathVariable long id_restaurant) {
 		
 		Menu menu = new Menu();

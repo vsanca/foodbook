@@ -3,6 +3,7 @@ package e2.isa.grupa5.rest.sysmanager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +40,7 @@ public class SystemManagerController {
 	UserService userService;
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity create(@RequestBody SystemManagerDTO smDTO) {
 		
 		SystemManager sm = new SystemManager();
@@ -52,6 +54,7 @@ public class SystemManagerController {
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity update(@RequestBody SystemManagerDTO smDTO) {
 		
 		SystemManager sm = systemManagerService.updateData(smDTO);
@@ -65,12 +68,14 @@ public class SystemManagerController {
 	}
 	
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getAll() {
 		
 		return new ResponseEntity<>(systemManagerRepository.findAll(), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity get(@PathVariable long id) {
 		
 		SystemManager sm = systemManagerRepository.findById(id);
