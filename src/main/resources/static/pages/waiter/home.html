@@ -1,1 +1,58 @@
-<h1>WAITER HOME</h1>
+<div class="container-fluid">
+
+<div class="row">
+
+<div class="col-md-8 col-lg-8 columns form">
+
+    <form novalidate name="registerForm">
+        
+        <h4 class="text-center">Izmeni podatke</h4>
+        
+    	<div class="form-group">
+            <label for="inputWaiterName">Ime</label>
+			<input type="text" required ng-model="user.name" required id="inputWaiterName" class="form-control">
+      	</div>
+      	<div class="form-group">
+            <label for="inputWaiterSurname">Prezime</label>
+            <input type="text" required ng-model="user.surname" id="inputWaiterSurname" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputWaiterAddress">Adresa</label>
+            <input type="text" required ng-model="user.address" id="inputWaiterAddress" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputWaiterMail">Mail</label>
+            <input type="text" required ng-model="user.mail" id="inputWaiterMail" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputWaiterDressSize">Konfekcijski broj</label>
+            <input type="text" required ng-model="user.dressSize" id="inputWaiterDressSize" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputWaiterShoeSize">Broj obuće</label>
+            <input type="text" required ng-model="user.shoeSize" id="inputWaiterShoeSize" class="form-control">
+        </div>
+        <!--  
+      	<div class="form-group">
+            <label for="inputWaiterDate">Datum rođenja</label>
+            <input type="text" ng-model="user.birthDate" onfocus="(this.type='date')"
+                       onblur="(this.type='text')" required id="inputWaiterDate" class="form-control">
+        </div>
+
+      	<div class="form-group">
+            <label for="inputWaiterPhone">Telefon</label>
+            <input type="text" required ng-model="user.phoneNumber" id="inputWaiterPhone" class="form-control">     
+      	</div>
+        -->
+        <p><a type="submit" class="btn btn-success btn-block" ng-click="modifyWaiter()">Sačuvaj</a></p>
+        <p><a type="submit" class="btn btn-danger btn-block" ng-click="cancel()">Odustani</a></p>
+        <p><a type="submit" class="btn btn-primary btn-block" ng-click="changePassword()">Izmeni lozinku</a></p>
+        
+    </form>
+
+</div>
+
+
+
+</div>
+</div>
