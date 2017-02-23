@@ -1,43 +1,48 @@
 <div>
 	<div ng-controller="managerProfileController">
 	
-	<uib-tabset justified="true" class="tabs">
+	<uib-tabset justified="false" class="tabs">
 		<uib-tab index="0" heading="Početna" ng-click="home()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="1" heading="Restoran" ng-click="newBidding()">
+		<uib-tab index="1" heading="Restoran" ng-click="restaurant()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="2" heading="Radnici" ng-click="overview()">
+		<uib-tab index="2" heading="Radnici" ng-click="workers()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="4" heading="Registruj radnika" ng-click="biddings()">
+		<uib-tab index="3" heading="Registruj radnika" ng-click="registerWorker()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="5" heading="Raspored stolova" ng-click="biddings()">
+		<uib-tab index="4" heading="Raspored stolova" ng-click="setLayout()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="6" heading="Meni" ng-click="biddings()">
+		<uib-tab index="5" heading="Raspored smena" ng-click="setTimetable()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="7" heading="Nabavka namirnica" ng-click="biddings()">
+		<uib-tab index="6" heading="Meni" ng-click="menu()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="3" heading="Izveštaj" ng-click="viewReport()">
+		<uib-tab index="7" heading="Nabavka namirnica" ng-click="groceries()">
+			<div>
+				<ui-view></ui-view>
+			</div>
+		</uib-tab>
+		<uib-tab index="8" heading="Izveštaj" ng-click="report()">
 			<div>
 				<ui-view></ui-view>
 			</div>
