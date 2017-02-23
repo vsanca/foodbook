@@ -6,7 +6,7 @@
 (function () {
     'use strict';
 
-    angular.module('foodbook', ['ngRoute', 'cgNotify', 'ui.router', 'ui.bootstrap']).config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
+    angular.module('foodbook', ['ngRoute', 'cgNotify', 'ui.router', 'ui.bootstrap', 'ngMap']).config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
     	
     	$urlRouterProvider.otherwise('/login');
     	$stateProvider

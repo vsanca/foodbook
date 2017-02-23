@@ -1,4 +1,4 @@
-angular.module('foodbook').controller('managerRestaurantController', function($scope, $http, $state, sessionService) {
+angular.module('foodbook').controller('managerRestaurantController', function($scope, $http, $state, $window, sessionService, NgMap) {
 	
 	$scope.restaurant = {};
 	
@@ -27,4 +27,7 @@ angular.module('foodbook').controller('managerRestaurantController', function($s
 					$scope.restaurant = data;
 		});
 	};
+	
+	
+	
 });
