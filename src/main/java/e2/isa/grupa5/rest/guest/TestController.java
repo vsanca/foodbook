@@ -374,6 +374,10 @@ public class TestController {
 		wa1.setActive(true);
 		waiterRepository.save(wa1);
 		
+		Waiter wt1 = new Waiter("wt1@wt1.com", passwordEncoder.encode("wt1"), "Rob", "Sluskic", "Adresa roba", re1, new Date(), 15, 42);
+		wt1.setActive(true);
+		waiterRepository.save(wt1);
+		
 		// RESTAURANT WORKER SHIFTS:
 		Shift sh1 = new Shift(new Date(), "08:00", "20:00", true, re1);
 		shiftRepository.save(sh1);

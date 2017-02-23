@@ -96,7 +96,7 @@
 	    		controller: 'bidderHomeController'
 	    	})
 		    .state('bartender', {
-				url: '/br',
+				url: '/bartender',
 				templateUrl: 'pages/bartender/profile.html',
 				controller: 'bartenderProfileController'
 			})
@@ -104,7 +104,63 @@
 				url: '/panel',
 				templateUrl: 'pages/bartender/home.html',
 				controller: 'bartenderHomeController'
+			})
+			.state('bartender.workSchedule', {
+				url: '/workSchedule',
+				templateUrl: 'pages/bartender/workSchedule.html',
+				controller: 'bartenderWorkScheduleController'
+			})
+			.state('bartender.orders', {
+				url: '/orders',
+				templateUrl: 'pages/bartender/orders.html',
+				controller: 'bartenderOrdersController'
+			})
+			.state('chef', {
+				url: '/chef',
+				templateUrl: 'pages/chef/profile.html',
+				controller: 'chefProfileController'
+			})
+			.state('chef.home', {
+				url: '/panel',
+				templateUrl: 'pages/chef/home.html',
+				controller: 'chefHomeController'
+			})
+			.state('chef.workSchedule', {
+				url: '/workSchedule',
+				templateUrl: 'pages/chef/workSchedule.html',
+				controller: 'chefWorkScheduleController'
+			})
+			.state('chef.orders', {
+				url: '/orders',
+				templateUrl: 'pages/chef/orders.html',
+				controller: 'chefOrdersController'
+			})
+				    .state('waiter', {
+				url: '/waiter',
+				templateUrl: 'pages/waiter/profile.html',
+				controller: 'waiterProfileController'
+			})
+			.state('waiter.home', {
+				url: '/panel',
+				templateUrl: 'pages/waiter/home.html',
+				controller: 'waiterHomeController'
+			})
+			.state('waiter.workSchedule', {
+				url: '/workSchedule',
+				templateUrl: 'pages/waiter/workSchedule.html',
+				controller: 'waiterWorkScheduleController'
+			})
+			.state('waiter.restaurantRegion', {
+				url: '/restaurantRegion',
+				templateUrl: 'pages/waiter/restaurantRegion.html',
+				controller: 'waiterRestaurantRegionController'
+			})
+			.state('waiter.orders', {
+				url: '/orders',
+				templateUrl: 'pages/waiter/orders.html',
+				controller: 'waiterOrdersController'
 			});
+    	
     }).run(run);
 
     // required DependencyInjection
