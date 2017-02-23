@@ -20,6 +20,7 @@ angular.module('foodbook').controller('managerRegisterWorkerController', functio
 							{ headers: { 'Authorization': sessionService.getAuthToken() } })
 							.success(function (data) {
 								notifyService.showSuccess('Uspešno dodat radnik.');
+								$scope.worker = {};
 							})
 							.error(function() {
 								notifyService.showError('Greška prilikom dodavanja radnika.');

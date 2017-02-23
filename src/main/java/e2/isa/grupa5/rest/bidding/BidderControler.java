@@ -43,7 +43,8 @@ public class BidderControler {
 	public ResponseEntity create(@RequestBody Bidder bidder) {
 		
 		bidder.setRole(UserRoles.BIDDER);
-		bidder.setActive(false);
+		bidder.setActive(true);
+		bidder.setPassword_set(false);
 		
 		bidder = bidderRepository.save(bidder);
 
