@@ -68,20 +68,20 @@ angular.module('foodbook').controller('managerSetLayoutController', function($sc
 			opacity: 0.5
 		});
 		
-		$scope.table.fabric = square;
+		$scope.table.fabricTable = square;
 		
 		for(var i in $scope.areas) {
 			var a = $scope.areas[i];
 			if(a.id == $scope.table.area) {
-				$scope.table.fabric.fill = a.color;
+				$scope.table.fabricTable.fill = a.color;
 				break;
 			}
 		}
 		
 		$scope.tables.push($scope.table);
 		
-		console.log($scope.table.fabric);
-		$scope.canvas.add($scope.table.fabric);
+		console.log($scope.table.fabricTable);
+		$scope.canvas.add($scope.table.fabricTable);
 		
 		$('#newTableModal').modal('hide');
 		
@@ -93,13 +93,13 @@ angular.module('foodbook').controller('managerSetLayoutController', function($sc
 		
 		for(var i in $scope.tables) {
 			var table = $scope.tables[i];
-			var parsed = JSON.parse(table.fabric);
+			var parsed = JSON.parse(table.fabricTable);
 			
-			var fabric;
+			var fabricTable;
 			
-			fabric = new fabric.Rect(parsed);
-			canvas.add(fabric);
-			table.fabric = fabric;
+			fabricTable = new fabric.Rect(parsed);
+			canvas.add(fabricTable);
+			table.fabricTable = fabricTable;
 			
 		}
 		
@@ -136,15 +136,15 @@ angular.module('foodbook').controller('managerSetLayoutController', function($sc
 		for(var i in $scope.tables) {
 			var t = $scope.tables[i];
 			
-			t.fabric.opacity = 1;
-			t.fabric = JSON.stringify(t.fabric);
+			t.fabricTable.opacity = 1;
+			t.fabricTable = JSON.stringify(t.fabricTable);
 			
 			if(t.area.id) {
 				t.area = t.area.id;
 			}
 		}
 		
-		$http.post('/restaurants/tables/update'+sessionService.getUserInfo().userId, $scope.tables,
+		$http.post('/restaurants/tables/update/'+sessionService.getUserInfo().userId, $scope.tables,
 				{ headers: { 'Authorization': sessionService.getAuthToken() } })
 				.success(function (data) {
 					notifyService.showSuccess('Uspešno ažuriran raspored stolova.');

@@ -32,7 +32,7 @@ public class RestaurantTable {
 	@Column(name = "seats", nullable = false)
 	private int seats;
 	
-	@Column(name = "fabric")
+	@Column(name = "fabric", length = 3000)
 	private String fabric;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
