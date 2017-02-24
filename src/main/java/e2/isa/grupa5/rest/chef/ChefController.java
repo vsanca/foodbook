@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +49,9 @@ public class ChefController {
 	@Autowired
 	ShiftChefRepository shiftChefRepository;
 	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	
 	@RequestMapping(value = "/chef/profile/{id}", method = RequestMethod.GET)
 	public ResponseEntity getById(@PathVariable long id) {
@@ -85,6 +89,34 @@ public class ChefController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	@RequestMapping(value = "/chef/changePassword/", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity changePassword(@RequestBody ChefDTO chDTO) {
+		
+		Chef ch = chefRepository.findById(chDTO.getId());
+				
+		if(ch != null) {
+			
+			try {
+				if(passwordEncoder.matches(chDTO.getOldPassword(), ch.getPassword()) && chDTO.getNewPassword()!=null && chDTO.getNewPassword()!="") {
+					ch.setPassword(passwordEncoder.encode(chDTO.getNewPassword()));
+					ch.setPassword_set(true);
+					
+					ch = chefRepository.save(ch);
+					
+					return new ResponseEntity<>(HttpStatus.OK);
+					
+				} else {
+					return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				}
+			} catch (Exception e) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} 
 	}
 	
 	@RequestMapping(value="/chef/forRestaurant/{rId}",  method = RequestMethod.GET)
