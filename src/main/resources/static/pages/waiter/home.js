@@ -1,15 +1,21 @@
 angular.module('foodbook').controller('waiterHomeController', function($scope, $http, $state, sessionService, notifyService) {
 	
-	$scope.user = {};
+	$scope.waiter = {};
 	
 	$http.get('/user/waiter/profile/'+sessionService.getUserInfo().userId, 
 			{ headers: { 'Authorization': sessionService.getAuthToken() } })
 			.success(function (data) {
-				$scope.user = data;
+				$scope.waiter = data;
+				
+				$scope.waiter.id = sessionService.getUserInfo().userId;
+				
+				if(data.password_set === false){
+					$("#myModal").modal();
+				}
 	});
 	
 	$scope.modifyWaiter = function() {
-		$http.post('/user/waiter/update', $scope.user,
+		$http.post('/user/waiter/update', $scope.waiter,
 				{ headers: { 'Authorization': sessionService.getAuthToken() } })
 				.success(function (data) {
 					notifyService.showSuccess('Podaci uspešno modifikovani!');
@@ -23,14 +29,21 @@ angular.module('foodbook').controller('waiterHomeController', function($scope, $
 		$http.get('/user/waiter/profile/'+sessionService.getUserInfo().userId, 
 				{ headers: { 'Authorization': sessionService.getAuthToken() } })
 				.success(function (data) {
-					$scope.user = data;
+					$scope.waiter = data;
 		});
 	};
 	
-	$scope.getWaiter = function() {
-		$http.get('/user/waiter/profile/'+sessionService.getUserInfo().userId).success(function (data) {
-			$scope.user = data;
-		});
+	$scope.changePassword = function() {
+		$http.post('user/waiter/changePassword/', $scope.waiter,
+				{ headers: { 'Authorization': sessionService.getAuthToken() } })
+				.success(function (data) {
+					notifyService.showSuccess('Uspešno izmenjena lozinka.');
+				})
+				.error(function() {
+					notifyService.showError('Greška prilikom izmene lozinke.');
+				});
 	};
+	
+	
 	
 });

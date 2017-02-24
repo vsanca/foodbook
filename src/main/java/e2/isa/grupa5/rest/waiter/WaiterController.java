@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import e2.isa.grupa5.model.shifts.ShiftWaiter;
 import e2.isa.grupa5.model.shifts.ShiftWaiterDTO;
+import e2.isa.grupa5.model.users.Chef;
 import e2.isa.grupa5.model.users.ChefDTO;
 import e2.isa.grupa5.model.users.RestaurantManager;
 import e2.isa.grupa5.model.users.RestaurantManagerDTO;
@@ -45,6 +47,9 @@ public class WaiterController {
 	@Autowired
 	ShiftWaiterRepository shiftWaiterRepository;
 	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	
 	@RequestMapping(value = "/waiter/create", method = RequestMethod.POST)
 	@PreAuthorize("isAuthenticated()")
@@ -70,6 +75,34 @@ public class WaiterController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	@RequestMapping(value = "/waiter/changePassword/", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity changePassword(@RequestBody WaiterDTO wtDTO) {
+		
+		Waiter wt = waiterRepository.findById(wtDTO.getId());
+				
+		if(wt != null) {
+			
+			try {
+				if(passwordEncoder.matches(wtDTO.getOldPassword(), wt.getPassword()) && wtDTO.getNewPassword()!=null && wtDTO.getNewPassword()!="") {
+					wt.setPassword(passwordEncoder.encode(wtDTO.getNewPassword()));
+					wt.setPassword_set(true);
+					
+					wt = waiterRepository.save(wt);
+					
+					return new ResponseEntity<>(HttpStatus.OK);
+					
+				} else {
+					return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				}
+			} catch (Exception e) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} 
 	}
 	
 	
