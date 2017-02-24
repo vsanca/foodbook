@@ -1,1 +1,58 @@
-<h1>BARTENDER HOME</h1>
+<div class="container-fluid">
+
+<div class="row">
+
+<div class="col-md-8 col-lg-8 columns form">
+
+    <form novalidate name="registerForm">
+        
+        <h4 class="text-center">Izmeni podatke</h4>
+        
+    	<div class="form-group">
+            <label for="inputBartenderName">Ime</label>
+			<input type="text" required ng-model="user.name" required id="inputBartenderName" class="form-control">
+      	</div>
+      	<div class="form-group">
+            <label for="inputBartenderSurname">Prezime</label>
+            <input type="text" required ng-model="user.surname" id="inputBartenderSurname" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputBartenderAddress">Adresa</label>
+            <input type="text" required ng-model="user.address" id="inputBartenderAddress" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputBartenderMail">Mail</label>
+            <input type="text" required ng-model="user.email" id="inputBartenderMail" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputBartenderDressSize">Konfekcijski broj</label>
+            <input type="text" required ng-model="user.dressSize" id="inputBartenderDressSize" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputBartenderShoeSize">Broj obuće</label>
+            <input type="text" required ng-model="user.shoeSize" id="inputBartenderShoeSize" class="form-control">
+        </div>
+        <!--  
+      	<div class="form-group">
+            <label for="inputBartenderDate">Datum rođenja</label>
+            <input type="text" ng-model="user.birthDate" onfocus="(this.type='date')"
+                       onblur="(this.type='text')" required id="inputBartenderDate" class="form-control">
+        </div>
+
+      	<div class="form-group">
+            <label for="inputBartenderPhone">Telefon</label>
+            <input type="text" required ng-model="user.phoneNumber" id="inputBartenderPhone" class="form-control">     
+      	</div>
+        -->
+        <p><a type="submit" class="btn btn-success btn-block" ng-click="modifyBartender()">Sačuvaj</a></p>
+        <p><a type="submit" class="btn btn-danger btn-block" ng-click="cancel()">Odustani</a></p>
+        <p><a type="submit" class="btn btn-primary btn-block" ng-click="changePassword()">Izmeni lozinku</a></p>
+        
+    </form>
+
+</div>
+
+
+
+</div>
+</div>

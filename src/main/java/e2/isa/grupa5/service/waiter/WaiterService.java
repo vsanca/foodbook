@@ -61,11 +61,27 @@ public class WaiterService {
 	@Autowired
 	ShiftWaiterRepository shiftWaiterRepository;
 	
+	/**
+	 * Pomocna metoda
+	 * 
+	 * @param wt
+	 * @param wtDTO
+	 */
+	private void helpUpdateData(Waiter wt, WaiterDTO wtDTO){
+		
+		wt.setPassword(wtDTO.getPassword());
+		wt.setEmail(wtDTO.getEmail());
+		wt.setName(wtDTO.getName());
+		wt.setSurname(wtDTO.getSurname());
+		wt.setAddress(wtDTO.getAddress());
+		wt.setDressSize(wtDTO.getDressSize());
+		wt.setShoeSize(wtDTO.getShoeSize());
+	}
 	
 	public Waiter updateData(WaiterDTO wDTO) {
 		Waiter w = waiterRepository.findById(wDTO.getId());
 		
-		userService.setVariableAttributes(w, wDTO);
+		helpUpdateData(w, wDTO);
 		
 		try {
 			w = waiterRepository.save(w);
@@ -137,18 +153,5 @@ public class WaiterService {
 		}
 	}
 	
-	public Waiter edit(WaiterDTO wtDTO) {
-		Waiter current = waiterRepository.findByEmail(wtDTO.getEmail());
-		
-		userService.setVariableAttributes(current, wtDTO);
-		
-		try {
-			current = waiterRepository.save(current);
-			return current;
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+	
 }

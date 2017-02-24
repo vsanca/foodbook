@@ -16,6 +16,8 @@ import e2.isa.grupa5.model.shifts.ShiftChef;
 import e2.isa.grupa5.model.shifts.ShiftChefDTO;
 import e2.isa.grupa5.model.users.Chef;
 import e2.isa.grupa5.model.users.ChefDTO;
+import e2.isa.grupa5.model.users.Waiter;
+import e2.isa.grupa5.model.users.WaiterDTO;
 import e2.isa.grupa5.repository.chef.ChefRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
 import e2.isa.grupa5.repository.shifts.ShiftChefRepository;
@@ -51,11 +53,27 @@ public class ChefService {
 	@Autowired
 	ShiftChefRepository shiftChefRepository;
 	
+	/**
+	 * Pomocna metoda
+	 * 
+	 * @param ch
+	 * @param chDTO
+	 */
+	private void helpUpdateData(Chef ch, ChefDTO chDTO){
+			
+		ch.setPassword(chDTO.getPassword());
+		ch.setEmail(chDTO.getEmail());
+		ch.setName(chDTO.getName());
+		ch.setSurname(chDTO.getSurname());
+		ch.setAddress(chDTO.getAddress());
+		ch.setDressSize(chDTO.getDressSize());
+		ch.setShoeSize(chDTO.getShoeSize());
+	}
 	
 	public Chef updateData(ChefDTO chDTO) {
 		Chef ch = chefRepository.findById(chDTO.getId());
 		
-		userService.setVariableAttributes(ch, chDTO);
+		helpUpdateData(ch, chDTO);
 		
 		try {
 			ch = chefRepository.save(ch);

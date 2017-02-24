@@ -24,6 +24,7 @@ import e2.isa.grupa5.model.users.BartenderDTO;
 import e2.isa.grupa5.model.users.Chef;
 import e2.isa.grupa5.model.users.ChefDTO;
 import e2.isa.grupa5.model.users.Waiter;
+import e2.isa.grupa5.model.users.WaiterDTO;
 import e2.isa.grupa5.repository.chef.ChefRepository;
 import e2.isa.grupa5.repository.shifts.ShiftChefRepository;
 import e2.isa.grupa5.service.chef.ChefService;
@@ -70,6 +71,19 @@ public class ChefController {
 			return new ResponseEntity<>(c, HttpStatus.OK);
 		} else {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@RequestMapping(value = "/chef/update", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity update(@RequestBody ChefDTO chDTO) {
+		
+		Chef ch = chefService.updateData(chDTO);
+		
+		if(ch != null) {
+			return new ResponseEntity<>(ch, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	

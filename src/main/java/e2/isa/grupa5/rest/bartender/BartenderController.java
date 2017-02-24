@@ -75,6 +75,19 @@ public class BartenderController {
 		}
 	}
 	
+	@RequestMapping(value = "/bartender/update", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity update(@RequestBody BartenderDTO btDTO) {
+		
+		Bartender bt = bartenderService.updateData(btDTO);
+		
+		if(bt != null) {
+			return new ResponseEntity<>(bt, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 	@RequestMapping(value="/bartender/forRestaurant/{rId}",  method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getBartendersForRestaurant(@PathVariable long rId) {

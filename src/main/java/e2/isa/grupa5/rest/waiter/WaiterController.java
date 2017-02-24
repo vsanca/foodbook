@@ -63,7 +63,7 @@ public class WaiterController {
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity update(@RequestBody WaiterDTO wtDTO) {
 		
-		Waiter wt = waiterService.edit(wtDTO);
+		Waiter wt = waiterService.updateData(wtDTO);
 		
 		if(wt != null) {
 			return new ResponseEntity<>(wt, HttpStatus.OK);
