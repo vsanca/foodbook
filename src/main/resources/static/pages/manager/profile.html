@@ -57,3 +57,41 @@
 	
 	</div>
 </div>
+
+
+
+
+<!-- Modal -->
+<div ng-controller="managerSetLayoutController" class="modal fade" id="newTableModal" tabindex="-1" role="dialog" aria-labelledby="newTableModalLabel">
+	  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+			      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel">Novi sto</h4>
+			      </div>
+			      <div class="modal-body">
+				      	<form novalidate name="newTableForm">
+						    <div class="form-group">
+						    	<label for="newTableName">Naziv</label>
+								<input type="text" required ng-model="table.name" required id="newTableName" class="form-control" placeholder="Separe 2" required>
+						   	</div>
+						    <div class="form-group">
+						    	<label for="newTableCapacity">Broj mesta</label>
+								<input type="number" required ng-model="table.seats" required id="newTableCapacity" class="form-control" placeholder="5" required>
+						   	</div>
+						    <div class="form-group">
+						   		<label for="newTableArea">Segment u kojem se nalazi</label>
+						       	<select class="form-control" id="newTableArea" ng-model="table.areaId">
+						       		<option ng-repeat="area in areas track by $index" value="{{area.id}}">{{area.name}}</option>
+						       	</select>
+						   	</div>
+				    		
+				    	</form>
+			      </div>
+			      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Odustani</button>
+				        <button type="button" class="btn btn-success" ng-click="createTable()">Dodaj novi sto</button>
+			      </div>
+		    </div>
+	  </div>
+</div>
