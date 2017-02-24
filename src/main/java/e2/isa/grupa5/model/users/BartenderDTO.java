@@ -16,6 +16,8 @@ public class BartenderDTO extends UserDTO{
 	private Date birthDate;
 	private int dressSize;
 	private int shoeSize;
+	private String testOldPw;
+	private String testNewPw;
 	
 	public BartenderDTO() {
 		super();
@@ -51,6 +53,22 @@ public class BartenderDTO extends UserDTO{
 
 	public void setShoeSize(int shoeSize) {
 		this.shoeSize = shoeSize;
+	}
+
+	public String getTestOldPw() {
+		return testOldPw;
+	}
+
+	public void setTestOldPw(String testOldPw) {
+		this.testOldPw = testOldPw;
+	}
+
+	public String getTestNewPw() {
+		return testNewPw;
+	}
+
+	public void setTestNewPw(String testNewPw) {
+		this.testNewPw = testNewPw;
 	}
 	
 	

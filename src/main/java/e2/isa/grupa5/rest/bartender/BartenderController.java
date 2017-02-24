@@ -88,6 +88,29 @@ public class BartenderController {
 		}
 	}
 	
+	@RequestMapping(value = "/bartender/updatePw", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity updatePw(@RequestBody BartenderDTO btDTO) {
+		
+		Bartender bt = bartenderRepository.findById(btDTO.getId());
+		
+		boolean flag = bartenderService.isNewPwSameAsOld(bt, btDTO);
+		
+		if(flag){
+			bt = bartenderService.updateChangedPw(btDTO);
+			if(bt != null) {
+				return new ResponseEntity<>(bt, HttpStatus.OK);
+			}
+			else{
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+		}
+		else{
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+	}
+	
 	
 	
 	@RequestMapping(value="/bartender/forRestaurant/{rId}",  method = RequestMethod.GET)

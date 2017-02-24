@@ -71,7 +71,7 @@ public class BartenderService {
 	 * @param btDTO
 	 */
 	private void helpUpdateData(Bartender bt, BartenderDTO btDTO){
-			
+		
 		bt.setPassword(passwordEncoder.encode(btDTO.getPassword()));
 		bt.setEmail(btDTO.getEmail());
 		bt.setName(btDTO.getName());
@@ -79,6 +79,36 @@ public class BartenderService {
 		bt.setAddress(btDTO.getAddress());
 		bt.setDressSize(btDTO.getDressSize());
 		bt.setShoeSize(btDTO.getShoeSize());
+	}
+	
+	/**
+	 * Pomocna metoda
+	 * 
+	 * @param bt
+	 * @param btDTO
+	 */
+	private void helpUpdateDataChangedPw(Bartender bt, BartenderDTO btDTO){
+		System.out.println("-------------------------------------------");
+		System.out.println(btDTO.getTestNewPw() + " enkriptovana: " + passwordEncoder.encode(btDTO.getTestNewPw()));
+		System.out.println("-------------------------------------------");
+		bt.setPassword(passwordEncoder.encode(btDTO.getTestNewPw()));
+		bt.setEmail(btDTO.getEmail());
+		bt.setName(btDTO.getName());
+		bt.setSurname(btDTO.getSurname());
+		bt.setAddress(btDTO.getAddress());
+		bt.setDressSize(btDTO.getDressSize());
+		bt.setShoeSize(btDTO.getShoeSize());
+	}
+	
+	public boolean isNewPwSameAsOld(Bartender bt, BartenderDTO btDTO){
+		
+		if(bt.getPassword().equals(passwordEncoder.encode(btDTO.getTestOldPw()))){
+			System.out.println("-------------------------------------------");
+			System.out.println("Stara sifra je potvrdjena !");
+			System.out.println("-------------------------------------------");
+			return true;
+		}
+		return false;
 	}
 	
 	
@@ -89,6 +119,28 @@ public class BartenderService {
 		Bartender b = bartenderRepository.findById(bDTO.getId());
 		
 		helpUpdateData(b, bDTO);
+		
+		try {
+			b = bartenderRepository.save(b);
+			return b;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public Bartender updateChangedPw(BartenderDTO bDTO) {
+		Bartender b = bartenderRepository.findById(bDTO.getId());
+		System.out.println("-------------------------------------------");
+		System.out.println("Bartender prosao");
+		System.out.println("-------------------------------------------");
+		
+		
+		helpUpdateDataChangedPw(b, bDTO);
+		System.out.println("-------------------------------------------");
+		System.out.println("HelpUpdateDataChangedPw PROSLAAA");
+		System.out.println("-------------------------------------------");
 		
 		try {
 			b = bartenderRepository.save(b);

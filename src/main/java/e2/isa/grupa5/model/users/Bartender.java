@@ -38,8 +38,24 @@ public class Bartender extends User implements Serializable{
 	@Column(name="shoe_size", nullable = false)
 	private int shoeSize;
 	
+	@Column(name="test_old_pw", nullable = true)
+	private String testOldPw;
+	
+	@Column(name="test_new_pw", nullable = true)
+	private String testNewPw;
+	
     public Bartender() {
     	this.setRole(UserRoles.BARTENDER);
+    }
+    
+    public Bartender(String mail, String pass, String name, String surname, String address, Restaurant restaurant, Date birthDate, int dressSize, int shoeSize,String testOldPw, String testNewPw) {
+    	super(mail,pass,name,surname,address, UserRoles.BARTENDER);
+    	this.birthDate = birthDate;
+    	this.dressSize = dressSize;
+    	this.shoeSize = shoeSize;
+    	this.restaurant = restaurant;
+    	this.testOldPw = testOldPw;
+    	this.testNewPw = testNewPw;
     }
     
     public Bartender(String mail, String pass, String name, String surname, String address, Restaurant restaurant, Date birthDate, int dressSize, int shoeSize) {
@@ -48,6 +64,9 @@ public class Bartender extends User implements Serializable{
     	this.dressSize = dressSize;
     	this.shoeSize = shoeSize;
     	this.restaurant = restaurant;
+    	this.testOldPw = "";
+    	this.testNewPw = "";
+    
     }
 
 	public Restaurant getRestaurant() {
@@ -80,6 +99,22 @@ public class Bartender extends User implements Serializable{
 
 	public void setShoeSize(int shoeSize) {
 		this.shoeSize = shoeSize;
+	}
+
+	public String getTestOldPw() {
+		return testOldPw;
+	}
+
+	public void setTestOldPw(String testOldPw) {
+		this.testOldPw = testOldPw;
+	}
+
+	public String getTestNewPw() {
+		return testNewPw;
+	}
+
+	public void setTestNewPw(String testNewPw) {
+		this.testNewPw = testNewPw;
 	}
 	
 	

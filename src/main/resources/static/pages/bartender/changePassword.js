@@ -4,12 +4,22 @@ angular.module('foodbook').controller('bartenderChangePasswordController', funct
 	$scope.newPw = '';
 	$scope.confirmedPw = '';
 	
+	$scope.user = {};
+	
+	$http.get('/user/bartender/profile/'+sessionService.getUserInfo().userId, 
+			{ headers: { 'Authorization': sessionService.getAuthToken() } })
+			.success(function (data) {
+				$scope.user = data;
+	});
+	
 	$scope.changeMyPassword = function() {
-		if(($scope.user.password === $scope.oldPw) && ($scope.newPw === $scope.confirmedPw) && ($scope.user.password !== $scope.newPw) ){
-			$scope.user.password = $scope.newPw;
-			$http.post('/user/bartender/update', $scope.user,
+		if(($scope.oldPw !== $scope.newPw) && ($scope.newPw === $scope.confirmedPw)){
+			$scope.user.testOldPw = $scope.oldPw;
+			$scope.user.testNewPw = $scope.newPw;
+			$http.post('/user/bartender/updatePw', $scope.user,
 					{ headers: { 'Authorization': sessionService.getAuthToken() } })
 					.success(function (data) {
+						$scope.user = data;
 						notifyService.showSuccess('Lozinka uspešeno modifikovana!');
 					})
 					.error(function() {
@@ -17,7 +27,7 @@ angular.module('foodbook').controller('bartenderChangePasswordController', funct
 					});
 		}
 		else{
-			notifyService.showError('Greška prilikom izmene lozinke!');
+			notifyService.showError('Greška prilikom izmene lozinke!5555555555');
 		}
 	};
 	
