@@ -16,10 +16,6 @@ angular.module('foodbook').controller('bartenderProfileController', function($sc
         $state.transitionTo('bartender.orders');
     };
     
-    $scope.changePassword = function() {
-        $state.transitionTo('bartender.changePassword');
-    };
-    
     $scope.changeTabTo = function(number) {
     	$scope.tabs[number].active = true;
     }

@@ -170,11 +170,6 @@
 				templateUrl: 'pages/bartender/orders.html',
 				controller: 'bartenderOrdersController'
 			})
-			.state('bartender.changePassword', {
-				url: '/changePw',
-				templateUrl: 'pages/bartender/changePassword.html',
-				controller: 'bartenderChangePasswordController'
-			})
 			.state('chef', {
 				url: '/chef',
 				templateUrl: 'pages/chef/profile.html',
@@ -195,12 +190,7 @@
 				templateUrl: 'pages/chef/orders.html',
 				controller: 'chefOrdersController'
 			})
-			.state('chef.changePassword', {
-				url: '/changePw',
-				templateUrl: 'pages/chef/changePassword.html',
-				controller: 'chefChangePasswordController'
-			})
-		    .state('waiter', {
+			.state('waiter', {
 				url: '/waiter',
 				templateUrl: 'pages/waiter/profile.html',
 				controller: 'waiterProfileController'
@@ -224,11 +214,6 @@
 				url: '/orders',
 				templateUrl: 'pages/waiter/orders.html',
 				controller: 'waiterOrdersController'
-			})
-			.state('waiter.changePassword', {
-				url: '/changePw',
-				templateUrl: 'pages/waiter/changePassword.html',
-				controller: 'waiterChangePasswordController'
 			});
     	
     }).run(run);
