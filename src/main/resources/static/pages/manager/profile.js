@@ -1,4 +1,4 @@
-angular.module('foodbook').controller('managerProfileController', function($scope, $http, $state) {
+angular.module('foodbook').controller('managerProfileController', function($scope, $http, $state, authenticationService) {
 	
 	$state.transitionTo('manager.home');
 	
@@ -45,5 +45,10 @@ angular.module('foodbook').controller('managerProfileController', function($scop
     $scope.changeTabTo = function(number) {
     	$scope.tabs[number].active = true;
     }
+    
+    $scope.logout = function () {
+    	authenticationService.logoff();
+        $state.transitionTo('login');
+    };
     
 });

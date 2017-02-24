@@ -1,4 +1,4 @@
-angular.module('foodbook').controller('bidderProfileController', function($scope, $http, $state) {
+angular.module('foodbook').controller('bidderProfileController', function($scope, $http, $state, authenticationService) {
 	
 	$state.transitionTo('bidder.home');
 	
@@ -18,4 +18,9 @@ angular.module('foodbook').controller('bidderProfileController', function($scope
         $state.transitionTo('bidder.newBidding');
     };
 	
+    $scope.logout = function () {
+    	authenticationService.logoff();
+        $state.transitionTo('login');
+    };
+    
 });
