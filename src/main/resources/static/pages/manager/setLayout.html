@@ -1,1 +1,18 @@
-<h2>RESTAURANT AREAS AND TABLES</h2>
+<div class="container-fluid">
+	<div class="row">
+	
+		<div class="col-md-6 col-lg-6 form" style="overflow-x: scroll; overflow-y: scroll;">
+			<label>Raspored stolova</label>
+			<canvas id="restaurant_layout" width="700" height="500" style="background-color: #d0d5dd;"></canvas>
+		</div>
+	
+	</div>
+	
+	<div class="row">
+		<div class="col-md-6 col-lg-6">
+			<button type="button" class="btn btn-primary col-md-4 col-lg-4" ng-click="drawTable()">Dodaj sto</button>
+			<button type="button" class="btn btn-success col-md-4 col-lg-4" ng-click="saveLayout()">Sačuvaj raspored</button>
+			<button type="button" class="btn btn-danger col-md-4 col-lg-4" ng-click="refreshLayout()">Osveži prikaz</button>
+		</div>
+	</div>
+</div>

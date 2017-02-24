@@ -1,1 +1,31 @@
-<h1>SYSTEM MANAGER HOME</h1>
+<div class="container-fluid">
+
+<div class="row">
+
+<div class="col-md-8 col-lg-8 columns form">
+
+    <form novalidate name="registerForm">
+        
+        <h4 class="text-center">Izmeni podatke</h4>
+        
+    	<div class="form-group">
+            <label for="inputSysManagerName">Ime</label>
+			<input type="text" required ng-model="sysmanager.name" required id="inputSysManagerName" class="form-control">
+      	</div>
+      	<div class="form-group">
+            <label for="inputSysManagerSurname">Prezime</label>
+            <input type="text" required ng-model="sysmanager.surname" id="inputSysManagerSurname" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputSysManagerAddress">Adresa</label>
+            <input type="text" required ng-model="sysmanager.address" id="inputSysManagerAddress" class="form-control">
+        </div>
+        <p><a type="submit" class="btn btn-success btn-block" ng-click="modifySysManager()">Sačuvaj</a></p>
+        <p><a type="submit" class="btn btn-danger btn-block" ng-click="cancel()">Odustani</a></p>
+        
+    </form>
+
+</div>
+
+</div>
+</div>

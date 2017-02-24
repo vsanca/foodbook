@@ -40,13 +40,12 @@ public class RestaurantManagerController {
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity create(@RequestBody RestaurantManagerDTO rmDTO) {
 		
-		RestaurantManager rm = restaurantManagerService.create(rmDTO);
-		rm.setActive(true);
-		rm.setPassword_set(false);
-		
-		if(rm != null) {
+		try {
+
+			RestaurantManager rm = restaurantManagerService.create(rmDTO);
+			
 			return new ResponseEntity<>(rm, HttpStatus.OK);
-		} else {
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
