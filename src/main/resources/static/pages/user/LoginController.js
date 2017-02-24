@@ -8,9 +8,9 @@
   'use strict';
 
   angular.module('foodbook').controller('LoginController', LoginController);
-  LoginController.$inject = ['$scope', '$http', 'authenticationService', 'userRoles', '$location', '$state', 'sessionService'];
+  LoginController.$inject = ['$scope', '$http', 'authenticationService', 'userRoles', '$location', '$state', 'sessionService', 'notifyService'];
 
-  function LoginController($scope, $http, authenticationService, userRoles, $location, $state, sessionService) {
+  function LoginController($scope, $http, authenticationService, userRoles, $location, $state, sessionService, notifyService) {
     console.log("LoginController ready!");
     
     // možda ovakva provera da li je već ulogovan, pa odgovarajući redirect, isprobano - radi ali zakomentarisano da bi se moglo lakše testirati
@@ -60,11 +60,11 @@
         } else if (data.role === userRoles['SYS_MANAGER']) {
         	$state.go('sysmanager');
         } else {
-          alert("LoginController::Invalid user role:::" + data.role);
+          notifyService.showError('LoginController::Invalid user role:::' + data.role);
           $location.path("/");
         }
       }, function (error) {
-        alert("Login failed!");
+        notifyService.showError('Login failed!');
       });
     };
 

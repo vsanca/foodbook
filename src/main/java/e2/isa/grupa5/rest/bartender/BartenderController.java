@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,12 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import e2.isa.grupa5.model.shifts.ShiftBartender;
 import e2.isa.grupa5.model.shifts.ShiftBartenderDTO;
-import e2.isa.grupa5.model.shifts.ShiftWaiter;
-import e2.isa.grupa5.model.shifts.ShiftWaiterDTO;
 import e2.isa.grupa5.model.users.Bartender;
 import e2.isa.grupa5.model.users.BartenderDTO;
-import e2.isa.grupa5.model.users.Waiter;
-import e2.isa.grupa5.model.users.WaiterDTO;
+import e2.isa.grupa5.model.users.Bidder;
+import e2.isa.grupa5.model.users.BidderDTO;
 import e2.isa.grupa5.repository.bartender.BartenderRepository;
 import e2.isa.grupa5.repository.shifts.ShiftBartenderRepository;
 import e2.isa.grupa5.service.bartender.BartenderService;
@@ -47,6 +46,9 @@ public class BartenderController {
 	
 	@Autowired
 	ShiftBartenderRepository shiftBartenderRepository;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	
 	@RequestMapping(value = "/bartender/profile/{id}", method = RequestMethod.GET)
@@ -86,6 +88,34 @@ public class BartenderController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	@RequestMapping(value = "/bartender/changePassword/", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity changePassword(@RequestBody BartenderDTO btDTO) {
+		
+		Bartender bt = bartenderRepository.findById(btDTO.getId());
+				
+		if(bt != null) {
+			
+			try {
+				if(passwordEncoder.matches(btDTO.getOldPassword(), bt.getPassword()) && btDTO.getNewPassword()!=null && btDTO.getNewPassword()!="") {
+					bt.setPassword(passwordEncoder.encode(btDTO.getNewPassword()));
+					bt.setPassword_set(true);
+					
+					bt = bartenderRepository.save(bt);
+					
+					return new ResponseEntity<>(HttpStatus.OK);
+					
+				} else {
+					return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				}
+			} catch (Exception e) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} 
 	}
 	
 	
