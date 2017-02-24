@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import e2.isa.grupa5.model.restaurant.Restaurant;
@@ -61,6 +62,9 @@ public class WaiterService {
 	@Autowired
 	ShiftWaiterRepository shiftWaiterRepository;
 	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	/**
 	 * Pomocna metoda
 	 * 
@@ -69,7 +73,7 @@ public class WaiterService {
 	 */
 	private void helpUpdateData(Waiter wt, WaiterDTO wtDTO){
 		
-		wt.setPassword(wtDTO.getPassword());
+		
 		wt.setEmail(wtDTO.getEmail());
 		wt.setName(wtDTO.getName());
 		wt.setSurname(wtDTO.getSurname());

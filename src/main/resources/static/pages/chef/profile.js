@@ -1,6 +1,6 @@
 angular.module('foodbook').controller('chefProfileController', function($scope, $http, $state, $location) {
 	
-	$scope.activePageNumber = 0;
+	
 	
 	$state.transitionTo('chef.home');
 	
@@ -15,6 +15,10 @@ angular.module('foodbook').controller('chefProfileController', function($scope, 
     $scope.seeOrders = function() {
         $state.transitionTo('chef.orders');
     };
+    
+    $scope.changeTabTo = function(number) {
+    	$scope.tabs[number].active = true;
+    }
 
     /*
     $scope.logout = function () {

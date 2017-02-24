@@ -88,6 +88,8 @@ public class BartenderController {
 		}
 	}
 	
+	
+	
 	@RequestMapping(value="/bartender/forRestaurant/{rId}",  method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getBartendersForRestaurant(@PathVariable long rId) {

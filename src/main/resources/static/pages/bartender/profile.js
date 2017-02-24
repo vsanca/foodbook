@@ -1,6 +1,6 @@
 angular.module('foodbook').controller('bartenderProfileController', function($scope, $http, $state, $location) {
 	
-	$scope.activePageNumber = 0;
+	
 	
 	$state.transitionTo('bartender.home');
 	
@@ -15,6 +15,14 @@ angular.module('foodbook').controller('bartenderProfileController', function($sc
     $scope.seeOrders = function() {
         $state.transitionTo('bartender.orders');
     };
+    
+    $scope.changePassword = function() {
+        $state.transitionTo('bartender.changePassword');
+    };
+    
+    $scope.changeTabTo = function(number) {
+    	$scope.tabs[number].active = true;
+    }
 
     /*
     $scope.logout = function () {

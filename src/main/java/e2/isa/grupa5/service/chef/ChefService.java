@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import e2.isa.grupa5.model.restaurant.Restaurant;
@@ -53,6 +54,9 @@ public class ChefService {
 	@Autowired
 	ShiftChefRepository shiftChefRepository;
 	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	/**
 	 * Pomocna metoda
 	 * 
@@ -61,7 +65,7 @@ public class ChefService {
 	 */
 	private void helpUpdateData(Chef ch, ChefDTO chDTO){
 			
-		ch.setPassword(chDTO.getPassword());
+		
 		ch.setEmail(chDTO.getEmail());
 		ch.setName(chDTO.getName());
 		ch.setSurname(chDTO.getSurname());

@@ -33,4 +33,8 @@ angular.module('foodbook').controller('bartenderHomeController', function($scope
 		});
 	};
 	
+	$scope.changePassword = function() {
+		$state.go('bartender.changePassword');
+	};
+	
 });

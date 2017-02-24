@@ -6,12 +6,15 @@ package e2.isa.grupa5.service.bartender;
 
 
 
+import static org.mockito.Matchers.endsWith;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import e2.isa.grupa5.model.restaurant.Restaurant;
@@ -58,6 +61,9 @@ public class BartenderService {
 	@Autowired
 	ShiftRepository shiftRepository;
 	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	/**
 	 * Pomocna metoda
 	 * 
@@ -66,7 +72,7 @@ public class BartenderService {
 	 */
 	private void helpUpdateData(Bartender bt, BartenderDTO btDTO){
 			
-		bt.setPassword(btDTO.getPassword());
+		bt.setPassword(passwordEncoder.encode(btDTO.getPassword()));
 		bt.setEmail(btDTO.getEmail());
 		bt.setName(btDTO.getName());
 		bt.setSurname(btDTO.getSurname());
@@ -74,6 +80,10 @@ public class BartenderService {
 		bt.setDressSize(btDTO.getDressSize());
 		bt.setShoeSize(btDTO.getShoeSize());
 	}
+	
+	
+	
+	
 	
 	public Bartender updateData(BartenderDTO bDTO) {
 		Bartender b = bartenderRepository.findById(bDTO.getId());
