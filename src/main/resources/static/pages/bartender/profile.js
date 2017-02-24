@@ -1,4 +1,4 @@
-angular.module('foodbook').controller('bartenderProfileController', function($scope, $http, $state, $location) {
+angular.module('foodbook').controller('bartenderProfileController', function($scope, $http, $state, $location, authenticationService) {
 	
 	
 	
@@ -20,9 +20,8 @@ angular.module('foodbook').controller('bartenderProfileController', function($sc
     	$scope.tabs[number].active = true;
     }
 
-    /*
     $scope.logout = function () {
-        $state.transitionTo('logout');
+	    authenticationService.logoff();
+	    $state.transitionTo('login');
     };
-    */
 });
