@@ -41,6 +41,7 @@ public class RestaurantTableService {
 		rt.setName(rtDTO.getName());
 		rt.setArea(restaurantAreaRepository.findById(rtDTO.getAreaId()));
 		rt.setSeats(rtDTO.getSeats());
+		rt.setFabric(rtDTO.getFabric());
 		
 		try {
 			rt = restaurantTableRepository.save(rt);

@@ -16,16 +16,18 @@ public class RestaurantTableDTO {
 	private String name;
 	private int seats;
 	private long areaId;
+	private String fabric;
 	
 	public RestaurantTableDTO() {
 		
 	}
 
-	public RestaurantTableDTO(long id, String name, int seats, long areaId) {
+	public RestaurantTableDTO(long id, String name, int seats, long areaId, String fabric) {
 		this.id = id;
 		this.name = name;
 		this.seats = seats;
 		this.areaId = areaId;
+		this.fabric = fabric;
 	}
 	
 	public RestaurantTableDTO(RestaurantTable table) {
@@ -63,6 +65,14 @@ public class RestaurantTableDTO {
 
 	public void setAreaId(long areaId) {
 		this.areaId = areaId;
+	}
+
+	public String getFabric() {
+		return fabric;
+	}
+
+	public void setFabric(String fabric) {
+		this.fabric = fabric;
 	}
 	
 }
