@@ -11,7 +11,9 @@ package e2.isa.grupa5.model.users;
  */
 public class BidderDTO extends UserDTO{
 	
+	private String oldPassword;
 	private String newPassword;
+	private String newPasswordRepeat;
 	
 	public BidderDTO() {
 		super();
@@ -23,6 +25,22 @@ public class BidderDTO extends UserDTO{
 
 	public void setNewPassword(String newPassword) {
 		this.newPassword = newPassword;
+	}
+
+	public String getNewPasswordRepeat() {
+		return newPasswordRepeat;
+	}
+
+	public void setNewPasswordRepeat(String newPasswordRepeat) {
+		this.newPasswordRepeat = newPasswordRepeat;
+	}
+
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
 	}
 	
 }

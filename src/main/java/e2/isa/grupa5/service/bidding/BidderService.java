@@ -29,6 +29,7 @@ public class BidderService {
 		Bidder b = bidderRepository.findById(bDTO.getId());
 		
 		userService.setVariableAttributes(b, bDTO);
+		b.setEmail(bDTO.getEmail());
 		
 		try {
 			b = bidderRepository.save(b);

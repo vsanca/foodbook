@@ -6,6 +6,7 @@ angular.module('foodbook').controller('managerHomeController', function($scope, 
 			{ headers: { 'Authorization': sessionService.getAuthToken() } })
 			.success(function (data) {
 				$scope.user = data;
+				
 	});
 	
 	$scope.modifyManager = function() {
