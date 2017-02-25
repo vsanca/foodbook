@@ -31,12 +31,7 @@
     }
 
     $scope.reserve = function(id) {
-      guestService.getReserve1PageInfo().then(function (response) {
-        $scope.reserve1Page = response.data; 
-      }, function (error) {
-
-      }); 
-      $state.go('reserve1'); 
+      $state.go('reserve1/:restaurantId', {restaurantId: id}); 
     }
    
   }

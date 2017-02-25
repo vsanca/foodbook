@@ -322,10 +322,8 @@ public class GuestService {
 
 	public Reserve1PageDTO getReserve1PageInfo(Long id) {
 		Reserve1PageDTO reserve1 = new Reserve1PageDTO(); 
-		Restaurant dto = new Restaurant(); 
-		
-		dto = restaurantRepository.findById(id); 
-		
-		return null;
+		Restaurant restaurant = restaurantRepository.findById(id);
+		reserve1.setRestaurantName(restaurant.getName());
+		return reserve1;
 	}
 }
