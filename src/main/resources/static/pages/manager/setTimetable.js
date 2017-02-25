@@ -77,7 +77,7 @@ angular.module('foodbook').controller('managerSetTimetableController', function(
 							
 							for(i=0; i<data.length; i++) {
 								calendarShift = {
-										eventColor: "blue",
+										color: "#4995ff",
 										title: data[i].bartender.name+" "+data[i].bartender.surname,
 										start: new Date(data[i].shift.day).toISOString().substring(0, 10) + "T" + data[i].shift.startTime,
 										end: new Date(data[i].shift.day).toISOString().substring(0, 10) + "T" + data[i].shift.endTime
@@ -94,7 +94,7 @@ angular.module('foodbook').controller('managerSetTimetableController', function(
 										
 										for(i=0; i<data.length; i++) {
 											calendarShift = {
-													eventColor: "green",
+													color: "#38bc5e",
 													title: data[i].chef.name+" "+data[i].chef.surname,
 													start: new Date(data[i].shift.day).toISOString().substring(0, 10) + "T" + data[i].shift.startTime,
 													end: new Date(data[i].shift.day).toISOString().substring(0, 10) + "T" + data[i].shift.endTime
@@ -111,7 +111,7 @@ angular.module('foodbook').controller('managerSetTimetableController', function(
 													
 													for(i=0; i<data.length; i++) {
 														calendarShift = {
-																eventColor: "red",
+																color: "#d83131",
 																title: data[i].waiter.name+" "+data[i].waiter.surname,
 																start: new Date(data[i].shift.day).toISOString().substring(0, 10) + "T" + data[i].shift.startTime,
 																end: new Date(data[i].shift.day).toISOString().substring(0, 10) + "T" + data[i].shift.endTime
@@ -151,7 +151,9 @@ angular.module('foodbook').controller('managerSetTimetableController', function(
 	};
 	
 	$scope.closeModal = function() {
+		
 		$('#newShiftModal').modal('hide');
+
 	};
 	
 	$scope.createShift = function() {
@@ -164,7 +166,7 @@ angular.module('foodbook').controller('managerSetTimetableController', function(
 						notifyService.showSuccess('Uspešno dodata smena za baristu.');
 						
 						calendarShift = {
-								eventColor: "blue",
+								color: "#4995ff",
 								title: $scope.worker.name + " " + $scope.worker.surname,
 								start: $scope.shift.startDate + "T" + $scope.shift.startTime,
 								end: $scope.shift.endDate + "T" + $scope.shift.endTime
@@ -185,7 +187,7 @@ angular.module('foodbook').controller('managerSetTimetableController', function(
 						notifyService.showSuccess('Uspešno dodata smena za kuvara.');
 						
 						calendarShift = {
-								eventColor: "green",
+								color: "#38bc5e",
 								title: $scope.worker.name + " " + $scope.worker.surname,
 								start: $scope.shift.startDate + "T" + $scope.shift.startTime,
 								end: $scope.shift.endDate + "T" + $scope.shift.endTime
@@ -214,14 +216,14 @@ angular.module('foodbook').controller('managerSetTimetableController', function(
 						notifyService.showSuccess('Uspešno dodata smena za kuvara.');
 						
 						calendarShift = {
-								eventColor: "red",
+								color: "#d83131",
 								title: $scope.worker.name + " " + $scope.worker.surname,
 								start: $scope.shift.startDate + "T" + $scope.shift.startTime,
 								end: $scope.shift.endDate + "T" + $scope.shift.endTime
 							};
 						
 						$scope.shifts.push(calendarShift);
-						
+
 					})
 					.error(function() {
 						notifyService.showError('Greška prilikom dodavanja smene za kuvara.');
@@ -230,7 +232,6 @@ angular.module('foodbook').controller('managerSetTimetableController', function(
 		} else {
 			notifyService.showError('Greška, nepoznat tip radnika.');
 		}
-		
 		
 		$scope.closeModal();
 		
