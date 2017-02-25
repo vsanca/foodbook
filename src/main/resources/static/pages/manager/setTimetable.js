@@ -2,10 +2,12 @@ angular.module('foodbook').controller('managerSetTimetableController', function(
 	
 	$scope.shift = {};
 	$scope.restaurant = {};
+	$scope.worker = {};
 	
 	$scope.areas = [];
 	$scope.shifts = [];
 	$scope.workers = [];
+	$scope.assignedAreas = [];
 	
 	var bartenders = [];
 	var chefs = [];
@@ -133,5 +135,105 @@ angular.module('foodbook').controller('managerSetTimetableController', function(
 	});
 	
 	
+	$scope.openModal = function(worker) {
+		
+		$scope.worker = worker;
+		$scope.shift.workerId = $scope.worker.id;
+		$scope.shift.workerType = $scope.worker.type;
+		
+		$scope.assignedAreas = [];
+		
+		for(i=0; i< $scope.areas.length; i++) {
+			$scope.assignedAreas.push(false);
+		}
+		
+		$('#newShiftModal').modal();
+	};
+	
+	$scope.closeModal = function() {
+		$('#newShiftModal').modal('hide');
+	};
+	
+	$scope.createShift = function() {
+		
+		if($scope.worker.bartender) {
+			
+			$http.post('/user/bartender/newShift', $scope.shift,
+					{ headers: { 'Authorization': sessionService.getAuthToken() } })
+					.success(function (data) {
+						notifyService.showSuccess('Uspešno dodata smena za baristu.');
+						
+						calendarShift = {
+								eventColor: "blue",
+								title: $scope.worker.name + " " + $scope.worker.surname,
+								start: $scope.shift.startDate + "T" + $scope.shift.startTime,
+								end: $scope.shift.endDate + "T" + $scope.shift.endTime
+							};
+						
+						$scope.shifts.push(calendarShift);
+						
+					})
+					.error(function() {
+						notifyService.showError('Greška prilikom dodavanja smene za baristu.');
+					});
+			
+		} else if ($scope.worker.chef) {
+			
+			$http.post('/user/chef/newShift', $scope.shift,
+					{ headers: { 'Authorization': sessionService.getAuthToken() } })
+					.success(function (data) {
+						notifyService.showSuccess('Uspešno dodata smena za kuvara.');
+						
+						calendarShift = {
+								eventColor: "green",
+								title: $scope.worker.name + " " + $scope.worker.surname,
+								start: $scope.shift.startDate + "T" + $scope.shift.startTime,
+								end: $scope.shift.endDate + "T" + $scope.shift.endTime
+							};
+						
+						$scope.shifts.push(calendarShift);
+						
+					})
+					.error(function() {
+						notifyService.showError('Greška prilikom dodavanja smene za kuvara.');
+					});
+			
+		} else if ($scope.worker.waiter) {
+			
+			$scope.shift.areas = [];
+			
+			for(i=0; i<$scope.areas.length; i++) {
+				if($scope.assignedAreas[i] == true) {
+					$scope.shift.areas.push($scope.areas[i].id);
+				}
+			}
+			
+			$http.post('/user/waiter/newShift', $scope.shift,
+					{ headers: { 'Authorization': sessionService.getAuthToken() } })
+					.success(function (data) {
+						notifyService.showSuccess('Uspešno dodata smena za kuvara.');
+						
+						calendarShift = {
+								eventColor: "red",
+								title: $scope.worker.name + " " + $scope.worker.surname,
+								start: $scope.shift.startDate + "T" + $scope.shift.startTime,
+								end: $scope.shift.endDate + "T" + $scope.shift.endTime
+							};
+						
+						$scope.shifts.push(calendarShift);
+						
+					})
+					.error(function() {
+						notifyService.showError('Greška prilikom dodavanja smene za kuvara.');
+					});
+			
+		} else {
+			notifyService.showError('Greška, nepoznat tip radnika.');
+		}
+		
+		
+		$scope.closeModal();
+		
+	};
 	
 });

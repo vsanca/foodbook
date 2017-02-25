@@ -29,9 +29,14 @@
 		            <label for="inputAreaName">Naziv</label>
 					<input type="text" required ng-model="area.name" required id="inputAreaName" class="form-control" placeholder="Nepušački" required>
 		      	</div>
-		      	<div class="form-group">
+		      	<!--  <div class="form-group">
 		            <label for="inputAreaColor">Boja</label>
 		            <select class="form-control" id="inputAreaColor" ng-model="area.color" ng-options="color for color in colors"></select>
+		        </div>-->
+		        
+		        <div class="form-group">
+		            <label for="inputAreaColor">Boja</label>
+		            <input type="color" class="form-control" id="inputAreaColor" ng-model="area.color">
 		        </div>
 		
         		<p><a type="submit" class="btn btn-success btn-block" ng-click="createArea()">Novi segment</a></p>
