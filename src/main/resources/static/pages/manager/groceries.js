@@ -110,7 +110,7 @@ angular.module('foodbook').controller('managerGroceriesController', function($sc
 		$('#newListItem').modal('hide');
 	};
 	
-	
+	//RADI
 	$scope.addItemType = function() {
 		if($scope.newGroceryItemType) {
 			
@@ -123,7 +123,7 @@ angular.module('foodbook').controller('managerGroceriesController', function($sc
 		}
 	};
 	
-	
+	//RADI
 	$scope.addItemQuantity = function() {
 		if($scope.newGroceryItemQuantity) {
 			
