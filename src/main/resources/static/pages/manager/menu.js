@@ -25,11 +25,11 @@ angular.module('foodbook').controller('managerMenuController', function($scope, 
 	});
 	
 	$scope.openModal = function() {
-		
+		$('#newItemModal').modal();
 	};
 	
 	$scope.closeModal = function() {
-		
+		$('#newItemModal').modal('hide');
 	};
 	
 	$scope.addMenuItem = function() {
@@ -44,6 +44,7 @@ angular.module('foodbook').controller('managerMenuController', function($scope, 
 							.success(function (data) {
 								
 								notifyService.showSuccess('Uspešno dodata stavka menija.');
+								$scope.menuItems.push(data);
 								$scope.closeModal();
 								
 							})

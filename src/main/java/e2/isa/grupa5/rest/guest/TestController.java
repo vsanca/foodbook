@@ -335,19 +335,19 @@ public class TestController {
 		it1.setImage_link("https://g.foolcdn.com/editorial/images/126529/rrb-image_large.jpg");
 		itemRepository.save(it1);
 		Item it2 = new Item("Pica", "Vrlo mesnata pica", food);
-		it1.setImage_link("http://sammyspizzatacoma.com/Portals/4/Meat-Lover-Pizza.jpg");
+		it2.setImage_link("http://sammyspizzatacoma.com/Portals/4/Meat-Lover-Pizza.jpg");
 		itemRepository.save(it2);
 		Item it3 = new Item("Pomfrit", "U masti pravljen krompir", food);
-		it1.setImage_link("https://i.ytimg.com/vi/ETTyVQrUZt8/maxresdefault.jpg");
+		it3.setImage_link("https://i.ytimg.com/vi/ETTyVQrUZt8/maxresdefault.jpg");
 		itemRepository.save(it3);
 		Item it4 = new Item("Sok", "Ima tragova mesa", drink);
-		it1.setImage_link("http://healthyrise.com/wp-content/uploads/2016/09/Juice-8.jpg");
+		it4.setImage_link("http://healthyrise.com/wp-content/uploads/2016/09/Juice-8.jpg");
 		itemRepository.save(it4);
 		Item it5 = new Item("Pivo", "Najbolje uz meso", drink);
-		it1.setImage_link("http://dreamicus.com/data/beer/beer-01.jpg");
+		it5.setImage_link("http://dreamicus.com/data/beer/beer-01.jpg");
 		itemRepository.save(it5);
 		Item it6 = new Item("Vino", "Ide dobro uz sve", drink);
-		it1.setImage_link("http://media.salon.com/2013/12/wine_clash.jpg");
+		it6.setImage_link("http://media.salon.com/2013/12/wine_clash.jpg");
 		itemRepository.save(it6);
 		
 		// RESTAURAN MENU ITEMS:

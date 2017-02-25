@@ -1,18 +1,71 @@
 <div class="container-fluid">
 	<div class="row">
+		<nav class="navbar navbar-default">
+			<div class="collapse navbar-collapse">
+					<button type="button" class="btn btn-success navbar-btn" ng-click="openModal()">Nova stavka</button>
+				<form class="navbar-form nav navbar-nav col-md-4 col-lg-4">
+			    	<div class="form-group">
+			          <input size="50" type="text" class="form-control" ng-model="query.item.name" placeholder="Pretraga stavki">
+			    	</div>
+      			</form>
+			</div>
+		</nav>
 	</div>
 	
-	<div class="row" ng-repeat="type in itemTypes">
-	<h4>{{type.display_name}}</h4>
+	<div class="row" ng-repeat="itemType in itemTypes">
+	<h4>{{itemType.display_name}}</h4>
 	
-	<div class="col-md-2 col-lg-2" ng-repeat="menuItem in menuItems | filter:query" ng-if="menuItem.item.itemType.name == type.name">
-		<a ng-if="menuItem.item.image_link" class="thumbnail">
-	    	<img src="{{menuItem.item.image_link}}">
-	    </a>
+	<div class="col-md-2 col-lg-2 thumbnail" ng-repeat="menuItem in menuItems | filter:query" ng-if="menuItem.item.itemType.name == itemType.name">
+	   	<img class="thumbnail" style="max-height: 100px;" ng-if="menuItem.item.image_link" src="{{menuItem.item.image_link}}">
+	   	<img style="max-height: 100px;" ng-if="menuItem.item.image_link===undefined || menuItem.item.image_link===null" src="http://www.immersion-3d.com/wp-content/uploads/2015/12/image-placeholder-500x500.jpg">
 		<p><b>{{menuItem.item.name}}</b></p>
 		<p> Cena: {{menuItem.price}}</p>
 		<p> Opis: {{menuItem.item.description}}</p>
 	</div>
 	
 	</div>
+</div>
+
+
+<!-- Modal - create item -->
+<div class="modal fade" id="newItemModal" tabindex="-1" role="dialog" aria-labelledby="newItemModalLabel">
+	  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+			      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel">Nova stavka menija</h4>
+			      </div>
+			      <div class="modal-body">
+					<form novalidate name="newItemForm">
+						<div class="form-group">
+							<label for="newItemName">Naziv</label>
+							<input type="text" required ng-model="menuItem.itemName" required id="newItemName" class="form-control" placeholder="Meso i sve ostalo" required>
+						</div>
+						<div class="form-group">
+							<label for="newItemPrice">Cena</label>
+							<input type="number" required ng-model="menuItem.price" required id="newItemPrice" class="form-control" placeholder="500" required>
+						</div>
+						<div class="form-group">
+							<label for="newItemDescription">Opis</label>
+							<input type="text" required ng-model="menuItem.itemDescription" required id="newItemDescription" class="form-control" placeholder="Zanimljiv opis stavke" required>
+						</div>
+						<div class="form-group">
+							<label for="newItemImageLink">Link slike</label>
+							<input type="text" ng-model="menuItem.image_link" required id="newItemImageLink" class="form-control" placeholder="Link ka slici na Internetu" required>
+						</div>
+						<div class="form-group">
+							<label for="newItemType">Tip stavke</label>
+							<select class="form-control" id="newItemType" ng-model="menuItem.itemTypeId">
+								<option ng-repeat="itemType in itemTypes" value="{{itemType.id}}">{{itemType.display_name}}</option>
+							</select>
+						</div>
+						
+					</form>
+			      </div>
+			      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Odustani</button>
+				        <button type="button" class="btn btn-success" ng-click="addMenuItem()">Dodaj novu stavku menija</button>
+			      </div>
+		    </div>
+	  </div>
 </div>

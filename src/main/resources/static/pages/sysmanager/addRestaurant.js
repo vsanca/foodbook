@@ -1,4 +1,4 @@
-angular.module('foodbook').controller('sysmanagerAddRestaurantController', function($scope, $http, $state, sessionService, notifyService) {
+angular.module('foodbook').controller('sysmanagerAddRestaurantController', function($scope, $http, $state, sessionService, notifyService, NgMap) {
 
 	$scope.restaurant = {};
 	
