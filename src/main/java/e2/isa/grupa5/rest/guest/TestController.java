@@ -524,7 +524,7 @@ public class TestController {
 		restaurantAreaRepository.save(ra1);
 		
 		// RESTAURANT TABLES:
-		RestaurantTable rt1 = new RestaurantTable("sto 1", 2, ra1, "{\"type\":\"rect\",\"left\":10,\"top\":10,\"width\":25,\"height\":25,\"fill\":\"white\"}");
+		RestaurantTable rt1 = new RestaurantTable("sto 1", 2, ra1, "{\"type\":\"rect\",\"left\":10,\"top\":10,\"width\":50,\"height\":100,\"fill\":\"blue\"}");
 		restaurantTableRepository.save(rt1);
 		
 		// RESTAURANT MANAGERS:
@@ -564,7 +564,7 @@ public class TestController {
 		it6.setImage_link("http://media.salon.com/2013/12/wine_clash.jpg");
 		itemRepository.save(it6);
 		
-		// RESTAURAN MENU ITEMS:
+		// RESTAURANT MENU ITEMS:
 		MenuItem mi1 = new MenuItem(500, it1, mnu1);
 		menuItemRepository.save(mi1);
 		MenuItem mi2 = new MenuItem(800, it2, mnu1);
