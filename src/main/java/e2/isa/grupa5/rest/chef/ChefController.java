@@ -54,6 +54,7 @@ public class ChefController {
 	
 	
 	@RequestMapping(value = "/chef/profile/{id}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getById(@PathVariable long id) {
 		
 		Chef ch = chefRepository.findById(id);
