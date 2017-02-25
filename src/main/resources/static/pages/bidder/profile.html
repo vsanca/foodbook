@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
 	<div ng-controller="bidderProfileController">
 	
 	<uib-tabset justified="true" class="tabs">
@@ -27,3 +27,24 @@
 	
 	</div>
 </div>
+-->
+
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+	
+    <div class="collapse navbar-collapse" ng-controller="bidderProfileController">
+	    <ul class="nav navbar-nav">
+	        <li id="li1" class="active"><a ng-click="home()">Početna</a></li>
+	        <li id="li2"><a ng-click="newBidding()">Nova ponuda</a></li>
+	        <li id="li3"><a ng-click="overview()">Pregled ponuda</a></li>
+	        <li id="li4"><a ng-click="biddings()">Sve ponude</a></li>
+	    </ul>
+	    <button type="button" class="btn btn-warning navbar-btn pull-right" ng-click="logout()">Odjavi me</button>
+	</div>
+
+    <div>
+        <ui-view></ui-view>
+    </div>
+    
+    </div>
+</nav>
