@@ -1,1 +1,18 @@
-<h2>MENU</h2>
+<div class="container-fluid">
+	<div class="row">
+	</div>
+	
+	<div class="row" ng-repeat="type in itemTypes">
+	<h4>{{type.display_name}}</h4>
+	
+	<div class="col-md-2 col-lg-2" ng-repeat="menuItem in menuItems | filter:query" ng-if="menuItem.item.itemType.name == type.name">
+		<a ng-if="menuItem.item.image_link" class="thumbnail">
+	    	<img src="{{menuItem.item.image_link}}">
+	    </a>
+		<p><b>{{menuItem.item.name}}</b></p>
+		<p> Cena: {{menuItem.price}}</p>
+		<p> Opis: {{menuItem.item.description}}</p>
+	</div>
+	
+	</div>
+</div>

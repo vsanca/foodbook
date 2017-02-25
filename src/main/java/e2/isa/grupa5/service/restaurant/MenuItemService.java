@@ -47,6 +47,7 @@ public class MenuItemService {
 		i.setName(menuItemDTO.getItemName());
 		i.setDescription(menuItemDTO.getItemDescription());
 		i.setItemType(type);
+		i.setImage_link(menuItemDTO.getImage_link());
 		
 		menuItem.setItem(i);
 		menuItem.setMenu(m);

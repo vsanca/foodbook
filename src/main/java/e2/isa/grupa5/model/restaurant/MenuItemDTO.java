@@ -17,6 +17,7 @@ public class MenuItemDTO {
 	private long itemTypeId;
 	private String itemDescription;
 	private long menuId;
+	private String image_link;
 	
 	public MenuItemDTO() {
 		
@@ -60,6 +61,14 @@ public class MenuItemDTO {
 
 	public void setMenuId(long menuId) {
 		this.menuId = menuId;
+	}
+
+	public String getImage_link() {
+		return image_link;
+	}
+
+	public void setImage_link(String image_link) {
+		this.image_link = image_link;
 	}
 	
 }
