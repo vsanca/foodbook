@@ -41,7 +41,7 @@ angular.module('foodbook').controller('managerGroceriesController', function($sc
 								if(data[i].to_date.valueOf() < today.valueOf()) {
 									$scope.groceriesList[i].status = $scope.status[2];
 									
-									$http.post('/groceries/expire', $data[i].id,
+									$http.post('/groceries/expire', data[i].id,
 											{ headers: { 'Authorization': sessionService.getAuthToken() } })
 											.success(function (data) {
 												$scope.selectedList = data;
@@ -54,7 +54,7 @@ angular.module('foodbook').controller('managerGroceriesController', function($sc
 							
 							for(j=0; j< $scope.groceriesList.length; j++) {
 								
-								$http.get('/bidding/getBiddingForGroceries/'+ $scope.groceriesList[i].id, 
+								$http.get('/bidding/getBiddingForGroceries/'+ $scope.groceriesList[j].id, 
 										{ headers: { 'Authorization': sessionService.getAuthToken() } })
 										.success(function (data) {
 											$scope.biddings.push(data);									

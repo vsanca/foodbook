@@ -9,7 +9,7 @@
 				</div>
 				
 				<div ng-repeat="list in groceriesList">
-					<div class="thumbnail">
+					<div class="thumbnail" ng-if="currentStatus == list.status" >
 						<button type="button" class="btn btn-primary" ng-click="previewList(list)" ng-if="currentStatus == list.status">{{list.from_date}} (važi do: {{list.to_date}})</button>
 						<button type="button" class="btn btn-primary" ng-if="currentStatus == list.status && list.status == status[3]" ng-click="activateList(list)">Aktiviraj ponudu</button>
 					
@@ -57,8 +57,8 @@
 							<td>{{$index+1}}</td>
 							<td>{{li.name}}</td>
 							<td>{{li.quantity}}</td>
-							<td>{{li.groceriesItemType.name}}</td>
-							<td>{{li.groceriesItemQty.name}}</td>
+							<td>{{li.type.name}}</td>
+							<td>{{li.quantityType.name}}</td>
 							<td><button type="button" class="btn btn-danger" ng-click="deleteItem($index)">Izbriši</button></td>
 						</tr>
 					</table>
@@ -159,8 +159,8 @@
 								<td>{{$index+1}}</td>
 								<td>{{li.name}}</td>
 								<td>{{li.quantity}}</td>
-								<td>{{li.groceriesItemType.name}}</td>
-								<td>{{li.groceriesItemQty.name}}</td>
+								<td>{{li.groceryItemType.name}}</td>
+								<td>{{li.groceryItemQty.name}}</td>
 							</tr>
 						</table>
 						
