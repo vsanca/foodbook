@@ -7,24 +7,35 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.maps.DistanceMatrixApi;
+import com.google.maps.GeoApiContext;
+import com.google.maps.model.DistanceMatrix;
+import com.google.maps.model.DistanceMatrixRow;
+
+import e2.isa.grupa5.model.grade.Grade;
 import e2.isa.grupa5.model.reservation.InvitedToReservation;
 import e2.isa.grupa5.model.reservation.Reservation;
+import e2.isa.grupa5.model.restaurant.Restaurant;
 import e2.isa.grupa5.model.users.Guest;
 import e2.isa.grupa5.model.users.User;
 import e2.isa.grupa5.model.users.UserRoles;
+import e2.isa.grupa5.repository.grade.GradeRepository;
 import e2.isa.grupa5.repository.guest.GuestRepository;
 import e2.isa.grupa5.repository.guest.InvitedToReservationRepository;
 import e2.isa.grupa5.repository.guest.ReservationRepository;
+import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
+import e2.isa.grupa5.rest.dto.guest.DistanceDTO;
 import e2.isa.grupa5.rest.dto.guest.FriendsPageDTO;
 import e2.isa.grupa5.rest.dto.guest.HomePageDTO;
 import e2.isa.grupa5.rest.dto.guest.ProfilePageDTO;
-
+import e2.isa.grupa5.rest.dto.guest.Reserve1PageDTO;
+import e2.isa.grupa5.rest.dto.guest.RestaurantsPageDTO;
 import e2.isa.grupa5.service.MailService;
 
 @Service
@@ -36,9 +47,18 @@ public class GuestService {
 
 	@Autowired
 	private ReservationRepository reservationRepository;
-	
+
+	@Autowired
+	private RestaurantRepository restaurantRepository;
+
 	@Autowired
 	private InvitedToReservationRepository invitedToReservationRepository;
+	
+	@Autowired
+	private GradeRepository gradeRepository;
+
+	@Value("${jelena.google.key}")
+	private String jelenaApiKey;
 
 	/**
 	 * Request BCrypt2 encoder
@@ -128,7 +148,7 @@ public class GuestService {
 		}
 		return null;
 	}
-	
+
 	public List<HomePageDTO> getHomePageInfo(Long id) {
 		List<HomePageDTO> homePageData = new ArrayList<HomePageDTO>();
 
@@ -136,36 +156,36 @@ public class GuestService {
 		if (guest == null) {
 			return null;
 		}
-		
-		// Create an instance of SimpleDateFormat used for formatting 
+
+		// Create an instance of SimpleDateFormat used for formatting
 		// the string representation of date (month/day/year)
 		DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
 
-		List<Reservation> reservations = guest.getReservations(); 
-		for(Reservation reservation : reservations) {
+		List<Reservation> reservations = guest.getReservations();
+		for (Reservation reservation : reservations) {
 			HomePageDTO dto = new HomePageDTO();
-			String restauranName = reservation.getRestaurant().getName(); 
+			String restauranName = reservation.getRestaurant().getName();
 			dto.setRestaurantName(restauranName);
-			
+
 			// Get the date today using Calendar object.
-			Date date = reservation.getTerminOd(); 
-			// Using DateFormat format method we can create a string 
+			Date date = reservation.getTerminOd();
+			// Using DateFormat format method we can create a string
 			// representation of a date with the defined format.
 			String reportDate = df.format(date);
-			
+
 			dto.setDate(reportDate);
-			List<InvitedToReservation> friends = invitedToReservationRepository.findByReservation(reservation); 
-			
-			StringBuilder builder = new StringBuilder(); 
-			
-			for(InvitedToReservation friend : friends) {
-				builder.append(friend.getGuest().getName()).append(" "); 
+			List<InvitedToReservation> friends = invitedToReservationRepository.findByReservation(reservation);
+
+			StringBuilder builder = new StringBuilder();
+
+			for (InvitedToReservation friend : friends) {
+				builder.append(friend.getGuest().getName()).append(" ");
 			}
-			
+
 			dto.setFriends(builder.toString());
-			homePageData.add(dto); 
+			homePageData.add(dto);
 		}
-		
+
 		return homePageData;
 	}
 
@@ -176,25 +196,25 @@ public class GuestService {
 		if (guest == null) {
 			return null;
 		}
-		
-		List<Guest> friends = guest.getFriends(); 
-		for(Guest friend : friends) {
+
+		List<Guest> friends = guest.getFriends();
+		for (Guest friend : friends) {
 			FriendsPageDTO dto = new FriendsPageDTO();
-			String friendName = friend.getName(); 
-			
-			StringBuilder builder = new StringBuilder(); 
+			String friendName = friend.getName();
+
+			StringBuilder builder = new StringBuilder();
 			builder.append(friend.getName()).append(" ").append(friend.getSurname());
-			
+
 			dto.setNameAndSurname(builder.toString());
-			
+
 			long numberOfVisits = 0;
 			numberOfVisits += reservationRepository.countByGuest(friend);
 			numberOfVisits += invitedToReservationRepository.countByGuest(friend);
 			dto.setNumberOfVisits(numberOfVisits);
-			
-			friendPageData.add(dto); 
+
+			friendPageData.add(dto);
 		}
-		
+
 		return friendPageData;
 	}
 
@@ -203,11 +223,109 @@ public class GuestService {
 		if (guest == null) {
 			return false;
 		}
-		
+
 		guest.setName(name);
 		guest.setSurname(surname);
 		guest.setAddress(address);
-		guestRepository.save(guest); 
-		return true; 	
+		guestRepository.save(guest);
+		return true;
+	}
+
+	public List<RestaurantsPageDTO> getRestaurantsPageInfo(Long id) {
+
+		List<RestaurantsPageDTO> restaurantPageData = new ArrayList<RestaurantsPageDTO>();
+
+		Guest guest = guestRepository.findOne(id);
+		if (guest == null) {
+			return restaurantPageData;
+		}
+
+		List<Restaurant> restaurants = restaurantRepository.findAll();
+		for (Restaurant restaurant : restaurants) {
+			RestaurantsPageDTO dto = new RestaurantsPageDTO();
+			dto.setRestaurantId(restaurant.getId());
+			dto.setName(restaurant.getName());
+			getRestaurantDistance(dto, restaurant, guest);
+			getRestaurantRating(dto, restaurant);
+			getRestaurantFriendsRating(dto, restaurant, guest);
+			restaurantPageData.add(dto);
+		}
+
+		return restaurantPageData;
+	}
+
+	private int getReservationRatingSum(Reservation reservation, Guest guest) {
+		List<Grade> grades = gradeRepository.findByReservation_id(reservation.getId());
+		double totalGrade = 0;
+		for(Grade grade : grades) {
+			if(guest == null ||  grade.getGuest().getId() == guest.getId()) {
+				totalGrade += grade.getRestaurantGrade();	
+			}
+		}
+		return (int) Math.round(totalGrade/grades.size());
+		
+	}
+	
+	private void getRestaurantFriendsRating(RestaurantsPageDTO dto, Restaurant restaurant, Guest guest) {
+		double rating = 0;
+		List<Reservation> allReservations = reservationRepository.findAll();
+		for(Reservation reservation : allReservations) {
+			for(Guest friend: guest.getFriends()) {
+				rating += getReservationRatingSum(reservation, friend);	
+			}
+		}
+		rating = Math.round(rating/allReservations.size());
+		dto.setFriendsRating((int) rating);
+		
+	}
+
+	private void getRestaurantRating(RestaurantsPageDTO dto, Restaurant restaurant) {
+		double rating = 0;
+		List<Reservation> allReservations = reservationRepository.findAll();
+		for(Reservation reservation : allReservations) {
+			rating += getReservationRatingSum(reservation, null);
+		}
+		rating = Math.round(rating/allReservations.size());
+		dto.setRating((int) rating);
+		
+
+	}
+
+	private void getRestaurantDistance(RestaurantsPageDTO dto, Restaurant restaurant, Guest guest) {
+		DistanceDTO distanceDTO = new DistanceDTO();
+		GeoApiContext context = new GeoApiContext().setApiKey(jelenaApiKey);
+		try {
+			String[] guestAddress = new String[] { guest.getAddress() };
+			String[] restaurantAddress = new String[] { restaurant.getAddress() };
+			DistanceMatrix distanceMatrix = DistanceMatrixApi
+					.getDistanceMatrix(context, guestAddress, restaurantAddress).await();
+			if (distanceMatrix == null || distanceMatrix.rows == null) {
+				distanceDTO.setDistanceKm(-1);
+				distanceDTO.setDistanceM(-1);
+				return;
+			}
+			for (DistanceMatrixRow row : distanceMatrix.rows) {
+				if (row.elements == null || row.elements.length == 0) {
+					continue; // skip empty distance matrix rows if any
+				}
+				// find 0th elements and use distance
+				System.out.println("DISTANCEE:" + row.elements[0].distance);
+				distanceDTO.setDistanceKm(row.elements[0].distance.inMeters / 1000.0);
+				distanceDTO.setDistanceM(row.elements[0].distance.inMeters);
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public Reserve1PageDTO getReserve1PageInfo(Long id) {
+		Reserve1PageDTO reserve1 = new Reserve1PageDTO(); 
+		Restaurant dto = new Restaurant(); 
+		
+		dto = restaurantRepository.findById(id); 
+		
+		return null;
 	}
 }

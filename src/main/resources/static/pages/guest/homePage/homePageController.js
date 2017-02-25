@@ -9,18 +9,25 @@
 
   angular.module('foodbook').controller('HomePageController', HomePageController);
 
-  HomePageController.$inject = ['$scope', '$location', 'sessionService', 'guestService'];
+  HomePageController.$inject = ['$scope', '$state', '$location', 'sessionService', 'guestService', 'authenticationService'];
 
-  function HomePageController($scope, $location, sessionService, guestService) {
+  function HomePageController($scope, $state, $location, sessionService, guestService, authenticationService) {
     $scope.userInfo = sessionService.getUserInfo();
 
     $scope.homePage = []; 
 
-    guestService.getHomePageInfo($scope.userInfo.userId).then(function (response) {
+    guestService.getHomePageInfo($scope.userInfo.userId).then(function (response) { 
         $scope.homePage = response.data; 
     }, function (error) {
 
     });
+
+    $scope.logoff = function() {
+      alert("logoff called");
+      authenticationService.logoff(); 
+      $state.go('login'); 
+    
+    }
    
   }
 })();

@@ -271,17 +271,231 @@ public class TestController {
 		g2.setRole(UserRoles.GUEST);
 		guestRepository.save(g2); 
 		
+		Guest g3 = new Guest(); 
+		g3.setActive(true);
+		g3.setAddress("g3 adresa");
+		g3.setEmail("g3@g3.com");
+		g3.setName("g3");
+		g3.setSurname("g3");
+		g3.setPassword(passwordEncoder.encode("g3"));
+		g3.setRole(UserRoles.GUEST);
+		guestRepository.save(g3); 
 		
+		Guest g4 = new Guest(); 
+		g4.setActive(true);
+		g4.setAddress("g4 adresa");
+		g4.setEmail("g4@g4.com");
+		g4.setName("g4");
+		g4.setSurname("g4");
+		g4.setPassword(passwordEncoder.encode("g4"));
+		g4.setRole(UserRoles.GUEST);
+		guestRepository.save(g4); 
+		
+		Guest g5 = new Guest(); 
+		g5.setActive(true);
+		g5.setAddress("g5 adresa");
+		g5.setEmail("g5@g5.com");
+		g5.setName("g5");
+		g5.setSurname("g5");
+		g5.setPassword(passwordEncoder.encode("g5"));
+		g5.setRole(UserRoles.GUEST);
+		guestRepository.save(g5); 
+		
+		Guest g6 = new Guest(); 
+		g6.setActive(true);
+		g6.setAddress("g6 adresa");
+		g6.setEmail("g6@g6.com");
+		g6.setName("g6");
+		g6.setSurname("g6");
+		g6.setPassword(passwordEncoder.encode("g6"));
+		g6.setRole(UserRoles.GUEST);
+		guestRepository.save(g6); 
+		
+		Guest g7 = new Guest(); 
+		g7.setActive(true);
+		g7.setAddress("g7 adresa");
+		g7.setEmail("g7@g7.com");
+		g7.setName("g7");
+		g7.setSurname("g7");
+		g7.setPassword(passwordEncoder.encode("g7"));
+		g7.setRole(UserRoles.GUEST);
+		guestRepository.save(g7); 
+		
+		Guest g8 = new Guest(); 
+		g8.setActive(true);
+		g8.setAddress("g8 adresa");
+		g8.setEmail("g8@g8.com");
+		g8.setName("g8");
+		g8.setSurname("g8");
+		g8.setPassword(passwordEncoder.encode("g8"));
+		g8.setRole(UserRoles.GUEST);
+		guestRepository.save(g8); 
+		
+		Guest g9 = new Guest(); 
+		g9.setActive(true);
+		g9.setAddress("g9 adresa");
+		g9.setEmail("g9@g9.com");
+		g9.setName("g9");
+		g9.setSurname("g9");
+		g9.setPassword(passwordEncoder.encode("g9"));
+		g9.setRole(UserRoles.GUEST);
+		guestRepository.save(g9); 
+		
+		Guest g10 = new Guest(); 
+		g10.setActive(true);
+		g10.setAddress("g10 adresa");
+		g10.setEmail("g10@g10.com");
+		g10.setName("g10");
+		g10.setSurname("g10");
+		g10.setPassword(passwordEncoder.encode("g10"));
+		g10.setRole(UserRoles.GUEST);
+		guestRepository.save(g10); 
+		
+		g.getFriends().add(g1); 
+		g.getFriends().add(g2); 
+		g.getFriends().add(g3); 
+		g.getFriends().add(g4);
+		guestRepository.save(g); 
 		
 		g1.getFriends().add(g); 
+		g1.getFriends().add(g4); 
+		g1.getFriends().add(g5); 
+		g1.getFriends().add(g6); 
 		guestRepository.save(g1);
 		
 		g2.getFriends().add(g1); 
-		guestRepository.save(g2); 
-		
-		
 		g2.getFriends().add(g); 
+		g2.getFriends().add(g7); 
+		g2.getFriends().add(g8); 
+		g2.getFriends().add(g9); 
+		g2.getFriends().add(g10); 
 		guestRepository.save(g2); 
+		
+		
+		g3.getFriends().add(g2); 
+		guestRepository.save(g3); 
+		
+		Restaurant r = new Restaurant(); 
+		r.setAddress("Restaurant 0");
+		r.setDescription("Restoran 0");
+		r.setEmail("r@r.com");
+		r.setName("r");
+		r.setPhone("r");
+		restaurantRepository.save(r); 
+		
+		Restaurant r1 = new Restaurant(); 
+		r1.setAddress("Restaurant 1");
+		r1.setDescription("Restoran 1");
+		r1.setEmail("r1@r1.com");
+		r1.setName("r1");
+		r1.setPhone("r1");
+		restaurantRepository.save(r1); 
+		
+		Restaurant r2 = new Restaurant(); 
+		r2.setAddress("Restaurant 2");
+		r2.setDescription("Restoran 2");
+		r2.setEmail("r2@r2.com");
+		r2.setName("r2");
+		r2.setPhone("r2");
+		restaurantRepository.save(r2); 
+		
+		Restaurant r3 = new Restaurant(); 
+		r3.setAddress("Restaurant 3");
+		r3.setDescription("Restoran 3");
+		r3.setEmail("r3@r3.com");
+		r3.setName("r3");
+		r3.setPhone("r3");
+		restaurantRepository.save(r3); 
+		
+		Restaurant r4 = new Restaurant(); 
+		r4.setAddress("Restaurant 4");
+		r4.setDescription("Restoran 4");
+		r4.setEmail("r4@r4.com");
+		r4.setName("r4");
+		r4.setPhone("r4");
+		restaurantRepository.save(r4); 
+		
+		Restaurant r5 = new Restaurant(); 
+		r5.setAddress("Restaurant 5");
+		r5.setDescription("Restoran 5");
+		r5.setEmail("r5@r5.com");
+		r5.setName("r5");
+		r5.setPhone("r5");
+		restaurantRepository.save(r5); 
+		
+		Reservation res = new Reservation(); 
+		res.setGuest(g);
+		res.setRestaurant(r);
+		res.setTerminDo(null);
+		res.setTerminOd(null);
+		reservationRepository.save(res); 
+		
+		Reservation res1 = new Reservation(); 
+		res1.setGuest(g);
+		res1.setRestaurant(r1);
+		res1.setTerminDo(null);
+		res1.setTerminOd(null);
+		reservationRepository.save(res1); 
+		
+		Reservation res2 = new Reservation(); 
+		res2.setGuest(g);
+		res2.setRestaurant(r);
+		res2.setTerminDo(null);
+		res2.setTerminOd(null);
+		reservationRepository.save(res2); 
+		
+		
+		Reservation res3 = new Reservation(); 
+		res3.setGuest(g);
+		res3.setRestaurant(r1);
+		res3.setTerminDo(null);
+		res3.setTerminOd(null);
+		reservationRepository.save(res3); 
+		
+		
+		
+		Reservation res4 = new Reservation(); 
+		res4.setGuest(g);
+		res4.setRestaurant(r2);
+		res4.setTerminDo(null);
+		res4.setTerminOd(null);
+		reservationRepository.save(res4); 
+		
+		
+		g.getReservations().add(res); 
+		guestRepository.save(g); 
+		
+		g.getReservations().add(res1); 
+		g.getReservations().add(res2); 
+		g.getReservations().add(res3); 
+		g.getReservations().add(res4); 
+		guestRepository.save(g); 
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		// SYSTEM MANAGERS:
@@ -403,7 +617,7 @@ public class TestController {
 		ShiftChef sc1 = new ShiftChef(ch1, sh1);
 		shiftChefRepository.save(sc1);
 		
-		
+	/*	
 		Reservation r = new Reservation(); 
 		r.setGuest(g);
 		r.setTerminDo(new Date());
@@ -441,7 +655,7 @@ public class TestController {
 		
 		guestRepository.save(g); 
 		
-		
+	*/	
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

@@ -5,10 +5,16 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-              <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span>Restorani</a></li>
-              <li class="active"><a href="#"><span class="glyphicon glyphicon-list-alt"></span>Prijatelji</a></li>
-              <li class="active"><a href="#"><span class="glyphicon glyphicon-list-alt"></span>Moj nalog</a></li>
+              <li class="active"><a href="#/guest/restaurants-page"><span class="glyphicon glyphicon-home"></span>Restorani</a></li>
+              <li class="active"><a href="#/guest/friends-page"><span class="glyphicon glyphicon-list-alt"></span>Prijatelji</a></li>
+              <li class="active"><a href="#/guest/profile-page"><span class="glyphicon glyphicon-list-alt"></span>Moj nalog</a></li>
           </ul>
+            
+          <ul class="nav navbar-nav navbar-right">
+            <button ng-click="logoff()"> Log out </button>
+          </ul>
+
+
       </div>
       <!-- /.navbar-collapse -->
   </nav>
@@ -24,39 +30,70 @@
 </div>
 
 <div>
-    <span>Dodaj prijatelja</span>
-    <div id="custom-search-input">
-                            <div class="input-group col-md-5">
-                                <input type="text" class="  search-query form-control" placeholder="Search" />
-                                <span class="input-group-btn">
-                                    <button class="btn btn-danger" type="button">
-                                        <span class=" glyphicon glyphicon-search"></span>
-                                    </button>
-                                </span>
-                            </div>
+    <div>
+        <h4>Moji prijatelji</h4>
+        <table border="1">
+            <tr>
+                <th>Ime</th>
+                <th>Prezime</th>
+            </tr>
+            <tr ng-repeat="friend in profilePage.friends">
+                <td>{{ friend.name }}</td>  
+                <td>{{ friend.surname }}</td>  
+            </tr>
+        </table>
     </div>
 
+    <hr>
+    <div style="display:inline-block">
+        <div id="custom-search-input" style="display:inline-block">
+                                <div class="input-group col-md-2" style="display:inline-block">
+                                    <input type="text" ng-model="search.$" class=" search-query form-control" placeholder="Bilo šta" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-danger  inline" type="button">
+                                            <span class=" glyphicon glyphicon-search"></span>
+                                        </button>
+                                    </span>
+                                </div>
+        </div>
+        
+        <div id="custom-search-input1" style="display:inline-block">
+                                <div class="input-group col-md-2" style="display:inline-block" >
+                                    <input type="text" ng-model="search.name" class=" search-query form-control" placeholder="Samo ime" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-danger  inline" type="button">
+                                            <span class=" glyphicon glyphicon-search"></span>
+                                        </button>
+                                    </span>
+                                </div>
+        </div>
 
+        <div id="custom-search-input2" style="display:inline-block">
+                                <div class="input-group col-md-2" style="display:inline-block" >
+                                    <input type="text" ng-model="search.surname" class=" search-query form-control" placeholder="Samo prezime" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-danger inline" type="button">
+                                            <span class=" glyphicon glyphicon-search"></span>
+                                        </button>
+                                    </span>
+                                </div>
+        </div>
+    </div>
 
-
-<div>
-    <h4>Moji prijatelji</h4>
-    <table border="1">
-        <tr>
-            <th>Ime</th>
-            <th>Prezime</th>
-        </tr>
-        <tr ng-repeat="friend in profilePage.friends">
-            <td>{{ friend.name }}</td>  
-            <td>{{ friend.surname }}</td>  
-        </tr>
+    <table id="searchObjResults" border="1">
+    <tr>
+                <th>Ime</th>
+                <th>Prezime</th>
+    </tr>
+    <tr ng-repeat="friendObj in profilePage.friends | filter:search">
+        <td>{{friendObj.name}}</td>
+        <td>{{friendObj.surname}}</td>
+    </tr>
     </table>
-    
-<button ng-click="saveChanges()">
-  Save changes
-</button>
-</div>
 
+    <button ng-click="saveChanges()">
+    Save changes
+    </button>
 
 </div>
 

@@ -1,3 +1,5 @@
 .tabs {
 	margin: 20px 20px;
 }
+
+div.inline { float:left; }

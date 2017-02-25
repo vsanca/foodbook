@@ -11,10 +11,10 @@
         .service('authenticationService', authenticationService);
     
     
-    authenticationService.$inject = ['$q', '$http', 'sessionService'];
+    authenticationService.$inject = ['$q', '$http', 'sessionService', '$state'];
 
-    function authenticationService($q, $http, sessionService) {
-
+    function authenticationService($q, $http, sessionService, $state) {
+       
         return {
         	login: login,
         	logoff: logoff
@@ -69,7 +69,9 @@
          * @returns JWT auth token
          */
         function logoff() {
-        	return localStorage.getItem('token');
+        	sessionService.setAuthToken(null);
+            sessionService.setUserInfo(null);
+           
         }
 
     }

@@ -9,9 +9,9 @@
 
   angular.module('foodbook').controller('ProfilePageController', ProfilePageController);
 
-  ProfilePageController.$inject = ['$scope', '$location', 'sessionService', 'guestService', 'notifyService'];
+  ProfilePageController.$inject = ['$scope', '$state', 'sessionService', 'guestService', 'notifyService', 'authenticationService'];
 
-  function ProfilePageController($scope, $location, sessionService, guestService, notifyService) {
+  function ProfilePageController($scope, $state, sessionService, guestService, notifyService, authenticationService) {
     $scope.userInfo = sessionService.getUserInfo();
 
     $scope.profilePage = {
@@ -25,11 +25,18 @@
     $scope.saveChanges = function() {
         guestService.updateProfileInfo($scope.profilePage.name, $scope.profilePage.surname, $scope.profilePage.address, $scope.userInfo.userId).then(function (response) {
         notifyService.showSuccess('Izmena je uspesno izvrsena!'); 
-  }, function (error) {
+      }, function (error) {
        notifyService.showError('Izmena nije uspesno izvrsena!'); 
-  });
-
+      });
     }
+  
+    $scope.logoff = function() {
+      alert("logoff called");
+      authenticationService.logoff(); 
+      $state.go('login'); 
+    
+    }
+
 
     guestService.getProfilePageInfo($scope.userInfo.userId).then(function (response) {
         $scope.profilePage.name = response.data.name;

@@ -8,9 +8,9 @@
   'use strict';
 
   angular.module('foodbook').controller('LoginController', LoginController);
-  LoginController.$inject = ['$scope', '$http', 'authenticationService', 'userRoles', '$location', '$state', 'sessionService'];
+  LoginController.$inject = ['$scope', '$http', 'authenticationService', 'userRoles', '$location', '$state', 'sessionService', 'GoogleSignin'];
 
-  function LoginController($scope, $http, authenticationService, userRoles, $location, $state, sessionService) {
+  function LoginController($scope, $http, authenticationService, userRoles, $location, $state, sessionService, GoogleSignin) {
     console.log("LoginController ready!");
     
     // možda ovakva provera da li je već ulogovan, pa odgovarajući redirect, isprobano - radi ali zakomentarisano da bi se moglo lakše testirati
@@ -46,7 +46,7 @@
       authenticationService.login($scope.user.username, $scope.user.password).then(function (data) {
     	  
         if (data.role === userRoles["GUEST"]) {
-        	$state.go('guest-profile')
+        	$state.go('guest-home')
         } else if (data.role === userRoles['CHEF']) {
         	$state.go('chef')
         } else if (data.role === userRoles['WAITER']) {
@@ -72,6 +72,14 @@
     $scope.register = function () {
       $location.path("/guest/register");
     }
+
+    $scope.loginWithGoogle = function() {
+        GoogleSignin.signIn().then(function (user) {
+            console.log(user);
+        }, function (err) {
+            console.log(err);
+        });
+    };
   }
 
 })();
