@@ -8,9 +8,9 @@
   'use strict';
 
   angular.module('foodbook').controller('LoginController', LoginController);
-  LoginController.$inject = ['$scope', '$http', 'authenticationService', 'userRoles', '$location', '$state', 'sessionService', 'GoogleSignin', 'notifyService'];
+  LoginController.$inject = ['$scope', '$http', 'authenticationService', 'userRoles', '$location', '$state', 'sessionService', 'GoogleSignin', 'notifyService', '$facebook'];
 
-  function LoginController($scope, $http, authenticationService, userRoles, $location, $state, sessionService, GoogleSignin, notifyService) {
+  function LoginController($scope, $http, authenticationService, userRoles, $location, $state, sessionService, GoogleSignin, notifyService, $facebook) {
     console.log("LoginController ready!");
     
     // možda ovakva provera da li je već ulogovan, pa odgovarajući redirect, isprobano - radi ali zakomentarisano da bi se moglo lakše testirati
@@ -79,7 +79,25 @@
         }, function (err) {
             console.log(err);
         });
-    };
+    }; 
+    $scope.loginWithFacebook = function() {
+      $facebook.login().then(function() {
+        fetchUserData();
+      });
+    }
+  function fetchUserData() {
+    $facebook.api("/me").then( 
+      function(response) {
+        $scope.welcomeMsg = "Welcome " + response.name;
+       
+      },
+      function(err) {
+        $scope.welcomeMsg = "Please log in";
+      });
+  }
+  
+
+
   }
 
 })();
