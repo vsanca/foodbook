@@ -1,5 +1,7 @@
 angular.module('foodbook').controller('managerRegisterWorkerController', function($scope, $http, $state, sessionService, notifyService) {
 	
+	$scope.activePageNumber = 3;
+	
 	$scope.worker = {};
 	
 	$scope.cancel = function() {

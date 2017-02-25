@@ -1,3 +1,6 @@
+<!-- 
+CANVAS NE RADI, MODAL NE RADI KAD SE OVAKO RADI I KAD JE UGNJEŽĐENO U UI-VIEW!!!
+
 <div>
 	<div ng-controller="managerProfileController">
 	
@@ -57,41 +60,32 @@
 	
 	</div>
 </div>
+-->
+
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+	
+    <div class="collapse navbar-collapse" ng-controller="managerProfileController">
+	    <ul class="nav navbar-nav">
+	        <li id="li1" class="active"><a ng-class="{ active: activePageNumber == 0}" ng-click="home()">Početna</a></li>
+	        <li id="li2"><a ng-class="{ active: activePageNumber == 1}" ng-click="restaurant()">Restoran</a></li>
+	        <li id="li3"><a ng-class="{ active: activePageNumber == 2}" ng-click="workers()">Radnici</a></li>
+	        <li id="li4"><a ng-class="{ active: activePageNumber == 3}" ng-click="registerWorker()">Registruj radnika</a></li>
+	        <li id="li5"><a ng-class="{ active: activePageNumber == 4}" ng-click="setLayout()">Raspored stolova</a></li>
+	        <li id="li6"><a ng-class="{ active: activePageNumber == 5}" ng-click="setTimetable()">Raspored smena</a></li>
+	        <li id="li7"><a ng-class="{ active: activePageNumber == 6}" ng-click="menu()">Meni</a></li>
+	        <li id="li8"><a ng-class="{ active: activePageNumber == 7}" ng-click="groceries()">Nabavka namirnica</a></li>
+	        <li id="li9"><a ng-class="{ active: activePageNumber == 8}" ng-click="addBidder()">Registruj ponuđača</a></li>
+	        <li id="li10"><a ng-class="{ active: activePageNumber == 9}" ng-click="report()">Izveštaj</a></li>
+	    </ul>
+	    <button type="button" class="btn btn-warning navbar-btn">Odjava</button>
+	</div>
+
+    <div>
+        <ui-view></ui-view>
+    </div>
+    
+    </div>
+</nav>
 
 
-
-
-<!-- Modal -->
-<div ng-controller="managerSetLayoutController" class="modal fade" id="newTableModal" tabindex="-1" role="dialog" aria-labelledby="newTableModalLabel">
-	  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-			      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				        <h4 class="modal-title" id="myModalLabel">Novi sto</h4>
-			      </div>
-			      <div class="modal-body">
-				      	<form novalidate name="newTableForm">
-						    <div class="form-group">
-						    	<label for="newTableName">Naziv</label>
-								<input type="text" required ng-model="table.name" required id="newTableName" class="form-control" placeholder="Separe 2" required>
-						   	</div>
-						    <div class="form-group">
-						    	<label for="newTableCapacity">Broj mesta</label>
-								<input type="number" required ng-model="table.seats" required id="newTableCapacity" class="form-control" placeholder="5" required>
-						   	</div>
-						    <div class="form-group">
-						   		<label for="newTableArea">Segment u kojem se nalazi</label>
-						       	<select class="form-control" id="newTableArea" ng-model="table.area">
-						       		<option ng-repeat="area in areas track by $index" value="{{area.id}}">{{area.name}}</option>
-						       	</select>
-						   	</div>
-				    		
-				    	</form>
-			      </div>
-			      <div class="modal-footer">
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Odustani</button>
-				        <button type="button" class="btn btn-success" ng-click="createTable()">Dodaj novi sto</button>
-			      </div>
-		    </div>
-	  </div>
-</div>

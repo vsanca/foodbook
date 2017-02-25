@@ -1,5 +1,7 @@
 angular.module('foodbook').controller('managerRestaurantController', function($scope, $http, $state, $window, sessionService, NgMap, notifyService) {
 	
+	$scope.activePageNumber = 1;
+	
 	$scope.restaurant = {};
 	
 	$http.get('/restaurants/manager/'+sessionService.getUserInfo().userId, 

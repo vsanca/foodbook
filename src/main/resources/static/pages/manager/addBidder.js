@@ -1,5 +1,7 @@
 angular.module('foodbook').controller('managerAddBidderController', function($scope, $http, $state, sessionService, notifyService) {
 	
+	$scope.activePageNumber = 8;
+	
 	$scope.bidder = {};
 	
 	$scope.createBidder = function() {

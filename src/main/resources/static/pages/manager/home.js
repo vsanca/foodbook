@@ -1,5 +1,7 @@
 angular.module('foodbook').controller('managerHomeController', function($scope, $http, $state, sessionService, notifyService) {
 	
+	$scope.activePageNumber = 0;
+	
 	$scope.user = {};
 	
 	$http.get('/user/rmanager/profile/'+sessionService.getUserInfo().userId, 

@@ -1,5 +1,7 @@
 angular.module('foodbook').controller('managerWorkersController', function($scope, $http, $state, sessionService) {
 	
+	$scope.activePageNumber = 2;
+	
 	$scope.restaurant = {};
 	$scope.workers = {};
 	
