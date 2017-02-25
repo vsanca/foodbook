@@ -165,8 +165,8 @@ angular.module('foodbook').controller('managerSetLayoutController', function($sc
 					notifyService.showError('Greška prilikom ažuriranja rasporeda stolova.');
 				})
 	};
-	
-    canvas.on('mouse:down', function (options) {
+    
+    canvas.on('mouse:dblclick', function (options) {
     	
         for (var i in $scope.tables) {
             
@@ -176,6 +176,9 @@ angular.module('foodbook').controller('managerSetLayoutController', function($sc
                 $scope.$apply(function () {
                     $scope.table = t;
                 });
+                
+                $('#updateTableModal').modal();
+                
                 break;
             }
         }
