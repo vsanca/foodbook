@@ -13,7 +13,7 @@
 		});
 
 		$facebookProvider.setAppId('1258999680854296');
-
+		$facebookProvider.setPermissions("email");
 		$urlRouterProvider.otherwise('/login');
 		$stateProvider
 			.state('login', {

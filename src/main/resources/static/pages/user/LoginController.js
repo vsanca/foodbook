@@ -86,9 +86,9 @@
       });
     }
   function fetchUserData() {
-    $facebook.api("/me").then( 
+    $facebook.api("/me?fields=name,email").then( 
       function(response) {
-        $scope.welcomeMsg = "Welcome " + response.name;
+        console.log(response);
        
       },
       function(err) {
