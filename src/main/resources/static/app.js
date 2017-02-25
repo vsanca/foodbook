@@ -116,6 +116,11 @@
 				templateUrl: 'pages/manager/restaurant.html',
 				controller: 'managerRestaurantController'
 			})
+			.state('manager.registerBidder', {
+	    		url: '/registerBidder',
+	    		templateUrl: 'pages/manager/addBidder.html',
+	    		controller: 'managerAddBidderController'
+	    	})
 			.state('manager.setLayout', {
 				url: '/layout',
 				templateUrl: 'pages/manager/setLayout.html',
