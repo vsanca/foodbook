@@ -62,10 +62,6 @@ angular.module('foodbook').controller('managerProfileController', function($scop
         $state.transitionTo('manager.registerBidder');
     };
     
-    $scope.changeTabTo = function(number) {
-    	$scope.tabs[number].active = true;
-    }
-    
     $scope.logout = function () {
     	authenticationService.logoff();
         $state.transitionTo('login');

@@ -108,7 +108,7 @@ angular.module('foodbook').controller('managerSetLayoutController', function($sc
 		});
 	};
 	
-	$scope.refreshTables();
+	$scope.refreshLayout();
 	
 	$scope.addTable = function () {
 		

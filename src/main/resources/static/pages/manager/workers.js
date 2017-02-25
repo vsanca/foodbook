@@ -12,6 +12,8 @@ angular.module('foodbook').controller('managerWorkersController', function($scop
 	$scope.order = "name";
 	
 	$scope.setShift = function () {
+    	$(".nav").find(".active").removeClass("active");
+		$('#li6').addClass('active');
 		$state.go('manager.setTimetable');
 	};
 	
