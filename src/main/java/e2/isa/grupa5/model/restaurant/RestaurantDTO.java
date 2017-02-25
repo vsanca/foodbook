@@ -1,5 +1,8 @@
 package e2.isa.grupa5.model.restaurant;
 
+import java.util.List;
+
+import e2.isa.grupa5.model.grade.GradeDTO;
 
 /**
  * {@link Restaurant} for use in communication (DTO).
@@ -18,6 +21,10 @@ public class RestaurantDTO {
 	private String phone;
 	private String address;
 	private String email;
+	private int gradeAtmosphere;
+	private int gradeWaiter;
+	private int gradeMeal;
+	private List<GradeDTO> grades;
 	
 	public RestaurantDTO() {
 		
@@ -78,6 +85,38 @@ public class RestaurantDTO {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public int getGradeAtmosphere() {
+		return gradeAtmosphere;
+	}
+
+	public void setGradeAtmosphere(int gradeAtmosphere) {
+		this.gradeAtmosphere = gradeAtmosphere;
+	}
+
+	public int getGradeWaiter() {
+		return gradeWaiter;
+	}
+
+	public void setGradeWaiter(int gradeWaiter) {
+		this.gradeWaiter = gradeWaiter;
+	}
+
+	public int getGradeMeal() {
+		return gradeMeal;
+	}
+
+	public void setGradeMeal(int gradeMeal) {
+		this.gradeMeal = gradeMeal;
+	}
+
+	public List<GradeDTO> getGrades() {
+		return grades;
+	}
+
+	public void setGrades(List<GradeDTO> grades) {
+		this.grades = grades;
 	}
 	
 }

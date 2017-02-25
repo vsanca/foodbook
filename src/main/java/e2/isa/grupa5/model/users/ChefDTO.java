@@ -1,6 +1,6 @@
 package e2.isa.grupa5.model.users;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * {@link Chef} for use in communication (DTO).

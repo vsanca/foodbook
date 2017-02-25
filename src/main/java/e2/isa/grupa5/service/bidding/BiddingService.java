@@ -2,10 +2,12 @@ package e2.isa.grupa5.service.bidding;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import e2.isa.grupa5.model.bidding.Bidding;
 import e2.isa.grupa5.model.bidding.BiddingDTO;
 import e2.isa.grupa5.model.groceries.Groceries;
+import e2.isa.grupa5.model.groceries.GroceriesConstants;
 import e2.isa.grupa5.model.users.Bidder;
 import e2.isa.grupa5.repository.bidding.BidderRepository;
 import e2.isa.grupa5.repository.bidding.BiddingRepository;
@@ -42,22 +44,28 @@ public class BiddingService {
 		b.setPrice(bDTO.getPrice());
 	}
 	
+	@Transactional
 	public Bidding create(BiddingDTO bDTO) {
 		Bidding bidding = new Bidding();
 		
 		Groceries g = groceriesRepository.findById(bDTO.getGroceriesId());
 		Bidder b = bidderRepository.findById(bDTO.getBidderId());
 		
-		bidding.setStatus(bDTO.getStatus());
-		
-		setVariableAttributes(bidding, bDTO);
-		
-		bidding.setGroceries(g);
-		bidding.setBidder(b);
-		
 		try {
-			bidding = biddingRepository.save(bidding);
-			return bidding;
+			
+			if(g.getStatus().equals(GroceriesConstants.OPEN)) {
+				bidding.setStatus(bDTO.getStatus());
+				
+				setVariableAttributes(bidding, bDTO);
+				
+				bidding.setGroceries(g);
+				bidding.setBidder(b);
+			
+				bidding = biddingRepository.save(bidding);
+				return bidding;
+			} else {
+				return null;
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,12 +73,16 @@ public class BiddingService {
 		}
 	}
 	
+	@Transactional
 	public Bidding update(BiddingDTO bDTO, long id) {
 		Bidding b = biddingRepository.findById(id);
 		
-		setVariableAttributes(b, bDTO);
-		
 		try {
+			Groceries g = groceriesRepository.findById(b.getGroceries().getId());
+			
+			if(g.getStatus().equals(GroceriesConstants.OPEN))
+				setVariableAttributes(b, bDTO);
+			
 			b = biddingRepository.save(b);
 			return b;
 			

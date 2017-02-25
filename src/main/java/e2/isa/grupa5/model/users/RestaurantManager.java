@@ -33,6 +33,7 @@ public class RestaurantManager extends User implements Serializable {
     
     public RestaurantManager(String mail, String pass, String name, String surname, String address, Restaurant restaurant) {
     	super(mail,pass,name,surname,address, UserRoles.MANAGER);
+    	this.restaurant = restaurant;
     }
 
 	public Restaurant getRestaurant() {

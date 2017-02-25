@@ -1,0 +1,51 @@
+<!--  <div>
+
+    <div class="collapse navbar-collapse" ng-controller="sysmanagerProfileController">
+	    <ul class="nav navbar-nav">
+	        <li><a ng-class="{ active: activePageNumber == 0}" ng-click="home()">Početna</a></li>
+	        <li><a ng-class="{ active: activePageNumber == 1}" ng-click="addRestaurant()">Dodaj restoran</a></li>
+	        <li><a ng-class="{ active: activePageNumber == 2}" ng-click="addRestaurantManager()">Dodaj menadžera restorana</a></li>
+	        <li><a ng-class="{ active: activePageNumber == 3}" ng-click="addBidder()">Dodaj ponuđača</a></li>
+	        <li><a ng-class="{ active: activePageNumber == 4}" ng-click="addSysmanager()">Dodaj menadžera sistema</a></li>
+	    </ul>
+	</div>
+
+    <div>
+        <ui-view></ui-view>
+    </div>
+</div>
+-->
+
+<div>
+	<div ng-controller="sysmanagerProfileController">
+	
+	<uib-tabset justified="true" class="tabs">
+		<uib-tab index="0" heading="Početna" ng-click="home()">
+			<div>
+				<ui-view></ui-view>
+			</div>
+		</uib-tab>
+		<uib-tab index="1" heading="Dodaj restoran" ng-click="addRestaurant()">
+			<div>
+				<ui-view></ui-view>
+			</div>
+		</uib-tab>
+		<uib-tab index="2" heading="Dodaj menadžera restorana" ng-click="addRestaurantManager()">
+			<div>
+				<ui-view></ui-view>
+			</div>
+		</uib-tab>
+		<uib-tab index="3" heading="Dodaj ponuđača" ng-click="addBidder()">
+			<div>
+				<ui-view></ui-view>
+			</div>
+		</uib-tab>
+		<uib-tab index="4" heading="Dodaj menadžera sistema" ng-click="addSysmanager()">
+			<div>
+				<ui-view></ui-view>
+			</div>
+		</uib-tab>
+	</uib-tabset>
+	
+	</div>
+</div>

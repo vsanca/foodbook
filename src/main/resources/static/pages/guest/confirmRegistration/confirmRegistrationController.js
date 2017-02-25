@@ -17,7 +17,7 @@
     let token = $routeParams.token;
     
     guestService.verifyGuest(token).then(function() {
-        $scope.infoMessage = "Account verified, now you can login.";
+     $scope.infoMessage = "Account verified, now you can login.";
     }, function() {
         $scope.infoMessage = "Account verification failed, invalid verification link!";
     });

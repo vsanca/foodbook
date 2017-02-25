@@ -1,11 +1,9 @@
 package e2.isa.grupa5.rest.guest;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-
 import java.util.Date;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+
+import org.springframework.beans.factory.annotation.Value;
 import com.google.maps.DistanceMatrixApi;
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
@@ -20,18 +20,49 @@ import com.google.maps.model.DistanceMatrix;
 import com.google.maps.model.DistanceMatrixElement;
 import com.google.maps.model.DistanceMatrixRow;
 import com.google.maps.model.GeocodingResult;
+import e2.isa.grupa5.rest.dto.guest.DistanceDTO;
+
 
 import e2.isa.grupa5.model.reservation.InvitedToReservation;
 import e2.isa.grupa5.model.reservation.Reservation;
+import e2.isa.grupa5.model.restaurant.Item;
+import e2.isa.grupa5.model.restaurant.ItemType;
+import e2.isa.grupa5.model.restaurant.ItemTypeConstants;
+import e2.isa.grupa5.model.restaurant.Menu;
+import e2.isa.grupa5.model.restaurant.MenuItem;
 import e2.isa.grupa5.model.restaurant.Restaurant;
+import e2.isa.grupa5.model.restaurant.RestaurantArea;
+import e2.isa.grupa5.model.restaurant.RestaurantTable;
+import e2.isa.grupa5.model.shifts.Shift;
+import e2.isa.grupa5.model.shifts.ShiftChef;
+import e2.isa.grupa5.model.users.Bartender;
+import e2.isa.grupa5.model.users.Bidder;
+import e2.isa.grupa5.model.users.Chef;
 import e2.isa.grupa5.model.users.Guest;
+import e2.isa.grupa5.model.users.RestaurantManager;
+import e2.isa.grupa5.model.users.SystemManager;
 import e2.isa.grupa5.model.users.UserRoles;
+import e2.isa.grupa5.model.users.Waiter;
+import e2.isa.grupa5.repository.bartender.BartenderRepository;
+import e2.isa.grupa5.repository.bidding.BidderRepository;
+import e2.isa.grupa5.repository.chef.ChefRepository;
 import e2.isa.grupa5.repository.guest.FriendshipRequestRepository;
 import e2.isa.grupa5.repository.guest.GuestRepository;
 import e2.isa.grupa5.repository.guest.InvitedToReservationRepository;
 import e2.isa.grupa5.repository.guest.ReservationRepository;
+import e2.isa.grupa5.repository.restaurant.ItemRepository;
+import e2.isa.grupa5.repository.restaurant.ItemTypeRepository;
+import e2.isa.grupa5.repository.restaurant.MenuItemRepository;
+import e2.isa.grupa5.repository.restaurant.MenuRepository;
+import e2.isa.grupa5.repository.restaurant.RestaurantAreaRepository;
+import e2.isa.grupa5.repository.restaurant.RestaurantManagerRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
-import e2.isa.grupa5.rest.dto.guest.DistanceDTO;
+import e2.isa.grupa5.repository.restaurant.RestaurantTableRepository;
+import e2.isa.grupa5.repository.shifts.ShiftChefRepository;
+import e2.isa.grupa5.repository.shifts.ShiftRepository;
+import e2.isa.grupa5.repository.sysmanager.SystemManagerRepository;
+import e2.isa.grupa5.repository.waiter.WaiterRepository;
+import e2.isa.grupa5.service.chef.ChefService;
 
 @RestController
 @RequestMapping("/test")
@@ -51,11 +82,53 @@ public class TestController {
 	
 	@Autowired
 	private FriendshipRequestRepository friendshipRequestRespository;
-
+	
+	@Autowired
+	private SystemManagerRepository systemManagerRepository;
+	
+	@Autowired
+	private RestaurantManagerRepository restaurantManagerRepository;
+	
+	@Autowired
+	private MenuRepository menuRepository;
+	
+	@Autowired
+	private MenuItemRepository menuItemRepository;
+	
+	@Autowired
+	private ItemTypeRepository itemTypeRepository;
+	
+	@Autowired
+	private ItemRepository itemRepository;
+	
+	@Autowired
+	private BartenderRepository bartenderRepository;
+	
+	@Autowired
+	private ChefRepository chefRepository;
+	
+	@Autowired
+	private WaiterRepository waiterRepository;
+	
+	@Autowired
+	private RestaurantAreaRepository restaurantAreaRepository;
+	
+	@Autowired
+	private RestaurantTableRepository restaurantTableRepository;
+	
+	@Autowired
+	private BidderRepository bidderRepository;
+	
+	@Autowired
+	private ShiftRepository shiftRepository;
+	
+	@Autowired
+	private ShiftChefRepository shiftChefRepository;
+	
 	@Autowired
 	PasswordEncoder passwordEncoder;
-
-	@Value("${jelena.google.key}")
+	
+		@Value("${jelena.google.key}")
 	private String jelenaApiKey;
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/test-geo-api") 
@@ -71,7 +144,7 @@ public class TestController {
 //			destinations = GeocodingApi.geocode(context, "Trg Dositeja Obradovića, Novi Sad 106314").await();
 //			System.out.println(origins[0].formattedAddress);
 //			System.out.println(destinations[0].formattedAddress);
-			String[] guestAddress = new String[] {  "Narodnog fronta 23, Novi Sad 21102" };
+			String[] guestAddress = new String[] {  "Narodnog fronta 33, Novi Sad 21102" };
 			String[] restaurantAddress = new String[] {"Trg Dositeja Obradovića, Novi Sad 106314"};
 			DistanceMatrix udaljenost = DistanceMatrixApi.getDistanceMatrix(context,guestAddress, restaurantAddress).await();
 			for(DistanceMatrixRow row : udaljenost.rows) {
@@ -91,10 +164,14 @@ public class TestController {
 		
 		
 	}
-	
-	
+
+
 	@RequestMapping(method = RequestMethod.GET, value = "/fill-database")
 	public ResponseEntity<?> getProfilePageInfo() {
+		
+		
+		//restaurantRepository.deleteAll();
+		
 /*
 		List<Guest> guests = guestRepository.findAll();
 		for (Guest guest : guests) {
@@ -163,6 +240,7 @@ public class TestController {
 //		gTest.setRole(UserRoles.GUEST);
 //		guestRepository.save(gTest);
 //		
+		
 		Guest g = new Guest(); 
 		g.setActive(true);
 		g.setAddress("g adresa");
@@ -193,45 +271,358 @@ public class TestController {
 		g2.setRole(UserRoles.GUEST);
 		guestRepository.save(g2); 
 		
+		Guest g3 = new Guest(); 
+		g3.setActive(true);
+		g3.setAddress("g3 adresa");
+		g3.setEmail("g3@g3.com");
+		g3.setName("g3");
+		g3.setSurname("g3");
+		g3.setPassword(passwordEncoder.encode("g3"));
+		g3.setRole(UserRoles.GUEST);
+		guestRepository.save(g3); 
+		
+		Guest g4 = new Guest(); 
+		g4.setActive(true);
+		g4.setAddress("g4 adresa");
+		g4.setEmail("g4@g4.com");
+		g4.setName("g4");
+		g4.setSurname("g4");
+		g4.setPassword(passwordEncoder.encode("g4"));
+		g4.setRole(UserRoles.GUEST);
+		guestRepository.save(g4); 
+		
+		Guest g5 = new Guest(); 
+		g5.setActive(true);
+		g5.setAddress("g5 adresa");
+		g5.setEmail("g5@g5.com");
+		g5.setName("g5");
+		g5.setSurname("g5");
+		g5.setPassword(passwordEncoder.encode("g5"));
+		g5.setRole(UserRoles.GUEST);
+		guestRepository.save(g5); 
+		
+		Guest g6 = new Guest(); 
+		g6.setActive(true);
+		g6.setAddress("g6 adresa");
+		g6.setEmail("g6@g6.com");
+		g6.setName("g6");
+		g6.setSurname("g6");
+		g6.setPassword(passwordEncoder.encode("g6"));
+		g6.setRole(UserRoles.GUEST);
+		guestRepository.save(g6); 
+		
+		Guest g7 = new Guest(); 
+		g7.setActive(true);
+		g7.setAddress("g7 adresa");
+		g7.setEmail("g7@g7.com");
+		g7.setName("g7");
+		g7.setSurname("g7");
+		g7.setPassword(passwordEncoder.encode("g7"));
+		g7.setRole(UserRoles.GUEST);
+		guestRepository.save(g7); 
+		
+		Guest g8 = new Guest(); 
+		g8.setActive(true);
+		g8.setAddress("g8 adresa");
+		g8.setEmail("g8@g8.com");
+		g8.setName("g8");
+		g8.setSurname("g8");
+		g8.setPassword(passwordEncoder.encode("g8"));
+		g8.setRole(UserRoles.GUEST);
+		guestRepository.save(g8); 
+		
+		Guest g9 = new Guest(); 
+		g9.setActive(true);
+		g9.setAddress("g9 adresa");
+		g9.setEmail("g9@g9.com");
+		g9.setName("g9");
+		g9.setSurname("g9");
+		g9.setPassword(passwordEncoder.encode("g9"));
+		g9.setRole(UserRoles.GUEST);
+		guestRepository.save(g9); 
+		
+		Guest g10 = new Guest(); 
+		g10.setActive(true);
+		g10.setAddress("g10 adresa");
+		g10.setEmail("g10@g10.com");
+		g10.setName("g10");
+		g10.setSurname("g10");
+		g10.setPassword(passwordEncoder.encode("g10"));
+		g10.setRole(UserRoles.GUEST);
+		guestRepository.save(g10); 
+		
+		g.getFriends().add(g1); 
+		g.getFriends().add(g2); 
+		g.getFriends().add(g3); 
+		g.getFriends().add(g4);
+		guestRepository.save(g); 
+		
 		g1.getFriends().add(g); 
+		g1.getFriends().add(g4); 
+		g1.getFriends().add(g5); 
+		g1.getFriends().add(g6); 
 		guestRepository.save(g1);
 		
 		g2.getFriends().add(g1); 
-		guestRepository.save(g2); 
-		
-		
 		g2.getFriends().add(g); 
+		g2.getFriends().add(g7); 
+		g2.getFriends().add(g8); 
+		g2.getFriends().add(g9); 
+		g2.getFriends().add(g10); 
 		guestRepository.save(g2); 
 		
-		Restaurant re = new Restaurant(); 
-		re.setName("Restoran 1");
-		re.setAddress("Adresa 1");
-		re.setDescription("Opis 1");
-		re.setEmail("r1@r1.com");
-		re.setPhone("132456");
-		restaurantRepository.save(re); 
 		
-		Restaurant re1 = new Restaurant(); 
-		re1.setName("Restoran 2");
-		re1.setAddress("Adresa 2");
-		re1.setDescription("Opis 2");
-		re1.setEmail("r2@r2.com");
-		re1.setPhone("132456");
+		g3.getFriends().add(g2); 
+		guestRepository.save(g3); 
+		
+		Restaurant r = new Restaurant(); 
+		r.setAddress("Restaurant 0");
+		r.setDescription("Restoran 0");
+		r.setEmail("r@r.com");
+		r.setName("r");
+		r.setPhone("r");
+		restaurantRepository.save(r); 
+		
+		Restaurant r1 = new Restaurant(); 
+		r1.setAddress("Restaurant 1");
+		r1.setDescription("Restoran 1");
+		r1.setEmail("r1@r1.com");
+		r1.setName("r1");
+		r1.setPhone("r1");
+		restaurantRepository.save(r1); 
+		
+		Restaurant r2 = new Restaurant(); 
+		r2.setAddress("Restaurant 2");
+		r2.setDescription("Restoran 2");
+		r2.setEmail("r2@r2.com");
+		r2.setName("r2");
+		r2.setPhone("r2");
+		restaurantRepository.save(r2); 
+		
+		Restaurant r3 = new Restaurant(); 
+		r3.setAddress("Restaurant 3");
+		r3.setDescription("Restoran 3");
+		r3.setEmail("r3@r3.com");
+		r3.setName("r3");
+		r3.setPhone("r3");
+		restaurantRepository.save(r3); 
+		
+		Restaurant r4 = new Restaurant(); 
+		r4.setAddress("Restaurant 4");
+		r4.setDescription("Restoran 4");
+		r4.setEmail("r4@r4.com");
+		r4.setName("r4");
+		r4.setPhone("r4");
+		restaurantRepository.save(r4); 
+		
+		Restaurant r5 = new Restaurant(); 
+		r5.setAddress("Restaurant 5");
+		r5.setDescription("Restoran 5");
+		r5.setEmail("r5@r5.com");
+		r5.setName("r5");
+		r5.setPhone("r5");
+		restaurantRepository.save(r5); 
+		
+		Reservation res = new Reservation(); 
+		res.setGuest(g);
+		res.setRestaurant(r);
+		res.setTerminDo(null);
+		res.setTerminOd(null);
+		reservationRepository.save(res); 
+		
+		Reservation res1 = new Reservation(); 
+		res1.setGuest(g);
+		res1.setRestaurant(r1);
+		res1.setTerminDo(null);
+		res1.setTerminOd(null);
+		reservationRepository.save(res1); 
+		
+		Reservation res2 = new Reservation(); 
+		res2.setGuest(g);
+		res2.setRestaurant(r);
+		res2.setTerminDo(null);
+		res2.setTerminOd(null);
+		reservationRepository.save(res2); 
+		
+		
+		Reservation res3 = new Reservation(); 
+		res3.setGuest(g);
+		res3.setRestaurant(r1);
+		res3.setTerminDo(null);
+		res3.setTerminOd(null);
+		reservationRepository.save(res3); 
+		
+		
+		
+		Reservation res4 = new Reservation(); 
+		res4.setGuest(g);
+		res4.setRestaurant(r2);
+		res4.setTerminDo(null);
+		res4.setTerminOd(null);
+		reservationRepository.save(res4); 
+		
+		
+		g.getReservations().add(res); 
+		guestRepository.save(g); 
+		
+		g.getReservations().add(res1); 
+		g.getReservations().add(res2); 
+		g.getReservations().add(res3); 
+		g.getReservations().add(res4); 
+		guestRepository.save(g); 
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		// SYSTEM MANAGERS:
+		SystemManager sm1 = new SystemManager();
+		sm1.setActive(true);
+		sm1.setEmail("sm1@sm1.com");
+		sm1.setPassword(passwordEncoder.encode("sm1"));
+		sm1.setName("Admin");
+		sm1.setSurname("Admin");
+		sm1.setAddress("Secret admin address");
+		systemManagerRepository.save(sm1);
+		
+		// RESTAURANTS:
+		// Napravio sam parametrizovani konstruktor kako se ne bi propustilo obavezno polje (biće database error sa integritetima).
+		Restaurant re1 = new Restaurant("Puno mesa","Stvarno dobar restoran sa mesom", "555-12345", "Bulevar Oslobodjenja 6 Novi Sad", "punomesa@restorani.com");
 		restaurantRepository.save(re1); 
 		
-		Restaurant re2 = new Restaurant(); 
-		re2.setName("Restoran 3");
-		re2.setAddress("Adresa 3");
-		re2.setDescription("Opis 3");
-		re2.setEmail("r3@r3.com");
-		re2.setPhone("123456");
+		Restaurant re2 = new Restaurant("Malo mesa","Ne bas sjajan restoran sa mesom", "555-12346", "Somborski Bulevar 56 Novi Sad", "malomesa@restorani.com"); 
 		restaurantRepository.save(re2); 
 		
+		Restaurant re3 = new Restaurant("Bilje i zacini","Ako bas ne volite meso", "555-12489", "Jevrejska 20 Novi Sad", "biljeizacini@restorani.com"); 
+		restaurantRepository.save(re3); 
+		
+		// RESTAURANT AREAS:
+		RestaurantArea ra1 = new RestaurantArea("nepusacka zona", re1);
+		restaurantAreaRepository.save(ra1);
+		
+		// RESTAURANT TABLES:
+		RestaurantTable rt1 = new RestaurantTable("sto 1", 2, ra1);
+		restaurantTableRepository.save(rt1);
+		
+		// RESTAURANT MANAGERS:
+		RestaurantManager rm1 = new RestaurantManager("rm1@rm1.com", passwordEncoder.encode("rm1"), "Zika", "Menadzer", "Zikina Adresa", re1);
+		rm1.setActive(true);
+		restaurantManagerRepository.save(rm1);
+		
+		// RESTAURANT MENU:
+		Menu mnu1 = new Menu(re1);
+		menuRepository.save(mnu1);
+		
+		// RESTAURANT ITEM TYPES;
+		ItemType food = new ItemType(ItemTypeConstants.FOOD);
+		itemTypeRepository.save(food);
+		ItemType drink = new ItemType(ItemTypeConstants.DRINK);
+		itemTypeRepository.save(drink);
+		
+		// RESTAURANT ITEMS:
+		Item it1 = new Item("Burger", "Bas dobar mesni burger", food);
+		itemRepository.save(it1);
+		Item it2 = new Item("Pica", "Vrlo mesnata pica", food);
+		itemRepository.save(it2);
+		Item it3 = new Item("Pomfrit", "U masti pravljen krompir", food);
+		itemRepository.save(it3);
+		Item it4 = new Item("Sok", "Ima tragova mesa", drink);
+		itemRepository.save(it4);
+		Item it5 = new Item("Pivo", "Najbolje uz meso", drink);
+		itemRepository.save(it5);
+		Item it6 = new Item("Vino", "Ide dobro uz sve", drink);
+		itemRepository.save(it6);
+		
+		// RESTAURAN MENU ITEMS:
+		MenuItem mi1 = new MenuItem(500, it1, mnu1);
+		menuItemRepository.save(mi1);
+		MenuItem mi2 = new MenuItem(800, it2, mnu1);
+		menuItemRepository.save(mi2);
+		MenuItem mi3 = new MenuItem(300, it3, mnu1);
+		menuItemRepository.save(mi3);
+		MenuItem mi4 = new MenuItem(150, it4, mnu1);
+		menuItemRepository.save(mi4);
+		MenuItem mi5 = new MenuItem(300, it5, mnu1);
+		menuItemRepository.save(mi5);
+		MenuItem mi6 = new MenuItem(300, it6, mnu1);
+		menuItemRepository.save(mi6);
+		
+		// BIDDERS:
+		Bidder bd1 = new Bidder("bd1@bd1.com", passwordEncoder.encode("bd1"), "Marko", "Markova adresa", "Ponudic");
+		bd1.setActive(true);
+		bidderRepository.save(bd1);
+		
+		// RESTAURANT WORKERS:
+		Bartender bt1 = new Bartender("bt1@bt1.com", passwordEncoder.encode("bt1"), "Milan", "Pivic", "Milanova adresa", re1, new Date(), 15, 42);
+		bt1.setActive(true);
+		bt1.setPassword_set(true);
+		bartenderRepository.save(bt1);
+		
+		Bartender bt2 = new Bartender("bt2@bt2.com", passwordEncoder.encode("bt2"), "Jovan", "Jovic", "Jovina adresa", re1, new Date(), 15, 42);
+		bt2.setActive(true);
+		bt2.setPassword_set(false);
+		bartenderRepository.save(bt2);
+		
+		Chef ch1 = new Chef("ch1@ch1.com", passwordEncoder.encode("ch1"), "Slavko", "Mesic", "Slavkova adresa", re1, new Date(), 15, 42);
+		ch1.setActive(true);
+		ch1.setPassword_set(true);
+		chefRepository.save(ch1);
+		
+		Chef ch2 = new Chef("ch2@ch2.com", passwordEncoder.encode("ch2"), "Strudla","Mesic", "Strudlina adresa", re1, new Date(), 15, 42);
+		ch1.setActive(true);
+		ch1.setPassword_set(false);
+		chefRepository.save(ch2);
+		
+		Waiter wt1 = new Waiter("wt1@wt1.com", passwordEncoder.encode("wt1"), "Rob", "Sluskic", "Adresa roba", re1, new Date(), 15, 42);
+		wt1.setActive(true);
+		wt1.setPassword_set(true);
+		waiterRepository.save(wt1);
+		
+		Waiter wt2 = new Waiter("wt2@wt2.com", passwordEncoder.encode("wt2"), "Slusko", "Sluzic", "Sluskova adresa", re1, new Date(), 15, 42);
+		wt1.setActive(true);
+		wt1.setPassword_set(false);
+		waiterRepository.save(wt1);
+		
+		Waiter wa1 = new Waiter("wa1@wa1.com", passwordEncoder.encode("wa1"), "Pera", "Usluzic", "Perina adresa", re1, new Date(), 15, 42);
+		wa1.setActive(true);
+		waiterRepository.save(wa1);
+		
+		// RESTAURANT WORKER SHIFTS:
+		Shift sh1 = new Shift(new Date(), "08:00", "20:00", true, re1);
+		shiftRepository.save(sh1);
+		
+		ShiftChef sc1 = new ShiftChef(ch1, sh1);
+		shiftChefRepository.save(sc1);
+		
+	/*	
 		Reservation r = new Reservation(); 
 		r.setGuest(g);
 		r.setTerminDo(new Date());
 		r.setTerminOd(new Date());
-		r.setRestaurant(re);
+		r.setRestaurant(re1);
 		reservationRepository.save(r);
 		
 		InvitedToReservation i = new InvitedToReservation(); 
@@ -264,7 +655,7 @@ public class TestController {
 		
 		guestRepository.save(g); 
 		
-		
+	*/	
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

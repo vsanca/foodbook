@@ -1,11 +1,15 @@
 package e2.isa.grupa5.service.restaurant;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import e2.isa.grupa5.model.grade.GradeDTO;
 import e2.isa.grupa5.model.restaurant.Restaurant;
 import e2.isa.grupa5.model.restaurant.RestaurantDTO;
 import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
+import e2.isa.grupa5.service.grade.GradeService;
 
 /**
  * Services available for {@link Restaurant}.
@@ -76,4 +80,50 @@ public class RestaurantService {
 		restaurant.setEmail(restaurantDTO.getEmail());
 		restaurant.setPhone(restaurantDTO.getPhone());
 	}
+	
+	
+	public double calculateAtmosphereGrade(List<GradeDTO> restaurantGrades) {
+		
+		double res = 0;
+		
+		for(GradeDTO gDTO : restaurantGrades) {
+			res += gDTO.getAtmosphereGrade();
+		}
+		
+		if(restaurantGrades.size() == 0) {
+			return 0;
+		} else {
+			return res/((double)restaurantGrades.size());
+		}
+	}
+	
+	public double calculateMealGrade(List<GradeDTO> restaurantGrades) {
+		
+		double res = 0;
+		
+		for(GradeDTO gDTO : restaurantGrades) {
+			res += gDTO.getMealGrade();
+		}
+		
+		if(restaurantGrades.size() == 0) {
+			return 0;
+		} else {
+			return res/((double)restaurantGrades.size());
+		}
+	}
+
+	public double calculateWaiterGrade(List<GradeDTO> restaurantGrades) {
+	
+	double res = 0;
+	
+	for(GradeDTO gDTO : restaurantGrades) {
+		res += gDTO.getWaiterGrade();
+	}
+	
+	if(restaurantGrades.size() == 0) {
+		return 0;
+	} else {
+		return res/((double)restaurantGrades.size());
+	}
+}
 }

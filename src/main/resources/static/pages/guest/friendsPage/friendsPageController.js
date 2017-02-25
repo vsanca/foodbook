@@ -9,16 +9,11 @@
 
   angular.module('foodbook').controller('FriendsPageController', FriendsPageController);
 
-  FriendsPageController.$inject = ['$scope', '$location', 'sessionService', 'guestService'];
+  FriendsPageController.$inject = ['$scope', '$state', '$location', 'sessionService', 'guestService', 'authenticationService'];
 
-  function FriendsPageController($scope, $location, sessionService, guestService) {
+  function FriendsPageController($scope, $state, $location, sessionService, guestService, authenticationService) {
     $scope.userInfo = sessionService.getUserInfo();
-  /*
-    $scope.searchText = "";
-    $scope.search = {
-      'nameAndSurname': '',
-      'numberOfVisits': null
-    }*/
+
     $scope.friendsPage = []; 
 
     guestService.getFriendsPageInfo($scope.userInfo.userId).then(function (response) {
@@ -26,6 +21,14 @@
     }, function (error) {
 
     });
+
+    $scope.logoff = function() {
+      alert("logoff called");
+      authenticationService.logoff(); 
+      $state.go('login'); 
+    
+    }
+
    
   }
 })();

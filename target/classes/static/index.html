@@ -12,13 +12,29 @@
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="css/angular-notify.min.css" rel="stylesheet">
     
-    <link href="libs/boostrap.min.js">
+    <script src="libs/bootstrap.min.js"></script>
     <script src="libs/validator.min.js"></script>
 
     <!--Angular-->
     <script src="libs/angular.min.js"></script>
     <script src="libs/angular-route.js"></script>
+    <script src="libs/angular-ui-router.js"></script>
     <script src="libs/angular-notify.min.js"></script>
+    <script src="libs/angular-animate.js"></script>
+    <script src="libs/angular-touch.js"></script>
+    <script src="libs/ng-google-signin.js"></script>
+    <!-- UI Bootstrap - AngularJS -->
+    <script src="libs/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    
+    <!-- Calendar -->
+    <link href="css/fullcalendar.css" rel='stylesheet' />
+    <!-- https://angular-ui.github.io/bootstrap/ -->
+    <style>
+    	.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+    </style>
+    
+    <link href="pages/guest/assets/guest.css" rel="stylesheet">
+    <link href="css/profile.css" rel="stylesheet">
     
 </head>
 <body>
@@ -34,7 +50,7 @@
             </div>
         </header>
 
-        <div ng-view>
+        <div ui-view>
 
         </div>
     </div>
@@ -43,26 +59,77 @@
     <!--Application-->
     <script src="app.js"></script>
     <script src="constants.js"></script>
+	<script src="libs/fabric.min.js"></script>
+    <script src="libs/fabric.canvasex.js"></script>
+    <script src="libs/moment.min.js"></script>
+    <script src="libs/jquery-ui.js"></script>
+    <script src="libs/Chart.js"></script>
+    <script src="libs/angular-chart.js"></script>
+    <script src="libs/angular-chart.min.js"></script>
+    
     <!-- Application-wide services -->
     <script src="services/sessionService.js"></script>
     <script src="services/authenticationService.js"></script>
 
     <!-- User Controllers-->
-    <script src="pages/user/loginController.js"></script>
+    <script src="pages/user/LoginController.js"></script>
    
     <!-- Guest Profile Page -->
     <script src="pages/guest/services/guestService.js"></script>
     <script src="pages/guest/services/notifyService.js"></script>
-    <link href="pages/guest/assets/guest.css" rel="stylesheet">
     <script src="pages/guest/profilePage/profilePageController.js"></script>
     <script src="pages/guest/register/registerGuestController.js"></script>
     <script src="pages/guest/confirmRegistration/confirmRegistrationController.js"></script>
     <script src="pages/guest/homePage/homePageController.js"></script>
     <script src="pages/guest/friendsPage/friendsPageController.js"></script>
-    
-    
-  
+    <script src="pages/guest/restaurantsPage/restaurantsPageController.js"></script>
+   
 
+    <!-- System manager -->
+    <script src="pages/sysmanager/profile.js"></script>
+    <script src="pages/sysmanager/home.js"></script>
+    <script src="pages/sysmanager/addBidder.js"></script>
+    <script src="pages/sysmanager/addRestaurant.js"></script>
+    <script src="pages/sysmanager/addRestaurantManager.js"></script>
+    <script src="pages/sysmanager/addSystemManager.js"></script>
+	
+	<!-- Restaurant manager -->
+	<script src="pages/manager/profile.js"></script>
+    <script src="pages/manager/home.js"></script>
+    <script src="pages/manager/groceries.js"></script>
+    <script src="pages/manager/menu.js"></script>
+    <script src="pages/manager/registerWorker.js"></script>
+    <script src="pages/manager/report.js"></script>
+    <script src="pages/manager/restaurant.js"></script>
+    <script src="pages/manager/setLayout.js"></script>
+    <script src="pages/manager/setTimetable.js"></script>
+    <script src="pages/manager/workers.js"></script>
 
+	<!-- Bidder -->
+	<script src="pages/bidder/profile.js"></script>
+    <script src="pages/bidder/home.js"></script>
+    <script src="pages/bidder/overviewBidding.js"></script>
+    <script src="pages/bidder/newBidding.js"></script>
+    <script src="pages/bidder/biddings.js"></script>
+    
+    <!-- Bartender -->
+    <script src="pages/bartender/profile.js"></script>
+    <script src="pages/bartender/home.js"></script>
+    <script src="pages/bartender/workSchedule.js"></script>
+    <script src="pages/bartender/orders.js"></script>
+    
+    <!-- Chef -->
+    <script src="pages/chef/profile.js"></script>
+    <script src="pages/chef/home.js"></script>
+    <script src="pages/chef/workSchedule.js"></script>
+    <script src="pages/chef/orders.js"></script>
+    
+    <!-- Waiter -->
+    <script src="pages/waiter/profile.js"></script>
+    <script src="pages/waiter/home.js"></script>
+    <script src="pages/waiter/workSchedule.js"></script>
+    <script src="pages/waiter/restauranRegion/home.js"></script>
+    <script src="pages/waiter/orders.js"></script>
+	
 </body>
 </html>

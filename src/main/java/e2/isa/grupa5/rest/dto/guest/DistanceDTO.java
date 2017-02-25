@@ -3,7 +3,7 @@ package e2.isa.grupa5.rest.dto.guest;
 public class DistanceDTO {
 
 	private double distanceKm;
-	private int distanceM;
+	private long distanceM;
 
 	public double getDistanceKm() {
 		return distanceKm;
@@ -13,11 +13,11 @@ public class DistanceDTO {
 		this.distanceKm = distanceKm;
 	}
 
-	public int getDistanceM() {
+	public long getDistanceM() {
 		return distanceM;
 	}
 
-	public void setDistanceM(int distanceM) {
+	public void setDistanceM(long distanceM) {
 		this.distanceM = distanceM;
 	}
 	

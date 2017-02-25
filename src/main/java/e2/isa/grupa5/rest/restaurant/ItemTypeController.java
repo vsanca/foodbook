@@ -3,6 +3,7 @@ package e2.isa.grupa5.rest.restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,7 @@ public class ItemTypeController {
 	ItemTypeRepository itemTypeRepository;
 	
 	@RequestMapping(value = "/itemTypes/all", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getAll() {
 		return new ResponseEntity<>(itemTypeRepository.findAll(), HttpStatus.OK);
 	}

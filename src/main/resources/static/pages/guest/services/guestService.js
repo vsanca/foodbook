@@ -19,7 +19,8 @@
             verifyGuest: verifyGuest,
             getHomePageInfo: getHomePageInfo, 
             getFriendsPageInfo: getFriendsPageInfo,
-            updateProfileInfo: updateProfileInfo
+            updateProfileInfo: updateProfileInfo,
+            getRestaurantsPageInfo: getRestaurantsPageInfo
         };
 
 
@@ -105,7 +106,34 @@
             });
         }
 
-    }
+        
+        /** getProfileDetails (secured)
+        * @param {int} id - GuestID
+        */
+        function getRestaurantsPageInfo(id) {
+            return $http({
+                method: 'GET',
+                url: '/rest/guest/get-restaurants-page-info/' + id,
+                headers: {
+                    'Authorization': sessionService.getAuthToken()
+                    
+                }
+            });
+        }
 
+/** getProfileDetails (secured)
+        * @param {int} id - GuestID
+        */
+        function getReserve1PageInfo(id) {
+            return $http({
+                method: 'GET',
+                url: '/rest/guest/get-reserve1-page-info/' + id,
+                headers: {
+                    'Authorization': sessionService.getAuthToken()
+                    
+                }
+            });
+        }
+    }
 
 })();

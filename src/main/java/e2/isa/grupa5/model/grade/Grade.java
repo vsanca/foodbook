@@ -19,7 +19,7 @@ import javax.persistence.Table;
 /**
  * Grade is important for {@link Restaurant} rating.
  * 
- * @author Juri
+ * @author Boris
  *
  */
 
@@ -31,7 +31,7 @@ public class Grade {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="grade_id")
 	private long id;
-
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "guest", nullable = false)
 	private Guest guest;  
@@ -42,8 +42,8 @@ public class Grade {
 	@Column(name="meal_grade")
 	private int mealGrade;
 	
-	@Column(name="bartender_grade")
-	private int bartenderGrade;
+	@Column(name="waiter_grade")
+	private int waiterGrade;
 	
 	@Column(name="atmosphere_grade")
 	private int atmosphereGrade;
@@ -57,6 +57,9 @@ public class Grade {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "reservation", nullable = false)
 	private Reservation reservation;
+	
+	@Column(name="is_rated")
+	private boolean isRated;
 
 	public Grade() {
 
@@ -94,12 +97,14 @@ public class Grade {
 		this.mealGrade = mealGrade;
 	}
 
-	public int getBartenderGrade() {
-		return bartenderGrade;
+	
+
+	public int getWaiterGrade() {
+		return waiterGrade;
 	}
 
-	public void setBartenderGrade(int bartenderGrade) {
-		this.bartenderGrade = bartenderGrade;
+	public void setWaiterGrade(int waiterGrade) {
+		this.waiterGrade = waiterGrade;
 	}
 
 	public int getAtmosphereGrade() {
@@ -133,5 +138,15 @@ public class Grade {
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
 	}
+
+	public boolean isRated() {
+		return isRated;
+	}
+
+	public void setRated(boolean isRated) {
+		this.isRated = isRated;
+	}
+	
+	
 
 }

@@ -4,12 +4,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="user")
+@Table(name="user_fb")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User implements Serializable{
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue
 	@Column(name="id")
 	private long id; 
 	
@@ -34,6 +34,9 @@ public class User implements Serializable{
 	@Column(name="user_role")
 	@Enumerated(EnumType.STRING)
 	private UserRoles role;
+	
+	@Column(name="password_set")
+	private boolean password_set;
 	
 	public User() {
 		
@@ -120,6 +123,14 @@ public class User implements Serializable{
 
 	public void setRole(UserRoles role) {
 		this.role = role;
+	}
+
+	public boolean isPassword_set() {
+		return password_set;
+	}
+
+	public void setPassword_set(boolean password_set) {
+		this.password_set = password_set;
 	}
 	
 }
