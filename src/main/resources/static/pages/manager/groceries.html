@@ -10,11 +10,11 @@
 				
 				<div ng-repeat="list in groceriesList">
 					<div class="thumbnail" ng-if="currentStatus == list.status" >
-						<button type="button" class="btn btn-primary" ng-click="previewList(list)" ng-if="currentStatus == list.status">{{list.from_date}} (važi do: {{list.to_date}})</button>
-						<button type="button" class="btn btn-primary" ng-if="currentStatus == list.status && list.status == status[3]" ng-click="activateList(list)">Aktiviraj ponudu</button>
+						<button type="button" class="btn btn-info" ng-click="previewList(list)" ng-if="currentStatus == list.status">Ponuda od {{list.from_date}} do {{list.to_date}}</button>
+						<button type="button" class="btn btn-success" ng-if="currentStatus == list.status && list.status == status[3]" ng-click="activateList(list)">Objavi potražnju</button>
 					
 						<div ng-repeat="bid in biddings[$index]" ng-if="currentStatus == list.status && list.status == status[0]">
-							<button type="button" class="btn btn-warning" ng-click="previewBidding(bid)" ng-if="currentStatus == list.status && list.status == status[0] && bid.auction.id == list.id">Ponuđac: {{bid.bidder.name}} {{bid.bidder.surname}}</button>
+							<button type="button" class="btn btn-info" ng-click="previewBidding(bid)" ng-if="currentStatus == list.status && list.status == status[0] && bid.auction.id == list.id">Ponuđac: {{bid.bidder.name}} {{bid.bidder.surname}}</button>
 							<button type="button" class="btn btn-success" ng-click="closeGroceries(list, bid)">Prihvati ponudu</button>
 						</div>
 						
@@ -136,11 +136,11 @@
 					<p><b>Naziv restorana: </b> {{restaurant.name}}</p>
 					<div class="form-group">
 						<label for="groceriesFromDate">Važi od:</label>
-						<input type="date" ng-model="groceries.from_date" required class="form-control" id="groceriesFromDate" disabled/>
+						<input type="text" ng-model="selectedList.from_date" required class="form-control" id="groceriesFromDate" disabled/>
 					</div>
 					<div class="form-group">
 						<label for="groceriesToDate">Važi do:</label>
-						<input type="date" ng-model="groceries.to_date" required class="form-control" id="groceriesToDate" disabled/>
+						<input type="text" ng-model="selectedList.to_date" required class="form-control" id="groceriesToDate" disabled/>
 					</div>
 					</div>
 					<div class="thumbnail">
