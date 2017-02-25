@@ -1,5 +1,7 @@
 angular.module('foodbook').controller('waiterHomeController', function($scope, $http, $state, sessionService, notifyService) {
 	
+	$scope.activePageNumber = 0;
+	
 	$scope.waiter = {};
 	
 	$http.get('/user/waiter/profile/'+sessionService.getUserInfo().userId, 

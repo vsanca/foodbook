@@ -20,10 +20,7 @@ angular.module('foodbook').controller('waiterProfileController', function($scope
         $state.transitionTo('waiter.orders');
     };
     
-    $scope.changeTabTo = function(number) {
-    	$scope.tabs[number].active = true;
-    }
-
+   
     $scope.logout = function () {
 	    authenticationService.logoff();
 	    $state.transitionTo('login');
