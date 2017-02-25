@@ -56,7 +56,7 @@ public class GradeService {
 	 * @param Restaurant
 	 * @return List<Grade> 
 	 */
-	public List<GradeDTO> getGradesForRestaurant(Restaurant r) {
+	public List<GradeDTO> getGradesDTOForRestaurant(Restaurant r) {
 		
 		
 		List<Grade> myGrades = new ArrayList<Grade>();
@@ -64,9 +64,6 @@ public class GradeService {
 		
 		List<Reservation> allReservation = reservationRepository.findAll();
 		List<Reservation> myReservations = new ArrayList<Reservation>();
-		
-		
-		
 		
 		try {
 			// za dat restoran vraca sve njegove rezervacije
@@ -86,6 +83,35 @@ public class GradeService {
 			}
 			
 			return myGradesDTO;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public List<Grade> getGradesForRestaurant(Restaurant r) {
+		
+		
+		List<Grade> myGrades = new ArrayList<Grade>();
+		List<Reservation> allReservation = reservationRepository.findAll();
+		List<Reservation> myReservations = new ArrayList<Reservation>();
+		
+		try {
+			// za dat restoran vraca sve njegove rezervacije
+			for(Reservation r1 : allReservation){
+				if(r1.getRestaurant().getId() == r.getId()){
+					myReservations.add(r1);
+				}
+			}
+			// za sve rezervacije restorana, vraca sve njegove ocene
+			for(Reservation r2 : myReservations){
+				myGrades.addAll(gradeRepository.findByReservation_id(r2.getId()));
+			}
+			
+			
+			
+			return myGrades;
 			
 		} catch (Exception e) {
 			e.printStackTrace();

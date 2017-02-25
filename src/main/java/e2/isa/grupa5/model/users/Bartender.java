@@ -38,6 +38,7 @@ public class Bartender extends User implements Serializable{
 	@Column(name="shoe_size", nullable = false)
 	private int shoeSize;
 	
+	
     public Bartender() {
     	this.setRole(UserRoles.BARTENDER);
     }
@@ -48,7 +49,10 @@ public class Bartender extends User implements Serializable{
     	this.dressSize = dressSize;
     	this.shoeSize = shoeSize;
     	this.restaurant = restaurant;
+    	
     }
+    
+   
 
 	public Restaurant getRestaurant() {
 		return restaurant;
@@ -81,7 +85,7 @@ public class Bartender extends User implements Serializable{
 	public void setShoeSize(int shoeSize) {
 		this.shoeSize = shoeSize;
 	}
-	
+
 	
 	
 }

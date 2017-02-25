@@ -62,6 +62,16 @@ public class RestaurantTableController {
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity completeUpdateAndReturn(@PathVariable long mId, @RequestBody RestaurantTableDTO[] tDTOs){
 		
+		System.out.println("STOLOVI DTO:");
+		System.out.println(tDTOs.length);
+		for(int i=0; i<tDTOs.length; i++) {
+			System.out.println("id: "+tDTOs[i].getId());
+			System.out.println("name: "+tDTOs[i].getName());
+			System.out.println("seats: "+tDTOs[i].getSeats());
+			System.out.println("area: "+tDTOs[i].getArea());
+			System.out.println("fabric: "+tDTOs[i].getFabricTable());
+		}
+		
 		restaurantTableService.updateAllTables(Arrays.asList(tDTOs));
 		
 		return new ResponseEntity<>(restaurantTableService.findAllByManagerId(mId), HttpStatus.OK);

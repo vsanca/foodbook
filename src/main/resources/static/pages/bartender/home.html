@@ -1,1 +1,84 @@
-<h1>BARTENDER HOME</h1>
+<div class="container-fluid">
+
+<div class="row">
+
+<div class="col-md-8 col-lg-8 columns form">
+
+    <form novalidate name="registerForm">
+        
+        <h4 class="text-center">Profil šankera</h4>
+        
+    	<div class="form-group">
+            <label for="inputBartenderName">Ime</label>
+			<input type="text" required ng-model="bartender.name" required id="inputBartenderName" class="form-control">
+      	</div>
+      	<div class="form-group">
+            <label for="inputBartenderSurname">Prezime</label>
+            <input type="text" required ng-model="bartender.surname" required id="inputBartenderSurname" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputBartenderAddress">Adresa</label>
+            <input type="text" required ng-model="bartender.address" required id="inputBartenderAddress" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputBartenderMail">Mail</label>
+            <input type="text" required ng-model="bartender.email" required id="inputBartenderMail" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputBartenderDressSize">Konfekcijski broj</label>
+            <input type="number" required ng-model="bartender.dressSize" required id="inputBartenderDressSize" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputBartenderShoeSize">Broj obuće</label>
+            <input type="number" required ng-model="bartender.shoeSize" required id="inputBartenderShoeSize" class="form-control">
+        </div>
+        <!--  
+      	<div class="form-group">
+            <label for="inputBartenderDate">Datum rođenja</label>
+            <input type="text" ng-model="bartender.birthDate" onfocus="(this.type='date')"
+                       onblur="(this.type='text')" required id="inputBartenderDate" class="form-control">
+        </div>
+
+      	<div class="form-group">
+            <label for="inputBartenderPhone">Telefon</label>
+            <input type="text" required ng-model="bartender.phoneNumber" id="inputBartenderPhone" class="form-control">     
+      	</div>
+        -->
+        <p><a type="submit" class="btn btn-success btn-block" ng-click="modifyBartender()">Sačuvaj</a></p>
+        <p><a type="submit" class="btn btn-danger btn-block" ng-click="cancel()">Odustani</a></p>
+        <p><a type="submit" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal">Izmeni lozinku</a></p>
+        
+    </form>
+
+</div>
+
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Promenite lozinku!</h4>
+      </div>
+      <div class="modal-body">
+      	<form>
+          <div class="form-group">
+            <label for="pswd" class="control-label">Trenutna lozinka</label>
+            <input type="password" class="form-control" ng-model="bartender.oldPassword" id="pswd">
+          </div>
+          <div class="npswd">
+            <label for="message-text" class="control-label">Nova lozinka</label>
+            <input type="password" class="form-control" ng-model="bartender.newPassword" id="npswd" placeholder="**************">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+        <button type="button" class="btn btn-primary" ng-click="changePassword()">Potvrdi</button>
+      </div>
+    </div>
+  </div>
+</div>

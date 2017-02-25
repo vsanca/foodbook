@@ -524,7 +524,7 @@ public class TestController {
 		restaurantAreaRepository.save(ra1);
 		
 		// RESTAURANT TABLES:
-		RestaurantTable rt1 = new RestaurantTable("sto 1", 2, ra1);
+		RestaurantTable rt1 = new RestaurantTable("sto 1", 2, ra1, "{\"type\":\"rect\",\"left\":10,\"top\":10,\"width\":25,\"height\":25,\"fill\":\"white\"}");
 		restaurantTableRepository.save(rt1);
 		
 		// RESTAURANT MANAGERS:
@@ -538,22 +538,30 @@ public class TestController {
 		
 		// RESTAURANT ITEM TYPES;
 		ItemType food = new ItemType(ItemTypeConstants.FOOD);
+		food.setDisplay_name("Hrana");
 		itemTypeRepository.save(food);
 		ItemType drink = new ItemType(ItemTypeConstants.DRINK);
+		drink.setDisplay_name("Piće");
 		itemTypeRepository.save(drink);
 		
 		// RESTAURANT ITEMS:
 		Item it1 = new Item("Burger", "Bas dobar mesni burger", food);
+		it1.setImage_link("https://g.foolcdn.com/editorial/images/126529/rrb-image_large.jpg");
 		itemRepository.save(it1);
 		Item it2 = new Item("Pica", "Vrlo mesnata pica", food);
+		it2.setImage_link("http://sammyspizzatacoma.com/Portals/4/Meat-Lover-Pizza.jpg");
 		itemRepository.save(it2);
 		Item it3 = new Item("Pomfrit", "U masti pravljen krompir", food);
+		it3.setImage_link("https://i.ytimg.com/vi/ETTyVQrUZt8/maxresdefault.jpg");
 		itemRepository.save(it3);
 		Item it4 = new Item("Sok", "Ima tragova mesa", drink);
+		it4.setImage_link("http://healthyrise.com/wp-content/uploads/2016/09/Juice-8.jpg");
 		itemRepository.save(it4);
 		Item it5 = new Item("Pivo", "Najbolje uz meso", drink);
+		it5.setImage_link("http://dreamicus.com/data/beer/beer-01.jpg");
 		itemRepository.save(it5);
 		Item it6 = new Item("Vino", "Ide dobro uz sve", drink);
+		it6.setImage_link("http://media.salon.com/2013/12/wine_clash.jpg");
 		itemRepository.save(it6);
 		
 		// RESTAURAN MENU ITEMS:

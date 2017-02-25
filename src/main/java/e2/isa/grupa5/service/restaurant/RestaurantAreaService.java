@@ -41,6 +41,7 @@ public class RestaurantAreaService {
 		RestaurantArea area = new RestaurantArea();
 		area.setName(raDTO.getName());
 		area.setRestaurant(r);
+		area.setColor(raDTO.getColor());
 		
 		try {
 			area = restaurantAreaRepository.save(area);

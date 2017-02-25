@@ -1,6 +1,6 @@
-angular.module('foodbook').controller('waiterProfileController', function($scope, $http, $state, $location) {
+angular.module('foodbook').controller('waiterProfileController', function($scope, $http, $state, $location, authenticationService) {
 	
-	$scope.activePageNumber = 0;
+	
 	
 	$state.transitionTo('waiter.home');
 	
@@ -19,10 +19,13 @@ angular.module('foodbook').controller('waiterProfileController', function($scope
     $scope.seeOrders = function() {
         $state.transitionTo('waiter.orders');
     };
+    
+    $scope.changeTabTo = function(number) {
+    	$scope.tabs[number].active = true;
+    }
 
-    /*
     $scope.logout = function () {
-        $state.transitionTo('logout');
+	    authenticationService.logoff();
+	    $state.transitionTo('login');
     };
-    */
 });

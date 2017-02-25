@@ -15,6 +15,7 @@ public class ItemDTO {
 	private String name;
 	private String description;
 	private long itemTypeId;
+	private String image_link;
 	
 	public ItemDTO() {
 		
@@ -42,6 +43,14 @@ public class ItemDTO {
 
 	public void setItemTypeId(long itemTypeId) {
 		this.itemTypeId = itemTypeId;
+	}
+
+	public String getImage_link() {
+		return image_link;
+	}
+
+	public void setImage_link(String image_link) {
+		this.image_link = image_link;
 	}
 	
 }

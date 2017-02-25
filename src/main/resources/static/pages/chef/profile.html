@@ -18,22 +18,22 @@
 	<div ng-controller="chefProfileController">
 	
 	<uib-tabset justified="true" class="tabs">
-		<uib-tab index="0" heading="My Profile" ng-click="home()">
+		<uib-tab active="tabs[0].active" heading="Početna" ng-click="home()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="1" heading="My Work Schedule" ng-click="seeWorkSchedule()">
+		<uib-tab active="tabs[1].active" heading="Radni kalendar" ng-click="seeWorkSchedule()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="2" heading="Orders 4 Me" ng-click="seeOrders()">
+		<uib-tab active="tabs[2].active" heading="Porudžbine" ng-click="seeOrders()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		
+		<button type="button" class="btn btn-warning pull-right" ng-click="logout()">Odjavi me</button>
 	</uib-tabset>
 	
 	</div>

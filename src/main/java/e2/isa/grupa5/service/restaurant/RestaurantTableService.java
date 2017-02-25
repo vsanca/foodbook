@@ -37,10 +37,22 @@ public class RestaurantTableService {
 		
 		RestaurantTable rt = new RestaurantTable();
 		
+		System.out.println("STO DTO:");
+		System.out.println("name: "+rtDTO.getName());
+		System.out.println("id: "+rtDTO.getId());
+		System.out.println("fabric: "+rtDTO.getFabricTable());
+		System.out.println("seats: "+rtDTO.getSeats());
+		System.out.println("area: "+rtDTO.getArea());
+		
+		
 		rt.setId(rtDTO.getId());
 		rt.setName(rtDTO.getName());
-		rt.setArea(restaurantAreaRepository.findById(rtDTO.getAreaId()));
+		rt.setArea(restaurantAreaRepository.findById(rtDTO.getArea()));
 		rt.setSeats(rtDTO.getSeats());
+		rt.setFabricTable(rtDTO.getFabricTable());
+		
+		System.out.println("STO:");
+		System.out.println(rt);
 		
 		try {
 			rt = restaurantTableRepository.save(rt);

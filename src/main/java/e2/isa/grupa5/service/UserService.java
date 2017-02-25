@@ -3,6 +3,7 @@ package e2.isa.grupa5.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,9 @@ public class UserService {
 
 	@Autowired
     private UserRepository userRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	public User findByEmail(String email) {
         return userRepository.findByEmail(email);
@@ -48,7 +52,7 @@ public class UserService {
 	 */
 	public void copyData(User u, UserDTO uDTO) {
 		u.setEmail(uDTO.getEmail());
-		u.setPassword(uDTO.getPassword());
+		u.setPassword(passwordEncoder.encode(uDTO.getPassword()));
 		setVariableAttributes(u, uDTO);
 	}
 	

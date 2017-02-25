@@ -1,1 +1,132 @@
-<h2>RESTAURANT AREAS AND TABLES</h2>
+<div class="container-fluid">
+	<div class="row">
+	
+		<div class="col-md-7 col-lg-7 form" style="overflow-x: scroll; overflow-y: scroll;">
+			<h4>Raspored stolova</h4>
+			<canvas id="restaurant_canvas" width="700" height="500"></canvas>
+		</div>
+		
+		<div class="col-md-5 col-lg-5 form">
+			
+			<h4 class="text-center">Segmenti restorana</h4>
+			
+			<table class="table table-striped">
+				<tr>
+					<th>Naziv segmenta</th>
+					<th>Boja segmenta</th>
+				</tr>
+				<tr ng-repeat="area in areas">
+					<td>{{area.name}}</td>
+					<td style="background: {{area.color}};"></td>
+				</tr>
+			</table>
+		
+			<form novalidate name="createAreaForm">
+        
+        		<h4 class="text-center">Novi segment</h4>
+        
+		    	<div class="form-group">
+		            <label for="inputAreaName">Naziv</label>
+					<input type="text" required ng-model="area.name" required id="inputAreaName" class="form-control" placeholder="Nepušački" required>
+		      	</div>
+		      	<!--  <div class="form-group">
+		            <label for="inputAreaColor">Boja</label>
+		            <select class="form-control" id="inputAreaColor" ng-model="area.color" ng-options="color for color in colors"></select>
+		        </div>-->
+		        
+		        <div class="form-group">
+		            <label for="inputAreaColor">Boja</label>
+		            <input type="color" class="form-control" id="inputAreaColor" ng-model="area.color">
+		        </div>
+		
+        		<p><a type="submit" class="btn btn-success btn-block" ng-click="createArea()">Novi segment</a></p>
+    		</form>
+		</div>
+		
+	</div>
+	
+	<div class="row">
+		<div class="col-md-7 col-lg-7">
+			<div class="col-md-4 col-lg-4">
+				<button type="button" class="btn btn-primary btn-block" ng-click="addTable()">Dodaj sto</button>
+			</div>
+			<div class="col-md-4 col-lg-4">
+				<button type="button" class="btn btn-success btn-block" ng-click="saveLayout()">Sačuvaj sve izmene</button>
+			</div>
+			<div class="col-md-4 col-lg-4">
+				<button type="button" class="btn btn-danger btn-block" ng-click="refreshLayout()">Osveži prikaz</button>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+
+<!-- Modal - create table -->
+<div class="modal fade" id="newTableModal" tabindex="-1" role="dialog" aria-labelledby="newTableModalLabel">
+	  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+			      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel">Novi sto</h4>
+			      </div>
+			      <div class="modal-body">
+					<form novalidate name="newTableForm">
+						<div class="form-group">
+							<label for="newTableName">Naziv</label>
+							<input type="text" required ng-model="table.name" required id="newTableName" class="form-control" placeholder="Separe 2" required>
+						</div>
+						<div class="form-group">
+							<label for="newTableCapacity">Broj mesta</label>
+							<input type="number" required ng-model="table.seats" required id="newTableCapacity" class="form-control" placeholder="5" required>
+						</div>
+						<div class="form-group">
+							<label for="newTableArea">Segment u kojem se nalazi</label>
+							<select class="form-control" id="newTableArea" ng-model="table.area">
+								<option ng-repeat="area in areas track by $index" value="{{area.id}}">{{area.name}}</option>
+							</select>
+						</div>
+					</form>
+			      </div>
+			      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelTable()">Odustani</button>
+				        <button type="button" class="btn btn-success" ng-click="createTable()">Dodaj novi sto</button>
+			      </div>
+		    </div>
+	  </div>
+</div>
+
+<!-- Modal - update table -->
+<div class="modal fade" id="updateTableModal" tabindex="-1" role="dialog" aria-labelledby="newTableModalLabel">
+	  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+			      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel">Ažuriraj sto</h4>
+			      </div>
+			      <div class="modal-body">
+					<form novalidate name="modifyTableForm">
+        
+		        		<h4 class="text-center">Izmeni izabrani sto</h4>
+		        
+				    	<div class="form-group">
+				            <label for="modifyTableName">Naziv</label>
+							<input type="text" required ng-model="table.name" required id="modifyTableName" class="form-control" placeholder="Separe 2" required>
+				      	</div>
+				      	<div class="form-group">
+				            <label for="modifyTableCapacity">Broj mesta</label>
+							<input type="number" required ng-model="table.seats" required id="modifyTableCapacity" class="form-control" placeholder="5" required>
+				      	</div>
+				      	<div class="form-group">
+				            <label for="modifyTableArea">Segment u kojem se nalazi</label>
+				            <select class="form-control" id="modifyTableArea" ng-model="table.area" ng-options="area.name for area in areas track by area.id"></select>
+				        </div>
+		
+		    		</form>
+			      </div>
+			      <div class="modal-footer">
+				        <button type="button" class="btn btn-success" data-dismiss="modal">Izmeni</button>
+			      </div>
+		    </div>
+	  </div>
+</div>

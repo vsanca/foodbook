@@ -26,6 +26,9 @@ public class ItemType {
 	@Column(name = "name", nullable = false)
 	private String name;
 	
+	@Column(name = "display_name", nullable = false)
+	private String display_name;
+	
 	public ItemType() {
 		
 	}
@@ -48,6 +51,14 @@ public class ItemType {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getDisplay_name() {
+		return display_name;
+	}
+
+	public void setDisplay_name(String display_name) {
+		this.display_name = display_name;
 	}
 	
 }

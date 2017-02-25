@@ -104,7 +104,7 @@ public class RestaurantController {
 		for(Restaurant r : all) {
 			RestaurantDTO rDTO = new RestaurantDTO(r);
 			
-			List<GradeDTO> restaurantGrades = gradeService.getGradesForRestaurant(r);
+			List<GradeDTO> restaurantGrades = gradeService.getGradesDTOForRestaurant(r);
 			
 			rDTO.setGrades(restaurantGrades);
 			rDTO.setGradeAtmosphere((int) restaurantService.calculateAtmosphereGrade(restaurantGrades));

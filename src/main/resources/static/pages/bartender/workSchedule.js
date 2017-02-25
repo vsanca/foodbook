@@ -1,3 +1,5 @@
-angular.module('foodbook').controller('bartenderWorkScheduleController', function($scope, $http, $state) {
-	$scope.activePageNumber = 1;
+angular.module('foodbook').controller('bartenderWorkScheduleController', function($scope, $http, $state, sessionService, notifyService) {
+	
+
+	
 });

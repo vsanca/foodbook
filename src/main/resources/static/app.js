@@ -6,7 +6,7 @@
 (function () {
 	'use strict';
 
-	angular.module('foodbook', ['ngRoute', 'cgNotify', 'ui.router', 'ui.bootstrap', 'google-signin']).config(function ($stateProvider, $urlRouterProvider, $httpProvider, GoogleSigninProvider) {
+	angular.module('foodbook', ['ngRoute', 'cgNotify', 'ui.router', 'ui.bootstrap', 'google-signin', 'ngMap']).config(function ($stateProvider, $urlRouterProvider, $httpProvider, GoogleSigninProvider) {
 
 		GoogleSigninProvider.init({
 			client_id: '277007967599-r0p7jnm56vbvie9cgrar7gistmlb9mcu.apps.googleusercontent.com',
@@ -231,17 +231,16 @@
 		if (sessionService.getUserInfo === null && $location.path() !== 'pages/guest/confirm-registration') {
 			$state.go('login');
 		}
-
-		$rootScope.$on("$routeChangeStart", function (event, next, current) {
-			if (sessionService.getUserInfo === null) {
-				// no logged user, we should be going to #login
-				if (next.templateUrl !== "pages/user/login.html" && next.templateUrl !== "pages/guest/register/registerGuest.html" && next.templateUrl !== "pages/guest/confirmRegistration/confirmRegistration.html") {
-					console.log("Not logged in! Redirecting to login...");
-					// not going to #login, we should redirect now
-					$state.go('login');
-				}
-			}
-		});
+	$rootScope.$on("$routeChangeStart", function (event, next, current) {
+            if (sessionService().getUserInfo() === null) {
+                // no logged user, we should be going to #login
+                if (next.templateUrl !== "pages/user/login.html" && next.templateUrl !== "pages/guest/register/registerGuest.html" && next.templateUrl !== "pages/guest/confirmRegistration/confirmRegistration.html") {
+                    console.log("Not logged in! Redirecting to login...");
+                    // not going to #login, we should redirect now
+                    $state.go('login');
+                }
+            }
+        });
 	};
 
 })();

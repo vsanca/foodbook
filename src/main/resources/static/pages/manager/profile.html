@@ -1,53 +1,91 @@
+<!-- 
+CANVAS NE RADI, MODAL NE RADI KAD SE OVAKO RADI I KAD JE UGNJEŽĐENO U UI-VIEW!!!
+
 <div>
 	<div ng-controller="managerProfileController">
 	
 	<uib-tabset justified="false" class="tabs">
-		<uib-tab index="0" heading="Početna" ng-click="home()">
+		<uib-tab active="tabs[0].active" heading="Početna" ng-click="home()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="1" heading="Restoran" ng-click="restaurant()">
+		<uib-tab active="tabs[1].active" heading="Restoran" ng-click="restaurant()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="2" heading="Radnici" ng-click="workers()">
+		<uib-tab active="tabs[2].active" heading="Radnici" ng-click="workers()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="3" heading="Registruj radnika" ng-click="registerWorker()">
+		<uib-tab active="tabs[3].active" heading="Registruj radnika" ng-click="registerWorker()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="4" heading="Raspored stolova" ng-click="setLayout()">
+		<uib-tab active="tabs[4].active" heading="Raspored stolova" ng-click="setLayout()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="5" heading="Raspored smena" ng-click="setTimetable()">
+		<uib-tab active="tabs[5].active" heading="Raspored smena" ng-click="setTimetable()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="6" heading="Meni" ng-click="menu()">
+		<uib-tab active="tabs[6].active" heading="Meni" ng-click="menu()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="7" heading="Nabavka namirnica" ng-click="groceries()">
+		<uib-tab active="tabs[7].active" heading="Nabavka namirnica" ng-click="groceries()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="8" heading="Izveštaj" ng-click="report()">
+		<uib-tab active="tabs[8].active" heading="Registruj ponuđača" ng-click="addBidder()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
+		<uib-tab active="tabs[9].active" heading="Izveštaj" ng-click="report()">
+			<div>
+				<ui-view></ui-view>
+			</div>
+		</uib-tab>
+		<button type="button" class="btn btn-warning pull-right" ng-click="logout()">Odjavi me</button>
 	</uib-tabset>
 	
 	</div>
 </div>
+-->
+
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+	
+    <div class="collapse navbar-collapse" ng-controller="managerProfileController">
+	    <ul class="nav navbar-nav">
+	        <li id="li1" class="active"><a ng-class="{ active: activePageNumber == 0}" ng-click="home()">Početna</a></li>
+	        <li id="li2"><a ng-class="{ active: activePageNumber == 1}" ng-click="restaurant()">Restoran</a></li>
+	        <li id="li3"><a ng-class="{ active: activePageNumber == 2}" ng-click="workers()">Radnici</a></li>
+	        <li id="li4"><a ng-class="{ active: activePageNumber == 3}" ng-click="registerWorker()">Registruj radnika</a></li>
+	        <li id="li5"><a ng-class="{ active: activePageNumber == 4}" ng-click="setLayout()">Raspored stolova</a></li>
+	        <li id="li6"><a ng-class="{ active: activePageNumber == 5}" ng-click="setTimetable()">Raspored smena</a></li>
+	        <li id="li7"><a ng-class="{ active: activePageNumber == 6}" ng-click="menu()">Meni</a></li>
+	        <li id="li8"><a ng-class="{ active: activePageNumber == 7}" ng-click="groceries()">Nabavka namirnica</a></li>
+	        <li id="li9"><a ng-class="{ active: activePageNumber == 8}" ng-click="addBidder()">Registruj ponuđača</a></li>
+	        <li id="li10"><a ng-class="{ active: activePageNumber == 9}" ng-click="report()">Izveštaj</a></li>
+	    </ul>
+	    <button type="button" class="btn btn-warning navbar-btn pull-right" ng-click="logout()">Odjava</button>
+	</div>
+
+    <div>
+        <ui-view></ui-view>
+    </div>
+    
+    </div>
+</nav>
+
+

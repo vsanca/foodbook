@@ -27,7 +27,12 @@
     <script src="libs/ui-bootstrap-tpls-2.5.0.min.js"></script>
     
     <!-- Calendar -->
-    <link href="css/fullcalendar.css" rel='stylesheet' />
+    <script src="libs/fullcalendar/lib/moment.min.js"></script>
+    <link href="libs/fullcalendar/fullcalendar.css" rel='stylesheet' />
+    <script src="libs/fullcalendar/fullcalendar.min.js"></script>
+    <script src="libs/fullcalendar/gcal.min.js"></script>
+    <script src="libs/fullcalendar/locale/sr.js"></script>
+    
     <!-- https://angular-ui.github.io/bootstrap/ -->
     <style>
     	.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
@@ -88,7 +93,6 @@
     <!-- System manager -->
     <script src="pages/sysmanager/profile.js"></script>
     <script src="pages/sysmanager/home.js"></script>
-    <script src="pages/sysmanager/addBidder.js"></script>
     <script src="pages/sysmanager/addRestaurant.js"></script>
     <script src="pages/sysmanager/addRestaurantManager.js"></script>
     <script src="pages/sysmanager/addSystemManager.js"></script>
@@ -104,6 +108,7 @@
     <script src="pages/manager/setLayout.js"></script>
     <script src="pages/manager/setTimetable.js"></script>
     <script src="pages/manager/workers.js"></script>
+    <script src="pages/manager/addBidder.js"></script>
 
 	<!-- Bidder -->
 	<script src="pages/bidder/profile.js"></script>
@@ -128,8 +133,16 @@
     <script src="pages/waiter/profile.js"></script>
     <script src="pages/waiter/home.js"></script>
     <script src="pages/waiter/workSchedule.js"></script>
-    <script src="pages/waiter/restauranRegion/home.js"></script>
+    <script src="pages/waiter/restaurantRegion/home.js"></script>
     <script src="pages/waiter/orders.js"></script>
+    
 	
+	<!-- http://ngmap.github.io/ -->
+    <script src="libs/ng-map.min.js"></script>
+	<!-- Google Maps -->
+	<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnA19_HbNym_I5TEyfhssUkUiQzb2mPEA">
+    </script> 
+    
 </body>
 </html>
