@@ -56,6 +56,11 @@
 				templateUrl: 'pages/guest/reservePage/reserve1Page.html',
 				controller: 'Reserve1PageController'
 			})
+			.state('reserve2/:restaurantId', {
+				url: '/guest/reserve2-page/:restaurantId',
+				templateUrl: 'pages/guest/reservePage/reserve2Page.html',
+				controller: 'Reserve2PageController'
+			})
 			.state('sysmanager', {
 				url: '/sm',
 				templateUrl: 'pages/sysmanager/profile.html',
