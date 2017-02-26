@@ -59,7 +59,7 @@ angular.module('foodbook').controller('waiterRestaurantRegionController', functi
 			           
 			           fabricTable = new fabric.Rect(t);
 			           table.fabricTable = fabricTable;
-			           canvas.renderAll();
+			           canvas.add(fabricTable);
 			       }
 					canvas.renderAll();
 				}

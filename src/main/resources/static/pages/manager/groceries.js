@@ -311,6 +311,10 @@ angular.module('foodbook').controller('managerGroceriesController', function($sc
 		
 		for(i=0; i< $scope.selectedBiddingItems.length; i++) {
 			if($scope.selectedBiddingItems[i].groceryItem.id == id) {
+				
+				console.log('!');
+				console.log($scope.selectedBiddingItems[i]);
+				
 				return $scope.selectedBiddingItems[i].name;
 			}
 		}
@@ -323,6 +327,10 @@ angular.module('foodbook').controller('managerGroceriesController', function($sc
 		
 		for(i=0; i< $scope.selectedBiddingItems.length; i++) {
 			if($scope.selectedBiddingItems[i].groceryItem.id == id) {
+				
+				console.log('!');
+				console.log($scope.selectedBiddingItems[i]);
+				
 				return $scope.selectedBiddingItems[i].quantity;
 			}
 		}

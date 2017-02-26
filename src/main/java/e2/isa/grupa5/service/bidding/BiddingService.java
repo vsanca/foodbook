@@ -1,5 +1,7 @@
 package e2.isa.grupa5.service.bidding;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,6 +57,12 @@ public class BiddingService {
 		Groceries g = groceriesRepository.findById(bDTO.getGroceriesId());
 		Bidder b = bidderRepository.findById(bDTO.getBidderId());
 		
+		// PROVERA I OBRADA AKO VEC POSTOJi
+		long exists = alreadyExists(bDTO.getGroceriesId(), bDTO.getBidderId());
+		if(exists!=-1){
+			return update(bDTO, exists);
+		}
+		
 		try {
 			
 			if(g.getStatus().equals(GroceriesConstants.OPEN)) {
@@ -77,6 +85,17 @@ public class BiddingService {
 		}
 	}
 
+	private long alreadyExists(long groceriesId, long bidderId) {
+		List<Bidding> biddings = biddingRepository.findAll();
+		
+		for(Bidding b : biddings) {
+			if(b.getBidder().getId() == bidderId && b.getGroceries().getId() == groceriesId) {
+				return b.getId();
+			}
+		}
+		
+		return -1;
+	}
 	
 	@Transactional
 	public synchronized Bidding update(BiddingDTO bDTO, long id) {
