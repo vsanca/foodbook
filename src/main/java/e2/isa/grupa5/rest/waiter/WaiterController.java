@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import e2.isa.grupa5.model.restaurant.RestaurantTable;
 import e2.isa.grupa5.model.shifts.ShiftWaiter;
 import e2.isa.grupa5.model.shifts.ShiftWaiterDTO;
 import e2.isa.grupa5.model.users.Chef;
@@ -24,6 +25,7 @@ import e2.isa.grupa5.model.users.RestaurantManager;
 import e2.isa.grupa5.model.users.RestaurantManagerDTO;
 import e2.isa.grupa5.model.users.Waiter;
 import e2.isa.grupa5.model.users.WaiterDTO;
+import e2.isa.grupa5.repository.restaurant.RestaurantTableRepository;
 import e2.isa.grupa5.repository.shifts.ShiftWaiterRepository;
 import e2.isa.grupa5.repository.waiter.WaiterRepository;
 import e2.isa.grupa5.service.waiter.WaiterService;
@@ -48,8 +50,10 @@ public class WaiterController {
 	ShiftWaiterRepository shiftWaiterRepository;
 	
 	@Autowired
-	PasswordEncoder passwordEncoder;
+	PasswordEncoder passwordEncoder; 
 	
+	@Autowired
+	RestaurantTableRepository restaurantTableRepository;
 	
 	@RequestMapping(value = "/waiter/create", method = RequestMethod.POST)
 	@PreAuthorize("isAuthenticated()")
@@ -115,6 +119,25 @@ public class WaiterController {
 		if(w != null) {
 			return new ResponseEntity<>(w, HttpStatus.OK);
 		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@RequestMapping(value = "/waiter/profileTEST/{id}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity getByIdTEST(@PathVariable long id) {
+		System.out.println("USAO");
+
+		List<RestaurantTable> stolovi = restaurantTableRepository.findAll();
+		
+		if(stolovi != null) {
+			System.out.println("USPESNO IZASAO");
+			for(RestaurantTable rt : stolovi){
+				System.out.println(rt.getName());
+			}
+			return new ResponseEntity<>(stolovi, HttpStatus.OK);
+		} else {
+			System.out.println("NEUSPESNO IZASAO - NISTA NIJE PRONADJENO");
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
