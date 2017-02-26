@@ -1,1 +1,54 @@
-<h2>NOVA PONUDA</h2>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-6 col-lg-6 form">
+			
+			<div class="thumbnail">
+					<h4 class="text-center">Informacije o potražnji</h4>
+					<p><b>Naziv restorana: </b> {{restaurant.name}}</p>
+					<p><b>Status ponude: </b> {{restaurant.name}}</p>
+					<div class="form-group">
+						<label for="groceriesFromDate">Važi od:</label>
+						<input type="text" ng-model="selectedList.from_date" required class="form-control" id="groceriesFromDate" disabled/>
+					</div>
+					<div class="form-group">
+						<label for="groceriesToDate">Važi do:</label>
+						<input type="text" ng-model="selectedList.to_date" required class="form-control" id="groceriesToDate" disabled/>
+					</div>
+				</div>
+				<div class="thumbnail">
+						<h4 class="text-center">Stavke namirnica</h4>
+						
+						<table class="table table-striped">
+							<tr>
+								<th></th>
+								<th>Naziv</th>
+								<th>Količina</th>
+								<th>Tip</th>
+								<th>Merna jedinica</th>
+								
+							</tr>
+							<tr ng-repeat="li in selectedList.items">
+								<td>{{$index+1}}</td>
+								<td>{{li.name}}</td>
+								<td>{{li.quantity}}</td>
+								<td>{{li.groceryItemType.name}}</td>
+								<td>{{li.groceryItemQty.name}}</td>
+							</tr>
+						</table>
+						
+					</div>
+					<div class="thumbnail">
+					<h4 class="text-center">Informacije o ponudi</h4>
+						<form novalidate name="newListItemForm">
+							<div class="form-group">
+								<label for="ukupnaCena">Ukupna cena</label>
+								<input type="number" required ng-model="CENA" disabled id="ukupnaCena" class="form-control">
+							</div>
+						</form>
+					</div>
+		</div>
+	</div>
+	
+	<div class="row">
+	</div>
+</div>

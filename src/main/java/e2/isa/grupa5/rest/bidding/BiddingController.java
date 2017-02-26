@@ -191,4 +191,19 @@ public class BiddingController {
 		return new ResponseEntity<>(items, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/getBiddingByGroceriesAndBidder/{gId}/{bId}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity getBiddingByGroceriesAndBidder(@PathVariable long gId, @PathVariable long bId) {
+		
+		List<Bidding> biddings = biddingRepository.findAll();
+		
+		for(Bidding b : biddings) {
+			if(b.getGroceries().getId() == gId && b.getBidder().getId() == bId) {
+				return new ResponseEntity<>(b, HttpStatus.OK);
+			}
+		}
+		
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+	
 }

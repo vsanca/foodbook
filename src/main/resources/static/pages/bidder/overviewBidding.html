@@ -1,1 +1,50 @@
-<h2>PREGLED PONUDA</h2>
+<div class="container-fluid">
+	<h4>Pregled ponuda</h4>
+	<div class="row">
+		<div class="col-md-6 col-lg-6 form">
+		</div>
+		<div class="col-md-6 col-lg-6 form">
+		
+			<form novalidate name="overviewBidding">
+				<h4 class="text-center">Moje ponude za namirnice</h4>
+				
+				<div class="thumbnail">
+					<h4 class="text-center">Informacije o ponudi</h4>
+					<p><b>Naziv restorana: </b> {{selectedBidding.groceries.restaurant.name}}</p>
+					<p><b>Status: </b> {{selectedBidding.status}}</p>
+					<div class="form-group">
+						<label for="biddingDate">Datum ponude:</label>
+						<input type="date" ng-model="selectedBidding.timestamp" required class="form-control" id="biddingDate" disabled/>
+					</div>
+				</div>
+				<div class="thumbnail">
+					<h4 class="text-center">Stavke ponude</h4>
+					
+					<table class="table table-striped">
+						<tr>
+							<th></th>						
+							<th>Naziv stavke ponude</th>
+			                <th>Količina</th>
+			                <th>Tip</th>
+			                <th>Merna jedinica</th>
+			                <th>Cena</th>
+			                <th></th>
+						</tr>
+						<tr ng-repeat="li in selectedGroceryItems">
+							<td>{{$index+1}}</td>
+							<td>{{li.name}}</td>
+							<td>{{li.quantity}}</td>
+							<td>{{li.groceriesItemType.name}}</td>
+							<td>{{li.groceriesItemQty.name}}</td>
+	              			<td>{{getBiddingItemPrice(li.id)}}</td>
+	              			<td><button type="button" class="btn btn-info" ng-click="showDetails(li.id)">Više</button></td>
+						</tr>
+					</table>
+					
+				</div>
+				
+			</form>
+			
+		</div>
+	</div>
+</div>

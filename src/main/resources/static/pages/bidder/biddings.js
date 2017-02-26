@@ -28,11 +28,16 @@ angular.module('foodbook').controller('bidderBiddingsController', function($scop
 
 	$scope.newBidding = function(groceries) {
 		
-		bidderService.setSelectedGroceries(groceries);
 		
-		$(".nav").find(".active").removeClass("active");
-    	$('#li2').addClass('active');
-		$state.transitionTo('bidder.newBidding');
+		$('#biddingOverviewForm').modal('hide');
+		
+		$('#biddingOverviewForm').on('hidden.bs.modal', function () {
+			bidderService.setSelectedGroceries(groceries);
+			
+			$(".nav").find(".active").removeClass("active");
+	    	$('#li2').addClass('active');
+			$state.transitionTo('bidder.newBidding');
+		});
 		
 	};
 	
@@ -46,6 +51,8 @@ angular.module('foodbook').controller('bidderBiddingsController', function($scop
 					$scope.selectedGroceries.items = data;
 					
 		});
+		
+		$('#biddingOverviewForm').modal();
 	};
 	
 });
