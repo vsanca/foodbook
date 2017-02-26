@@ -16,6 +16,7 @@ angular.module('foodbook').controller('waiterRestaurantRegionController', functi
 			{ headers: { 'Authorization': sessionService.getAuthToken() } })
 			.success(function (data) {
 				$scope.user = data;
+				$scope.user = sessionService.getUserInfo().userId;
 				
 	});
 	/*
@@ -47,9 +48,11 @@ angular.module('foodbook').controller('waiterRestaurantRegionController', functi
 			{ headers: { 'Authorization': sessionService.getAuthToken() } })
 			.success(function (data) {
 				$scope.tables = data;
-				if($scope.tables != null){
-					for(var j in $scope.tables){
-				   	   var table = $scope.table[j];
+				if($scope.tables){
+					alert("Nije prazno");
+					//for(var j in $scope.tables){
+						
+				   	   var table = $scope.tables[0];
 				   
 					   var t = JSON.parse(table.fabricTable);
 			           var fabricTable;
@@ -57,8 +60,8 @@ angular.module('foodbook').controller('waiterRestaurantRegionController', functi
 			           fabricTable = new fabric.Rect(t);
 			           table.fabricTable = fabricTable;
 			           canvas.renderAll();
-			       }
-					canvas.renderAll();
+			       //}
+					//canvas.renderAll();
 				}
 				else{
 					alert("Nema stolova");
