@@ -126,10 +126,20 @@ angular.module('foodbook').controller('bidderNewBiddingController', function($sc
 			
 			$scope.biddingItem.groceryItemId = $scope.selectedGroceryItem.id;
 			$scope.biddingItems.push($scope.biddingItem);
-			$scope.biddingItems.push($scope.biddingItem);
-			$scope.bidding.price = $scope.calculatePrice();
+
+		} else {
 			
+			for(i=0; i< $scope.biddingItems.length; i++) {
+				if($scope.biddingItems[i].groceryItemId == $scope.selectedGroceryItem.id) {
+					$scope.biddingItems[i].price = $scope.biddingItem.price;
+					$scope.biddingItems[i].name = $scope.biddingItem.name;
+					$scope.biddingItems[i].quantity = $scope.biddingItem.quantity;
+					$scope.biddingItems[i].groceryItemQty = $scope.biddingItem.groceryItemQty;
+				}
+			}
 		}
+		
+		$scope.bidding.price = $scope.calculatePrice();
 	};
 	
 	
@@ -144,7 +154,9 @@ angular.module('foodbook').controller('bidderNewBiddingController', function($sc
 		
 		if($scope.biddingItems.length == 0) {
 			notifyService.showError('Ne postoji stavka ponude, molimo dodajte stavku kako bi se ponuda mogla kreirati!');
-		} else if (! $scope.biddingAlreadyExists) {	// new
+		} else if (! $scope.biddingExists) {	// new
+			
+			console.log('NEW');
 			
 			$http.post('/bidding/new', $scope.bidding,
 					{ headers: { 'Authorization': sessionService.getAuthToken() } })
@@ -176,6 +188,8 @@ angular.module('foodbook').controller('bidderNewBiddingController', function($sc
 					});
 			
 		} else { // update
+			
+			console.log('UPDATE');
 			
 			$http.post('/bidding/update/' + $scope.biddingId, $scope.bidding,
 					{ headers: { 'Authorization': sessionService.getAuthToken() } })
