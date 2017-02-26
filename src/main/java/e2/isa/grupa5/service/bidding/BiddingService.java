@@ -45,7 +45,11 @@ public class BiddingService {
 	}
 	
 	@Transactional
-	public Bidding create(BiddingDTO bDTO) {
+	public synchronized Bidding create(BiddingDTO bDTO) {
+		
+		System.out.println("CREATE BIDDING");
+		System.out.println("G ID: "+bDTO.getGroceriesId());
+		
 		Bidding bidding = new Bidding();
 		
 		Groceries g = groceriesRepository.findById(bDTO.getGroceriesId());
@@ -72,18 +76,25 @@ public class BiddingService {
 			return null;
 		}
 	}
+
 	
 	@Transactional
-	public Bidding update(BiddingDTO bDTO, long id) {
+	public synchronized Bidding update(BiddingDTO bDTO, long id) {
+		
+		System.out.println("UPDATE BIDDING");
+		System.out.println("G ID: "+bDTO.getGroceriesId());
+		System.out.println("B ID: "+id);
+		
 		Bidding b = biddingRepository.findById(id);
 		
 		try {
 			Groceries g = groceriesRepository.findById(b.getGroceries().getId());
 			
-			if(g.getStatus().equals(GroceriesConstants.OPEN))
+			if(g.getStatus().equals(GroceriesConstants.OPEN)) {
 				setVariableAttributes(b, bDTO);
+				b = biddingRepository.save(b);
+			}
 			
-			b = biddingRepository.save(b);
 			return b;
 			
 		} catch (Exception e) {
