@@ -16,7 +16,7 @@ public interface GuestRepository extends JpaRepository<Guest, Long> {
 
 	
 	List<Guest> findByAddress(String address);
-	List<Guest> findByEmail(String email);
+	Guest findByEmail(String email);
 
 	List<Guest> findById(Long id);
 	List<Guest> findByName(String name);

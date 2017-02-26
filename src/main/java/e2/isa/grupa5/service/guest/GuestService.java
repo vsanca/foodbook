@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +20,7 @@ import com.google.maps.GeoApiContext;
 import com.google.maps.model.DistanceMatrix;
 import com.google.maps.model.DistanceMatrixRow;
 
+import ch.qos.logback.classic.Logger;
 import e2.isa.grupa5.model.grade.Grade;
 import e2.isa.grupa5.model.reservation.InvitedToReservation;
 import e2.isa.grupa5.model.reservation.Reservation;
@@ -59,6 +62,8 @@ public class GuestService {
 
 	@Value("${jelena.google.key}")
 	private String jelenaApiKey;
+	
+	private final Log logger = LogFactory.getLog(this.getClass());
 
 	/**
 	 * Request BCrypt2 encoder
@@ -147,6 +152,24 @@ public class GuestService {
 			return saved;
 		}
 		return null;
+	}
+	
+	public Guest registerAndOrLoginGuestWithSocialProvider(User user) {
+		user.setRole(UserRoles.GUEST);
+		Guest guest = new Guest(user);
+		guest.setPassword(passwordEncoder.encode(user.getPassword()));
+		guest.setActive(true);
+		
+		// if user is already registered, return from DB
+		Guest exists = guestRepository.findByEmail(user.getEmail());
+		if(exists != null) {
+			return exists;
+		}
+		
+		Guest saved = save(guest);
+		logger.info("User registered via social provider!");
+		System.out.println((User) saved);
+		return saved;
 	}
 
 	public List<HomePageDTO> getHomePageInfo(Long id) {
