@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import e2.isa.grupa5.model.restaurant.Restaurant;
+import e2.isa.grupa5.model.restaurant.RestaurantArea;
 import e2.isa.grupa5.model.restaurant.RestaurantTable;
 import e2.isa.grupa5.model.restaurant.RestaurantTableDTO;
+import e2.isa.grupa5.model.users.Waiter;
 import e2.isa.grupa5.service.restaurant.RestaurantTableService;
 
 /**
@@ -76,5 +79,6 @@ public class RestaurantTableController {
 		
 		return new ResponseEntity<>(restaurantTableService.findAllByManagerId(mId), HttpStatus.OK);
 	}
+	
 	
 }

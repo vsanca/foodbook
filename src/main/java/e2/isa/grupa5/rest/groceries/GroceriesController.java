@@ -1,5 +1,6 @@
 package e2.isa.grupa5.rest.groceries;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,21 @@ public class GroceriesController {
 	public ResponseEntity getAll() {
 		
 		return new ResponseEntity<>(groceriesRepository.findAll(), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/getAllForRestaurant/{rId}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity getAllForRestaurant(@PathVariable long rId) {
+		
+		List<Groceries> groceries = new ArrayList<>();
+		
+		for(Groceries g : groceriesRepository.findAll()) {
+			if(g.getRestaurant().getId() == rId) {
+				groceries.add(g);
+			}
+		}
+		
+		return new ResponseEntity<>(groceries, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/getItems/{id}", method = RequestMethod.GET)

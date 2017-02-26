@@ -35,6 +35,7 @@ import e2.isa.grupa5.model.restaurant.RestaurantArea;
 import e2.isa.grupa5.model.restaurant.RestaurantTable;
 import e2.isa.grupa5.model.shifts.Shift;
 import e2.isa.grupa5.model.shifts.ShiftChef;
+import e2.isa.grupa5.model.shifts.ShiftWaiter;
 import e2.isa.grupa5.model.users.Bartender;
 import e2.isa.grupa5.model.users.Bidder;
 import e2.isa.grupa5.model.users.Chef;
@@ -60,6 +61,7 @@ import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantTableRepository;
 import e2.isa.grupa5.repository.shifts.ShiftChefRepository;
 import e2.isa.grupa5.repository.shifts.ShiftRepository;
+import e2.isa.grupa5.repository.shifts.ShiftWaiterRepository;
 import e2.isa.grupa5.repository.sysmanager.SystemManagerRepository;
 import e2.isa.grupa5.repository.waiter.WaiterRepository;
 import e2.isa.grupa5.service.chef.ChefService;
@@ -124,6 +126,9 @@ public class TestController {
 	
 	@Autowired
 	private ShiftChefRepository shiftChefRepository;
+	
+	@Autowired
+	private ShiftWaiterRepository shiftWaiterRepository;
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -524,7 +529,7 @@ public class TestController {
 		restaurantAreaRepository.save(ra1);
 		
 		// RESTAURANT TABLES:
-		RestaurantTable rt1 = new RestaurantTable("sto 1", 2, ra1, "{\"type\":\"rect\",\"left\":10,\"top\":10,\"width\":25,\"height\":25,\"fill\":\"white\"}");
+		RestaurantTable rt1 = new RestaurantTable("sto 1", 2, ra1, "{\"type\":\"rect\",\"left\":10,\"top\":10,\"width\":50,\"height\":100,\"fill\":\"blue\"}");
 		restaurantTableRepository.save(rt1);
 		
 		// RESTAURANT MANAGERS:
@@ -564,7 +569,7 @@ public class TestController {
 		it6.setImage_link("http://media.salon.com/2013/12/wine_clash.jpg");
 		itemRepository.save(it6);
 		
-		// RESTAURAN MENU ITEMS:
+		// RESTAURANT MENU ITEMS:
 		MenuItem mi1 = new MenuItem(500, it1, mnu1);
 		menuItemRepository.save(mi1);
 		MenuItem mi2 = new MenuItem(800, it2, mnu1);
@@ -624,6 +629,9 @@ public class TestController {
 		
 		ShiftChef sc1 = new ShiftChef(ch1, sh1);
 		shiftChefRepository.save(sc1);
+		
+		ShiftWaiter sw1 = new ShiftWaiter(wt1, sh1);
+		shiftWaiterRepository.save(sw1);
 		
 	/*	
 		Reservation r = new Reservation(); 
