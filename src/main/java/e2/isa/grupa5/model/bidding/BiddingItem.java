@@ -5,7 +5,6 @@ import javax.persistence.*;
 import e2.isa.grupa5.model.groceries.GroceryItem;
 import e2.isa.grupa5.model.groceries.GroceryItemQty;
 
-import java.util.Date;
 
 /**
  * Bidding item is one item on a BiddingList. 
@@ -44,12 +43,6 @@ public class BiddingItem {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "grocery_item_id", nullable = false)
     private GroceryItem groceryItem;
-    
-    @Column(name = "deliveryTime", nullable = false)
-    private Date deliveryTime;
-
-    @Column(name = "guarantee")
-    private String guarantee;
 
     public BiddingItem() {
     }
@@ -68,22 +61,6 @@ public class BiddingItem {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public Date getDeliveryTime() {
-        return deliveryTime;
-    }
-
-    public void setDeliveryTime(Date deliveryTime) {
-        this.deliveryTime = deliveryTime;
-    }
-
-    public String getGuarantee() {
-        return guarantee;
-    }
-
-    public void setGuarantee(String guarantee) {
-        this.guarantee = guarantee;
     }
 
 	public String getName() {

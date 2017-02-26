@@ -2,19 +2,22 @@
 	<div class="row">
 		<div class="col-md-6 col-lg-6 form">
 			
-			<div class="thumbnail">
+				<div class="thumbnail">
 					<h4 class="text-center">Informacije o potražnji</h4>
-					<p><b>Naziv restorana: </b> {{restaurant.name}}</p>
-					<p><b>Status ponude: </b> {{restaurant.name}}</p>
+					<p><b>Naziv restorana: </b> {{selectedGroceries.restaurant.name}}</p>
+					<p><b>Status potražnje: </b> {{selectedGroceries.status}}</p>
+					
 					<div class="form-group">
 						<label for="groceriesFromDate">Važi od:</label>
-						<input type="text" ng-model="selectedList.from_date" required class="form-control" id="groceriesFromDate" disabled/>
+						<input type="text" ng-model="selectedGroceries.from_date" required class="form-control" id="groceriesFromDate" disabled/>
 					</div>
 					<div class="form-group">
 						<label for="groceriesToDate">Važi do:</label>
-						<input type="text" ng-model="selectedList.to_date" required class="form-control" id="groceriesToDate" disabled/>
+						<input type="text" ng-model="selectedGroceries.to_date" required class="form-control" id="groceriesToDate" disabled/>
 					</div>
+					
 				</div>
+				
 				<div class="thumbnail">
 						<h4 class="text-center">Stavke namirnica</h4>
 						
@@ -25,14 +28,16 @@
 								<th>Količina</th>
 								<th>Tip</th>
 								<th>Merna jedinica</th>
+								<th></th>
 								
 							</tr>
-							<tr ng-repeat="li in selectedList.items">
+							<tr ng-repeat="li in selectedGroceries.items">
 								<td>{{$index+1}}</td>
 								<td>{{li.name}}</td>
 								<td>{{li.quantity}}</td>
 								<td>{{li.groceryItemType.name}}</td>
 								<td>{{li.groceryItemQty.name}}</td>
+								<td><button type="button" class="btn btn-warning" ng-click="setNewBiddingItem($index)">Ponuda za stavku</button></td>
 							</tr>
 						</table>
 						
@@ -42,13 +47,65 @@
 						<form novalidate name="newListItemForm">
 							<div class="form-group">
 								<label for="ukupnaCena">Ukupna cena</label>
-								<input type="number" required ng-model="CENA" disabled id="ukupnaCena" class="form-control">
+								<input type="number" required ng-model="bidding.price" disabled id="ukupnaCena" class="form-control">
 							</div>
+							<button type="button" class="btn btn-success btn-block" ng-click="addNewGroceries()">Kreiraj ponudu</button>
 						</form>
 					</div>
 		</div>
 	</div>
 	
-	<div class="row">
-	</div>
+</div>
+
+
+<!-- Modal - display bidding item -->
+<div class="modal fade" id="biddingItemDetails" tabindex="-1" role="dialog" aria-labelledby="newTableModalLabel">
+	  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+			      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel">Ponuda za stavku </h4>
+			      </div>
+			      <div class="modal-body">
+						<div class="thumbnail">
+							<h4 class="text-center">Informacije o stavci</h4>
+							<p><b>Naziv stavke: </b> {{selectedGroceryItem.name}}</p>
+							<p><b>Tip stavke: </b> {{selectedGroceryItem.groceryItemType.name}}</p>
+						</div>
+						<div class="thumbnail">
+						
+							<form name="addItemForm">
+								<div class="form-group">
+									<label for="naziv1">Naziv</label>
+									<input type="text" required ng-model="biddingItem.name" required id="naziv1" class="form-control" required>
+								</div>
+								<div class="form-group">
+									<label for="kolicina1">Količina</label>
+									<input type="number" required ng-model="biddingItem.quantity" required id="kolicina1" class="form-control" placeholder="5" required>
+								</div>
+								<div class="form-group">
+									<label for="jedinica1">Merna jedinica</label>
+									<select class="form-control" id="jedinica1" ng-model="biddingItem.groceryItemQty" ng-options="qty.name for qty in groceryItemQuantities">
+									</select>
+									
+									<input type="text" ng-model="newGroceryItemQuantity.name" placeholder="Nova merna jedinica" class="form-control">
+									<button type="button" class="btn btn-default" ng-click="addItemQuantity()">Dodaj novu mernu jedinicu</button>
+								</div>
+								<div class="form-group">
+									<label for="cena1">Cena</label>
+									<input type="number" required ng-model="biddingItem.price" required id="cena1" class="form-control" placeholder="5" required>
+								</div>
+							</form>
+							
+						</div>
+					
+					
+					
+			      </div>
+			      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+				        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="addBiddingItem()">Postavi stavku</button>
+			      </div>
+		    </div>
+	  </div>
 </div>
