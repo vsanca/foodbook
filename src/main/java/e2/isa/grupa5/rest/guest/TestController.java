@@ -487,22 +487,6 @@ public class TestController {
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		// SYSTEM MANAGERS:
 		SystemManager sm1 = new SystemManager();
 		sm1.setActive(true);
@@ -528,10 +512,22 @@ public class TestController {
 		RestaurantArea ra1 = new RestaurantArea("nepusacka zona", re1);
 		restaurantAreaRepository.save(ra1);
 		
+		RestaurantArea ra2 = new RestaurantArea("pusacka zona", re1);
+		restaurantAreaRepository.save(ra2);
+		
+		RestaurantArea ra3 = new RestaurantArea("treca zona", re1);
+		restaurantAreaRepository.save(ra3);
+		
 		
 		// RESTAURANT TABLES:
 		RestaurantTable rt1 = new RestaurantTable("sto 1", 2, ra1, "{\"type\":\"rect\",\"left\":10,\"top\":10,\"width\":50,\"height\":100,\"fill\":\"blue\"}");
 		restaurantTableRepository.save(rt1);
+		
+		RestaurantTable rt2 = new RestaurantTable("sto 2", 2, ra2, "{\"type\":\"rect\",\"left\":30,\"top\":30,\"width\":40,\"height\":80,\"fill\":\"yellow\"}");
+		restaurantTableRepository.save(rt2);
+		
+		RestaurantTable rt3 = new RestaurantTable("sto 3", 2, ra3, "{\"type\":\"rect\",\"left\":50,\"top\":50,\"width\":20,\"height\":60,\"fill\":\"green\"}");
+		restaurantTableRepository.save(rt3);
 		
 		// RESTAURANT MANAGERS:
 		RestaurantManager rm1 = new RestaurantManager("rm1@rm1.com", passwordEncoder.encode("rm1"), "Zika", "Menadzer", "Zikina Adresa", re1);
@@ -634,6 +630,11 @@ public class TestController {
 		ShiftWaiter sw1 = new ShiftWaiter(wt1, sh1);
 		shiftWaiterRepository.save(sw1);
 		
+		
+		
+		
+		
+		
 	/*	
 		Reservation r = new Reservation(); 
 		r.setGuest(g);
@@ -673,6 +674,7 @@ public class TestController {
 		guestRepository.save(g); 
 		
 	*/	
+		System.out.println("DATABASE FILLED");
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
