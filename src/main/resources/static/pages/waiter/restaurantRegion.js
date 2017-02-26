@@ -50,9 +50,9 @@ angular.module('foodbook').controller('waiterRestaurantRegionController', functi
 				$scope.tables = data;
 				if($scope.tables){
 					alert("Nije prazno");
-					//for(var j in $scope.tables){
+					for(var j in $scope.tables){
 						
-				   	   var table = $scope.tables[0];
+				   	   var table = $scope.tables[j];
 				   
 					   var t = JSON.parse(table.fabricTable);
 			           var fabricTable;
@@ -60,8 +60,8 @@ angular.module('foodbook').controller('waiterRestaurantRegionController', functi
 			           fabricTable = new fabric.Rect(t);
 			           table.fabricTable = fabricTable;
 			           canvas.renderAll();
-			       //}
-					//canvas.renderAll();
+			       }
+					canvas.renderAll();
 				}
 				else{
 					alert("Nema stolova");
