@@ -11,11 +11,11 @@
 
   Reserve1PageController.$inject = ['$scope', '$state', '$location', 'sessionService', 'guestService', '$stateParams', 'authenticationService'];
 
-  function Reserve1PageController($scope, $state, $location, sessionService, guestService, stateParams, authenticationService) {
-    alert("restaurants blabla");
+  function Reserve1PageController($scope, $state, $location, sessionService, guestService, $stateParams, authenticationService) {
+
     $scope.userInfo = sessionService.getUserInfo(); 
 
-    guestService.getReserve1PageInfo($scope.userInfo.userId).then(function (response) {
+    guestService.getReserve1PageInfo($stateParams.restaurantId).then(function (response) {
         $scope.reserve1Page = response.data; 
     }, function (error) {
 
@@ -26,9 +26,9 @@
       authenticationService.logoff(); 
       $state.go('login');    
     }   
-
+  /*
     console.log($stateParams); 
-    console.log($stateParams.restaurantId); 
+    console.log($stateParams.restaurantId); */
   }
 })();
 

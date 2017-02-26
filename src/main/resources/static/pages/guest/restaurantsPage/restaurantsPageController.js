@@ -18,7 +18,7 @@
     $scope.restaurantsPage = []; 
 
     guestService.getRestaurantsPageInfo($scope.userInfo.userId).then(function (response) {
-        $scope.restaurantPage = response.data; 
+        $scope.restaurantsPage = response.data; 
     }, function (error) {
 
     });

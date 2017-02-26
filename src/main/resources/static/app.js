@@ -51,8 +51,8 @@
 				templateUrl: 'pages/guest/restaurantsPage/restaurantsPage.html',
 				controller: 'RestaurantsPageController'
 			})
-			.state('reserve1', {
-				url: '/guest/reserve1-page/:restauranId',
+			.state('reserve1/:restaurantId', {
+				url: '/guest/reserve1-page/:restaurantId',
 				templateUrl: 'pages/guest/reservePage/reserve1Page.html',
 				controller: 'Reserve1PageController'
 			})

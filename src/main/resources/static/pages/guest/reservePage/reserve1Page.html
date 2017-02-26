@@ -18,8 +18,14 @@
 <div>
 
 <div>
-<strong>Restoran:</strong><span>{{profilePage.numberOfVisits}}</span>
-    
+<strong>Restoran:</strong><span>{{reserve1Page.restaurantName}}</span>
 
+    <input style="margin-top:50px" class="datepicker" data-date-format="mm/dd/yyyy">
+<script>
+$('.datepicker').datepicker({
+    format: 'dd/mm/yyyy'
+});
+
+</script>
 
 </div>

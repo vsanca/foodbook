@@ -20,7 +20,8 @@
             getHomePageInfo: getHomePageInfo, 
             getFriendsPageInfo: getFriendsPageInfo,
             updateProfileInfo: updateProfileInfo,
-            getRestaurantsPageInfo: getRestaurantsPageInfo
+            getRestaurantsPageInfo: getRestaurantsPageInfo, 
+            getReserve1PageInfo: getReserve1PageInfo
         };
 
 
