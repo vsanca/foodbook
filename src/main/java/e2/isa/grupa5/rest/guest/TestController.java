@@ -528,6 +528,7 @@ public class TestController {
 		RestaurantArea ra1 = new RestaurantArea("nepusacka zona", re1);
 		restaurantAreaRepository.save(ra1);
 		
+		
 		// RESTAURANT TABLES:
 		RestaurantTable rt1 = new RestaurantTable("sto 1", 2, ra1, "{\"type\":\"rect\",\"left\":10,\"top\":10,\"width\":50,\"height\":100,\"fill\":\"blue\"}");
 		restaurantTableRepository.save(rt1);
