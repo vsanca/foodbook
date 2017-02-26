@@ -1,1 +1,66 @@
-<h2>SVE PONUDE</h2>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-6 col-lg-6 form">
+			<form novalidate name="displayGroceriesForm">
+				<h4 class="text-center">Spisak ponuda za namirnice</h4>
+				<div class="form-group">
+					<label for="filterByStatus">Filtriraj po statusu</label>
+					<select class="form-control" ng-model="currentStatus" ng-options="s for s in status" id="filterByStatus"></select>
+				</div>
+				
+				<div ng-repeat="list in groceriesList">
+					<div class="thumbnail" ng-if="currentStatus == list.status" >
+						<p>Restoran: {{list.restaurant.name}}</p>
+						<button type="button" class="btn btn-info" ng-click="previewGroceries(list)" ng-if="currentStatus == list.status">Ponuda od {{list.from_date}} do {{list.to_date}}</button>						
+					</div>
+				</div>
+				
+			</form>
+		</div>
+		
+		<div class="col-md-6 col-lg-6 form thumbnail">
+			<form novalidate name="newGroceriesForm">
+				<h4 class="text-center">Nova ponuda za namirnice</h4>
+				
+				
+				<div class="thumbnail">
+					<h4 class="text-center">Informacije o ponudi</h4>
+					<p><b>Naziv restorana: </b> {{selectedGroceries.restaurant.name}}</p>
+					<p><b>Status: </b> {{selectedGroceries.status}}</p>
+					<div class="form-group">
+						<label for="groceriesFromDate">Važi od:</label>
+						<input type="text" ng-model="selectedGroceries.from_date" required class="form-control" id="groceriesFromDate" disabled/>
+					</div>
+					<div class="form-group">
+						<label for="groceriesToDate">Važi do:</label>
+						<input type="text" ng-model="selectedGroceries.to_date" required class="form-control" id="groceriesToDate" disabled/>
+					</div>
+				</div>
+				<div class="thumbnail">
+					<h4 class="text-center">Stavke namirnica</h4>
+					
+					<table class="table table-striped">
+						<tr>
+							<th></th>
+							<th>Naziv</th>
+							<th>Količina</th>
+							<th>Tip</th>
+							<th>Merna jedinica</th>
+							<th></th>
+						</tr>
+						<tr ng-repeat="li in selectedGroceries.items">
+							<td>{{$index+1}}</td>
+							<td>{{li.name}}</td>
+							<td>{{li.quantity}}</td>
+							<td>{{li.groceryItemType.name}}</td>
+							<td>{{li.groceryItemQty.name}}</td>
+						</tr>
+					</table>
+				</div>
+							
+				<p><a type="submit" class="btn btn-success btn-block" ng-if="selectedGroceries.items.length" ng-click="newBidding(selectedGroceries)">Prijavi ponudu</a></p>
+
+			</form>
+		</div>
+	</div>
+</div>
