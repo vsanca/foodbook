@@ -92,4 +92,5 @@ angular.module('foodbook').controller('bidderProfileController', function($scope
     });
     
     $scope.startPing(10000);
+    
 });
