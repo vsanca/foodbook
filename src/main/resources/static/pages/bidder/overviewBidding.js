@@ -1,6 +1,7 @@
-angular.module('foodbook').controller('bidderOverviewBiddingController', function($scope, $http, $state, sessionService, notifyService) {
+angular.module('foodbook').controller('bidderOverviewBiddingController', function($scope, $http, $state, sessionService, notifyService, bidderService) {
 	
-	$scope.biddingStatus = ["TBA", "ACTIVE", "ACCEPTED", "REJECTED", "EXPIRED"];
+	$scope.biddingStatus = ["ACTIVE", "ACCEPTED", "REJECTED", "EXPIRED"];
+	$scope.groceriesStatus = ["OPEN", "CLOSED", "EXPIRED", "TBA"];
 	$scope.currentStatus = $scope.biddingStatus[0];
 	$scope.biddings = [];
 	$scope.selectedBiddingItems = [];
@@ -23,42 +24,39 @@ angular.module('foodbook').controller('bidderOverviewBiddingController', functio
 		$scope.selectedBidding = bidding;
 		$scope.selectedBidding.timestamp = new Date(bidding.timestamp);
 		
-		$http.get('/groceries/getItems/'+ $scope.selectedBiding.groceries.id, 
+		$http.get('/groceries/getItems/'+ $scope.selectedBidding.groceries.id, 
 				{ headers: { 'Authorization': sessionService.getAuthToken() } })
 				.success(function (data) {
 					
 					$scope.selectedGroceryItems = data;
 					
-					$http.get('/bidding/getBidItemsByBidding/'+ $scope.selectedBiding.id, 
+					$http.get('/bidding/getBidItemsByBidding/'+ $scope.selectedBidding.id, 
 							{ headers: { 'Authorization': sessionService.getAuthToken() } })
 							.success(function (data) {
 								
 								$scope.selectedBiddingItems = data;
 								
+								$('#previewBiddingModal').modal();
 					});
 		});
 	};
 	
-	$scope.showDetails = function(id) {
+	$scope.modifyBidding = function(bidding) {
 		
-		for(i=0; i< $scope.selectedBiddingItems.length; i++) {
-			if($scope.selectedBiddingItems[i].groceryItem.id == id) {
-				$scope.selectedBiddingItem = $scope.selectedBiddingItems[i];
-			}
-		}
+		$('#previewBiddingModal').modal('hide');
 		
-		$('#biddingDetails').modal();
-	}
-	
-	$scope.getBiddingItemPrice = function(id) {
-		
-		for(i=0; i< $scope.selectedBiddingItems.length; i++) {
-			if($scope.selectedBiddingItems[i].groceryItem.id == id) {
-				return $scope.selectedBiddingItems[i].price;
-			}
-		}
-		
-		return "";
+		$('#previewBiddingModal').on('hidden.bs.modal', function () {
+			
+			var groceries = bidding.groceries;
+			groceries.items = $scope.selectedGroceryItems;
+			
+			var biddingWithItems = bidding;
+			biddingWithItems.items = $scope.selectedBiddingItems;
+			
+			bidderService.setSelectedGroceries(groceries);
+			bidderService.setSelectedBidding(biddingWithItems);
+			$state.transitionTo('bidder.newBidding');
+		});
 	};
 	
 });

@@ -12,10 +12,38 @@ angular.module('foodbook').controller('bidderNewBiddingController', function($sc
 	$scope.newGroceryItemQuantity = {};
 	$scope.selectedGroceryItem = {};
 	
+	$scope.update = false;
+	
 	$scope.biddingItem = {};
 	$scope.bidding = {};
 	$scope.biddingExists = false;
 	$scope.biddingId = {};
+	
+	
+	if(bidderService.getSelectedBidding()) {
+		
+		$("#newBiddingTitle").text("Ažuriranje ponude");
+		console.log('UPDATE BIDDING');
+		$scope.update = true;
+		
+		$scope.bidding = bidderService.getSelectedBidding();
+		$scope.biddingItems = $scope.bidding.items;
+		
+		for(i=0; i< $scope.biddingItems.length; i++) {
+			$scope.biddingItems[i].groceryItemId = $scope.biddingItems[i].groceryItem.id;
+			$scope.biddingItems[i].groceryItemQtyId = $scope.biddingItems[i].groceryItemQty.id;
+		}
+		
+		$scope.selectedGroceries.from_date = new Date($scope.selectedGroceries.from_date).toISOString().substring(0,10);
+		$scope.selectedGroceries.to_date = new Date($scope.selectedGroceries.to_date).toISOString().substring(0,10);
+		
+	} else {
+		
+		$("#newBiddingTitle").text("Unos ponude");
+		console.log('NEW BIDDING');
+		
+		$scope.update = false;
+	}
 	
 	
 	$http.get('/groceries/type/all', 
@@ -57,7 +85,7 @@ angular.module('foodbook').controller('bidderNewBiddingController', function($sc
 		}
 	};
 	
-	
+	if(! $scope.update) {
 	$http.get('/bidding/getBiddingByGroceriesAndBidder/' + $scope.selectedGroceries.id +'/'+ sessionService.getUserInfo().userId, 
 			{ headers: { 'Authorization': sessionService.getAuthToken() } })
 			.success(function (data) {
@@ -87,7 +115,7 @@ angular.module('foodbook').controller('bidderNewBiddingController', function($sc
 						});
 				
 	});
-	
+	};
 	
 	helperFunction = function() {
 		for(i=0; i< $scope.biddingItems.length; i++) {
@@ -184,7 +212,7 @@ angular.module('foodbook').controller('bidderNewBiddingController', function($sc
 									});
 							
 						}
-						
+						notifyService.showSuccess('Uspešno dodata ponuda.');
 					});
 			
 		} else { // update
@@ -217,7 +245,7 @@ angular.module('foodbook').controller('bidderNewBiddingController', function($sc
 									});
 							
 						}
-						
+						notifyService.showSuccess('Uspešno ažurirana ponuda.');
 					});
 			
 		}

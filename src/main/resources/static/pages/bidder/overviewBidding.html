@@ -1,50 +1,106 @@
 <div class="container-fluid">
-	<h4>Pregled ponuda</h4>
 	<div class="row">
 		<div class="col-md-6 col-lg-6 form">
-		</div>
-		<div class="col-md-6 col-lg-6 form">
-		
-			<form novalidate name="overviewBidding">
-				<h4 class="text-center">Moje ponude za namirnice</h4>
-				
-				<div class="thumbnail">
-					<h4 class="text-center">Informacije o ponudi</h4>
-					<p><b>Naziv restorana: </b> {{selectedBidding.groceries.restaurant.name}}</p>
-					<p><b>Status: </b> {{selectedBidding.status}}</p>
-					<div class="form-group">
-						<label for="biddingDate">Datum ponude:</label>
-						<input type="date" ng-model="selectedBidding.timestamp" required class="form-control" id="biddingDate" disabled/>
-					</div>
+			<form novalidate name="displayMyBiddingsForm">
+				<h4 class="text-center">Pregled poslatih ponuda</h4>
+				<div class="form-group">
+					<label for="filterByStatus">Filtriraj po statusu</label>
+					<select class="form-control" ng-model="currentStatus" ng-options="s for s in biddingStatus" id="filterByStatus"></select>
 				</div>
-				<div class="thumbnail">
-					<h4 class="text-center">Stavke ponude</h4>
+				
+				<div ng-repeat="b in biddings">
+					<div class="thumbnail" ng-if="currentStatus == b.status">
 					
-					<table class="table table-striped">
-						<tr>
-							<th></th>						
-							<th>Naziv stavke ponude</th>
-			                <th>Količina</th>
-			                <th>Tip</th>
-			                <th>Merna jedinica</th>
-			                <th>Cena</th>
-			                <th></th>
-						</tr>
-						<tr ng-repeat="li in selectedGroceryItems">
-							<td>{{$index+1}}</td>
-							<td>{{li.name}}</td>
-							<td>{{li.quantity}}</td>
-							<td>{{li.groceriesItemType.name}}</td>
-							<td>{{li.groceriesItemQty.name}}</td>
-	              			<td>{{getBiddingItemPrice(li.id)}}</td>
-	              			<td><button type="button" class="btn btn-info" ng-click="showDetails(li.id)">Više</button></td>
-						</tr>
-					</table>
-					
+						<div class="thumbnail">
+							<p><b>Restoran: </b> {{b.groceries.restaurant.name}}</p>
+							<p><b>Datum ponude: </b> {{b.timestamp | date:'dd.MM.yyyy'}}</p>
+							<p><b>Potražnja od </b>{{b.groceries.from_date | date:'dd.MM.yyyy'}} <b> do </b> {{b.groceries.to_date | date:'dd.MM.yyyy'}}</b>
+							<button type="button" class="btn btn-info pull-right" ng-click="previewBidding(b)">Detalji ponude</button></p>
+						</div>
+						
+					</div>
 				</div>
 				
 			</form>
+		</div>
+		
+		<div class="col-md-6 col-lg-6 form">
 			
 		</div>
 	</div>
+</div>
+
+<!-- Modal - preview bidding -->
+<div class="modal fade" id="previewBiddingModal" tabindex="-1" role="dialog" aria-labelledby="newTableModalLabel">
+	  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+			      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel">Informacije o ponudi</h4>
+			      </div>
+			      <div class="modal-body">
+					<form novalidate name="previewBiddingForm">
+						<div class="thumbnail">
+							<h4 class="text-center">Informacije o ponudi</h4>
+							<p><b>Naziv restorana: </b> {{selectedBidding.groceries.restaurant.name}}</p>
+							<p><b>Status: </b> {{selectedBidding.status}}</p>
+							<div class="form-group">
+								<label for="biddingDate">Datum ponude:</label>
+								<input type="date" ng-model="selectedBidding.timestamp" required class="form-control" id="biddingDate" disabled/>
+							</div>
+						</div>
+						<div class="thumbnail">
+							<h4 class="text-center">Stavke potražnje</h4>
+							
+							<table class="table table-striped">
+								<tr>
+									<th></th>						
+									<th>Naziv stavke</th>
+					                <th>Količina</th>
+					                <th>Tip</th>
+					                <th>Merna jedinica</th>
+								</tr>
+								<tr ng-repeat="li in selectedGroceryItems">
+									<td>{{$index+1}}</td>
+									<td>{{li.name}}</td>
+									<td>{{li.quantity}}</td>
+									<td>{{li.groceriesItemType.name}}</td>
+									<td>{{li.groceriesItemQty.name}}</td>
+								</tr>
+							</table>
+							
+						</div>
+						
+						<div class="thumbnail">
+							<h4 class="text-center">Stavke ponude</h4>
+							
+							<table class="table table-striped">
+								<tr>
+									<th></th>						
+									<th>Naziv stavke</th>
+					                <th>Količina</th>
+					                <th>Tip</th>
+					                <th>Merna jedinica</th>
+					                <th>Cena</th>
+								</tr>
+								<tr ng-repeat="bi in selectedBiddingItems">
+									<td>{{$index+1}}</td>
+									<td>{{bi.name}}</td>
+									<td>{{bi.quantity}}</td>
+									<td>{{bi.groceriesItemType.name}}</td>
+									<td>{{bi.groceriesItemQty.name}}</td>
+			              			<td>{{bi.price}}</td>
+								</tr>
+							</table>
+							
+						</div>
+						<p><b>Ukupna cena ponude: </b> {{selectedBidding.price}}</p>
+					</form>
+			      </div>
+			      <div class="modal-footer">
+			      		<button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+				        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="modifyBidding(selectedBidding)" ng-if="selectedBidding.status == biddingStatus[0] && selectedBidding.groceries.status == groceriesStatus[0]")>Izmeni ponudu</button>
+			      </div>
+		    </div>
+	  </div>
 </div>
