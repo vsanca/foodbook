@@ -16,28 +16,31 @@ angular.module('foodbook').controller('waiterWorkScheduleController', function($
 	$http.get('/user/waiter/allMyShifts/'+sessionService.getUserInfo().userId, 
 			{ headers: { 'Authorization': sessionService.getAuthToken() } })
 			.success(function (data) {
-				var calendarShift;
-				for(i=0; i<data.length; i++) {
-					calendarShift = {
-							color: "#0000ff",
-							title: $scope.user.name+" "+$scope.user.surname,
-							start: new Date(data[i].shift.day).toISOString().substring(0, 10) + "T" + data[i].shift.startTime,
-							end: new Date(data[i].shift.day).toISOString().substring(0, 10) + "T" + data[i].shift.endTime
-						};
-					
-					$scope.shifts.push(calendarShift);
-				}
-				$('#timetable').fullCalendar({
-					header: {
-						left: 'prev,next today',
-						center: 'title',
-						right: 'month, agendaWeek, agendaDay'
-					},
-					editable: false,
-					events: $scope.shifts
-				});	
+					var calendarShift;
+					for(i=0; i<data.length; i++) {
+						calendarShift = {
+								color: "#ff0000",
+								title: $scope.user.name+" "+$scope.user.surname,
+								start: new Date(data[i].shift.day).toISOString().substring(0, 10) + "T" + data[i].shift.startTime,
+								end: new Date(data[i].shift.day).toISOString().substring(0, 10) + "T" + data[i].shift.endTime
+							};
+						
+						$scope.shifts.push(calendarShift);
+					}
+					$('#timetable').fullCalendar({
+						header: {
+							left: 'prev,next today',
+							center: 'title',
+							right: 'month, agendaWeek, agendaDay'
+						},
+						editable: false,
+						events: $scope.shifts
+					});	
 				
 			
-	});
+			 })
+			 .error(function() {
+					notifyService.showError('Nema smena za prikaz!');
+			 });
 	
 });
