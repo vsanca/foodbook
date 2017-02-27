@@ -15,13 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import e2.isa.grupa5.model.shifts.ShiftBartender;
 import e2.isa.grupa5.model.shifts.ShiftBartenderDTO;
 import e2.isa.grupa5.model.users.Bartender;
 import e2.isa.grupa5.model.users.BartenderDTO;
-import e2.isa.grupa5.model.users.Bidder;
-import e2.isa.grupa5.model.users.BidderDTO;
 import e2.isa.grupa5.repository.bartender.BartenderRepository;
 import e2.isa.grupa5.repository.shifts.ShiftBartenderRepository;
 import e2.isa.grupa5.service.bartender.BartenderService;
@@ -59,6 +56,20 @@ public class BartenderController {
 		
 		if(b != null) {
 			return new ResponseEntity<>(b, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@RequestMapping(value = "/bartender/allMyShifts/{id}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity getAllMyChShifts(@PathVariable long id) {
+		
+		
+		List<ShiftBartender> retval = shiftBartenderRepository.findByBartender_Id(id);
+		
+		if(retval != null) {
+			return new ResponseEntity<>(retval, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
