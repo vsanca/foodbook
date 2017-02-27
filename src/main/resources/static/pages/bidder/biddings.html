@@ -133,7 +133,7 @@
 			      </div>
 			      <div class="modal-footer">
 				        <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
-				        <a type="submit" class="btn btn-success" ng-if="selectedGroceries.items.length" ng-click="newBidding(selectedGroceries)">Prijavi ponudu</a>
+				        <a type="submit" class="btn btn-success" ng-if="selectedGroceries.items.length && selectedGroceries.status == $scope.status[0] " ng-click="newBidding(selectedGroceries)">Prijavi ponudu</a>
 				        
 			      </div>
 		    </div>

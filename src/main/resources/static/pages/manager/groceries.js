@@ -266,6 +266,8 @@ angular.module('foodbook').controller('managerGroceriesController', function($sc
 						}
 						
 						$scope.groceriesList.push(data);
+						
+						notifyService.showSuccess('Potražnja je aktivirana.');
 					})
 			
 		}
@@ -369,14 +371,20 @@ angular.module('foodbook').controller('managerGroceriesController', function($sc
 		
 		for(i=0; i< $scope.biddings.length; i++) {
 			
+			console.log("prvo:");
+			console.log($scope.biddings[i]);
+			
 			if($scope.biddings[i].length>0) {
 				if($scope.biddings[i][0].groceries.id == list.id) {
 					
 					for(j=0; j< $scope.biddings[i].length; j++) {
 						
+						console.log("drugo:");
+						console.log($scope.biddings[i][j]);
+						
 						if($scope.biddings[i][j].id == bid.id) {
 							
-							$http.post('/bidding/accept', bid.id,
+							$http.post('/bidding/accept', $scope.biddings[i][j].id,
 									{ headers: { 'Authorization': sessionService.getAuthToken() } })
 									.success(function (data) {
 										notifyService.showSuccess('Prihvaćena ponuda.');
@@ -384,7 +392,7 @@ angular.module('foodbook').controller('managerGroceriesController', function($sc
 							
 						} else {
 							
-							$http.post('/bidding/reject', bid.id,
+							$http.post('/bidding/reject', $scope.biddings[i][j].id,
 									{ headers: { 'Authorization': sessionService.getAuthToken() } })
 									.success(function (data) {
 										notifyService.showSuccess('Odbijena ponuda.');
