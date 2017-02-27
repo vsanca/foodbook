@@ -1,6 +1,8 @@
 package e2.isa.grupa5.model.restaurant;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * DTO for passing data for report REST services.
@@ -12,6 +14,7 @@ public class ReportDTO {
 	
 	private Date start_interval;
 	private Date end_interval;
+	private List<ReportObjectDTO> grades = new ArrayList<>();
 	
 	public ReportDTO() {
 		
@@ -32,6 +35,13 @@ public class ReportDTO {
 	public void setEnd_interval(Date end_interval) {
 		this.end_interval = end_interval;
 	}
-	
+
+	public List<ReportObjectDTO> getGrades() {
+		return grades;
+	}
+
+	public void setGrades(List<ReportObjectDTO> grades) {
+		this.grades = grades;
+	}
 	
 }

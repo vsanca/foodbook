@@ -1,10 +1,13 @@
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-8 col-lg-8 form">
+		<div class="col-md-8 col-lg-8 form thumbnail">
+			<h4 class="text-center" id="chartHeader"></h4>
 			<canvas id="report" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series"></canvas>
+			<h4 class="text-center" id="additionalData"></h4>
 		</div>
 		
 		<div class="col-md-4 col-lg-4 form">
+			<button type="button" class="btn btn-primary" ng-click="getGrades()">OCENA</button>
 		</div>
 	</div>
 </div>

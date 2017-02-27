@@ -1,5 +1,9 @@
 package e2.isa.grupa5.rest.restaurant;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import e2.isa.grupa5.model.restaurant.ReportDTO;
+import e2.isa.grupa5.model.restaurant.ReportObjectDTO;
 
 /**
  * Mock data generation and retrieval for generating the report.
@@ -35,7 +40,27 @@ public class MockDataService {
 	@PreAuthorize("isAuthenticated()") 
 	public ResponseEntity getRestaurantGrade(@PathVariable long id) {
 		
-		return new ResponseEntity(HttpStatus.OK);
+		// Implementacija metode koja bi dobavila ove podatke
+		// na osnovu ocena iz svih rezervacija
+		
+		List<ReportObjectDTO> list = new ArrayList<>();
+		
+		Random rand = new Random();
+		
+		for(int i=0; i<5; i++) {
+			rand = new Random();
+			
+			int val = rand.nextInt(50)+10;
+			
+			ReportObjectDTO tmp = new ReportObjectDTO();
+			
+			tmp.setGrade(i+1);
+			tmp.setValue(val);
+			
+			list.add(tmp);
+		}
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/meal/{id}", method = RequestMethod.GET)
