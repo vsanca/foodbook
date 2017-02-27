@@ -123,6 +123,20 @@ public class WaiterController {
 		}
 	}
 	
+	@RequestMapping(value = "/waiter/allMyShifts/{id}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity getAllMyShifts(@PathVariable long id) {
+		
+		
+		List<ShiftWaiter> retval = shiftWaiterRepository.findByWaiter_Id(id);
+		
+		if(retval != null) {
+			return new ResponseEntity<>(retval, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
 	
 	@RequestMapping(value="/waiter/forRestaurant/{rId}",  method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
