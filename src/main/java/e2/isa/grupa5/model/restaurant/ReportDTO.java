@@ -14,7 +14,6 @@ public class ReportDTO {
 	
 	private Date start_interval;
 	private Date end_interval;
-	private List<ReportObjectDTO> grades = new ArrayList<>();
 	
 	public ReportDTO() {
 		
@@ -34,14 +33,6 @@ public class ReportDTO {
 	
 	public void setEnd_interval(Date end_interval) {
 		this.end_interval = end_interval;
-	}
-
-	public List<ReportObjectDTO> getGrades() {
-		return grades;
-	}
-
-	public void setGrades(List<ReportObjectDTO> grades) {
-		this.grades = grades;
 	}
 	
 }

@@ -1,9 +1,11 @@
 package e2.isa.grupa5.rest.restaurant;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,6 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import e2.isa.grupa5.model.restaurant.ReportDTO;
 import e2.isa.grupa5.model.restaurant.ReportObjectDTO;
+import e2.isa.grupa5.model.restaurant.Restaurant;
+import e2.isa.grupa5.model.users.Waiter;
+import e2.isa.grupa5.repository.restaurant.MenuItemRepository;
+import e2.isa.grupa5.repository.restaurant.MenuRepository;
+import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
+import e2.isa.grupa5.repository.waiter.WaiterRepository;
 
 /**
  * Mock data generation and retrieval for generating the report.
@@ -29,12 +37,18 @@ import e2.isa.grupa5.model.restaurant.ReportObjectDTO;
 @RequestMapping("/data")
 public class MockDataService {
 	
-	@RequestMapping(value = "/generate", method = RequestMethod.GET)
-	@PreAuthorize("isAuthenticated()") 
-	public ResponseEntity generateData() {
-		
-		return new ResponseEntity(HttpStatus.OK);
-	}
+	@Autowired
+	MenuRepository menuRepository;
+	
+	@Autowired 
+	MenuItemRepository menuItemRepository;
+	
+	@Autowired
+	RestaurantRepository restaurantRepository;
+	
+	@Autowired
+	WaiterRepository waiterRepository;
+	
 	
 	@RequestMapping(value = "/restaurant/{id}", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()") 
@@ -63,16 +77,62 @@ public class MockDataService {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/meal/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/meal/{rId}/{id}", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()") 
 	public ResponseEntity getMealData(@PathVariable long id) {
 		
-		return new ResponseEntity(HttpStatus.OK);
+		List<ReportObjectDTO> list = new ArrayList<>();
+		
+		Random rand = new Random();
+		
+		for(int i=0; i<5; i++) {
+			rand = new Random();
+			
+			int val = rand.nextInt(50)+10;
+			
+			ReportObjectDTO tmp = new ReportObjectDTO();
+			
+			tmp.setGrade(i+1);
+			tmp.setValue(val);
+			
+			list.add(tmp);
+		}
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/waiter/{id}", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()") 
 	public ResponseEntity getWaiterData(@PathVariable long id) {
+		
+		List<ReportObjectDTO> list = new ArrayList<>();
+		
+		Random rand = new Random();
+		
+		for(int i=0; i<5; i++) {
+			rand = new Random();
+			
+			int val = rand.nextInt(50)+10;
+			
+			ReportObjectDTO tmp = new ReportObjectDTO();
+			
+			tmp.setGrade(i+1);
+			tmp.setValue(val);
+			
+			list.add(tmp);
+		}
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/visits/{id}", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()") 
+	public ResponseEntity visitsInPeriod(@PathVariable long id, @RequestBody ReportDTO rDTO) {
+		
+		Date start = rDTO.getStart_interval();
+		Date end = rDTO.getEnd_interval();
+		
+		List<ReportObjectDTO> list = new ArrayList<>();
 		
 		return new ResponseEntity(HttpStatus.OK);
 	}
@@ -81,14 +141,42 @@ public class MockDataService {
 	@PreAuthorize("isAuthenticated()") 
 	public ResponseEntity revenue(@PathVariable long id, @RequestBody ReportDTO rDTO) {
 		
+		Date start = rDTO.getStart_interval();
+		Date end = rDTO.getEnd_interval();
+		
+		List<ReportObjectDTO> list = new ArrayList<>();
+		
 		return new ResponseEntity(HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/revenueByWaiter/{id}", method = RequestMethod.POST)
 	@PreAuthorize("isAuthenticated()") 
-	public ResponseEntity revenueByWaiter(@PathVariable long id, @RequestBody ReportDTO rDTO) {
+	public ResponseEntity revenueByWaiter(@PathVariable long id) {
 		
-		return new ResponseEntity(HttpStatus.OK);
+		List<Waiter> waiters = new ArrayList<>();	
+		List<ReportObjectDTO> list = new ArrayList<>();
+		
+		for (Waiter w : waiterRepository.findAll())
+            if (w.getRestaurant().getId() == id)
+                waiters.add(w);
+		
+		
+		Random rand = new Random();
+		
+		for(int i=0; i<waiters.size(); i++) {
+			rand = new Random();
+			
+			int val = rand.nextInt(50000)+1000;
+			
+			ReportObjectDTO tmp = new ReportObjectDTO();
+			
+			tmp.setName(waiters.get(i).getName()+" "+waiters.get(i).getSurname());
+			tmp.setValue(val);
+			
+			list.add(tmp);
+		}
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
 	
