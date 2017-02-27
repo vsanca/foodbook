@@ -18,17 +18,18 @@
     <div>
 
         <div>
-            <strong>Restoran:</strong><span>{{reserve2Page.restaurantName}}</span>
+            <strong>Restoran:</strong><span>{{reserve2Page.name}}</span>
+            <strong>Datum i vreme:</strong><span>{{date}}</span>
+            <strong>Trajanje:</strong><span>{{reserve2Page.duration}}</span>
 
-            <input style="margin-top:50px" class="datepicker" data-date-format="mm/dd/yyyy">
-            <script>
-                $('.datepicker').datepicker({
-                    format: 'dd/mm/yyyy'
-                });
 
-            </script>
-
-            <button ng-click="reserve(restaurant.id)">
+<div style="overflow-x: scroll; overflow-y: scroll;">
+			<h4>Raspored stolova</h4>
+			<canvas id="restaurant_canvas" width="1000" height="500"></canvas>
+		</div>
+         
+         
+            <button ng-click="reserve(reserve2Page.restaurantId)">
                     Dalje >>
             </button>
            

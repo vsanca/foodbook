@@ -16,7 +16,9 @@
         	getAuthToken: getAuthToken,
         	setAuthToken: setAuthToken,
             getUserInfo: getUserInfo,
-            setUserInfo: setUserInfo
+            setUserInfo: setUserInfo, 
+            getReservationInfo: getReservationInfo,
+            setReservationInfo: setReservationInfo
         };
 
         
@@ -69,6 +71,49 @@
                 return null;
             }
             return JSON.parse(value);
+        }
+
+
+        /**
+         * Stores userInfo , if null is specified, deletes userInfo from localStorage
+         * 
+         * @param  {UserInfo} userInfo as an object
+         */
+        function getReservationInfo() {
+            let value = localStorage.getItem('reservationInfo');
+            if(value === null) {
+                return {
+                    name: "",
+                    date: new Date(),
+                    arrival: new Date(),
+                    duration: 0,
+                    tables: [],
+                    invitedFriends: [], 
+                    restaurantId: 0
+                };
+            }
+            return JSON.parse(value);
+        }
+
+
+        /**
+         *    @typedef ReservationInfo
+         *    @type {object}
+         *    @property {string} role - user role 
+         *    @property {long} userId - user ID
+         */
+
+        /**
+         * Stores userInfo , if null is specified, deletes userInfo from localStorage
+         * 
+         * @param  {ReservationInfo} reservationInfo as an object
+         */
+        function setReservationInfo(reservationInfo) {
+            if(reservationInfo === null) {
+                localStorage.removeItem('reservationInfo');
+                return;
+            }
+            localStorage.setItem('reservationInfo', JSON.stringify(reservationInfo));
         }
 
     }

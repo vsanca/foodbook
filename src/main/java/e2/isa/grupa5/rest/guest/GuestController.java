@@ -29,6 +29,7 @@ import e2.isa.grupa5.rest.dto.guest.UpdateProfileDTO;
 import e2.isa.grupa5.service.UserService;
 import e2.isa.grupa5.service.grade.GradeService;
 import e2.isa.grupa5.service.guest.GuestService;
+import e2.isa.grupa5.service.restaurant.RestaurantTableService;
 
 
 /**
@@ -56,7 +57,8 @@ public class GuestController {
     @Autowired
     private GradeRepository gradeRepository;
     
-  
+	@Autowired
+	RestaurantTableService restaurantTableService;
 
 
     @RequestMapping(value = "/register-guest", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
@@ -149,6 +151,13 @@ public class GuestController {
     @PreAuthorize("isAuthenticated()")
 	public Reserve1PageDTO getReserve1PageInfo(@PathVariable(value="restaurant-id") Long id) {
 		return guestService.getReserve1PageInfo(id);
+	}
+    
+	@RequestMapping(value = "/get-reserve2-page-info/{restaurant-id}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity getForRestaurant(@PathVariable(value="restaurant-id") Long id) {
+		
+		return new ResponseEntity<>(restaurantTableService.findAllByRestaurantId(id), HttpStatus.OK);
 	}
     
     

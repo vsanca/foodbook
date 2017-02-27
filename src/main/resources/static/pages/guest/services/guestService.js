@@ -21,7 +21,8 @@
             getFriendsPageInfo: getFriendsPageInfo,
             updateProfileInfo: updateProfileInfo,
             getRestaurantsPageInfo: getRestaurantsPageInfo, 
-            getReserve1PageInfo: getReserve1PageInfo
+            getReserve1PageInfo: getReserve1PageInfo,
+            getReserve2PageInfo: getReserve2PageInfo
         };
 
 
@@ -122,13 +123,41 @@
             });
         }
 
-/** getProfileDetails (secured)
+        /** getProfileDetails (secured)
         * @param {int} id - GuestID
         */
         function getReserve1PageInfo(id) {
             return $http({
                 method: 'GET',
                 url: '/rest/guest/get-reserve1-page-info/' + id,
+                headers: {
+                    'Authorization': sessionService.getAuthToken()
+                    
+                }
+            });
+        }
+
+          /** getProfileDetails (secured)
+        * @param {int} id - GuestID
+        */
+        function getReserve2PageInfo(id) {
+            return $http({
+                method: 'GET',
+                url: '/rest/guest/get-reserve2-page-info/' + id,
+                headers: {
+                    'Authorization': sessionService.getAuthToken()
+                    
+                }
+            });
+        }
+
+               /** getProfileDetails (secured)
+        * @param {int} id - GuestID
+        */
+        function getReserve2PageInfo(id) {
+            return $http({
+                method: 'GET',
+                url: '/rest/guest/get-reserve2-page-info/' + id,
                 headers: {
                     'Authorization': sessionService.getAuthToken()
                     

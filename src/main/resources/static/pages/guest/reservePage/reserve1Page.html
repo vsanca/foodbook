@@ -20,18 +20,45 @@
         <div>
             <strong>Restoran:</strong><span>{{reserve1Page.restaurantName}}</span>
             <br>
-            <input style="margin-top:50px" class="datepicker" data-date-format="mm/dd/yyyy">
-            <script>
-                $('.datepicker').datepicker({
-                    format: 'dd/mm/yyyy'
-                });
+            <strong>Datum i vreme:</strong>
+            <!-- 
+             <div style="display:inline-block; min-height:290px;">
+                <div uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></div>
+            </div>
+            -->
 
-            </script>
+            <pre>Selected date is: <em>{{dt | date:'fullDate' }}</em></pre>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="input-group">
+                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions"
+                            ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                        <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+                    </p>
+                </div>
+
+                <button type="button" class="btn btn-sm btn-info" ng-click="today()">Today</button>
+                <!--<button type="button" class="btn btn-sm btn-default" ng-click="setDate(2009, 7, 24)">2009-08-24</button>-->
+                <button type="button" class="btn btn-sm btn-danger" ng-click="clear()">Clear</button>
+               <!-- <button type="button" class="btn btn-sm btn-default" ng-click="toggleMin()" uib-tooltip="After today restriction">Min date</button>-->
+            </div>
+            <div>
+                    <input type="number" name="input" ng-model="duration"
+           min="0" max="5" required>
+            </div>
+
+
+
+
             <br>
-            <button ng-click="reserve(restaurant.id)">
+
+            <button class="btn btn-sm btn-info" ng-click="reserve(restaurant.id)">
                     Dalje >>
             </button>
-           
+
         </div>
 
     </div>
