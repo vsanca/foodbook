@@ -6,7 +6,7 @@
 (function () {
 	'use strict';
 
-	angular.module('foodbook', ['ngRoute', 'cgNotify', 'ui.router', 'ui.bootstrap', 'google-signin', 'ngMap', 'ngFacebook']).config(function ($stateProvider, $urlRouterProvider, $httpProvider, GoogleSigninProvider, $facebookProvider) {
+	angular.module('foodbook', ['ngRoute', 'cgNotify', 'ui.router', 'ui.bootstrap', 'google-signin', 'ngMap', 'ngFacebook', 'chart.js']).config(function ($stateProvider, $urlRouterProvider, $httpProvider, GoogleSigninProvider, $facebookProvider) {
 
 		GoogleSigninProvider.init({
 			client_id: '277007967599-r0p7jnm56vbvie9cgrar7gistmlb9mcu.apps.googleusercontent.com',
