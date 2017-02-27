@@ -91,6 +91,21 @@ angular.module('foodbook').controller('bidderProfileController', function($scope
     	$scope.stopPing();
     });
     
-    $scope.startPing(10000);
+    $scope.startPing(500000);
+    
+    
+    // WEBSOCKET TEST
+    $(document).ready(function() {
+    	var socket = new SockJS('/ws');
+    	var stompClient = Stomp.over(socket);
+    	
+    	stompClient.connect({}, function(frame){
+    		stompClient.subscribe("/notifyBidder/"+sessionService.getUserInfo().userId, function(data){
+    			
+    			notifyService.showSuccess(data.body);
+    			
+    		});
+    	});
+    });
     
 });

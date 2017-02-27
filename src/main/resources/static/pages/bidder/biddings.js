@@ -45,6 +45,7 @@ angular.module('foodbook').controller('bidderBiddingsController', function($scop
 		
 		$scope.selectedGroceries = groceries;
 		
+		
 		$http.get('/groceries/getItems/'+ $scope.selectedGroceries.id, 
 				{ headers: { 'Authorization': sessionService.getAuthToken() } })
 				.success(function (data) {
