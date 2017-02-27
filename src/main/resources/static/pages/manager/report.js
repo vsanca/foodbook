@@ -12,6 +12,17 @@ angular.module('foodbook').controller('managerReportController', function($scope
 	$scope.start_date = {};
 	$scope.end_date = {};
 	
+	$scope.type = 'bar';
+	$scope.options = {
+			scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero:true
+	                }
+	            }]
+	        }
+	};
+	
 	$http.get('/restaurants/manager/'+sessionService.getUserInfo().userId, 
 			{ headers: { 'Authorization': sessionService.getAuthToken() } })
 			.success(function (data) {
@@ -35,12 +46,26 @@ angular.module('foodbook').controller('managerReportController', function($scope
 									$scope.meals.push(data[i]);
 								}
 							}
+							
+							console.log($scope.meals);
 				});
 				
 	});
 	
 	$scope.getGrades = function() {
-	
+		
+		$scope.type = 'bar';
+		
+		$scope.options = {
+				scales: {
+		            yAxes: [{
+		                ticks: {
+		                    beginAtZero:true
+		                }
+		            }]
+		        }
+		};
+		
 		$http.get('/data/restaurant/'+ $scope.restaurant.id, 
 				{ headers: { 'Authorization': sessionService.getAuthToken() } })
 				.success(function (data) {
@@ -68,6 +93,18 @@ angular.module('foodbook').controller('managerReportController', function($scope
 	};
 	
 	$scope.getGradesForMeal = function() {
+		
+		$scope.type = 'bar';
+		
+		$scope.options = {
+				scales: {
+		            yAxes: [{
+		                ticks: {
+		                    beginAtZero:true
+		                }
+		            }]
+		        }
+		};
 		
 		$http.get('/data/meal/'+ $scope.restaurant.id + '/' + $scope.selectedMeal.id, 
 				{ headers: { 'Authorization': sessionService.getAuthToken() } })
@@ -97,6 +134,18 @@ angular.module('foodbook').controller('managerReportController', function($scope
 	
 	$scope.getGradesForWaiter = function() {
 		
+		$scope.type = 'bar';
+		
+		$scope.options = {
+				scales: {
+		            yAxes: [{
+		                ticks: {
+		                    beginAtZero:true
+		                }
+		            }]
+		        }
+		};
+		
 		$http.get('/data/waiter/'+ $scope.selectedWaiter.id, 
 				{ headers: { 'Authorization': sessionService.getAuthToken() } })
 				.success(function (data) {
@@ -125,6 +174,18 @@ angular.module('foodbook').controller('managerReportController', function($scope
 	
 	$scope.getRevenueByWaiters = function() {
 		
+		$scope.type = 'bar';
+		
+		$scope.options = {
+				scales: {
+		            yAxes: [{
+		                ticks: {
+		                    beginAtZero:true
+		                }
+		            }]
+		        }
+		};
+		
 		$http.get('/data/revenueByWaiter/'+ $scope.restaurant.id, 
 				{ headers: { 'Authorization': sessionService.getAuthToken() } })
 				.success(function (data) {
@@ -149,6 +210,25 @@ angular.module('foodbook').controller('managerReportController', function($scope
 	
 	$scope.getRevenueInDateInterval = function() {
 		
+		$scope.type = 'line';
+		
+		$scope.options = {
+				scales: {
+					xAxes: [{
+					    type: 'time',
+					    ticks: {
+					        autoSkip: true,
+					        maxTicksLimit: 20
+					    }
+					}],
+		            yAxes: [{
+		                ticks: {
+		                    beginAtZero:true
+		                }
+		            }]
+		        }
+		};
+		
 		var reportDTO = {
 				'start_interval': $scope.start_date,
 				'end_iterval': $scope.end_date
@@ -170,13 +250,25 @@ angular.module('foodbook').controller('managerReportController', function($scope
 					}
 
 					
-					$('#chartHeader').text('Prihodi po konobarima');
-					$('#additionalData').text('Ukupni prihod: '+totalRevenue);
+					$('#chartHeader').text('Prihodi u periodu');
+					$('#additionalData').text('Ukupni prihod u periodu: '+totalRevenue);
 		});
 		
 	};
 	
 	$scope.getVisits = function() {
+		
+		$scope.type = 'line';
+		
+		$scope.options = {
+				scales: {
+		            yAxes: [{
+		                ticks: {
+		                    beginAtZero:true
+		                }
+		            }]
+		        }
+		};
 		
 		var reportDTO = {
 				'start_interval': $scope.start_date,

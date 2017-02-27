@@ -1,5 +1,8 @@
 package e2.isa.grupa5.rest.restaurant;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -141,15 +144,28 @@ public class MockDataService {
 	@PreAuthorize("isAuthenticated()") 
 	public ResponseEntity revenue(@PathVariable long id, @RequestBody ReportDTO rDTO) {
 		
-		Date start = rDTO.getStart_interval();
-		Date end = rDTO.getEnd_interval();
+		Date startDate = rDTO.getStart_interval();
+		Date endDate = rDTO.getEnd_interval();
+		
+		LocalDate start = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate end = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		
 		List<ReportObjectDTO> list = new ArrayList<>();
 		
-		return new ResponseEntity(HttpStatus.OK);
+		for (LocalDate date = start; !date.isAfter(end); date = date.plusDays(1)) {
+			Random rand = new Random();
+			
+			ReportObjectDTO tmp = new ReportObjectDTO();
+			
+			tmp.setValue(rand.nextInt(100000)+20000);
+			tmp.setName(date.toString());		
+			
+		}
+
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/revenueByWaiter/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/revenueByWaiter/{id}", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()") 
 	public ResponseEntity revenueByWaiter(@PathVariable long id) {
 		
