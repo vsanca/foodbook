@@ -5,14 +5,20 @@ angular.module('foodbook').controller('bartenderProfileController', function($sc
 	$state.transitionTo('bartender.home');
 	
 	$scope.home = function() {
+		$(".nav").find(".active").removeClass("active");
+		$('#li1').addClass('active');
         $state.transitionTo('bartender.home');
     };
 
     $scope.seeWorkSchedule = function() {
+    	$(".nav").find(".active").removeClass("active");
+		$('#li2').addClass('active');
         $state.transitionTo('bartender.workSchedule');
     };
 
     $scope.seeOrders = function() {
+    	$(".nav").find(".active").removeClass("active");
+		$('#li3').addClass('active');
         $state.transitionTo('bartender.orders');
     };
     

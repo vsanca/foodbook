@@ -53,6 +53,7 @@ public class ChefController {
 	PasswordEncoder passwordEncoder;
 	
 	
+	
 	@RequestMapping(value = "/chef/profile/{id}", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity getById(@PathVariable long id) {
@@ -61,6 +62,22 @@ public class ChefController {
 		
 		if(ch != null) {
 			return new ResponseEntity<>(ch, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	
+	
+	@RequestMapping(value = "/chef/allMyShifts/{id}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity getAllMyChShifts(@PathVariable long id) {
+		
+		
+		List<ShiftChef> retval = shiftChefRepository.findByChef_Id(id);
+		
+		if(retval != null) {
+			return new ResponseEntity<>(retval, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

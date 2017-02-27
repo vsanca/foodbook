@@ -34,6 +34,7 @@ import e2.isa.grupa5.model.restaurant.Restaurant;
 import e2.isa.grupa5.model.restaurant.RestaurantArea;
 import e2.isa.grupa5.model.restaurant.RestaurantTable;
 import e2.isa.grupa5.model.shifts.Shift;
+import e2.isa.grupa5.model.shifts.ShiftBartender;
 import e2.isa.grupa5.model.shifts.ShiftChef;
 import e2.isa.grupa5.model.shifts.ShiftWaiter;
 import e2.isa.grupa5.model.users.Bartender;
@@ -59,6 +60,7 @@ import e2.isa.grupa5.repository.restaurant.RestaurantAreaRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantManagerRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantTableRepository;
+import e2.isa.grupa5.repository.shifts.ShiftBartenderRepository;
 import e2.isa.grupa5.repository.shifts.ShiftChefRepository;
 import e2.isa.grupa5.repository.shifts.ShiftRepository;
 import e2.isa.grupa5.repository.shifts.ShiftWaiterRepository;
@@ -129,6 +131,9 @@ public class TestController {
 	
 	@Autowired
 	private ShiftWaiterRepository shiftWaiterRepository;
+	
+	@Autowired
+	private ShiftBartenderRepository shiftBartenderRepository;
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -627,7 +632,12 @@ public class TestController {
 		ShiftChef sc1 = new ShiftChef(ch1, sh1);
 		shiftChefRepository.save(sc1);
 		
+		ShiftBartender sBt1 = new ShiftBartender(bt1, sh1);
+		shiftBartenderRepository.save(sBt1);
+		
 		ShiftWaiter sw1 = new ShiftWaiter(wt1, sh1);
+		sw1.getAreas().add(ra1);
+		sw1.getAreas().add(ra3);
 		shiftWaiterRepository.save(sw1);
 		
 		

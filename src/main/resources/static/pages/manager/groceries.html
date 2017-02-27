@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-md-6 col-lg-6 form">
 			<form novalidate name="displayGroceriesForm">
-				<h4 class="text-center">Spisak ponuda za namirnice</h4>
+				<h4 class="text-center">Spisak potražnji i ponuda za namirnice</h4>
 				<div class="form-group">
 					<label for="filterByStatus">Filtriraj po statusu</label>
 					<select class="form-control" ng-model="currentStatus" ng-options="s for s in status" id="filterByStatus"></select>
@@ -10,14 +10,20 @@
 				
 				<div ng-repeat="list in groceriesList">
 					<div class="thumbnail" ng-if="currentStatus == list.status" >
-						<button type="button" class="btn btn-info" ng-click="previewList(list)" ng-if="currentStatus == list.status">Ponuda od {{list.from_date}} do {{list.to_date}}</button>
-						<button type="button" class="btn btn-success" ng-if="currentStatus == list.status && list.status == status[3]" ng-click="activateList(list)">Objavi potražnju</button>
-					
-						<div ng-repeat="bid in biddings[$index]" ng-if="currentStatus == list.status && list.status == status[0]">
-							<button type="button" class="btn btn-info" ng-click="previewBidding(bid)" ng-if="currentStatus == list.status && list.status == status[0] && bid.auction.id == list.id">Ponuđac: {{bid.bidder.name}} {{bid.bidder.surname}}</button>
-							<button type="button" class="btn btn-success" ng-click="closeGroceries(list, bid)">Prihvati ponudu</button>
+						<div class="thumbnail">
+							<p><b>Potražnja od {{list.from_date}} do {{list.to_date}}</b></p>
+							<button type="button" class="btn btn-warning" ng-click="previewList(list)" ng-if="currentStatus == list.status">Detalji potražnje</button>
+							<button type="button" class="btn btn-success" ng-if="currentStatus == list.status && list.status == status[3]" ng-click="activateList(list)">Objavi potražnju</button>
 						</div>
-						
+						<div class="thumbnail" ng-if="currentStatus == list.status && list.status == status[0]">
+							<p><b>Ponude:</b></p>
+							<div class="thumbnail" ng-repeat="bid in biddings[$index]">
+								<p><b>Ponuđac: </b> {{bid.bidder.name}} {{bid.bidder.surname}}</p>
+								<button type="button" class="btn btn-info" ng-click="previewBidding(bid)">Detalji ponude</button>
+								<button type="button" class="btn btn-success" ng-click="closeGroceries(list, bid)">Prihvati ponudu</button>
+							</div>
+						</div>
+	
 					</div>
 				</div>
 				
@@ -26,11 +32,11 @@
 		
 		<div class="col-md-6 col-lg-6 form thumbnail">
 			<form novalidate name="newGroceriesForm">
-				<h4 class="text-center">Nova ponuda za namirnice</h4>
+				<h4 class="text-center">Nova potražnja za namirnice</h4>
 				
 				
 				<div class="thumbnail">
-					<h4 class="text-center">Informacije o ponudi</h4>
+					<h4 class="text-center">Informacije o potražnji</h4>
 					<p><b>Naziv restorana: </b> {{restaurant.name}}</p>
 					<div class="form-group">
 						<label for="groceriesFromDate">Važi od:</label>
@@ -65,7 +71,7 @@
 					<p><a type="submit" class="btn btn-primary btn-block" ng-click="addNewListItem()">Dodaj stavku</a></p>
 				</div>
 							
-				<p><a type="submit" class="btn btn-success btn-block" ng-click="addGroceries()">Kreiraj ponudu</a></p>
+				<p><a type="submit" class="btn btn-success btn-block" ng-click="addGroceries()">Kreiraj potražnju</a></p>
         		<p><a type="submit" class="btn btn-danger btn-block" ng-click="cancelAddGroceries()">Odustani</a></p>
         
 				
@@ -188,8 +194,8 @@
 							<p><b>Naziv restorana: </b> {{selectedBidding.groceries.restaurant.name}}</p>
 							<p><b>Status: </b> {{selectedBidding.status}}</p>
 							<div class="form-group">
-								<label for="biddingDate">Važi od:</label>
-								<input type="date" ng-model="selectedBidding.timestamp" required class="form-control" id="biddingDate" disabled/>
+								<label for="biddingDate">Datum ponude:</label>
+								<input type="text" ng-model="selectedBidding.timestamp" required class="form-control" id="biddingDate" disabled/>
 							</div>
 						</div>
 						<div class="thumbnail">
@@ -212,12 +218,12 @@
 									<td>{{$index+1}}</td>
 									<td>{{li.name}}</td>
 									<td>{{li.quantity}}</td>
-									<td>{{li.groceriesItemType.name}}</td>
-									<td>{{li.groceriesItemQty.name}}</td>
+									<td>{{li.groceryItemType.name}}</td>
+									<td>{{li.groceryItemQty.name}}</td>
 																	
 									<td>{{getBiddingItemName(li.id)}}</td>
-	                				<td>{{getBiddingItemQ(li.id)}}</td>
-	                				<td>{{getBiddingItemUnit(li.id)}}</td>
+	                				<td>{{getBiddingItemQuantity(li.id)}}</td>
+	                				<td>{{getBiddingItemQuantityType(li.id)}}</td>
 	                				<td>{{getBiddingItemPrice(li.id)}}</td>
 								</tr>
 							</table>

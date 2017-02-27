@@ -12,10 +12,38 @@ angular.module('foodbook').controller('bidderNewBiddingController', function($sc
 	$scope.newGroceryItemQuantity = {};
 	$scope.selectedGroceryItem = {};
 	
+	$scope.update = false;
+	
 	$scope.biddingItem = {};
 	$scope.bidding = {};
 	$scope.biddingExists = false;
 	$scope.biddingId = {};
+	
+	
+	if(bidderService.getSelectedBidding()) {
+		
+		$("#newBiddingTitle").text("Ažuriranje ponude");
+		console.log('UPDATE BIDDING');
+		$scope.update = true;
+		
+		$scope.bidding = bidderService.getSelectedBidding();
+		$scope.biddingItems = $scope.bidding.items;
+		
+		for(i=0; i< $scope.biddingItems.length; i++) {
+			$scope.biddingItems[i].groceryItemId = $scope.biddingItems[i].groceryItem.id;
+			$scope.biddingItems[i].groceryItemQtyId = $scope.biddingItems[i].groceryItemQty.id;
+		}
+		
+		$scope.selectedGroceries.from_date = new Date($scope.selectedGroceries.from_date).toISOString().substring(0,10);
+		$scope.selectedGroceries.to_date = new Date($scope.selectedGroceries.to_date).toISOString().substring(0,10);
+		
+	} else {
+		
+		$("#newBiddingTitle").text("Unos ponude");
+		console.log('NEW BIDDING');
+		
+		$scope.update = false;
+	}
 	
 	
 	$http.get('/groceries/type/all', 
@@ -57,7 +85,7 @@ angular.module('foodbook').controller('bidderNewBiddingController', function($sc
 		}
 	};
 	
-	
+	if(! $scope.update) {
 	$http.get('/bidding/getBiddingByGroceriesAndBidder/' + $scope.selectedGroceries.id +'/'+ sessionService.getUserInfo().userId, 
 			{ headers: { 'Authorization': sessionService.getAuthToken() } })
 			.success(function (data) {
@@ -87,7 +115,7 @@ angular.module('foodbook').controller('bidderNewBiddingController', function($sc
 						});
 				
 	});
-	
+	};
 	
 	helperFunction = function() {
 		for(i=0; i< $scope.biddingItems.length; i++) {
@@ -103,6 +131,8 @@ angular.module('foodbook').controller('bidderNewBiddingController', function($sc
 	$scope.setNewBiddingItem = function(ind) {
 		$scope.selectedGroceryItem = $scope.selectedGroceries.items[ind];
 		$scope.biddingItem = helperFunction();
+		
+		$('#biddingItemDetails').modal();
 		
 	};
 	
@@ -121,20 +151,23 @@ angular.module('foodbook').controller('bidderNewBiddingController', function($sc
 	$scope.addBiddingItem = function() {
 		
 		if(helperFunction() == null) {
+			
 			$scope.biddingItem.groceryItemId = $scope.selectedGroceryItem.id;
 			$scope.biddingItems.push($scope.biddingItem);
-			$scope.bidding.price = $scope.calculatePrice();
-			$scope.bidding.bidderId = sessionService.getUserInfo().userId;
-			$scope.bidding.groceriesId = $scope.selectedGroceries.id;
+
+		} else {
 			
-			if($scope.biddingItems.length == 0) {
-				notifyService.showError('Ne postoji stavka ponude, molimo dodajte stavku kako bi se ponuda mogla kreirati!');
-			} else if (! $scope.biddingAlreadyExists) {
-				
-			} else {
-				
+			for(i=0; i< $scope.biddingItems.length; i++) {
+				if($scope.biddingItems[i].groceryItemId == $scope.selectedGroceryItem.id) {
+					$scope.biddingItems[i].price = $scope.biddingItem.price;
+					$scope.biddingItems[i].name = $scope.biddingItem.name;
+					$scope.biddingItems[i].quantity = $scope.biddingItem.quantity;
+					$scope.biddingItems[i].groceryItemQty = $scope.biddingItem.groceryItemQty;
+				}
 			}
 		}
+		
+		$scope.bidding.price = $scope.calculatePrice();
 	};
 	
 	
@@ -143,7 +176,79 @@ angular.module('foodbook').controller('bidderNewBiddingController', function($sc
 		$scope.bidding.status = $scope.biddingStatus[1];
 		$scope.bidding.timestamp = new Date();
 		$scope.bidding.price = $scope.calculatePrice();
-		$scope.bidding.bi
+		$scope.bidding.bidderId = sessionService.getUserInfo().userId;
+		$scope.bidding.groceriesId = $scope.selectedGroceries.id;
 		
+		
+		if($scope.biddingItems.length == 0) {
+			notifyService.showError('Ne postoji stavka ponude, molimo dodajte stavku kako bi se ponuda mogla kreirati!');
+		} else if (! $scope.biddingExists) {	// new
+			
+			console.log('NEW');
+			
+			$http.post('/bidding/new', $scope.bidding,
+					{ headers: { 'Authorization': sessionService.getAuthToken() } })
+					.success(function (data) {
+						
+						var item;
+						
+						for(i=0; i< $scope.biddingItems.length; i++) {
+							
+							item = {
+								"name": $scope.biddingItems[i].name,
+								"qty": $scope.biddingItems[i].quantity,
+								"price": $scope.biddingItems[i].price,
+								"groceryItemId": $scope.biddingItems[i].groceryItemId,
+								"groceryItemQtyId": $scope.biddingItems[i].groceryItemQty.id,
+								"biddingId": data.id
+							}
+							
+							$http.post('/bidding/biddingItem/new', item,
+									{ headers: { 'Authorization': sessionService.getAuthToken() } })
+									.success(function (data) {
+										
+										notifyService.showSuccess('Uspešno dodata stavka.');
+										
+									});
+							
+						}
+						notifyService.showSuccess('Uspešno dodata ponuda.');
+					});
+			
+		} else { // update
+			
+			console.log('UPDATE');
+			
+			$http.post('/bidding/update/' + $scope.biddingId, $scope.bidding,
+					{ headers: { 'Authorization': sessionService.getAuthToken() } })
+					.success(function (data) {
+						
+						var item;
+						
+						for(i=0; i< $scope.biddingItems.length; i++) {
+							
+							item = {
+								"name": $scope.biddingItems[i].name,
+								"qty": $scope.biddingItems[i].quantity,
+								"price": $scope.biddingItems[i].price,
+								"groceryItemId": $scope.biddingItems[i].groceryItemId,
+								"groceryItemQtyId": $scope.biddingItems[i].groceryItemQty.id,
+								"biddingId": data.id
+							}
+							
+							$http.post('/bidding/biddingItem/update/' + $scope.biddingItems[i].id, item,
+									{ headers: { 'Authorization': sessionService.getAuthToken() } })
+									.success(function (data) {
+										
+										notifyService.showSuccess('Uspešno ažurirana stavka.');
+										
+									});
+							
+						}
+						notifyService.showSuccess('Uspešno ažurirana ponuda.');
+					});
+			
+		}
 	}
+		
 });

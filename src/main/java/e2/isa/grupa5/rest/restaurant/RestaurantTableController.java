@@ -1,5 +1,6 @@
 package e2.isa.grupa5.rest.restaurant;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -19,6 +20,7 @@ import e2.isa.grupa5.model.restaurant.Restaurant;
 import e2.isa.grupa5.model.restaurant.RestaurantArea;
 import e2.isa.grupa5.model.restaurant.RestaurantTable;
 import e2.isa.grupa5.model.restaurant.RestaurantTableDTO;
+import e2.isa.grupa5.model.shifts.Shift;
 import e2.isa.grupa5.model.shifts.ShiftBartender;
 import e2.isa.grupa5.model.shifts.ShiftWaiter;
 import e2.isa.grupa5.model.users.Waiter;
@@ -103,70 +105,58 @@ public class RestaurantTableController {
 		
 		return new ResponseEntity<>(restaurantTableService.findAllByManagerId(mId), HttpStatus.OK);
 	}
-	// VRACA Potrebne stolove
-	@RequestMapping(value = "/getForWaiterIdAllTables/{wId}", method = RequestMethod.GET)
+	
+	
+	@RequestMapping(value = "/currentTables/{id}", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity getForWaiterIdAllTables(@PathVariable long wId) {
-		// pronalazi konobara na osnovu ID
-		Waiter w = waiterRepository.findById(wId);
-		ShiftWaiter myShift = null;
-		// SVE SMENE ZA KONOBARA
-		List<ShiftWaiter> myAllShiftsWt = shiftWaiterRepository.findByWaiter_Id(w.getId());
-		//ako ne postoji ni 1 smena, cao
-		if(myAllShiftsWt == null){
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		// ako postoje smene, proverava datuma, za sad samo je l taj datum, posle mogu da zamenim staru metodu
-		else{
-			Date now = new Date();
-			for(ShiftWaiter shW1 : myAllShiftsWt ){
-				if(shW1.getShift().getDay().getDay() == now.getDay()){
-					myShift = shW1;
-				}
-			}
-			// ako postoji ni 1 smena cao
-			if(myShift == null){
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			}
-			// ako postoji smena za danasnji datum
-			else{
-				// kupi sve oblasti iz smene
-				List<RestaurantArea> allAreas = (List<RestaurantArea>) myShift.getAreas();
-				if(allAreas == null){
-					return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-				}
-				// ako oblast/oblasti postoje traze se stolovi
-				else{
-					// kupi sve stolove, ako ne postoji ni 1 sto, cao
-					List<RestaurantTable> allTables = restaurantTableRepository.findAll();
-					if(allTables == null){
-						
-					}
-					else{
-						// od svih stolova, kupi samo one koji pripadaju oblastima smene
-						List<RestaurantTable> myTables = new ArrayList<RestaurantTable>();
-						for(RestaurantTable rt1 : allTables){
-							for(RestaurantArea ra1 : allAreas){
-								if(ra1.getId() == rt1.getArea().getId()){
-									myTables.add(rt1);
-								}
-							}
-						}
-						// na kraju, ako nema ni 1 sto u smeni, cao
-						if(myTables.isEmpty()){
-							return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-						}
-						// vraca odgovarajuce stolove
-						else{
-							return new ResponseEntity<>(myTables, HttpStatus.OK);
-						}
-					}
-				}
-			}
+	public ResponseEntity getTablesForNowByWaiterId(@PathVariable long id) {
+		
+		Waiter wt = waiterRepository.findById(id);
+		List<ShiftWaiter> wtShifts = shiftWaiterRepository.findByWaiter_Id(id);
+		List<RestaurantArea> areasForNow = new ArrayList<RestaurantArea>();
+		
+		for(ShiftWaiter shW: wtShifts){	
+			Shift sh = shW.getShift();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			
+			Date shiftDate = sh.getDay();
+			String shDate = sdf.format(shiftDate);
+			String[] parsedDate = shDate.split("-");
+			String shMonth = parsedDate[1];
+			String shDay = parsedDate[2];
+			
+			Date now = new Date();
+			String nowDate = sdf.format(now);
+			String[] nowParsedDate = nowDate.split("-");
+			String nowMonth = nowParsedDate[1];
+			String nowDay = nowParsedDate[2];
+			
+			if((shMonth.equals(nowMonth)) && (shDay.equals(nowDay))){
+				areasForNow.addAll(shW.getAreas());
+			}
 		}
 		
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		List<RestaurantTable> allTables = restaurantTableRepository.findAll();
+		if(allTables == null){
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		List<RestaurantTable> myTables = new ArrayList<RestaurantTable>();
+		for(RestaurantTable rt : allTables){
+			for(RestaurantArea ra : areasForNow){
+				if(rt.getArea().getId() == ra.getId()){
+					myTables.add(rt);
+				}
+			}
+		}
+		
+		if(myTables.isEmpty()){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		else{
+			return new ResponseEntity<>(myTables, HttpStatus.OK);
+		}
+		
 	}
 	
 }

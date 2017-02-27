@@ -6,8 +6,7 @@
 (function () {
 	'use strict';
 
-
-	angular.module('foodbook', ['ngRoute', 'cgNotify', 'ui.router', 'ui.bootstrap', 'google-signin', 'ngMap', 'ngFacebook', 'dndLists']).config(function ($stateProvider, $urlRouterProvider, $httpProvider, GoogleSigninProvider, $facebookProvider) {
+	angular.module('foodbook', ['ngRoute', 'cgNotify', 'ui.router', 'ui.bootstrap', 'google-signin', 'ngMap', 'ngFacebook', 'chart.js', 'dndLists']).config(function ($stateProvider, $urlRouterProvider, $httpProvider, GoogleSigninProvider, $facebookProvider) {
 
 		GoogleSigninProvider.init({
 			client_id: '277007967599-r0p7jnm56vbvie9cgrar7gistmlb9mcu.apps.googleusercontent.com',
@@ -57,15 +56,10 @@
 				templateUrl: 'pages/guest/reservePage/reserve1Page.html',
 				controller: 'Reserve1PageController'
 			})
-			.state('reserve2', {
-				url: '/guest/reserve2-page',
+			.state('reserve2/:restaurantId', {
+				url: '/guest/reserve2-page/:restaurantId',
 				templateUrl: 'pages/guest/reservePage/reserve2Page.html',
 				controller: 'Reserve2PageController'
-			})
-			.state('reserve3', {
-				url: '/guest/reserve3-page',
-				templateUrl: 'pages/guest/reservePage/reserve3Page.html',
-				controller: 'Reserve3PageController'
 			})
 			.state('sysmanager', {
 				url: '/sm',

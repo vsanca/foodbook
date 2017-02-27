@@ -8,10 +8,13 @@
     function bidderService() {
     	
     	var selectedGroceries;
+    	var selectedBidding;
     	
     	return {
     		setSelectedGroceries: setSelectedGroceries,
-    		getSelectedGroceries: getSelectedGroceries
+    		getSelectedGroceries: getSelectedGroceries,
+    		setSelectedBidding: setSelectedBidding,
+    		getSelectedBidding: getSelectedBidding
     	};
 
         function setSelectedGroceries(groceries) {
@@ -19,6 +22,14 @@
         }
         function getSelectedGroceries() {
             return selectedGroceries;
+        }
+        
+        function setSelectedBidding(bidding) {
+        	selectedBidding = bidding;
+        }
+        
+        function getSelectedBidding() {
+        	return selectedBidding;
         }
 
     }

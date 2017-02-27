@@ -1,5 +1,7 @@
 angular.module('foodbook').controller('chefHomeController', function($scope, $http, $state, sessionService, notifyService) {
 	
+	$scope.activePageNumber = 0;
+	
 	$scope.chef = {};
 	
 	$http.get('/user/chef/profile/'+sessionService.getUserInfo().userId, 

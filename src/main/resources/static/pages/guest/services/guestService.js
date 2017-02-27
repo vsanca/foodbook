@@ -150,20 +150,6 @@
                 }
             });
         }
-
-               /** getProfileDetails (secured)
-        * @param {int} id - GuestID
-        */
-        function getReserve2PageInfo(id) {
-            return $http({
-                method: 'GET',
-                url: '/rest/guest/get-reserve2-page-info/' + id,
-                headers: {
-                    'Authorization': sessionService.getAuthToken()
-                    
-                }
-            });
-        }
     }
 
 })();
