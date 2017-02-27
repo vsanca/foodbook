@@ -1,9 +1,12 @@
 package e2.isa.grupa5.rest.restaurant;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -131,13 +134,59 @@ public class MockDataService {
 	@RequestMapping(value = "/visits/{id}", method = RequestMethod.POST)
 	@PreAuthorize("isAuthenticated()") 
 	public ResponseEntity visitsInPeriod(@PathVariable long id, @RequestBody ReportDTO rDTO) {
-		
-		Date start = rDTO.getStart_interval();
-		Date end = rDTO.getEnd_interval();
-		
+				
 		List<ReportObjectDTO> list = new ArrayList<>();
 		
-		return new ResponseEntity(HttpStatus.OK);
+		String type = rDTO.getType();	//DNEVNI, NEDELJNI
+		
+		Calendar cal = Calendar.getInstance();
+		
+		
+		
+		if(type.equals("DNEVNI")) {
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("HH");
+			String nowString = sdf.format(cal.getTime());
+			int now = Integer.parseInt(nowString);
+			
+			System.out.println("CURRENT TIME: "+now);
+			
+			for(int i=0; i<now; i++) {
+				
+				ReportObjectDTO tmp = new ReportObjectDTO();
+				Random r = new Random();
+				
+				tmp.setValue(r.nextInt(20)+5);
+				
+				String name = "";
+				
+				if(i<10) {
+					name = "0"+i+":00";
+				} else {
+					name = i+":00";
+				}
+				
+				tmp.setName(name);
+				
+				list.add(tmp);
+			}
+			
+		} else {
+			
+			int now = cal.get(Calendar.DAY_OF_WEEK);
+			
+			for(int i=0; i<now; i++) {
+				
+				ReportObjectDTO tmp = new ReportObjectDTO();
+				Random r = new Random();
+				
+				tmp.setValue(r.nextInt(100)+20);
+
+				list.add(tmp);
+			}
+		}
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/revenue/{id}", method = RequestMethod.POST)
@@ -160,6 +209,7 @@ public class MockDataService {
 			tmp.setValue(rand.nextInt(100000)+20000);
 			tmp.setName(date.toString());		
 			
+			list.add(tmp);
 		}
 
 		return new ResponseEntity<>(list, HttpStatus.OK);

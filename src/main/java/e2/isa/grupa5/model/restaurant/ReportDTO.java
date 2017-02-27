@@ -14,6 +14,7 @@ public class ReportDTO {
 	
 	private Date start_interval;
 	private Date end_interval;
+	private String type;
 	
 	public ReportDTO() {
 		
@@ -33,6 +34,14 @@ public class ReportDTO {
 	
 	public void setEnd_interval(Date end_interval) {
 		this.end_interval = end_interval;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }

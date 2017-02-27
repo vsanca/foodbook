@@ -11,6 +11,9 @@ angular.module('foodbook').controller('managerReportController', function($scope
 	$scope.selectedWaiter = {};
 	$scope.start_date = {};
 	$scope.end_date = {};
+	$scope.reportDTO = {};
+	$scope.selectedOption = {};
+	
 	
 	$scope.type = 'bar';
 	$scope.options = {
@@ -228,13 +231,8 @@ angular.module('foodbook').controller('managerReportController', function($scope
 		            }]
 		        }
 		};
-		
-		var reportDTO = {
-				'start_interval': $scope.start_date,
-				'end_iterval': $scope.end_date
-			}
-		
-		$http.post('/data/revenue/'+ $scope.restaurant.id, reportDTO,
+
+		$http.post('/data/revenue/'+ $scope.restaurant.id, $scope.reportDTO,
 				{ headers: { 'Authorization': sessionService.getAuthToken() } })
 				.success(function (data) {
 					
@@ -258,6 +256,8 @@ angular.module('foodbook').controller('managerReportController', function($scope
 	
 	$scope.getVisits = function() {
 		
+		console.log($scope.reportDTO.type);
+		
 		$scope.type = 'line';
 		
 		$scope.options = {
@@ -270,29 +270,49 @@ angular.module('foodbook').controller('managerReportController', function($scope
 		        }
 		};
 		
-		var reportDTO = {
-				'start_interval': $scope.start_date,
-				'end_iterval': $scope.end_date
-			}
+		console.log($scope.reportDTO.type);
 		
-		$http.get('/data/visits/'+ $scope.restaurant.id, reportDTO, 
+		$http.post('/data/visits/'+ $scope.restaurant.id, $scope.reportDTO, 
 				{ headers: { 'Authorization': sessionService.getAuthToken() } })
 				.success(function (data) {
 					
 					$scope.labels = [];
 					$scope.data = [];
 					
-					var totalRevenue = 0;
+					var totalVisits = 0;
 					
-					for(i=0; i<data.length; i++){
-						$scope.labels.push(data[i].name);
-						$scope.data.push(data[i].value);
-						totalRevenue = totalRevenue + data[i].value;
+					if($scope.reportDTO.type == 'DNEVNI') {
+						for(i=0; i<data.length; i++){
+							$scope.data.push(data[i].value);
+							$scope.labels.push(data[i].name);
+							totalVisits = totalVisits + data[i].value;
+						}
+						
+						for(i=data.length; i<24; i++) {
+							$scope.data.push(0);
+							if(i<10) {
+								$scope.labels.push('0'+i+':00');
+							} else {
+								$scope.labels.push(i+':00');
+							}
+						}
+						
+						$('#chartHeader').text('Posećenost restorana na dnevnom nivou');
+						$('#additionalData').text('Ukupna posećenost na dnevnom nivou: '+totalVisits);
+						
+					} else if($scope.reportDTO.type == 'NEDELJNI') {
+						for(i=0; i<data.length; i++){
+							$scope.data.push(data[i].value);
+							totalVisits = totalVisits + data[i].value;
+						}
+						
+						$scope.labels = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+						
+						$('#chartHeader').text('Posećenost restorana na nedeljnom nivou');
+						$('#additionalData').text('Ukupna posećenost na nedeljnom nivou: '+totalVisits);
 					}
-
 					
-					$('#chartHeader').text('Prihodi po konobarima');
-					$('#additionalData').text('Ukupni prihod: '+totalRevenue);
+					
 		});
 		
 	};

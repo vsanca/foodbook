@@ -27,18 +27,20 @@
 		        </div>
 		        <div class="form-group thumbnail">
 		            <label for="visits">Prikaz posećenosti</label>
-		            <input type="date" class="form-control">
-		            <input type="date" class="form-control">
-		            <button id="visits" type="button" class="btn btn-primary btn-block" ng-click="getRevenueByWaiters()">Prikaz posećenosti</button>
+		            <select ng-model="reportDTO.type" class="form-control" required>
+						<option value="DNEVNI">Dnevni izveštaj</option>
+						<option value="NEDELJNI">Nedeljni izveštaj</option>
+		            </select>
+		            <button id="visits" type="button" class="btn btn-primary btn-block" ng-click="getVisits()">Prikaz posećenosti</button>
 		        </div>
 		        <div class="form-group thumbnail">
 		            <label for="revenueInPeriod">Prihodi u periodu</label>
 		            
 		            <div class="form-group thumbnail">
 		            <label for="revenueInPeriodFrom">Datum od</label>
-		            <input type="date" class="form-control" ng-model="start-date" id="revenueInPeriodFrom">
+		            <input type="date" class="form-control" ng-model="reportDTO.start_interval" id="revenueInPeriodFrom">
 		            <label for="revenueInPeriodTo">Datum do</label>
-		            <input type="date" class="form-control" ng-model="end-date" id="revenueInPeriodTo">
+		            <input type="date" class="form-control" ng-model="reportDTO.end_interval" id="revenueInPeriodTo">
 		            </div>
 		            <button id="revenueInPeriod" type="button" class="btn btn-primary btn-block" ng-click="getRevenueInDateInterval()">Prikaz prihoda u periodu</button>
 		        </div>
