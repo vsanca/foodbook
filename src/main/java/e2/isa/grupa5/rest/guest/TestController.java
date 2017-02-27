@@ -628,6 +628,8 @@ public class TestController {
 		shiftChefRepository.save(sc1);
 		
 		ShiftWaiter sw1 = new ShiftWaiter(wt1, sh1);
+		sw1.getAreas().add(ra1);
+		sw1.getAreas().add(ra3);
 		shiftWaiterRepository.save(sw1);
 		
 		

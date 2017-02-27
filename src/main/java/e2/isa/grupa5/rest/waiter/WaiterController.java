@@ -123,24 +123,6 @@ public class WaiterController {
 		}
 	}
 	
-	@RequestMapping(value = "/waiter/profileTEST/{id}", method = RequestMethod.GET)
-	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity getByIdTEST(@PathVariable long id) {
-		System.out.println("USAO");
-
-		List<RestaurantTable> stolovi = restaurantTableRepository.findAll();
-		
-		if(stolovi != null) {
-			System.out.println("USPESNO IZASAO");
-			for(RestaurantTable rt : stolovi){
-				System.out.println(rt.getName());
-			}
-			return new ResponseEntity<>(stolovi, HttpStatus.OK);
-		} else {
-			System.out.println("NEUSPESNO IZASAO - NISTA NIJE PRONADJENO");
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
 	
 	@RequestMapping(value="/waiter/forRestaurant/{rId}",  method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
