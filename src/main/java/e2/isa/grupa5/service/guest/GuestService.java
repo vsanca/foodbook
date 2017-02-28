@@ -20,11 +20,12 @@ import com.google.maps.GeoApiContext;
 import com.google.maps.model.DistanceMatrix;
 import com.google.maps.model.DistanceMatrixRow;
 
-import ch.qos.logback.classic.Logger;
 import e2.isa.grupa5.model.grade.Grade;
 import e2.isa.grupa5.model.reservation.InvitedToReservation;
 import e2.isa.grupa5.model.reservation.Reservation;
+import e2.isa.grupa5.model.reservation.ReservationRestaurantTable;
 import e2.isa.grupa5.model.restaurant.Restaurant;
+import e2.isa.grupa5.model.restaurant.RestaurantTable;
 import e2.isa.grupa5.model.users.Guest;
 import e2.isa.grupa5.model.users.User;
 import e2.isa.grupa5.model.users.UserRoles;
@@ -32,7 +33,10 @@ import e2.isa.grupa5.repository.grade.GradeRepository;
 import e2.isa.grupa5.repository.guest.GuestRepository;
 import e2.isa.grupa5.repository.guest.InvitedToReservationRepository;
 import e2.isa.grupa5.repository.guest.ReservationRepository;
+import e2.isa.grupa5.repository.guest.ReservationRestaurantTableRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
+import e2.isa.grupa5.repository.restaurant.RestaurantTableRepository;
+import e2.isa.grupa5.rest.dto.guest.CreateNewReservationDTO;
 import e2.isa.grupa5.rest.dto.guest.DistanceDTO;
 import e2.isa.grupa5.rest.dto.guest.FriendsPageDTO;
 import e2.isa.grupa5.rest.dto.guest.HomePageDTO;
@@ -75,6 +79,12 @@ public class GuestService {
 
 	@Autowired
 	private MailService mailManager;
+	
+	@Autowired 
+	private ReservationRestaurantTableRepository reservationRestaurantTableRepository;
+	
+	@Autowired
+	private RestaurantTableRepository restaurantTableRepository;
 
 	public List<Guest> findAll() {
 		return guestRepository.findAll();
@@ -189,7 +199,7 @@ public class GuestService {
 			HomePageDTO dto = new HomePageDTO();
 			String restauranName = reservation.getRestaurant().getName();
 			dto.setRestaurantName(restauranName);
-
+			
 			// Get the date today using Calendar object.
 			Date date = reservation.getTerminOd();
 			// Using DateFormat format method we can create a string
@@ -348,5 +358,105 @@ public class GuestService {
 		Restaurant restaurant = restaurantRepository.findById(id);
 		reserve1.setRestaurantName(restaurant.getName());
 		return reserve1;
+	}
+
+	public List<FriendsPageDTO> getGuestFriendsInfo(Long id) {
+		Guest guest = guestRepository.findOne(id); 
+		List<FriendsPageDTO> friends = new ArrayList<>(); 
+		
+		for(Guest friend : guest.getFriends()) {
+			FriendsPageDTO f = new FriendsPageDTO(); 
+			f.setId(friend.getId());
+			f.setNameAndSurname(friend.getName()+" "+friend.getSurname());
+			friends.add(f); 
+		}
+		
+		
+		return friends;
+	}
+
+	public CreateNewReservationDTO createNewReservation(CreateNewReservationDTO dto) {
+		CreateNewReservationDTO responseDTO = new CreateNewReservationDTO();
+		Guest guest = guestRepository.findOne(dto.getGuestId());
+		Restaurant restaurant = restaurantRepository.findOne(dto.getRestaurantId());
+		Reservation created = new Reservation();
+		created.setRestaurant(restaurant);
+		created.setGuest(guest);
+		Date from = new Date(dto.getDate().getTime());
+		from.setHours(dto.getArrival().getHours());
+		from.setMinutes(dto.getArrival().getMinutes());
+		
+		Date to = new Date(from.getTime());
+		
+		to.setTime(to.getTime() + dto.getDuration()*3600*1000);
+		created.setTerminOd(from);
+		created.setTerminDo(to);
+		
+		// check if each table is still available...
+		
+		// check all reservations 
+		if(!tablesAvailable(from, to, restaurant, dto.getTables())) {
+			responseDTO.setErrorInfo("Tables were reserved by some other guest, choose a different table/tables and try again.");
+			return responseDTO;
+		}
+		
+		created = reservationRepository.save(created);
+		
+		List<ReservationRestaurantTable> reservedTables = new ArrayList<>();
+		for(Long tableId : dto.getTables()) {
+			ReservationRestaurantTable reservedTable = new ReservationRestaurantTable();
+			reservedTable.setReservation(created);
+			RestaurantTable table = restaurantTableRepository.findOne(tableId);
+			reservedTable.setTable(table);
+			reservedTable = reservationRestaurantTableRepository.save(reservedTable);
+			reservedTables.add(reservedTable);
+		}
+		
+		created.setReservedTables(reservedTables);
+		
+		for(Long invitedId : dto.getInvitedFriends()) {
+			InvitedToReservation invited = new InvitedToReservation();
+			invited.setReservation(created);
+			invited.setGuest(guestRepository.findOne(invitedId));
+			invitedToReservationRepository.save(invited);
+		}
+		
+		responseDTO.setSuccess(true);
+		
+		return responseDTO;
+	}
+
+	private boolean tablesAvailable(Date from, Date to, Restaurant restaurant, List<Long> tables) {
+		List<Reservation> reservations = reservationRepository.findByRestaurant(restaurant);
+		for(Reservation reservation : reservations) {
+			if(reservation.getTerminOd().getTime() >= from.getTime() && reservation.getTerminDo().getTime() > from.getTime()) {
+				List<ReservationRestaurantTable> reservedTables = reservationRestaurantTableRepository.findByReservation(reservation);
+				for(ReservationRestaurantTable reservedTable : reservedTables) {
+					
+					// check if any of currently reserved tables
+					// match the newly reserved tables
+					for(Long tableId : tables) {
+						if(tableId.equals(reservedTable.getId())) {
+							return true; // cannot reserve
+						}
+					}
+					
+				}
+				
+			}
+			
+		}
+		return true;
+		
+	}
+
+	public List<Reservation> getGuestReservations(Long id) {
+		Guest guest = guestRepository.findOne(id); 
+		List<Reservation> reservations = reservationRepository.findByGuest(guest); 
+		List<InvitedToReservation> invitedReservations = invitedToReservationRepository.findByGuest(guest); 
+		for(InvitedToReservation i : invitedReservations) {
+			reservations.add(i.getReservation()); 
+		}
+		return reservations;
 	}
 }

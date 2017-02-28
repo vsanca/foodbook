@@ -1,9 +1,8 @@
 package e2.isa.grupa5.model.reservation;
 
-import e2.isa.grupa5.model.restaurant.Restaurant;
-import e2.isa.grupa5.model.users.Guest;
-
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +10,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import e2.isa.grupa5.model.restaurant.Restaurant;
+import e2.isa.grupa5.model.restaurant.RestaurantTable;
+import e2.isa.grupa5.model.users.Guest;
 
 @Entity
 @Table(name="Reservation")
@@ -33,6 +39,14 @@ public class Reservation {
 	
 	@ManyToOne
 	private Guest guest;
+	
+	@JsonIgnore
+	@OneToMany
+	private List<ReservationRestaurantTable> reservedTables = new ArrayList<>();
+
+	@OneToMany
+	private List<GuestReservationOrder> orders = new ArrayList<>();
+	
 	
 	public Reservation() {
 		
@@ -77,5 +91,23 @@ public class Reservation {
 	public void setGuest(Guest guest) {
 		this.guest = guest;
 	}
+
+	public List<ReservationRestaurantTable> getReservedTables() {
+		return reservedTables;
+	}
+
+	public void setReservedTables(List<ReservationRestaurantTable> reservedTables) {
+		this.reservedTables = reservedTables;
+	}
+
+	public List<GuestReservationOrder> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<GuestReservationOrder> orders) {
+		this.orders = orders;
+	}
+	
+	
 	
 }

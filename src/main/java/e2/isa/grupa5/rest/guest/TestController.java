@@ -436,22 +436,25 @@ public class TestController {
 		Reservation res = new Reservation(); 
 		res.setGuest(g);
 		res.setRestaurant(r);
-		res.setTerminDo(null);
-		res.setTerminOd(null);
+		Date od = new Date();
+		Date doDate = new Date(od.getTime() + 3600*1000);
+		res.setTerminOd(od);
+		res.setTerminDo(doDate);
+		
 		reservationRepository.save(res); 
 		
 		Reservation res1 = new Reservation(); 
 		res1.setGuest(g);
 		res1.setRestaurant(r1);
-		res1.setTerminDo(null);
-		res1.setTerminOd(null);
+		res.setTerminOd(od);
+		res.setTerminDo(doDate);
 		reservationRepository.save(res1); 
 		
 		Reservation res2 = new Reservation(); 
 		res2.setGuest(g);
 		res2.setRestaurant(r);
-		res2.setTerminDo(null);
-		res2.setTerminOd(null);
+		res.setTerminOd(od);
+		res.setTerminDo(doDate);
 		reservationRepository.save(res2); 
 		
 		

@@ -33,7 +33,6 @@
     $scope.reserve = function (id) {
       let reservationObj = sessionService.getReservationInfo();
       reservationObj.tables = [];
-      sessionService.setReservationInfo(reservationObj);
       for(let tableId in $scope.selectable) {
         tables.push(tableId);
       }
