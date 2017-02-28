@@ -7,8 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+
 import e2.isa.grupa5.model.restaurant.MenuItem;
+import e2.isa.grupa5.model.users.Chef;
 import e2.isa.grupa5.model.users.Guest;
+import e2.isa.grupa5.model.users.Waiter;
 
 /**
  * N ovih se vezuje za  tacno 1 gosta
@@ -34,8 +37,25 @@ public class GuestReservationOrder {
 	@ManyToOne
 	Guest guest;
 	
+	@ManyToOne
+	Waiter waiter;
+	
+	@ManyToOne
+	Chef chef;
+	
 	@Column(name="be_prepared")
 	boolean bePrepared;
+	
+	@Column(name="is_accepted")
+	boolean isAccepted;
+	
+	@Column(name="is_created")
+	boolean isCreated;
+	
+	@Column(name="is_delivered")
+	boolean isDelivered;
+	
+	
 
 	public Long getId() {
 		return id;
@@ -75,6 +95,46 @@ public class GuestReservationOrder {
 
 	public void setBePrepared(boolean bePrepared) {
 		this.bePrepared = bePrepared;
+	}
+
+	public boolean isAccepted() {
+		return isAccepted;
+	}
+
+	public void setAccepted(boolean isAccepted) {
+		this.isAccepted = isAccepted;
+	}
+
+	public boolean isCreated() {
+		return isCreated;
+	}
+
+	public void setCreated(boolean isCreated) {
+		this.isCreated = isCreated;
+	}
+
+	public boolean isDelivered() {
+		return isDelivered;
+	}
+
+	public void setDelivered(boolean isDelivered) {
+		this.isDelivered = isDelivered;
+	}
+
+	public Waiter getWaiter() {
+		return waiter;
+	}
+
+	public void setWaiter(Waiter waiter) {
+		this.waiter = waiter;
+	}
+
+	public Chef getChef() {
+		return chef;
+	}
+
+	public void setChef(Chef chef) {
+		this.chef = chef;
 	}
 	
 	
