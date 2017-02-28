@@ -4,9 +4,11 @@ import e2.isa.grupa5.model.users.Guest;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -19,14 +21,22 @@ public class InvitedToReservation {
 	@Column(name="invited_to_reservation_id")
 	private Long id;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "guest")
 	private Guest guest;
 	
-	@ManyToOne
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "reservation", nullable = false)
 	private Reservation reservation; 
 
 	public InvitedToReservation() {
 		
+	}
+	
+	public InvitedToReservation(Guest guest,Reservation reservation) {
+		this.guest = guest;
+		this.reservation = reservation;
 	}
 
 	public Long getId() {

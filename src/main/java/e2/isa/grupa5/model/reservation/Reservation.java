@@ -6,11 +6,14 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,7 +31,8 @@ public class Reservation {
 	@Column(name="reservation_id")
 	private Long id; 
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "restaurant", nullable = false)
 	private Restaurant restaurant;
 	
 	@Column(name="reservation_start")
@@ -37,16 +41,29 @@ public class Reservation {
 	@Column(name="reservation_end")
 	private Date terminDo; 
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "guest", nullable = false)
 	private Guest guest;
 	
 	@JsonIgnore
-	@OneToMany
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "reserved_tables")
 	private List<ReservationRestaurantTable> reservedTables = new ArrayList<>();
 
-	@OneToMany
-	private List<GuestReservationOrder> orders = new ArrayList<>();
+	@JsonIgnore
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "orders")
+	private List<Order> orders = new ArrayList<>();
 	
+	
+	public Reservation(Restaurant restaurant, Date terminOd, Date terminDo, Guest guest, List<ReservationRestaurantTable> reservedTables, List<Order> orders) {
+		this.restaurant = restaurant;
+		this.terminOd = terminOd;
+		this.terminDo = terminDo;
+		this.guest = guest;
+		this.reservedTables = reservedTables;
+		this.orders = orders;
+	}
 	
 	public Reservation() {
 		
@@ -100,11 +117,11 @@ public class Reservation {
 		this.reservedTables = reservedTables;
 	}
 
-	public List<GuestReservationOrder> getOrders() {
+	public List<Order> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(List<GuestReservationOrder> orders) {
+	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
 	

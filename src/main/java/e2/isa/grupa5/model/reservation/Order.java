@@ -2,10 +2,13 @@ package e2.isa.grupa5.model.reservation;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import e2.isa.grupa5.model.restaurant.MenuItem;
 import e2.isa.grupa5.model.users.Guest;
@@ -18,21 +21,34 @@ import e2.isa.grupa5.model.users.Guest;
  *
  */
 @Entity
-public class GuestReservationOrder {
+public class Order {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private Long id;
 	
-	@ManyToOne
-	Reservation reservation;
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "reservation")
+	private Reservation reservation;
 	
-	@ManyToOne
-	MenuItem item;
+	@OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "serving_item")
+	private ServingItem servingItem;
 	
-	@ManyToOne
-	Guest guest;
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "guest")
+	private Guest guest;
+	
+	public Order(Reservation reservation, ServingItem servingItem, Guest guest){
+		this.reservation = reservation;
+		this.servingItem = servingItem;
+		this.guest = guest;
+	}
+	
+	public Order(){
+		
+	}
 
 	public Long getId() {
 		return id;
@@ -46,12 +62,13 @@ public class GuestReservationOrder {
 		return reservation;
 	}
 
-	public MenuItem getItem() {
-		return item;
+	
+	public ServingItem getServingItem() {
+		return servingItem;
 	}
 
-	public void setItem(MenuItem item) {
-		this.item = item;
+	public void setServingItem(ServingItem servingItem) {
+		this.servingItem = servingItem;
 	}
 
 	public void setReservation(Reservation reservation) {

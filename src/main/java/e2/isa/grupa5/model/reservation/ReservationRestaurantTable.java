@@ -2,9 +2,12 @@ package e2.isa.grupa5.model.reservation;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import e2.isa.grupa5.model.restaurant.RestaurantTable;
@@ -17,12 +20,23 @@ public class ReservationRestaurantTable {
 	@Column(name="id")
 	private Long id;
 	
-	@OneToOne
-	Reservation reservation;
+	@OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "reservation", nullable = false)
+	private Reservation reservation;
 	
 
-	@OneToOne
-	RestaurantTable table;
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "table", nullable = false)
+	private RestaurantTable table;
+	
+	public ReservationRestaurantTable(){
+		
+	}
+	
+	public ReservationRestaurantTable(Reservation reservation, RestaurantTable table){
+		this.reservation = reservation;
+		this.table = table;
+	}
 
 	public Long getId() {
 		return id;
