@@ -27,6 +27,7 @@ import e2.isa.grupa5.rest.dto.guest.FriendsPageDTO;
 import e2.isa.grupa5.rest.dto.guest.HomePageDTO;
 import e2.isa.grupa5.rest.dto.guest.ProfilePageDTO;
 import e2.isa.grupa5.rest.dto.guest.ReservationDTO;
+import e2.isa.grupa5.rest.dto.guest.ReservationDetailsDTO;
 import e2.isa.grupa5.rest.dto.guest.Reserve1PageDTO;
 import e2.isa.grupa5.rest.dto.guest.RestaurantsPageDTO;
 import e2.isa.grupa5.rest.dto.guest.UpdateProfileDTO;
@@ -209,7 +210,7 @@ public class GuestController {
 	@RequestMapping(method = RequestMethod.GET, value = "/get-reservation-details/{guest-id}/{reservation-id}")
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<?> getGuestReservations(@PathVariable(value = "guest-id") Long guestId, @PathVariable(value = "reservation-id") Long reservationId) {
-		ReservationDTO reservation = guestService.getReservationDetails(guestId, reservationId);
+		ReservationDetailsDTO reservation = guestService.getReservationDetails(guestId, reservationId);
 
 		return new ResponseEntity<>(reservation, HttpStatus.OK);
 

@@ -33,6 +33,9 @@ public class GuestReservationOrder {
 	
 	@ManyToOne
 	Guest guest;
+	
+	@Column(name="be_prepared")
+	boolean bePrepared;
 
 	public Long getId() {
 		return id;
@@ -64,6 +67,14 @@ public class GuestReservationOrder {
 
 	public void setGuest(Guest guest) {
 		this.guest = guest;
+	}
+
+	public boolean isBePrepared() {
+		return bePrepared;
+	}
+
+	public void setBePrepared(boolean bePrepared) {
+		this.bePrepared = bePrepared;
 	}
 	
 	
