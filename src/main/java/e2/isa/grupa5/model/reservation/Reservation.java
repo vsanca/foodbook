@@ -4,26 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
 
 import e2.isa.grupa5.model.restaurant.Restaurant;
-import e2.isa.grupa5.model.restaurant.RestaurantTable;
 import e2.isa.grupa5.model.users.Guest;
 
 @Entity
-@Table(name="Reservation")
+@Table(name="reservation")
 public class Reservation {
 
 	@Id
@@ -45,12 +32,12 @@ public class Reservation {
 	@JoinColumn(name = "guest", nullable = false)
 	private Guest guest;
 	
-	@JsonIgnore
+	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "reserved_tables")
 	private List<ReservationRestaurantTable> reservedTables = new ArrayList<>();
 
-	@JsonIgnore
+	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "orders")
 	private List<Order> orders = new ArrayList<>();

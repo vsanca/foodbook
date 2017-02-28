@@ -1,19 +1,12 @@
 package e2.isa.grupa5.model.reservation;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import e2.isa.grupa5.model.restaurant.MenuItem;
 import e2.isa.grupa5.model.users.Waiter;
 
 @Entity
+@Table(name = "serving_item")
 public class ServingItem {
 
 	@Id
@@ -41,15 +34,25 @@ public class ServingItem {
 	
 	
 	public ServingItem(){
-		
+		this.isAccepted = false;
+		this.isCreated = false;
+		this.isDelivered = false;
 	}
 
-	public ServingItem(MenuItem menuItem, boolean isAccepted, boolean isCreated, boolean isDelivered, Waiter waiter){
+	public ServingItem(MenuItem menuItem,Waiter waiter){
 		this.menuItem = menuItem;
-		this.isAccepted = isAccepted;
-		this.isCreated = isCreated;
-		this.isDelivered = isDelivered;
+		this.isAccepted = false;
+		this.isCreated = false;
+		this.isDelivered = false;
 		this.waiter = waiter;
+	}
+	
+	public ServingItem(MenuItem menuItem){
+		this.menuItem = menuItem;
+		this.isAccepted = false;
+		this.isCreated = false;
+		this.isDelivered = false;
+		
 	}
 	
 

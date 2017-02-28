@@ -1,16 +1,7 @@
 package e2.isa.grupa5.model.reservation;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
-import e2.isa.grupa5.model.restaurant.MenuItem;
 import e2.isa.grupa5.model.users.Guest;
 
 /**
@@ -21,6 +12,7 @@ import e2.isa.grupa5.model.users.Guest;
  *
  */
 @Entity
+@Table(name = "order")
 public class Order {
 
 	@Id
