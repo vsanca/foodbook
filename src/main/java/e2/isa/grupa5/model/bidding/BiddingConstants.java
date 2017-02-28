@@ -11,5 +11,7 @@ public class BiddingConstants {
 	public static final String ACTIVE = "ACTIVE";
 	public static final String ACCEPTED = "ACCEPTED";
 	public static final String REJECTED = "REJECTED";
+	public static final String EXPIRED = "EXPIRED";
+	public static final String TBA = "TBA";
 }
 	

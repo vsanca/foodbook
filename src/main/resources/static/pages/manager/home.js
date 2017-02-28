@@ -1,4 +1,6 @@
-angular.module('foodbook').controller('managerHomeController', function($scope, $http, $state, sessionService) {
+angular.module('foodbook').controller('managerHomeController', function($scope, $http, $state, sessionService, notifyService) {
+	
+	$scope.activePageNumber = 0;
 	
 	$scope.user = {};
 	
@@ -6,16 +8,17 @@ angular.module('foodbook').controller('managerHomeController', function($scope, 
 			{ headers: { 'Authorization': sessionService.getAuthToken() } })
 			.success(function (data) {
 				$scope.user = data;
+				
 	});
 	
 	$scope.modifyManager = function() {
 		$http.post('/user/rmanager/update', $scope.user,
 				{ headers: { 'Authorization': sessionService.getAuthToken() } })
 				.success(function (data) {
-					
+					notifyService.showSuccess('Uspešno izvršena izmena.');
 				})
 				.error(function() {
-					alert('Greška prilikom modifikacije.');
+					notifyService.showError('Greška prilikom izmene.');
 				});
 	};
 	

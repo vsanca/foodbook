@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,18 +36,20 @@ public class RestaurantManagerController {
 	@Autowired
 	RestaurantManagerRepository restaurantManagerRepository;
 	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	
 	@RequestMapping(value = "/rmanager/create", method = RequestMethod.POST)
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity create(@RequestBody RestaurantManagerDTO rmDTO) {
 		
-		RestaurantManager rm = restaurantManagerService.create(rmDTO);
-		rm.setActive(true);
-		rm.setPassword_set(false);
-		
-		if(rm != null) {
+		try {
+
+			RestaurantManager rm = restaurantManagerService.create(rmDTO);
+			
 			return new ResponseEntity<>(rm, HttpStatus.OK);
-		} else {
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -72,6 +75,33 @@ public class RestaurantManagerController {
 		
 		if(rm != null) {
 			return new ResponseEntity<>(rm, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} 
+	}
+	
+	@RequestMapping(value = "/rmanager/changePassword/{id}", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity changePassword(@RequestBody RestaurantManagerDTO rmDTO, @PathVariable long id) {
+		
+		RestaurantManager rm = restaurantManagerRepository.findById(id);
+		
+		if(rm != null) {
+			
+			try {
+				if(rmDTO.getNewPassword().equals(rmDTO.getNewPasswordRepeat()) && rmDTO.getNewPassword()!=null && rmDTO.getNewPassword()!="") {
+					rm.setPassword(passwordEncoder.encode(rmDTO.getNewPassword()));
+					
+					rm = restaurantManagerRepository.save(rm);
+					
+					return new ResponseEntity<>(HttpStatus.OK);
+					
+				} else {
+					return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				}
+			} catch (Exception e) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} 

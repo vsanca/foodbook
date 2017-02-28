@@ -6,12 +6,14 @@
 (function () {
 	'use strict';
 
-	angular.module('foodbook', ['ngRoute', 'cgNotify', 'ui.router', 'ui.bootstrap', 'google-signin']).config(function ($stateProvider, $urlRouterProvider, $httpProvider, GoogleSigninProvider) {
+	angular.module('foodbook', ['ngRoute', 'cgNotify', 'ui.router', 'ui.bootstrap', 'google-signin', 'ngMap', 'ngFacebook', 'chart.js', 'dndLists', 'ui.bootstrap.datetimepicker']).config(function ($stateProvider, $urlRouterProvider, $httpProvider, GoogleSigninProvider, $facebookProvider) {
 
 		GoogleSigninProvider.init({
 			client_id: '277007967599-r0p7jnm56vbvie9cgrar7gistmlb9mcu.apps.googleusercontent.com',
 		});
 
+		$facebookProvider.setAppId('1258999680854296');
+		$facebookProvider.setPermissions("email");
 		$urlRouterProvider.otherwise('/login');
 		$stateProvider
 			.state('login', {
@@ -39,6 +41,11 @@
 				templateUrl: 'pages/guest/homePage/homePage.html',
 				controller: 'HomePageController'
 			})
+			.state('guest-reservations', {
+				url: '/guest/myReservations-page',
+				templateUrl: 'pages/guest/myReservationsPage/myReservationsPage.html',
+				controller: 'MyReservationsPageController'
+			})
 			.state('guest-friends', {
 				url: '/guest/friends-page',
 				templateUrl: 'pages/guest/friendsPage/friendsPage.html',
@@ -48,6 +55,26 @@
 				url: '/guest/restaurants-page',
 				templateUrl: 'pages/guest/restaurantsPage/restaurantsPage.html',
 				controller: 'RestaurantsPageController'
+			})
+			.state('reserve1/:restaurantId', {
+				url: '/guest/reserve1-page/:restaurantId',
+				templateUrl: 'pages/guest/reservePage/reserve1Page.html',
+				controller: 'Reserve1PageController'
+			})
+			.state('reserve2', {
+				url: '/guest/reserve2-page',
+				templateUrl: 'pages/guest/reservePage/reserve2Page.html',
+				controller: 'Reserve2PageController'
+			})
+			.state('reserve3', {
+				url: '/guest/reserve3-page',
+				templateUrl: 'pages/guest/reservePage/reserve3Page.html',
+				controller: 'Reserve3PageController'
+			})
+			.state('guest.reservationDetails', {
+				url: '/guest/reservation-details/:reservationId',
+				templateUrl: 'pages/guest/reservationDetails/reservationDetails.html',
+				controller: 'ReservationDetails'
 			})
 			.state('sysmanager', {
 				url: '/sm',
@@ -114,6 +141,11 @@
 				templateUrl: 'pages/manager/restaurant.html',
 				controller: 'managerRestaurantController'
 			})
+			.state('manager.registerBidder', {
+	    		url: '/registerBidder',
+	    		templateUrl: 'pages/manager/addBidder.html',
+	    		controller: 'managerAddBidderController'
+	    	})
 			.state('manager.setLayout', {
 				url: '/layout',
 				templateUrl: 'pages/manager/setLayout.html',
@@ -231,17 +263,35 @@
 		if (sessionService.getUserInfo === null && $location.path() !== 'pages/guest/confirm-registration') {
 			$state.go('login');
 		}
+	$rootScope.$on("$routeChangeStart", function (event, next, current) {
+            if (sessionService().getUserInfo() === null) {
+                // no logged user, we should be going to #login
+                if (next.templateUrl !== "pages/user/login.html" && next.templateUrl !== "pages/guest/register/registerGuest.html" && next.templateUrl !== "pages/guest/confirmRegistration/confirmRegistration.html") {
+                    console.log("Not logged in! Redirecting to login...");
+                    // not going to #login, we should redirect now
+                    $state.go('login');
+                }
+            }
+        });
 
-		$rootScope.$on("$routeChangeStart", function (event, next, current) {
-			if (sessionService.getUserInfo === null) {
-				// no logged user, we should be going to #login
-				if (next.templateUrl !== "pages/user/login.html" && next.templateUrl !== "pages/guest/register/registerGuest.html" && next.templateUrl !== "pages/guest/confirmRegistration/confirmRegistration.html") {
-					console.log("Not logged in! Redirecting to login...");
-					// not going to #login, we should redirect now
-					$state.go('login');
-				}
-			}
-		});
-	};
+	(function(){
+		// If we've already installed the SDK, we're done
+		if (document.getElementById('facebook-jssdk')) {return;}
+
+		// Get the first script element, which we'll use to find the parent node
+		var firstScriptElement = document.getElementsByTagName('script')[0];
+
+		// Create a new script element and set its id
+		var facebookJS = document.createElement('script'); 
+		facebookJS.id = 'facebook-jssdk';
+
+		// Set the new script's source to the source of the Facebook JS SDK
+		facebookJS.src = '//connect.facebook.net/en_US/all.js';
+
+		// Insert the Facebook JS SDK into the DOM
+		firstScriptElement.parentNode.insertBefore(facebookJS, firstScriptElement);
+	}());
+
+	}
 
 })();

@@ -1,0 +1,40 @@
+<div class="container">
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#/guest/restaurants-page"><span class="glyphicon glyphicon-home"></span>Restorani</a></li>
+                <li class="active"><a href="#/guest/friends-page"><span class="glyphicon glyphicon-list-alt"></span>Prijatelji</a></li>
+                <li class="active"><a href="#/guest/profile-page"><span class="glyphicon glyphicon-list-alt"></span>Moj nalog</a></li>
+                <li class="active"><a href="#/guest/myReservations-page"><span class="glyphicon glyphicon-list-alt"></span>Moj rezrvacijee</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <button ng-click="logoff()"> Log out </button>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+    <div>
+
+        <div>
+            <strong>Restoran:</strong><span>{{reserve2Page.name}}</span>
+            <strong>Datum i vreme:</strong><span>{{date}}</span>
+            <strong>Trajanje:</strong><span>{{reserve2Page.duration}}</span>
+
+
+            <div style="overflow-x: scroll; overflow-y: scroll;">
+                <h4>Raspored stolova</h4>
+                <canvas id="restaurant_canvas" width="1000" height="500"></canvas>
+            </div>
+
+
+            <button ng-click="reserve(reserve2Page.restaurantId)">
+                    Dalje >>
+            </button>
+
+        </div>
+
+    </div>
+</div>

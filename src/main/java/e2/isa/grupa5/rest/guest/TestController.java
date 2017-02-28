@@ -34,7 +34,9 @@ import e2.isa.grupa5.model.restaurant.Restaurant;
 import e2.isa.grupa5.model.restaurant.RestaurantArea;
 import e2.isa.grupa5.model.restaurant.RestaurantTable;
 import e2.isa.grupa5.model.shifts.Shift;
+import e2.isa.grupa5.model.shifts.ShiftBartender;
 import e2.isa.grupa5.model.shifts.ShiftChef;
+import e2.isa.grupa5.model.shifts.ShiftWaiter;
 import e2.isa.grupa5.model.users.Bartender;
 import e2.isa.grupa5.model.users.Bidder;
 import e2.isa.grupa5.model.users.Chef;
@@ -58,8 +60,10 @@ import e2.isa.grupa5.repository.restaurant.RestaurantAreaRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantManagerRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantTableRepository;
+import e2.isa.grupa5.repository.shifts.ShiftBartenderRepository;
 import e2.isa.grupa5.repository.shifts.ShiftChefRepository;
 import e2.isa.grupa5.repository.shifts.ShiftRepository;
+import e2.isa.grupa5.repository.shifts.ShiftWaiterRepository;
 import e2.isa.grupa5.repository.sysmanager.SystemManagerRepository;
 import e2.isa.grupa5.repository.waiter.WaiterRepository;
 import e2.isa.grupa5.service.chef.ChefService;
@@ -124,6 +128,12 @@ public class TestController {
 	
 	@Autowired
 	private ShiftChefRepository shiftChefRepository;
+	
+	@Autowired
+	private ShiftWaiterRepository shiftWaiterRepository;
+	
+	@Autowired
+	private ShiftBartenderRepository shiftBartenderRepository;
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -426,22 +436,25 @@ public class TestController {
 		Reservation res = new Reservation(); 
 		res.setGuest(g);
 		res.setRestaurant(r);
-		res.setTerminDo(null);
-		res.setTerminOd(null);
+		Date od = new Date();
+		Date doDate = new Date(od.getTime() + 3600*1000);
+		res.setTerminOd(od);
+		res.setTerminDo(doDate);
+		
 		reservationRepository.save(res); 
 		
 		Reservation res1 = new Reservation(); 
 		res1.setGuest(g);
 		res1.setRestaurant(r1);
-		res1.setTerminDo(null);
-		res1.setTerminOd(null);
+		res.setTerminOd(od);
+		res.setTerminDo(doDate);
 		reservationRepository.save(res1); 
 		
 		Reservation res2 = new Reservation(); 
 		res2.setGuest(g);
 		res2.setRestaurant(r);
-		res2.setTerminDo(null);
-		res2.setTerminOd(null);
+		res.setTerminOd(od);
+		res.setTerminDo(doDate);
 		reservationRepository.save(res2); 
 		
 		
@@ -482,22 +495,6 @@ public class TestController {
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		// SYSTEM MANAGERS:
 		SystemManager sm1 = new SystemManager();
 		sm1.setActive(true);
@@ -523,9 +520,22 @@ public class TestController {
 		RestaurantArea ra1 = new RestaurantArea("nepusacka zona", re1);
 		restaurantAreaRepository.save(ra1);
 		
+		RestaurantArea ra2 = new RestaurantArea("pusacka zona", re1);
+		restaurantAreaRepository.save(ra2);
+		
+		RestaurantArea ra3 = new RestaurantArea("treca zona", re1);
+		restaurantAreaRepository.save(ra3);
+		
+		
 		// RESTAURANT TABLES:
-		RestaurantTable rt1 = new RestaurantTable("sto 1", 2, ra1);
+		RestaurantTable rt1 = new RestaurantTable("sto 1", 2, ra1, "{\"type\":\"rect\",\"left\":10,\"top\":10,\"width\":50,\"height\":100,\"fill\":\"blue\"}");
 		restaurantTableRepository.save(rt1);
+		
+		RestaurantTable rt2 = new RestaurantTable("sto 2", 2, ra2, "{\"type\":\"rect\",\"left\":30,\"top\":30,\"width\":40,\"height\":80,\"fill\":\"yellow\"}");
+		restaurantTableRepository.save(rt2);
+		
+		RestaurantTable rt3 = new RestaurantTable("sto 3", 2, ra3, "{\"type\":\"rect\",\"left\":50,\"top\":50,\"width\":20,\"height\":60,\"fill\":\"green\"}");
+		restaurantTableRepository.save(rt3);
 		
 		// RESTAURANT MANAGERS:
 		RestaurantManager rm1 = new RestaurantManager("rm1@rm1.com", passwordEncoder.encode("rm1"), "Zika", "Menadzer", "Zikina Adresa", re1);
@@ -538,25 +548,33 @@ public class TestController {
 		
 		// RESTAURANT ITEM TYPES;
 		ItemType food = new ItemType(ItemTypeConstants.FOOD);
+		food.setDisplay_name("Hrana");
 		itemTypeRepository.save(food);
 		ItemType drink = new ItemType(ItemTypeConstants.DRINK);
+		drink.setDisplay_name("Piće");
 		itemTypeRepository.save(drink);
 		
 		// RESTAURANT ITEMS:
 		Item it1 = new Item("Burger", "Bas dobar mesni burger", food);
+		it1.setImage_link("https://g.foolcdn.com/editorial/images/126529/rrb-image_large.jpg");
 		itemRepository.save(it1);
 		Item it2 = new Item("Pica", "Vrlo mesnata pica", food);
+		it2.setImage_link("http://sammyspizzatacoma.com/Portals/4/Meat-Lover-Pizza.jpg");
 		itemRepository.save(it2);
 		Item it3 = new Item("Pomfrit", "U masti pravljen krompir", food);
+		it3.setImage_link("https://i.ytimg.com/vi/ETTyVQrUZt8/maxresdefault.jpg");
 		itemRepository.save(it3);
 		Item it4 = new Item("Sok", "Ima tragova mesa", drink);
+		it4.setImage_link("http://healthyrise.com/wp-content/uploads/2016/09/Juice-8.jpg");
 		itemRepository.save(it4);
 		Item it5 = new Item("Pivo", "Najbolje uz meso", drink);
+		it5.setImage_link("http://dreamicus.com/data/beer/beer-01.jpg");
 		itemRepository.save(it5);
 		Item it6 = new Item("Vino", "Ide dobro uz sve", drink);
+		it6.setImage_link("http://media.salon.com/2013/12/wine_clash.jpg");
 		itemRepository.save(it6);
 		
-		// RESTAURAN MENU ITEMS:
+		// RESTAURANT MENU ITEMS:
 		MenuItem mi1 = new MenuItem(500, it1, mnu1);
 		menuItemRepository.save(mi1);
 		MenuItem mi2 = new MenuItem(800, it2, mnu1);
@@ -617,6 +635,19 @@ public class TestController {
 		ShiftChef sc1 = new ShiftChef(ch1, sh1);
 		shiftChefRepository.save(sc1);
 		
+		ShiftBartender sBt1 = new ShiftBartender(bt1, sh1);
+		shiftBartenderRepository.save(sBt1);
+		
+		ShiftWaiter sw1 = new ShiftWaiter(wt1, sh1);
+		sw1.getAreas().add(ra1);
+		sw1.getAreas().add(ra3);
+		shiftWaiterRepository.save(sw1);
+		
+		
+		
+		
+		
+		
 	/*	
 		Reservation r = new Reservation(); 
 		r.setGuest(g);
@@ -656,6 +687,7 @@ public class TestController {
 		guestRepository.save(g); 
 		
 	*/	
+		System.out.println("DATABASE FILLED");
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

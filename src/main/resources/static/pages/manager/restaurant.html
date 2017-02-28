@@ -1,1 +1,61 @@
-<h2>RESTAURANT INFO</h2>
+<div class="container-fluid">
+
+<div class="row">
+	<div class="col-md-8 col-lg-8 form">
+	
+	    <form novalidate name="restaurantForm">
+	        
+	        <h4 class="text-center">Podaci restorana</h4>
+	        
+	    	<div class="form-group">
+	            <label for="inputRestaurantName">Naziv</label>
+				<input type="text" required ng-model="restaurant.name" required id="inputRestaurantName" class="form-control">
+	      	</div>
+	      	<div class="form-group">
+	            <label for="inputRestaurantDescription">Opis</label>
+	            <input type="text" required ng-model="restaurant.description" id="inputRestaurantDescription" class="form-control">
+	        </div>
+	        <div class="form-group">
+	            <label for="inputRestaurantAddress">Adresa</label>
+	            <input type="text" required ng-model="restaurant.address" id="inputRestaurantAddress" class="form-control">
+	        </div>
+	        <div class="form-group">
+	            <label for="inputRestaurantPhone">Telefon</label>
+	            <input type="text" required ng-model="restaurant.phone" id="inputRestaurantPhone" class="form-control">
+	        </div>
+	        <div class="form-group">
+	            <label for="inputRestaurantMail">E-mail</label>
+	            <input type="text" required ng-model="restaurant.email" id="inputRestaurantMail" class="form-control">
+	        </div>
+	        <!--  
+	      	<div class="form-group">
+	            <label for="inputManagerDate">Datum rođenja</label>
+	            <input type="text" ng-model="user.birthDate" onfocus="(this.type='date')"
+	                       onblur="(this.type='text')" required id="inputManagerDate" class="form-control">
+	        </div>
+	
+	      	<div class="form-group">
+	            <label for="inputManagerPhone">Telefon</label>
+	            <input type="text" required ng-model="user.phoneNumber" id="inputManagerPhone" class="form-control">     
+	      	</div>
+	        -->
+	        <p><a type="submit" class="btn btn-success btn-block" ng-click="modifyRestaurant()">Sačuvaj</a></p>
+	        <p><a type="submit" class="btn btn-danger btn-block" ng-click="cancel()">Odustani</a></p>
+	        
+	    </form>
+	
+	</div>
+	
+	<div class="col-md-4 col-lg-4">
+		<ng-map center="{{restaurant.address}}" style="height: 100%;">
+			<marker position="{{restaurant.address}}"
+		    	title="{{restaurant.name}}"
+		      	centered="true">
+			</marker>
+		</ng-map>
+	</div>
+	
+    
+
+</div>
+</div>

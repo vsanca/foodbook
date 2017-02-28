@@ -1,4 +1,4 @@
-angular.module('foodbook').controller('sysmanagerProfileController', function($scope, $http, $state, $location) {
+angular.module('foodbook').controller('sysmanagerProfileController', function($scope, $http, $state, $location, authenticationService) {
 	
 	$scope.activePageNumber = 0;
 	
@@ -24,9 +24,10 @@ angular.module('foodbook').controller('sysmanagerProfileController', function($s
         $state.transitionTo('sysmanager.addSystemManager');
     };
 
-    /*
+    
     $scope.logout = function () {
-        $state.transitionTo('logout');
+    	authenticationService.logoff();
+        $state.transitionTo('login');
     };
-    */
+    
 });

@@ -191,4 +191,53 @@ public class BiddingController {
 		return new ResponseEntity<>(items, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/getBiddingByGroceriesAndBidder/{gId}/{bId}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity getBiddingByGroceriesAndBidder(@PathVariable long gId, @PathVariable long bId) {
+		
+		List<Bidding> biddings = biddingRepository.findAll();
+		
+		for(Bidding b : biddings) {
+			if(b.getGroceries().getId() == gId && b.getBidder().getId() == bId) {
+				return new ResponseEntity<>(b, HttpStatus.OK);
+			}
+		}
+		
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+	
+	
+	@RequestMapping(value = "/getNumberOfActiveBiddingsForBidder/{id}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity getNumberOfActiveBiddingsForBidder(@PathVariable long id) {
+		
+		List<Bidding> biddings = biddingRepository.findByBidder_Id(id);
+		
+		int count = 0;
+		
+		for(Bidding b : biddings) {
+			if(b.getBidder().getId() == id && b.getStatus().equals(BiddingConstants.ACTIVE)) {
+				count++;
+			}
+		}
+		
+		return new ResponseEntity<>(count, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/getNumberOfRejectedBiddingsForBidder/{id}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity getNumberOfRejectedBiddingsForBidder(@PathVariable long id) {
+		
+		List<Bidding> biddings = biddingRepository.findByBidder_Id(id);
+		
+		int count = 0;
+		
+		for(Bidding b : biddings) {
+			if(b.getStatus().equals(BiddingConstants.REJECTED)) {
+				count++;
+			}
+		}
+		
+		return new ResponseEntity<>(count, HttpStatus.OK);
+	}
 }

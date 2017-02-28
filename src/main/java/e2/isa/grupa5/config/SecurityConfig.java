@@ -89,10 +89,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.svg"
                 ).permitAll()
                 .antMatchers("/rest/auth/login",
+                		"/rest/auth/login-with-social-provider",
                 		 "/rest/guest/register-guest",
                 		 "/rest/guest/confirm-registration/**",
                 		/*  FOR DEVELOPMENT PURPOSES ONLY! */
-                		 "/test/**"
+                		 "/test/**",
+                		 "/ws/**"
                 		).permitAll()
                 .anyRequest().authenticated();
 

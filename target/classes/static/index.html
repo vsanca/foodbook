@@ -2,18 +2,23 @@
 <html lang="en" ng-app="foodbook">
 <head>
     <meta charset="UTF-8">
-    <title>FoodBook</title>
-
+    <title>Reservation4Me</title>
+	
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="img/favicon.ico" type="image/x-icon">
+	
     <!--jQuery -->
     <script src="libs/jquery.min.js"></script>
 
     <!--Bootstrap CSS-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/bootstrap-datepicker3.standalone.css" rel="stylesheet">
     <link href="css/angular-notify.min.css" rel="stylesheet">
-    
+      
     <script src="libs/bootstrap.min.js"></script>
     <script src="libs/validator.min.js"></script>
+    <script src="libs/bootstrap-datepicker.js"></script>
 
     <!--Angular-->
     <script src="libs/angular.min.js"></script>
@@ -23,11 +28,20 @@
     <script src="libs/angular-animate.js"></script>
     <script src="libs/angular-touch.js"></script>
     <script src="libs/ng-google-signin.js"></script>
+    <script src="libs/ngFacebook.js"></script>
+    <script src="libs/datetime-picker.js"></script>
+    
+
     <!-- UI Bootstrap - AngularJS -->
     <script src="libs/ui-bootstrap-tpls-2.5.0.min.js"></script>
     
     <!-- Calendar -->
-    <link href="css/fullcalendar.css" rel='stylesheet' />
+    <script src="libs/fullcalendar/lib/moment.min.js"></script>
+    <link href="libs/fullcalendar/fullcalendar.css" rel='stylesheet' />
+    <script src="libs/fullcalendar/fullcalendar.min.js"></script>
+    <script src="libs/fullcalendar/gcal.min.js"></script>
+    <script src="libs/fullcalendar/locale/sr.js"></script>
+    
     <!-- https://angular-ui.github.io/bootstrap/ -->
     <style>
     	.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
@@ -35,6 +49,10 @@
     
     <link href="pages/guest/assets/guest.css" rel="stylesheet">
     <link href="css/profile.css" rel="stylesheet">
+    
+    <script type="text/javascript" src="//cdn.jsdelivr.net/sockjs/1.0.3/sockjs.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    
     
 </head>
 <body>
@@ -66,6 +84,7 @@
     <script src="libs/Chart.js"></script>
     <script src="libs/angular-chart.js"></script>
     <script src="libs/angular-chart.min.js"></script>
+    <script src="libs/angular-drag-and-drop-lists.js"></script>
     
     <!-- Application-wide services -->
     <script src="services/sessionService.js"></script>
@@ -83,12 +102,15 @@
     <script src="pages/guest/homePage/homePageController.js"></script>
     <script src="pages/guest/friendsPage/friendsPageController.js"></script>
     <script src="pages/guest/restaurantsPage/restaurantsPageController.js"></script>
-   
+    <script src="pages/guest/reservePage/reserve1PageController.js"></script>
+    <script src="pages/guest/reservePage/reserve2PageController.js"></script>
+    <script src="pages/guest/reservePage/reserve3PageController.js"></script>
+    <script src="pages/guest/myReservationsPage/myReservationsPageController.js"></script>
+    <script src="pages/guest/reservationDetails/reservationDetails.js"></script>
 
     <!-- System manager -->
     <script src="pages/sysmanager/profile.js"></script>
     <script src="pages/sysmanager/home.js"></script>
-    <script src="pages/sysmanager/addBidder.js"></script>
     <script src="pages/sysmanager/addRestaurant.js"></script>
     <script src="pages/sysmanager/addRestaurantManager.js"></script>
     <script src="pages/sysmanager/addSystemManager.js"></script>
@@ -104,6 +126,7 @@
     <script src="pages/manager/setLayout.js"></script>
     <script src="pages/manager/setTimetable.js"></script>
     <script src="pages/manager/workers.js"></script>
+    <script src="pages/manager/addBidder.js"></script>
 
 	<!-- Bidder -->
 	<script src="pages/bidder/profile.js"></script>
@@ -111,6 +134,7 @@
     <script src="pages/bidder/overviewBidding.js"></script>
     <script src="pages/bidder/newBidding.js"></script>
     <script src="pages/bidder/biddings.js"></script>
+    <script src="pages/bidder/bidderService.js"></script>
     
     <!-- Bartender -->
     <script src="pages/bartender/profile.js"></script>
@@ -128,8 +152,16 @@
     <script src="pages/waiter/profile.js"></script>
     <script src="pages/waiter/home.js"></script>
     <script src="pages/waiter/workSchedule.js"></script>
-    <script src="pages/waiter/restauranRegion/home.js"></script>
+    <script src="pages/waiter/restaurantRegion.js"></script>
     <script src="pages/waiter/orders.js"></script>
+    
 	
+	<!-- http://ngmap.github.io/ -->
+    <script src="libs/ng-map.min.js"></script>
+	<!-- Google Maps -->
+	<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnA19_HbNym_I5TEyfhssUkUiQzb2mPEA">
+    </script> 
+    
 </body>
 </html>

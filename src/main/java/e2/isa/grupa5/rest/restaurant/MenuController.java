@@ -58,6 +58,7 @@ public class MenuController {
 	public ResponseEntity createItem(@RequestBody MenuItemDTO miDTO) {
 		
 		MenuItem mi = menuItemService.create(miDTO);
+		mi.setPrice(miDTO.getPrice());
 		
 		if(mi != null) {
 			return new ResponseEntity<>(mi, HttpStatus.OK);

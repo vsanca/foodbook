@@ -35,16 +35,12 @@
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="3" heading="Dodaj ponuđača" ng-click="addBidder()">
+		<uib-tab index="3" heading="Dodaj menadžera sistema" ng-click="addSysmanager()">
 			<div>
 				<ui-view></ui-view>
 			</div>
 		</uib-tab>
-		<uib-tab index="4" heading="Dodaj menadžera sistema" ng-click="addSysmanager()">
-			<div>
-				<ui-view></ui-view>
-			</div>
-		</uib-tab>
+		<button type="button" class="btn btn-warning pull-right" ng-click="logout()">Odjavi me</button>
 	</uib-tabset>
 	
 	</div>

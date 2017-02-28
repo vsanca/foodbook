@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import e2.isa.grupa5.model.restaurant.Restaurant;
@@ -18,6 +19,9 @@ import e2.isa.grupa5.model.shifts.Shift;
 import e2.isa.grupa5.model.shifts.ShiftWaiter;
 import e2.isa.grupa5.model.shifts.ShiftWaiterDTO;
 import e2.isa.grupa5.model.users.Chef;
+import e2.isa.grupa5.model.users.ChefDTO;
+import e2.isa.grupa5.model.users.RestaurantManager;
+import e2.isa.grupa5.model.users.RestaurantManagerDTO;
 import e2.isa.grupa5.model.users.Waiter;
 import e2.isa.grupa5.model.users.WaiterDTO;
 import e2.isa.grupa5.repository.restaurant.RestaurantAreaRepository;
@@ -58,16 +62,54 @@ public class WaiterService {
 	@Autowired
 	ShiftWaiterRepository shiftWaiterRepository;
 	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
+	/**
+	 * Pomocna metoda
+	 * 
+	 * @param wt
+	 * @param wtDTO
+	 */
+	private void helpUpdateData(Waiter wt, WaiterDTO wtDTO){
+		
+		
+		wt.setEmail(wtDTO.getEmail());
+		wt.setName(wtDTO.getName());
+		wt.setSurname(wtDTO.getSurname());
+		wt.setAddress(wtDTO.getAddress());
+		wt.setDressSize(wtDTO.getDressSize());
+		wt.setShoeSize(wtDTO.getShoeSize());
+	}
 	
 	public Waiter updateData(WaiterDTO wDTO) {
 		Waiter w = waiterRepository.findById(wDTO.getId());
 		
-		userService.setVariableAttributes(w, wDTO);
+		helpUpdateData(w, wDTO);
 		
 		try {
 			w = waiterRepository.save(w);
 			return w;
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public Waiter create(WaiterDTO wDTO) {
+		
+		Waiter w = new Waiter();
+		userService.copyData(w, wDTO);
+		w.setShoeSize(wDTO.getShoeSize());
+		w.setDressSize(wDTO.getDressSize());
+		w.setRestaurant(restaurantRepository.findById(wDTO.getRestaurantId()));
+		w.setBirthDate(wDTO.getBirthDate());
+		w.setPassword_set(false);
+		
+		try {
+			w = waiterRepository.save(w);
+			return w;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -114,4 +156,6 @@ public class WaiterService {
 			
 		}
 	}
+	
+	
 }

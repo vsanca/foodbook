@@ -32,6 +32,9 @@ public class Item {
 	@Column(name = "description", nullable = false)
 	private String description;
 	
+	@Column(name = "image_link", length = 500)
+	private String image_link;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "article_type_id", nullable = false)
     private ItemType itemType;
@@ -76,6 +79,14 @@ public class Item {
 
 	public void setItemType(ItemType itemType) {
 		this.itemType = itemType;
+	}
+
+	public String getImage_link() {
+		return image_link;
+	}
+
+	public void setImage_link(String image_link) {
+		this.image_link = image_link;
 	}
 	
 }

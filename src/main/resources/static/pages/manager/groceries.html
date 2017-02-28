@@ -1,1 +1,240 @@
-<h2>GROCERIES</h2>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-6 col-lg-6 form">
+			<form novalidate name="displayGroceriesForm">
+				<h4 class="text-center">Spisak potražnji i ponuda za namirnice</h4>
+				<div class="form-group">
+					<label for="filterByStatus">Filtriraj po statusu</label>
+					<select class="form-control" ng-model="currentStatus" ng-options="s for s in status" id="filterByStatus"></select>
+				</div>
+				
+				<div ng-repeat="list in groceriesList">
+					<div class="thumbnail" ng-if="currentStatus == list.status" >
+						<div class="thumbnail">
+							<p><b>Potražnja od {{list.from_date}} do {{list.to_date}}</b></p>
+							<button type="button" class="btn btn-warning" ng-click="previewList(list)" ng-if="currentStatus == list.status">Detalji potražnje</button>
+							<button type="button" class="btn btn-success" ng-if="currentStatus == list.status && list.status == status[3]" ng-click="activateList(list)">Objavi potražnju</button>
+						</div>
+						<div class="thumbnail" ng-if="currentStatus == list.status && list.status == status[0]">
+							<p><b>Ponude:</b></p>
+							<div class="thumbnail" ng-repeat="bid in biddings[$index]">
+								<p><b>Ponuđac: </b> {{bid.bidder.name}} {{bid.bidder.surname}}</p>
+								<button type="button" class="btn btn-info" ng-click="previewBidding(bid)">Detalji ponude</button>
+								<button type="button" class="btn btn-success" ng-click="closeGroceries(list, bid)">Prihvati ponudu</button>
+							</div>
+						</div>
+	
+					</div>
+				</div>
+				
+			</form>
+		</div>
+		
+		<div class="col-md-6 col-lg-6 form thumbnail">
+			<form novalidate name="newGroceriesForm">
+				<h4 class="text-center">Nova potražnja za namirnice</h4>
+				
+				
+				<div class="thumbnail">
+					<h4 class="text-center">Informacije o potražnji</h4>
+					<p><b>Naziv restorana: </b> {{restaurant.name}}</p>
+					<div class="form-group">
+						<label for="groceriesFromDate">Važi od:</label>
+						<input type="date" ng-model="groceries.from_date" required class="form-control" id="groceriesFromDate"/>
+					</div>
+					<div class="form-group">
+						<label for="groceriesToDate">Važi do:</label>
+						<input type="date" ng-model="groceries.to_date" required class="form-control" id="groceriesToDate"/>
+					</div>
+				</div>
+				<div class="thumbnail">
+					<h4 class="text-center">Stavke namirnica</h4>
+					
+					<table class="table table-striped">
+						<tr>
+							<th></th>
+							<th>Naziv</th>
+							<th>Količina</th>
+							<th>Tip</th>
+							<th>Merna jedinica</th>
+							<th></th>
+						</tr>
+						<tr ng-repeat="li in listItems">
+							<td>{{$index+1}}</td>
+							<td>{{li.name}}</td>
+							<td>{{li.quantity}}</td>
+							<td>{{li.type.name}}</td>
+							<td>{{li.quantityType.name}}</td>
+							<td><button type="button" class="btn btn-danger" ng-click="deleteItem($index)">Izbriši</button></td>
+						</tr>
+					</table>
+					<p><a type="submit" class="btn btn-primary btn-block" ng-click="addNewListItem()">Dodaj stavku</a></p>
+				</div>
+							
+				<p><a type="submit" class="btn btn-success btn-block" ng-click="addGroceries()">Kreiraj potražnju</a></p>
+        		<p><a type="submit" class="btn btn-danger btn-block" ng-click="cancelAddGroceries()">Odustani</a></p>
+        
+				
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<!-- Modal - create new groceries item -->
+<div class="modal fade" id="newListItem" tabindex="-1" role="dialog" aria-labelledby="newTableModalLabel">
+	  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+			      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel">Dodaj novu stavku</h4>
+			      </div>
+			      <div class="modal-body">
+			      
+					<form novalidate name="newListItemForm">
+						<div class="form-group">
+							<label for="naziv">Naziv</label>
+							<input type="text" required ng-model="newGroceryItem.name" required id="naziv" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label for="kolicina">Količina</label>
+							<input type="number" required ng-model="newGroceryItem.quantity" required id="kolicina" class="form-control" placeholder="5" required>
+						</div>
+						<div class="form-group">
+							<label for="tip">Tip</label>
+							<select class="form-control" id="tip" ng-model="newGroceryItem.type" ng-options="type.name for type in groceryItemTypes">
+							</select>
+							
+							<input type="text" ng-model="newGroceryItemType.name" placeholder="Novi tip" class="form-control">
+							<button type="button" class="btn btn-default" ng-click="addItemType()">Dodaj novi tip</button>
+						</div>
+						<div class="form-group">
+							<label for="jedinica">Merna jedinica</label>
+							<select class="form-control" id="jedinica" ng-model="newGroceryItem.quantityType" ng-options="qty.name for qty in groceryItemQuantities">
+							</select>
+							
+							<input type="text" ng-model="newGroceryItemQuantity.name" placeholder="Nova merna jedinica" class="form-control">
+							<button type="button" class="btn btn-default" ng-click="addItemQuantity()">Dodaj novu mernu jedinicu</button>
+						</div>
+					</form>
+					
+			      </div>
+			      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+				        <button type="button" class="btn btn-success" ng-disabled="newListItemForm.$invalid" ng-click="addListItem()">Dodaj novu stavku</button>
+			      </div>
+		    </div>
+	  </div>
+</div>
+
+<!-- Modal - display groceries list -->
+<div class="modal fade" id="previewOneList" tabindex="-1" role="dialog" aria-labelledby="newTableModalLabel">
+	  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+			      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel">Lista namirnica</h4>
+			      </div>
+			      <div class="modal-body">
+					
+					<div class="thumbnail">
+					<h4 class="text-center">Informacije o potražnji</h4>
+					<p><b>Naziv restorana: </b> {{restaurant.name}}</p>
+					<div class="form-group">
+						<label for="groceriesFromDate">Važi od:</label>
+						<input type="text" ng-model="selectedList.from_date" required class="form-control" id="groceriesFromDate" disabled/>
+					</div>
+					<div class="form-group">
+						<label for="groceriesToDate">Važi do:</label>
+						<input type="text" ng-model="selectedList.to_date" required class="form-control" id="groceriesToDate" disabled/>
+					</div>
+					</div>
+					<div class="thumbnail">
+						<h4 class="text-center">Stavke namirnica</h4>
+						
+						<table class="table table-striped">
+							<tr>
+								<th></th>
+								<th>Naziv</th>
+								<th>Količina</th>
+								<th>Tip</th>
+								<th>Merna jedinica</th>
+								
+							</tr>
+							<tr ng-repeat="li in selectedList.items">
+								<td>{{$index+1}}</td>
+								<td>{{li.name}}</td>
+								<td>{{li.quantity}}</td>
+								<td>{{li.groceryItemType.name}}</td>
+								<td>{{li.groceryItemQty.name}}</td>
+							</tr>
+						</table>
+						
+					</div>
+					
+			      </div>
+			      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+			      </div>
+		    </div>
+	  </div>
+</div>
+
+<!-- Modal - display biddings -->
+<div class="modal fade" id="biddingForm" tabindex="-1" role="dialog" aria-labelledby="newTableModalLabel">
+	  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+			      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel">Ponuda</h4>
+			      </div>
+			      <div class="modal-body">
+						<div class="thumbnail">
+							<h4 class="text-center">Informacije o ponudi</h4>
+							<p><b>Naziv restorana: </b> {{selectedBidding.groceries.restaurant.name}}</p>
+							<p><b>Status: </b> {{selectedBidding.status}}</p>
+							<div class="form-group">
+								<label for="biddingDate">Datum ponude:</label>
+								<input type="text" ng-model="selectedBidding.timestamp" required class="form-control" id="biddingDate" disabled/>
+							</div>
+						</div>
+						<div class="thumbnail">
+							<h4 class="text-center">Stavke ponude</h4>
+							
+							<table class="table table-striped">
+								<tr>
+									<th></th>
+									<th>Naziv</th>
+									<th>Količina</th>
+									<th>Tip</th>
+									<th>Merna jedinica</th>
+									
+									<th>Naziv stavke ponude</th>
+					                <th>Količina</th>
+					                <th>Merna jedinica</th>
+					                <th>Cena</th>
+								</tr>
+								<tr ng-repeat="li in selectedGroceryItems">
+									<td>{{$index+1}}</td>
+									<td>{{li.name}}</td>
+									<td>{{li.quantity}}</td>
+									<td>{{li.groceryItemType.name}}</td>
+									<td>{{li.groceryItemQty.name}}</td>
+																	
+									<td>{{getBiddingItemName(li.id)}}</td>
+	                				<td>{{getBiddingItemQuantity(li.id)}}</td>
+	                				<td>{{getBiddingItemQuantityType(li.id)}}</td>
+	                				<td>{{getBiddingItemPrice(li.id)}}</td>
+								</tr>
+							</table>
+							
+						</div>
+					
+					
+			      </div>
+			      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+			      </div>
+		    </div>
+	  </div>
+</div>

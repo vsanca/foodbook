@@ -1,9 +1,8 @@
 package e2.isa.grupa5.model.reservation;
 
-import e2.isa.grupa5.model.restaurant.Restaurant;
-import e2.isa.grupa5.model.users.Guest;
-
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +10,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import e2.isa.grupa5.model.restaurant.Restaurant;
+import e2.isa.grupa5.model.restaurant.RestaurantTable;
+import e2.isa.grupa5.model.users.Guest;
 
 @Entity
 @Table(name="Reservation")
@@ -33,7 +39,7 @@ public class Reservation {
 	
 	@ManyToOne
 	private Guest guest;
-	
+		
 	public Reservation() {
 		
 	}
@@ -77,5 +83,6 @@ public class Reservation {
 	public void setGuest(Guest guest) {
 		this.guest = guest;
 	}
+
 	
 }

@@ -8,9 +8,9 @@
   'use strict';
 
   angular.module('foodbook').controller('LoginController', LoginController);
-  LoginController.$inject = ['$scope', '$http', 'authenticationService', 'userRoles', '$location', '$state', 'sessionService', 'GoogleSignin'];
+  LoginController.$inject = ['$scope', '$http', 'authenticationService', 'userRoles', '$location', '$state', 'sessionService', 'GoogleSignin', 'notifyService', '$facebook'];
 
-  function LoginController($scope, $http, authenticationService, userRoles, $location, $state, sessionService, GoogleSignin) {
+  function LoginController($scope, $http, authenticationService, userRoles, $location, $state, sessionService, GoogleSignin, notifyService, $facebook) {
     console.log("LoginController ready!");
     
     // možda ovakva provera da li je već ulogovan, pa odgovarajući redirect, isprobano - radi ali zakomentarisano da bi se moglo lakše testirati
@@ -42,9 +42,8 @@
       password: null
     };
 
-    $scope.login = function () {
-      authenticationService.login($scope.user.username, $scope.user.password).then(function (data) {
-    	  
+    var loginOk = function(data) {
+        
         if (data.role === userRoles["GUEST"]) {
         	$state.go('guest-home')
         } else if (data.role === userRoles['CHEF']) {
@@ -60,12 +59,18 @@
         } else if (data.role === userRoles['SYS_MANAGER']) {
         	$state.go('sysmanager');
         } else {
-          alert("LoginController::Invalid user role:::" + data.role);
+          notifyService.showError('LoginController::Invalid user role:::' + data.role);
           $location.path("/");
         }
-      }, function (error) {
-        alert("Login failed!");
-      });
+    };
+
+    var loginError = function (error) {
+        notifyService.showError('Login failed!');
+    };
+    
+    
+    $scope.login = function () {
+      authenticationService.login($scope.user.username, $scope.user.password).then(loginOk, loginError);
     };
 
 
@@ -76,10 +81,42 @@
     $scope.loginWithGoogle = function() {
         GoogleSignin.signIn().then(function (user) {
             console.log(user);
+            var payload = {
+              email: user.w3.U3, 
+              password: user.w3.Eea, 
+              name: user.w3.ofa, 
+              surname: user.w3.wea
+            }; 
+            authenticationService.loginWithSocialProvider(payload).then(loginOk, loginError);
         }, function (err) {
             console.log(err);
         });
-    };
+    }; 
+    $scope.loginWithFacebook = function() {
+      $facebook.login().then(function() {
+        fetchUserData();
+      });
+    }
+  function fetchUserData() {
+    $facebook.api("/me?fields=name,email").then( 
+      function(response) {
+        console.log(response);
+        let payload = {
+          email: response.email, 
+          password: response.id, 
+          name: response.name.split(" ")[0], 
+          surname: response.name.split(" ")[1]
+        }; 
+       
+       authenticationService.loginWithSocialProvider(payload).then(loginOk, loginError); 
+      },
+      function(err) {
+        $scope.welcomeMsg = "Please log in";
+      });
+  }
+  
+
+
   }
 
 })();

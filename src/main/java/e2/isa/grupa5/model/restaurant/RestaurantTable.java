@@ -32,6 +32,9 @@ public class RestaurantTable {
 	@Column(name = "seats", nullable = false)
 	private int seats;
 	
+	@Column(name = "fabric", length = 3000)
+	private String fabricTable;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "area_id", nullable = false)
     private RestaurantArea area;
@@ -40,10 +43,11 @@ public class RestaurantTable {
 		
 	}
 	
-	public RestaurantTable(String name, int seats, RestaurantArea area) {
+	public RestaurantTable(String name, int seats, RestaurantArea area, String fabric) {
 		this.name = name;
 		this.seats = seats;
 		this.area = area;
+		this.fabricTable = fabric;
 	}
 
 	public long getId() {
@@ -76,6 +80,14 @@ public class RestaurantTable {
 
 	public void setArea(RestaurantArea area) {
 		this.area = area;
+	}
+
+	public String getFabricTable() {
+		return fabricTable;
+	}
+
+	public void setFabricTable(String fabricTable) {
+		this.fabricTable = fabricTable;
 	}
 	
 }

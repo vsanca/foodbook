@@ -54,10 +54,12 @@ public class RestaurantManagerService {
 		try {
 			userService.copyData(rm, rmDTO);
 			
-			Restaurant r = restaurantRepository.findById(rmDTO.getId());
+			Restaurant r = restaurantRepository.findById(rmDTO.getRestaurantId());
 			
 			if(r != null) {
 				rm.setRestaurant(r);
+				rm.setActive(true);
+				rm.setPassword_set(false);
 				
 				RestaurantManager rmPersistent = restaurantManagerRepository.save(rm);
 				restaurantRepository.save(r);

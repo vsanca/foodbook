@@ -1,1 +1,84 @@
-<h1>CHEF HOME</h1>
+<div class="container-fluid">
+
+<div class="row">
+
+<div class="col-md-8 col-lg-8 columns form">
+
+    <form novalidate name="registerForm">
+        
+        <h4 class="text-center">Profil kuvara</h4>
+        
+    	<div class="form-group">
+            <label for="inputChefName">Ime</label>
+			<input type="text" required ng-model="chef.name" required id="inputChefName" class="form-control">
+      	</div>
+      	<div class="form-group">
+            <label for="inputChefSurname">Prezime</label>
+            <input type="text" required ng-model="chef.surname" id="inputChefSurname" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputChefAddress">Adresa</label>
+            <input type="text" required ng-model="chef.address" id="inputChefAddress" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputChefMail">Mail</label>
+            <input type="text" required ng-model="chef.email" id="inputChefMail" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputChefDressSize">Konfekcijski broj</label>
+            <input type="number" required ng-model="chef.dressSize" id="inputChefDressSize" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputChefShoeSize">Broj obuće</label>
+            <input type="number" required ng-model="chef.shoeSize" id="inputChefShoeSize" class="form-control">
+        </div>
+        <!--  
+      	<div class="form-group">
+            <label for="inputChefDate">Datum rođenja</label>
+            <input type="text" ng-model="chef.birthDate" onfocus="(this.type='date')"
+                       onblur="(this.type='text')" required id="inputChefDate" class="form-control">
+        </div>
+
+      	<div class="form-group">
+            <label for="inputChefPhone">Telefon</label>
+            <input type="text" required ng-model="chef.phoneNumber" id="inputChefPhone" class="form-control">     
+      	</div>
+        -->
+        <p><a type="submit" class="btn btn-success btn-block" ng-click="modifyChef()">Sačuvaj</a></p>
+        <p><a type="submit" class="btn btn-danger btn-block" ng-click="cancel()">Odustani</a></p>
+        <p><a type="submit" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal">Izmeni lozinku</a></p>
+        
+    </form>
+
+</div>
+
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Promenite lozinku!</h4>
+      </div>
+      <div class="modal-body">
+      	<form>
+          <div class="form-group">
+            <label for="pswd" class="control-label">Trenutna lozinka</label>
+            <input type="password" class="form-control" ng-model="chef.oldPassword" id="pswd">
+          </div>
+          <div class="npswd">
+            <label for="message-text" class="control-label">Nova lozinka</label>
+            <input type="password" class="form-control" ng-model="chef.newPassword" id="npswd" placeholder="**************">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+        <button type="button" class="btn btn-primary" ng-click="changePassword()">Potvrdi</button>
+      </div>
+    </div>
+  </div>
+</div>

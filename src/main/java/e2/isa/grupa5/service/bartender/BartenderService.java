@@ -6,12 +6,15 @@ package e2.isa.grupa5.service.bartender;
 
 
 
+
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import e2.isa.grupa5.model.restaurant.Restaurant;
@@ -19,7 +22,8 @@ import e2.isa.grupa5.model.shifts.Shift;
 import e2.isa.grupa5.model.shifts.ShiftBartender;
 import e2.isa.grupa5.model.shifts.ShiftBartenderDTO;
 import e2.isa.grupa5.model.users.Bartender;
-import e2.isa.grupa5.model.users.WaiterDTO;
+import e2.isa.grupa5.model.users.BartenderDTO;
+
 import e2.isa.grupa5.repository.bartender.BartenderRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
 import e2.isa.grupa5.repository.shifts.ShiftBartenderRepository;
@@ -55,18 +59,58 @@ public class BartenderService {
 	@Autowired
 	ShiftRepository shiftRepository;
 	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
-	public Bartender updateData(WaiterDTO bDTO) {
+	/**
+	 * Pomocna metoda
+	 * 
+	 * @param bt
+	 * @param btDTO
+	 */
+	private void helpUpdateData(Bartender bt, BartenderDTO btDTO){
+		
+		bt.setPassword(passwordEncoder.encode(btDTO.getPassword()));
+		bt.setEmail(btDTO.getEmail());
+		bt.setName(btDTO.getName());
+		bt.setSurname(btDTO.getSurname());
+		bt.setAddress(btDTO.getAddress());
+		bt.setDressSize(btDTO.getDressSize());
+		bt.setShoeSize(btDTO.getShoeSize());
+	}
+	
+	
+	
+	public Bartender updateData(BartenderDTO bDTO) {
 		Bartender b = bartenderRepository.findById(bDTO.getId());
 		
-		userService.setVariableAttributes(b, bDTO);
-		b.setShoeSize(bDTO.getShoeSize());
-		b.setDressSize(bDTO.getDressSize());
+		helpUpdateData(b, bDTO);
 		
 		try {
 			b = bartenderRepository.save(b);
 			return b;
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
+	
+	public Bartender create(BartenderDTO bDTO) {
+		
+		Bartender b = new Bartender();
+		userService.copyData(b, bDTO);
+		b.setShoeSize(bDTO.getShoeSize());
+		b.setDressSize(bDTO.getDressSize());
+		b.setRestaurant(restaurantRepository.findById(bDTO.getRestaurantId()));
+		b.setBirthDate(bDTO.getBirthDate());
+		b.setPassword_set(false);
+		
+		try {
+			b = bartenderRepository.save(b);
+			return b;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

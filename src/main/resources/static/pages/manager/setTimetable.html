@@ -1,1 +1,96 @@
-<h2>TIMETABLES</h2>
+<div class="container-fluid">
+	<div class="row">
+	
+		<div class="col-md-5 col-lg-5 form">
+			<form novalidate name="workersListForm">
+			
+				<h4 class="text-center">Radnici u restoranu</h4>
+				
+				<div class="form-group">
+					<label for="searchWorkerManager">Pretražuj radnike</label>
+					<input type="text" ng-model="query.name" placeholder="Radnik" class="form-control" id="searchWorkerManager"/>
+				</div>
+				
+				<table class="table table-striped">
+				    <tr>
+				        <th>Ime</th>
+				        <th>Prezime</th>
+				        <th>Uloga</th>
+				        <th></th>
+				    </tr>
+				    <tr ng-repeat="w in workers | filter: query | orderBy: 'name' " >
+				        <td><span>{{w.name}}</span></td>
+				        <td>{{w.surname}}</td>
+				        <td ng-if="w.chef">Kuvar</td>
+				        <td ng-if="w.waiter">Kelner</td>
+				        <td ng-if="w.bartender">Barista</td>
+				        <td> <button ng-click="openModal(w)" class="btn btn-primary">Kreiraj smenu</button></td>
+				    </tr>
+				</table>
+			
+			</form>
+			
+		</div>
+		
+				<div class="col-md-7 col-lg-7 form">
+			<h4>Raspored smena</h4>
+			<div id="timetable">
+			</div>
+		</div>
+		
+	</div>
+	
+</div>
+
+
+<!-- Modal - create shift -->
+<div class="modal fade" id="newShiftModal" tabindex="-1" role="dialog" aria-labelledby="newShiftModalLabel">
+	  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+			      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel">Nova smena</h4>
+			      </div>
+			      <div class="modal-body">
+					<form name="newShiftForm">
+						<div class="form-group">
+							<label for="newShiftFromDate">Početni datum</label>
+							<input type="date" required ng-model="shift.startDate" required id="newShiftFromDate" class="form-control" placeholder="Početni datum" required>
+						</div>
+						<div class="form-group">
+							<label for="newShiftToDate">Krajnji datum</label>
+							<input type="date" required ng-model="shift.endDate" required id="newShiftToDate" class="form-control" placeholder="Krajnji datum" required>
+						</div>
+						<div class="form-group">
+							<label for="newShiftStartTime">Početak radnog vremena</label>
+							<input type="text" required ng-model="shift.startTime" required id="newShiftStartTime" class="form-control" placeholder="08:00" required pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+						</div>
+						<div class="form-group">
+							<label for="newShiftEndTime">Kraj radnog vremena</label>
+							<input type="text" required ng-model="shift.endTime" required id="newShiftEndTime" class="form-control" placeholder="20:00" required pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]">
+						</div>
+						
+						<div class="form-group" ng-if="worker.waiter">
+							<label for="newShiftArea">Dodeljeni segmenti</label>
+							<table class="table table-striped" id="newShiftArea">
+								<tr>
+									<th>Naziv segmenta</th>
+									<th>Boja segmenta</th>
+									<th></th>
+								</tr>
+								<tr ng-repeat="area in areas">
+									<td>{{area.name}}</td>
+									<td style="background: {{area.color}};"></td>
+									<td><input type="checkbox" ng-model="assignedAreas[$index]"></td>
+								</tr>
+							</table>
+						</div>
+					</form>
+			      </div>
+			      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closeModal()">Odustani</button>
+				        <button type="button" class="btn btn-success" ng-click="createShift()">Kreiraj smenu</button>
+			      </div>
+		    </div>
+	  </div>
+</div>

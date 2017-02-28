@@ -7,9 +7,18 @@ import e2.isa.grupa5.model.users.Guest;
 public class FriendsPageDTO {
 	private String nameAndSurname;
 	private long numberOfVisits;
+	private long id; 
 	
 	public FriendsPageDTO() {
 		
+	}
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getNameAndSurname() {

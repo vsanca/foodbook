@@ -1,1 +1,141 @@
-<h2>SVE PONUDE</h2>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-3 col-lg-3 form">
+		</div>
+		<div class="col-md-6 col-lg-6 form">
+			<form novalidate name="displayGroceriesForm">
+				<h4 class="text-center">Spisak svih potražnji namirnica</h4>
+				<div class="form-group">
+					<label for="filterByStatus">Filtriraj po statusu</label>
+					<select class="form-control" ng-model="currentStatus" ng-options="s for s in status" id="filterByStatus"></select>
+				</div>
+				
+				<div  class="thumbnail">
+					<h4 class="text-center">Potražnja</h4>
+					<div ng-repeat="list in groceriesList" class="thumbnail" ng-if="currentStatus == list.status" >
+						<table class="table table-striped">
+							<tr>
+								<th>Restoran</th>
+								<th>Važi od</th>
+								<th>Važi do</th>
+							</tr>
+							<tr>
+								<td>{{list.restaurant.name}}</td>
+								<td>{{list.from_date}}</td>
+								<td>{{list.to_date}}</td>
+							</tr>
+						</table>
+						<button type="button" class="btn btn-info btn-block" ng-click="previewGroceries(list)" ng-if="currentStatus == list.status">Detalji potražnje</button>						
+					</div>
+				</div>
+				
+			</form>
+		</div>
+		
+		<!--<div class="col-md-6 col-lg-6 form thumbnail">
+			  <form novalidate name="newGroceriesForm">
+				<h4 class="text-center">Detalji izabrane potražnje</h4>
+				
+				
+				<div class="thumbnail">
+					<h4 class="text-center">Informacije o tenderu</h4>
+					<p><b>Naziv restorana: </b> {{selectedGroceries.restaurant.name}}</p>
+					<p><b>Status: </b> {{selectedGroceries.status}}</p>
+					<div class="form-group">
+						<label for="groceriesFromDate">Važi od:</label>
+						<input type="text" ng-model="selectedGroceries.from_date" required class="form-control" id="groceriesFromDate" disabled/>
+					</div>
+					<div class="form-group">
+						<label for="groceriesToDate">Važi do:</label>
+						<input type="text" ng-model="selectedGroceries.to_date" required class="form-control" id="groceriesToDate" disabled/>
+					</div>
+				</div>
+				<div class="thumbnail">
+					<h4 class="text-center">Stavke namirnica</h4>
+					
+					<table class="table table-striped">
+						<tr>
+							<th></th>
+							<th>Naziv</th>
+							<th>Količina</th>
+							<th>Tip</th>
+							<th>Merna jedinica</th>
+							<th></th>
+						</tr>
+						<tr ng-repeat="li in selectedGroceries.items">
+							<td>{{$index+1}}</td>
+							<td>{{li.name}}</td>
+							<td>{{li.quantity}}</td>
+							<td>{{li.groceryItemType.name}}</td>
+							<td>{{li.groceryItemQty.name}}</td>
+						</tr>
+					</table>
+				</div>
+							
+				<p><a type="submit" class="btn btn-success btn-block" ng-if="selectedGroceries.items.length" ng-click="newBidding(selectedGroceries)">Prijavi ponudu</a></p>
+
+			</form> 
+		</div>-->
+	</div>
+</div>
+
+
+
+<!-- Modal - display biddings -->
+<div class="modal fade" id="biddingOverviewForm" tabindex="-1" role="dialog" aria-labelledby="newTableModalLabel">
+	  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+			      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel">Detalji izabrane potražnje</h4>
+			      </div>
+			      <div class="modal-body">
+						<form novalidate name="newGroceriesForm">
+				
+				<div class="thumbnail">
+					<h4 class="text-center">Informacije o tenderu</h4>
+					<p><b>Naziv restorana: </b> {{selectedGroceries.restaurant.name}}</p>
+					<p><b>Status: </b> {{selectedGroceries.status}}</p>
+					<div class="form-group">
+						<label for="groceriesFromDate">Važi od:</label>
+						<input type="text" ng-model="selectedGroceries.from_date" required class="form-control" id="groceriesFromDate" disabled/>
+					</div>
+					<div class="form-group">
+						<label for="groceriesToDate">Važi do:</label>
+						<input type="text" ng-model="selectedGroceries.to_date" required class="form-control" id="groceriesToDate" disabled/>
+					</div>
+				</div>
+				<div class="thumbnail">
+					<h4 class="text-center">Stavke namirnica</h4>
+					
+					<table class="table table-striped">
+						<tr>
+							<th></th>
+							<th>Naziv</th>
+							<th>Količina</th>
+							<th>Tip</th>
+							<th>Merna jedinica</th>
+							<th></th>
+						</tr>
+						<tr ng-repeat="li in selectedGroceries.items">
+							<td>{{$index+1}}</td>
+							<td>{{li.name}}</td>
+							<td>{{li.quantity}}</td>
+							<td>{{li.groceryItemType.name}}</td>
+							<td>{{li.groceryItemQty.name}}</td>
+						</tr>
+					</table>
+				</div>
+							
+			</form>
+					
+					
+			      </div>
+			      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+				        <a type="submit" class="btn btn-success" ng-if="selectedGroceries.items.length && selectedGroceries.status == 'OPEN'" ng-click="newBidding(selectedGroceries)">Prijavi ponudu</a>
+				        
+			      </div>
+		    </div>
+	  </div>
+</div>

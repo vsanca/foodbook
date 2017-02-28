@@ -1,1 +1,39 @@
-<h2>ADD SYSTEM MANAGER</h2>
+<div class="container-fluid">
+
+<div class="row">
+
+<div class="col-md-8 col-lg-8 columns form">
+
+    <form novalidate name="registerSysManagerForm">
+        
+        <h4 class="text-center">Registracija menadžera sistema</h4>
+        
+    	<div class="form-group">
+            <label for="inputSysManagerName">Ime</label>
+			<input type="text" required ng-model="sysmanager_new.name" required id="inputSysManagerName" class="form-control" placeholder="Petar" required>
+      	</div>
+      	<div class="form-group">
+            <label for="inputSysManagerSurname">Prezime</label>
+            <input type="text" required ng-model="sysmanager_new.surname" id="inputSysManagerSurname" class="form-control" placeholder="Petrović" required>
+        </div>
+		<div class="form-group">
+            <label for="inputSysManagerEmail">E-mail adresa</label>
+            <input type="text" required ng-model="sysmanager_new.email" id="inputSysManagerEmail" class="form-control" placeholder="petar.petrovic@mail.com">
+        </div>
+        <div class="form-group">
+            <label for="inputSysManagerAddress">Adresa</label>
+            <input type="text" required ng-model="sysmanager_new.address" id="inputSysManagerAddress" class="form-control" placeholder="Administratorska 18">
+        </div>
+        <div class="form-group">
+            <label for="inputSysManagerPassword">Lozinka</label>
+            <input type="password" required ng-model="sysmanager_new.password" id="inputSysManagerPassword" class="form-control" placeholder="Lozinka" required>
+        </div>
+        <p><a type="submit" class="btn btn-success btn-block" ng-click="createSysManager()">Kreiraj</a></p>
+        <p><a type="submit" class="btn btn-danger btn-block" ng-click="cancel()">Odustani</a></p>
+        
+    </form>
+
+</div>
+
+</div>
+</div>

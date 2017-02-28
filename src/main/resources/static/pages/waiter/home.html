@@ -1,1 +1,84 @@
-<h1>WAITER HOME</h1>
+<div class="container-fluid">
+
+<div class="row">
+
+<div class="col-md-8 col-lg-8 columns form">
+
+    <form novalidate name="registerForm">
+        
+        <h4 class="text-center">Profil konobara</h4>
+        
+    	<div class="form-group">
+            <label for="inputWaiterName">Ime</label>
+			<input type="text" required ng-model="waiter.name" required id="inputWaiterName" class="form-control">
+      	</div>
+      	<div class="form-group">
+            <label for="inputWaiterSurname">Prezime</label>
+            <input type="text" required ng-model="waiter.surname" id="inputWaiterSurname" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputWaiterAddress">Adresa</label>
+            <input type="text" required ng-model="waiter.address" id="inputWaiterAddress" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputWaiterMail">Mail</label>
+            <input type="text" required ng-model="waiter.email" id="inputWaiterMail" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputWaiterDressSize">Konfekcijski broj</label>
+            <input type="number" required ng-model="waiter.dressSize" id="inputWaiterDressSize" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="inputWaiterShoeSize">Broj obuće</label>
+            <input type="number" required ng-model="waiter.shoeSize" id="inputWaiterShoeSize" class="form-control">
+        </div>
+        <!--  
+      	<div class="form-group">
+            <label for="inputWaiterDate">Datum rođenja</label>
+            <input type="text" ng-model="waiter.birthDate" onfocus="(this.type='date')"
+                       onblur="(this.type='text')" required id="inputWaiterDate" class="form-control">
+        </div>
+
+      	<div class="form-group">
+            <label for="inputWaiterPhone">Telefon</label>
+            <input type="text" required ng-model="waiter.phoneNumber" id="inputWaiterPhone" class="form-control">     
+      	</div>
+        -->
+        <p><a type="submit" class="btn btn-success btn-block" ng-click="modifyWaiter()">Sačuvaj</a></p>
+        <p><a type="submit" class="btn btn-danger btn-block" ng-click="cancel()">Odustani</a></p>
+        <p><a type="submit" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal">Izmeni lozinku</a></p>
+        
+    </form>
+
+</div>
+
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Promenite lozinku!</h4>
+      </div>
+      <div class="modal-body">
+      	<form>
+          <div class="form-group">
+            <label for="pswd" class="control-label">Trenutna lozinka</label>
+            <input type="password" class="form-control" ng-model="waiter.oldPassword" id="pswd">
+          </div>
+          <div class="npswd">
+            <label for="message-text" class="control-label">Nova lozinka</label>
+            <input type="password" class="form-control" ng-model="waiter.newPassword" id="npswd" placeholder="**************">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+        <button type="button" class="btn btn-primary" ng-click="changePassword()">Potvrdi</button>
+      </div>
+    </div>
+  </div>
+</div>

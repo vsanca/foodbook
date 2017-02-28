@@ -15,6 +15,7 @@ public class RestaurantAreaDTO {
 	
 	private long restaurantManagerId;
 	private String name;
+	private String color;
 	
 	public RestaurantAreaDTO() {
 		
@@ -36,4 +37,12 @@ public class RestaurantAreaDTO {
 		this.name = name;
 	}
 
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
 }

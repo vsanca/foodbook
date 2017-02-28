@@ -1,1 +1,55 @@
-<h2>REPORT</h2>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8 col-lg-8 form thumbnail">
+			<h4 class="text-center" id="chartHeader"></h4>
+			<canvas id="reportID" class="chart chart-base" chart-type="type" chart-data="data" chart-labels="labels" chart-options="options"></canvas>
+			<h4 class="text-center" id="additionalData"></h4>
+		</div>
+		
+		<div class="col-md-4 col-lg-4 form thumbnail">
+			
+			<form name="registerBidderForm">
+		        <h4 class="text-center">Statistike i izveštaji</h4>
+		        
+		    	<div class="form-group thumbnail">
+		    		<label for="allGrades">Ocena restorana</label>
+					<button id="allGrades" type="button" class="btn btn-primary btn-block" ng-click="getGrades()">Prikaz svih ocena</button>
+		      	</div>
+		      	<div class="form-group thumbnail">
+		            <label for="gradesByMeal">Ocena pojedinačnog jela</label>
+		            <select required ng-options="meal.item.name for meal in meals" ng-model="selectedMeal" id="gradesByMeal" class="form-control" required></select>
+		        	<button id="allGrades" type="button" class="btn btn-primary btn-block" ng-click="getGradesForMeal()" ng-disabled="selectedMeal===undefined || selectedMeal===''">Prikaz ocena za jelo</button>
+		        </div>
+				<div class="form-group thumbnail">
+		            <label for="gradesByWaiter">Ocena konobara</label>
+		            <select required ng-options="waiter.name+' '+waiter.surname for waiter in waiters" ng-model="selectedWaiter" id="gradesByWaiter" class="form-control"></select>
+		            <button id="gradesByWaiter" type="button" class="btn btn-primary btn-block" ng-click="getGradesForWaiter()" ng-disabled="selectedWaiter==undefined || selectedWaiter===''">Prikaz ocena za konobara</button>
+		        </div>
+		        <div class="form-group thumbnail">
+		            <label for="visits">Prikaz posećenosti</label>
+		            <select ng-model="reportDTO.type" class="form-control" required>
+						<option value="DNEVNI">Dnevni izveštaj</option>
+						<option value="NEDELJNI">Nedeljni izveštaj</option>
+		            </select>
+		            <button id="visits" type="button" class="btn btn-primary btn-block" ng-click="getVisits()">Prikaz posećenosti</button>
+		        </div>
+		        <div class="form-group thumbnail">
+		            <label for="revenueInPeriod">Prihodi u periodu</label>
+		            
+		            <div class="form-group thumbnail">
+		            <label for="revenueInPeriodFrom">Datum od</label>
+		            <input type="date" class="form-control" ng-model="reportDTO.start_interval" id="revenueInPeriodFrom">
+		            <label for="revenueInPeriodTo">Datum do</label>
+		            <input type="date" class="form-control" ng-model="reportDTO.end_interval" id="revenueInPeriodTo">
+		            </div>
+		            <button id="revenueInPeriod" type="button" class="btn btn-primary btn-block" ng-click="getRevenueInDateInterval()">Prikaz prihoda u periodu</button>
+		        </div>
+		        <div class="form-group thumbnail">
+		            <label for="waiterRevenues">Prihodi po konobarima</label>
+		            <button id="waiterRevenues" type="button" class="btn btn-primary btn-block" ng-click="getRevenueByWaiters()">Prikaz prihoda po konobarima</button>
+		        </div>
+		    </form>
+			
+		</div>
+	</div>
+</div>

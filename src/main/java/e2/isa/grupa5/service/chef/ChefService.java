@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import e2.isa.grupa5.model.restaurant.Restaurant;
@@ -16,6 +17,8 @@ import e2.isa.grupa5.model.shifts.ShiftChef;
 import e2.isa.grupa5.model.shifts.ShiftChefDTO;
 import e2.isa.grupa5.model.users.Chef;
 import e2.isa.grupa5.model.users.ChefDTO;
+import e2.isa.grupa5.model.users.Waiter;
+import e2.isa.grupa5.model.users.WaiterDTO;
 import e2.isa.grupa5.repository.chef.ChefRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
 import e2.isa.grupa5.repository.shifts.ShiftChefRepository;
@@ -51,16 +54,54 @@ public class ChefService {
 	@Autowired
 	ShiftChefRepository shiftChefRepository;
 	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
+	/**
+	 * Pomocna metoda
+	 * 
+	 * @param ch
+	 * @param chDTO
+	 */
+	private void helpUpdateData(Chef ch, ChefDTO chDTO){
+			
+		
+		ch.setEmail(chDTO.getEmail());
+		ch.setName(chDTO.getName());
+		ch.setSurname(chDTO.getSurname());
+		ch.setAddress(chDTO.getAddress());
+		ch.setDressSize(chDTO.getDressSize());
+		ch.setShoeSize(chDTO.getShoeSize());
+	}
 	
 	public Chef updateData(ChefDTO chDTO) {
 		Chef ch = chefRepository.findById(chDTO.getId());
 		
-		userService.setVariableAttributes(ch, chDTO);
+		helpUpdateData(ch, chDTO);
 		
 		try {
 			ch = chefRepository.save(ch);
 			return ch;
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public Chef create(ChefDTO chDTO) {
+		
+		Chef c = new Chef();
+		userService.copyData(c, chDTO);
+		c.setShoeSize(chDTO.getShoeSize());
+		c.setDressSize(chDTO.getDressSize());
+		c.setRestaurant(restaurantRepository.findById(chDTO.getRestaurantId()));
+		c.setBirthDate(chDTO.getBirthDate());
+		c.setPassword_set(false);
+		
+		try {
+			c = chefRepository.save(c);
+			return c;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

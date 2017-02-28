@@ -1,1 +1,59 @@
-<h1>BIDDER HOME</h1>
+<div class="container-fluid">
+
+<div class="row">
+
+<div class="col-md-8 col-lg-8 columns form">
+
+    <form novalidate name="registerBidderForm">
+        
+        <h4 class="text-center">Profil ponuđača</h4>
+        
+    	<div class="form-group">
+            <label for="inputBidderName">Ime</label>
+			<input type="text" required ng-model="bidder.name" required id="inputBidderName" class="form-control" placeholder="Petar" required>
+      	</div>
+      	<div class="form-group">
+            <label for="inputBidderSurname">Prezime</label>
+            <input type="text" required ng-model="bidder.surname" id="inputBidderSurname" class="form-control" placeholder="Petrović" required>
+        </div>
+        <div class="form-group">
+            <label for="inputBidderEmail">E-mail adresa</label>
+            <input type="text" required ng-model="bidder.email" id="inputBidderEmail" class="form-control" placeholder="petar.petrovic@mail.com">
+        </div>
+        <p><a type="submit" class="btn btn-success btn-block" ng-click="modifyBidder()">Ažuriraj</a></p>
+        <p><a type="submit" class="btn btn-danger btn-block" ng-click="cancel()">Odustani</a></p>
+        <p><a type="submit" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal">Promeni Lozinku</a></p>
+    </form>
+
+</div>
+
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Promenite lozinku!</h4>
+      </div>
+      <div class="modal-body">
+      	<form>
+          <div class="form-group">
+            <label for="pswd" class="control-label">Trenutna lozinka</label>
+            <input type="password" class="form-control" ng-model="bidder.oldPassword" id="pswd">
+          </div>
+          <div class="npswd">
+            <label for="message-text" class="control-label">Nova lozinka</label>
+            <input type="password" class="form-control" ng-model="bidder.newPassword" id="npswd" placeholder="**************">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+        <button type="button" class="btn btn-primary" ng-click="changePassword()">Potvrdi</button>
+      </div>
+    </div>
+  </div>
+</div>
