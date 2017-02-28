@@ -371,31 +371,57 @@ angular.module('foodbook').controller('managerGroceriesController', function($sc
 		
 		for(i=0; i< $scope.biddings.length; i++) {
 			
-			console.log("prvo:");
-			console.log($scope.biddings[i]);
+			//console.log("prvo:");
+			//console.log($scope.biddings[i]);
 			
 			if($scope.biddings[i].length>0) {
 				if($scope.biddings[i][0].groceries.id == list.id) {
 					
 					for(j=0; j< $scope.biddings[i].length; j++) {
 						
-						console.log("drugo:");
-						console.log($scope.biddings[i][j]);
+						//console.log("drugo:");
+						//console.log($scope.biddings[i][j]);
 						
 						if($scope.biddings[i][j].id == bid.id) {
+							
+							var tmp = $scope.biddings[i][j];
 							
 							$http.post('/bidding/accept', $scope.biddings[i][j].id,
 									{ headers: { 'Authorization': sessionService.getAuthToken() } })
 									.success(function (data) {
 										notifyService.showSuccess('Prihvaćena ponuda.');
+										
+										console.log("que?");
+										console.log(tmp);
+										
+										// WEBSOCKET
+										stompClient.send("/notifyBidder", {}, JSON.stringify({
+											'bidderId': tmp.bidder.id,
+											'restaurantId': $scope.restaurant.name,
+											'biddingId': tmp.id,
+											'status': true
+										}));
 									})
 							
 						} else {
+							
+							var tmp = $scope.biddings[i][j];
 							
 							$http.post('/bidding/reject', $scope.biddings[i][j].id,
 									{ headers: { 'Authorization': sessionService.getAuthToken() } })
 									.success(function (data) {
 										notifyService.showSuccess('Odbijena ponuda.');
+										
+										console.log("que 2?");
+										console.log(tmp);
+										
+										// WEBSOCKET
+										stompClient.send("/notifyBidder", {}, JSON.stringify({
+											'bidderId': tmp.bidder.id,
+											'restaurantId': $scope.restaurant.name,
+											'biddingId': tmp.id,
+											'status': false
+										}));
 									})
 							
 						}
@@ -405,5 +431,18 @@ angular.module('foodbook').controller('managerGroceriesController', function($sc
 			}
 		}
 	};
+	
+	
+	var stompClient = null;
+	
+	// WEBSOCKET TEST
+    $(document).ready(function() {
+    	var socket = new SockJS('/ws');
+    	stompClient = Stomp.over(socket);
+    	
+    	stompClient.connect({}, function(frame){
+    		
+    	});
+    });
 	
 });

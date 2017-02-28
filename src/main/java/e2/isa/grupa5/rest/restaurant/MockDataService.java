@@ -1,5 +1,17 @@
 package e2.isa.grupa5.rest.restaurant;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,6 +22,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import e2.isa.grupa5.model.restaurant.ReportDTO;
+import e2.isa.grupa5.model.restaurant.ReportObjectDTO;
+import e2.isa.grupa5.model.restaurant.Restaurant;
+import e2.isa.grupa5.model.users.Waiter;
+import e2.isa.grupa5.repository.restaurant.MenuItemRepository;
+import e2.isa.grupa5.repository.restaurant.MenuRepository;
+import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
+import e2.isa.grupa5.repository.waiter.WaiterRepository;
 
 /**
  * Mock data generation and retrieval for generating the report.
@@ -24,46 +43,206 @@ import e2.isa.grupa5.model.restaurant.ReportDTO;
 @RequestMapping("/data")
 public class MockDataService {
 	
-	@RequestMapping(value = "/generate", method = RequestMethod.GET)
-	@PreAuthorize("isAuthenticated()") 
-	public ResponseEntity generateData() {
-		
-		return new ResponseEntity(HttpStatus.OK);
-	}
+	@Autowired
+	MenuRepository menuRepository;
+	
+	@Autowired 
+	MenuItemRepository menuItemRepository;
+	
+	@Autowired
+	RestaurantRepository restaurantRepository;
+	
+	@Autowired
+	WaiterRepository waiterRepository;
+	
 	
 	@RequestMapping(value = "/restaurant/{id}", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()") 
 	public ResponseEntity getRestaurantGrade(@PathVariable long id) {
 		
-		return new ResponseEntity(HttpStatus.OK);
+		// Implementacija metode koja bi dobavila ove podatke
+		// na osnovu ocena iz svih rezervacija
+		
+		List<ReportObjectDTO> list = new ArrayList<>();
+		
+		Random rand = new Random();
+		
+		for(int i=0; i<5; i++) {
+			rand = new Random();
+			
+			int val = rand.nextInt(50)+10;
+			
+			ReportObjectDTO tmp = new ReportObjectDTO();
+			
+			tmp.setGrade(i+1);
+			tmp.setValue(val);
+			
+			list.add(tmp);
+		}
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/meal/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/meal/{rId}/{id}", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()") 
 	public ResponseEntity getMealData(@PathVariable long id) {
 		
-		return new ResponseEntity(HttpStatus.OK);
+		List<ReportObjectDTO> list = new ArrayList<>();
+		
+		Random rand = new Random();
+		
+		for(int i=0; i<5; i++) {
+			rand = new Random();
+			
+			int val = rand.nextInt(50)+10;
+			
+			ReportObjectDTO tmp = new ReportObjectDTO();
+			
+			tmp.setGrade(i+1);
+			tmp.setValue(val);
+			
+			list.add(tmp);
+		}
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/waiter/{id}", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()") 
 	public ResponseEntity getWaiterData(@PathVariable long id) {
 		
-		return new ResponseEntity(HttpStatus.OK);
+		List<ReportObjectDTO> list = new ArrayList<>();
+		
+		Random rand = new Random();
+		
+		for(int i=0; i<5; i++) {
+			rand = new Random();
+			
+			int val = rand.nextInt(50)+10;
+			
+			ReportObjectDTO tmp = new ReportObjectDTO();
+			
+			tmp.setGrade(i+1);
+			tmp.setValue(val);
+			
+			list.add(tmp);
+		}
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/visits/{id}", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()") 
+	public ResponseEntity visitsInPeriod(@PathVariable long id, @RequestBody ReportDTO rDTO) {
+				
+		List<ReportObjectDTO> list = new ArrayList<>();
+		
+		String type = rDTO.getType();	//DNEVNI, NEDELJNI
+		
+		Calendar cal = Calendar.getInstance();
+		
+		
+		
+		if(type.equals("DNEVNI")) {
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("HH");
+			String nowString = sdf.format(cal.getTime());
+			int now = Integer.parseInt(nowString);
+			
+			System.out.println("CURRENT TIME: "+now);
+			
+			for(int i=0; i<now; i++) {
+				
+				ReportObjectDTO tmp = new ReportObjectDTO();
+				Random r = new Random();
+				
+				tmp.setValue(r.nextInt(20)+5);
+				
+				String name = "";
+				
+				if(i<10) {
+					name = "0"+i+":00";
+				} else {
+					name = i+":00";
+				}
+				
+				tmp.setName(name);
+				
+				list.add(tmp);
+			}
+			
+		} else {
+			
+			int now = cal.get(Calendar.DAY_OF_WEEK);
+			
+			for(int i=0; i<now; i++) {
+				
+				ReportObjectDTO tmp = new ReportObjectDTO();
+				Random r = new Random();
+				
+				tmp.setValue(r.nextInt(100)+20);
+
+				list.add(tmp);
+			}
+		}
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/revenue/{id}", method = RequestMethod.POST)
 	@PreAuthorize("isAuthenticated()") 
 	public ResponseEntity revenue(@PathVariable long id, @RequestBody ReportDTO rDTO) {
 		
-		return new ResponseEntity(HttpStatus.OK);
+		Date startDate = rDTO.getStart_interval();
+		Date endDate = rDTO.getEnd_interval();
+		
+		LocalDate start = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate end = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		
+		List<ReportObjectDTO> list = new ArrayList<>();
+		
+		for (LocalDate date = start; !date.isAfter(end); date = date.plusDays(1)) {
+			Random rand = new Random();
+			
+			ReportObjectDTO tmp = new ReportObjectDTO();
+			
+			tmp.setValue(rand.nextInt(100000)+20000);
+			tmp.setName(date.toString());		
+			
+			list.add(tmp);
+		}
+
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/revenueByWaiter/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/revenueByWaiter/{id}", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()") 
-	public ResponseEntity revenueByWaiter(@PathVariable long id, @RequestBody ReportDTO rDTO) {
+	public ResponseEntity revenueByWaiter(@PathVariable long id) {
 		
-		return new ResponseEntity(HttpStatus.OK);
+		List<Waiter> waiters = new ArrayList<>();	
+		List<ReportObjectDTO> list = new ArrayList<>();
+		
+		for (Waiter w : waiterRepository.findAll())
+            if (w.getRestaurant().getId() == id)
+                waiters.add(w);
+		
+		
+		Random rand = new Random();
+		
+		for(int i=0; i<waiters.size(); i++) {
+			rand = new Random();
+			
+			int val = rand.nextInt(50000)+1000;
+			
+			ReportObjectDTO tmp = new ReportObjectDTO();
+			
+			tmp.setName(waiters.get(i).getName()+" "+waiters.get(i).getSurname());
+			tmp.setValue(val);
+			
+			list.add(tmp);
+		}
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
 	
