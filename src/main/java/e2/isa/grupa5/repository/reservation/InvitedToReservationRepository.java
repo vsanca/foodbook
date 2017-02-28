@@ -1,4 +1,4 @@
-package e2.isa.grupa5.repository.guest;
+package e2.isa.grupa5.repository.reservation;
 
 import java.util.List;
 
