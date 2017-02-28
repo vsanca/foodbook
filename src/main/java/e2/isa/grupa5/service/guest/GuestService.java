@@ -25,6 +25,8 @@ import e2.isa.grupa5.model.reservation.GuestReservationOrder;
 import e2.isa.grupa5.model.reservation.InvitedToReservation;
 import e2.isa.grupa5.model.reservation.Reservation;
 import e2.isa.grupa5.model.reservation.ReservationRestaurantTable;
+import e2.isa.grupa5.model.restaurant.Menu;
+import e2.isa.grupa5.model.restaurant.MenuItem;
 import e2.isa.grupa5.model.restaurant.Restaurant;
 import e2.isa.grupa5.model.restaurant.RestaurantTable;
 import e2.isa.grupa5.model.users.Guest;
@@ -36,6 +38,8 @@ import e2.isa.grupa5.repository.guest.GuestReservationOrderRepository;
 import e2.isa.grupa5.repository.guest.InvitedToReservationRepository;
 import e2.isa.grupa5.repository.guest.ReservationRepository;
 import e2.isa.grupa5.repository.guest.ReservationRestaurantTableRepository;
+import e2.isa.grupa5.repository.restaurant.MenuItemRepository;
+import e2.isa.grupa5.repository.restaurant.MenuRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantTableRepository;
 import e2.isa.grupa5.rest.dto.guest.CreateNewReservationDTO;
@@ -93,6 +97,12 @@ public class GuestService {
 	
 	@Autowired
 	private RestaurantTableRepository restaurantTableRepository;
+	
+	@Autowired
+	private MenuItemRepository menuItemRepository;
+	
+	@Autowired
+	private MenuRepository menuRepository;
 
 	public List<Guest> findAll() {
 		return guestRepository.findAll();
@@ -493,13 +503,49 @@ public class GuestService {
 			responseDTO.setConfirmed(invitation.isConfirmed());
 		}
 		// get guest orders for this Reservation
+		List<GuestOrderDTO> guestOrdersDto = new ArrayList<>();
 		List<GuestReservationOrder> guestOrders = guestOrderRepository.findByReservationAndGuest(reservation, guest);
 		for(GuestReservationOrder guestOrder : guestOrders) {
-			GuestOrderDTO orderDto = new GuestOrderDTO();
-			
-			
+			convertToGuestOrderDTO(guestOrdersDto, guestOrder);
 		}
 		
-		return null;
+		// get all available orders 
+	    Restaurant restaurant = reservation.getRestaurant();
+	    // find menu
+	    List<Menu> allMenues = menuRepository.findByRestaurant(restaurant);
+	    if(allMenues ==null || allMenues.size() == 0) {
+	    	logger.error("FAILED TO ACQUIRE MENU...getReservation details failed!!!");
+	    	return responseDTO;
+	    }
+	    List<MenuItem> menuItems = menuItemRepository.findByMenu(allMenues.get(0));
+	    
+		List<GuestOrderDTO> allOrdersDto = new ArrayList<>();
+		// prepare menu items for frontend
+		for(MenuItem menuItem : menuItems ) {
+			convertToGuestOrderDTO(allOrdersDto, menuItem);
+		}
+		
+		responseDTO.setAllOrders(allOrdersDto);
+		responseDTO.setGuestOrders(guestOrdersDto);
+		responseDTO.setSuccess(true);
+		
+		return responseDTO;
+	}
+
+	
+	private void convertToGuestOrderDTO(List<GuestOrderDTO> allOrdersDto, MenuItem menuItem) {
+		GuestOrderDTO orderDto = new GuestOrderDTO();
+		orderDto.setMenuItemName(menuItem.getItem().getName());
+		orderDto.setMenuItemId(menuItem.getItem().getId());
+		orderDto.setBePrepared(orderDto.isBePrepared());
+		allOrdersDto.add(orderDto);
+	}
+
+	private void convertToGuestOrderDTO(List<GuestOrderDTO> guestOrdersDto, GuestReservationOrder guestOrder) {
+		GuestOrderDTO orderDto = new GuestOrderDTO();
+		orderDto.setMenuItemName(guestOrder.getItem().getItem().getName());
+		orderDto.setMenuItemId(guestOrder.getItem().getId());
+		orderDto.setBePrepared(orderDto.isBePrepared());
+		guestOrdersDto.add(orderDto);
 	}
 }

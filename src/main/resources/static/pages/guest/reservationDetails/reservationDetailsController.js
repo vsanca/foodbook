@@ -30,20 +30,20 @@
         $scope.cancelReservation = function (id) {
             // is it possible to cancel it?
             // check reservation time and current time 
-            if($scope.reservationDetailsPage.terminOd - Date.now() < 60*30*1000) {
+            if ($scope.reservationDetailsPage.terminOd - Date.now() < 60 * 30 * 1000) {
                 notifyService.showError("Cannot cancel reservation, since it starts in less than 30 minutes.");
                 return;
             }
-         
+
             guestService.cancelReservation(id).then(function (response) {
-               notifyService.showInfo("Reservation canceled!");
+                notifyService.showInfo("Reservation canceled!");
             }, function (error) {
-                notifyService.showError("Cannot cancel reservation, since it starts in less than 30 minutes.");    
+                notifyService.showError("Cannot cancel reservation, since it starts in less than 30 minutes.");
             });
         };
 
-        $scope.confirmReservation = function (id) {
-            guestService.confirmReservation(id).then(function (response) {
+        $scope.confirmAttendance = function (id) {
+            guestService.confirmAttendance(id).then(function (response) {
 
             }, function (error) {
 
@@ -51,9 +51,16 @@
 
         };
 
-        
+        $scope.cancelAttendance = function (id) {
+            guestService.cancelAttendance(id).then(function (response) {
 
+            }, function (error) {
 
+            });
+
+        };
+
+    
     }
 })();
 
