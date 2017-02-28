@@ -1,11 +1,14 @@
 package e2.isa.grupa5.model.reservation;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
-import e2.isa.grupa5.model.users.Guest;
-import e2.isa.grupa5.model.reservation.Reservation;
-import e2.isa.grupa5.model.reservation.ServingItem;
 import e2.isa.grupa5.model.restaurant.MenuItem;
+import e2.isa.grupa5.model.users.Guest;
 
 /**
  * N ovih se vezuje za  tacno 1 gosta
@@ -15,34 +18,21 @@ import e2.isa.grupa5.model.restaurant.MenuItem;
  *
  */
 @Entity
-@Table(name = "guest_order")
-public class GuestOrder {
+public class GuestReservationOrder {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "reservation")
-	private Reservation reservation;
+	@ManyToOne
+	Reservation reservation;
 	
 	@ManyToOne
-	private MenuItem item;
+	MenuItem item;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "guest")
-	private Guest guest;
-	
-	public GuestOrder(Reservation reservation, MenuItem menuItem, Guest guest){
-		this.reservation = reservation;
-		this.item = menuItem;
-		this.guest = guest;
-	}
-	
-	public GuestOrder(){
-		
-	}
+	@ManyToOne
+	Guest guest;
 
 	public Long getId() {
 		return id;

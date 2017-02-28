@@ -437,7 +437,7 @@ public class GuestService {
 					// match the newly reserved tables
 					for(Long tableId : tables) {
 						if(tableId.equals(reservedTable.getId())) {
-							return true; // cannot reserve
+							return false; // cannot reserve
 						}
 					}
 					
@@ -457,6 +457,7 @@ public class GuestService {
 		for(InvitedToReservation i : invitedReservations) {
 			reservations.add(i.getReservation()); 
 		}
+		
 		return reservations;
 	}
 }

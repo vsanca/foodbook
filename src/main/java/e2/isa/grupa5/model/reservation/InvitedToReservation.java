@@ -1,12 +1,17 @@
 package e2.isa.grupa5.model.reservation;
 
 import e2.isa.grupa5.model.users.Guest;
-import e2.isa.grupa5.model.reservation.Reservation;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-@Table(name="invited_to_reservation")
+@Table(name="InvitedToReservation")
 public class InvitedToReservation {
 	
 	@Id
@@ -14,22 +19,14 @@ public class InvitedToReservation {
 	@Column(name="invited_to_reservation_id")
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "guest")
+	@ManyToOne
 	private Guest guest;
 	
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "reservation", nullable = false)
+	@ManyToOne
 	private Reservation reservation; 
 
 	public InvitedToReservation() {
 		
-	}
-	
-	public InvitedToReservation(Guest guest,Reservation reservation) {
-		this.guest = guest;
-		this.reservation = reservation;
 	}
 
 	public Long getId() {

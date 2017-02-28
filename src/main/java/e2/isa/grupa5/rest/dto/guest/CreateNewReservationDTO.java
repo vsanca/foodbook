@@ -20,7 +20,9 @@ public class CreateNewReservationDTO {
 	private Date arrival;
 	private int duration;
 	
-	
+	public CreateNewReservationDTO() {
+		
+	}
 	
 	public boolean isSuccess() {
 		return success;
