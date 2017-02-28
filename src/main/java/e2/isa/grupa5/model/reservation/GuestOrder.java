@@ -3,6 +3,8 @@ package e2.isa.grupa5.model.reservation;
 import javax.persistence.*;
 
 import e2.isa.grupa5.model.users.Guest;
+import e2.isa.grupa5.model.reservation.Reservation;
+import e2.isa.grupa5.model.reservation.ServingItem;
 
 /**
  * N ovih se vezuje za  tacno 1 gosta
@@ -12,8 +14,8 @@ import e2.isa.grupa5.model.users.Guest;
  *
  */
 @Entity
-@Table(name = "order")
-public class Order {
+@Table(name = "guest_order")
+public class GuestOrder {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -32,13 +34,13 @@ public class Order {
     @JoinColumn(name = "guest")
 	private Guest guest;
 	
-	public Order(Reservation reservation, ServingItem servingItem, Guest guest){
+	public GuestOrder(Reservation reservation, ServingItem servingItem, Guest guest){
 		this.reservation = reservation;
 		this.servingItem = servingItem;
 		this.guest = guest;
 	}
 	
-	public Order(){
+	public GuestOrder(){
 		
 	}
 

@@ -1,5 +1,6 @@
 package e2.isa.grupa5.model.reservation;
 
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +9,8 @@ import javax.persistence.*;
 
 import e2.isa.grupa5.model.restaurant.Restaurant;
 import e2.isa.grupa5.model.users.Guest;
+import e2.isa.grupa5.model.reservation.GuestOrder;
+import e2.isa.grupa5.model.reservation.ReservationRestaurantTable;
 
 @Entity
 @Table(name="reservation")
@@ -39,11 +42,11 @@ public class Reservation {
 
 	
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "orders")
-	private List<Order> orders = new ArrayList<>();
+	@JoinColumn(name = "guest_orders")
+	private List<GuestOrder> orders = new ArrayList<>();
 	
 	
-	public Reservation(Restaurant restaurant, Date terminOd, Date terminDo, Guest guest, List<ReservationRestaurantTable> reservedTables, List<Order> orders) {
+	public Reservation(Restaurant restaurant, Date terminOd, Date terminDo, Guest guest, List<ReservationRestaurantTable> reservedTables, List<GuestOrder> orders) {
 		this.restaurant = restaurant;
 		this.terminOd = terminOd;
 		this.terminDo = terminDo;
@@ -104,11 +107,11 @@ public class Reservation {
 		this.reservedTables = reservedTables;
 	}
 
-	public List<Order> getOrders() {
+	public List<GuestOrder> getOrders() {
 		return orders;
 	}
 
-	public void setOrders(List<Order> orders) {
+	public void setOrders(List<GuestOrder> orders) {
 		this.orders = orders;
 	}
 	

@@ -1,6 +1,7 @@
 package e2.isa.grupa5.model.reservation;
 
 import e2.isa.grupa5.model.users.Guest;
+import e2.isa.grupa5.model.reservation.Reservation;
 
 import javax.persistence.*;
 

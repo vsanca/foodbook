@@ -2,6 +2,7 @@ package e2.isa.grupa5.model.reservation;
 
 import javax.persistence.*;
 
+import e2.isa.grupa5.model.reservation.Reservation;
 import e2.isa.grupa5.model.restaurant.RestaurantTable;
 
 @Entity
