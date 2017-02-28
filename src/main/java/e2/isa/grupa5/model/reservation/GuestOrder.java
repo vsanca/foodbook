@@ -5,6 +5,7 @@ import javax.persistence.*;
 import e2.isa.grupa5.model.users.Guest;
 import e2.isa.grupa5.model.reservation.Reservation;
 import e2.isa.grupa5.model.reservation.ServingItem;
+import e2.isa.grupa5.model.restaurant.MenuItem;
 
 /**
  * N ovih se vezuje za  tacno 1 gosta
@@ -26,17 +27,16 @@ public class GuestOrder {
     @JoinColumn(name = "reservation")
 	private Reservation reservation;
 	
-	@OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "serving_item")
-	private ServingItem servingItem;
+	@ManyToOne
+	private MenuItem item;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "guest")
 	private Guest guest;
 	
-	public GuestOrder(Reservation reservation, ServingItem servingItem, Guest guest){
+	public GuestOrder(Reservation reservation, MenuItem menuItem, Guest guest){
 		this.reservation = reservation;
-		this.servingItem = servingItem;
+		this.item = menuItem;
 		this.guest = guest;
 	}
 	
@@ -56,13 +56,12 @@ public class GuestOrder {
 		return reservation;
 	}
 
-	
-	public ServingItem getServingItem() {
-		return servingItem;
+	public MenuItem getItem() {
+		return item;
 	}
 
-	public void setServingItem(ServingItem servingItem) {
-		this.servingItem = servingItem;
+	public void setItem(MenuItem item) {
+		this.item = item;
 	}
 
 	public void setReservation(Reservation reservation) {

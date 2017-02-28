@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import e2.isa.grupa5.model.restaurant.Restaurant;
 import e2.isa.grupa5.model.users.Guest;
 import e2.isa.grupa5.model.reservation.GuestOrder;
@@ -31,18 +33,14 @@ public class Reservation {
 	@Column(name="reservation_end")
 	private Date terminDo; 
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "guest", nullable = false)
+	@ManyToOne
 	private Guest guest;
 	
-	
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "reserved_tables")
+	@JsonIgnore
+	@OneToMany
 	private List<ReservationRestaurantTable> reservedTables = new ArrayList<>();
 
-	
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "guest_orders")
+	@OneToMany
 	private List<GuestOrder> orders = new ArrayList<>();
 	
 	
