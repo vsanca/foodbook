@@ -26,6 +26,7 @@ import e2.isa.grupa5.rest.dto.guest.CreateNewReservationDTO;
 import e2.isa.grupa5.rest.dto.guest.FriendsPageDTO;
 import e2.isa.grupa5.rest.dto.guest.HomePageDTO;
 import e2.isa.grupa5.rest.dto.guest.ProfilePageDTO;
+import e2.isa.grupa5.rest.dto.guest.ReservationDTO;
 import e2.isa.grupa5.rest.dto.guest.Reserve1PageDTO;
 import e2.isa.grupa5.rest.dto.guest.RestaurantsPageDTO;
 import e2.isa.grupa5.rest.dto.guest.UpdateProfileDTO;
@@ -191,9 +192,26 @@ public class GuestController {
 	@RequestMapping(method = RequestMethod.GET, value = "/get-guest-reservations/{guest-id}")
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<?> getGuestReservations(@PathVariable(value = "guest-id") Long id) {
-		List<Reservation> reservations = guestService.getGuestReservations(id);
+		List<ReservationDTO> reservations = guestService.getGuestReservations(id);
 
 		return new ResponseEntity<>(reservations, HttpStatus.OK);
+
+	}
+	
+	
+	
+	/**
+	 * Any authenticated user can access profile-page-info
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/get-reservation-details/{guest-id}/{reservation-id}")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<?> getGuestReservations(@PathVariable(value = "guest-id") Long guestId, @PathVariable(value = "reservation-id") Long reservationId) {
+		ReservationDTO reservation = guestService.getReservationDetails(guestId, reservationId);
+
+		return new ResponseEntity<>(reservation, HttpStatus.OK);
 
 	}
 	/**

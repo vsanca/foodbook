@@ -41,6 +41,7 @@ import e2.isa.grupa5.rest.dto.guest.DistanceDTO;
 import e2.isa.grupa5.rest.dto.guest.FriendsPageDTO;
 import e2.isa.grupa5.rest.dto.guest.HomePageDTO;
 import e2.isa.grupa5.rest.dto.guest.ProfilePageDTO;
+import e2.isa.grupa5.rest.dto.guest.ReservationDTO;
 import e2.isa.grupa5.rest.dto.guest.Reserve1PageDTO;
 import e2.isa.grupa5.rest.dto.guest.RestaurantsPageDTO;
 import e2.isa.grupa5.service.MailService;
@@ -412,13 +413,14 @@ public class GuestService {
 			reservedTables.add(reservedTable);
 		}
 		
-		created.setReservedTables(reservedTables);
-		
+	
 		for(Long invitedId : dto.getInvitedFriends()) {
 			InvitedToReservation invited = new InvitedToReservation();
 			invited.setReservation(created);
-			invited.setGuest(guestRepository.findOne(invitedId));
+			Guest invitedFriend = guestRepository.findOne(invitedId);
+			invited.setGuest(invitedFriend);
 			invitedToReservationRepository.save(invited);
+			mailManager.sendReservationInvitationMail(invitedFriend, created);
 		}
 		
 		responseDTO.setSuccess(true);
@@ -450,7 +452,7 @@ public class GuestService {
 		
 	}
 
-	public List<Reservation> getGuestReservations(Long id) {
+	public List<ReservationDTO> getGuestReservations(Long id) {
 		Guest guest = guestRepository.findOne(id); 
 		List<Reservation> reservations = reservationRepository.findByGuest(guest); 
 		List<InvitedToReservation> invitedReservations = invitedToReservationRepository.findByGuest(guest); 
@@ -458,6 +460,30 @@ public class GuestService {
 			reservations.add(i.getReservation()); 
 		}
 		
-		return reservations;
+		List<ReservationDTO> reservationsDTO = new ArrayList<>(); 
+		
+		for(Reservation r : reservations) {
+			ReservationDTO dto = new ReservationDTO(); 
+			dto.setId(r.getId());
+			dto.setRestaurantName(r.getRestaurant().getName());
+			dto.setTerminDo(r.getTerminOd());
+			dto.setTerminOd(r.getTerminOd());
+			reservationsDTO.add(dto); 
+		}
+		
+		return reservationsDTO;
+	}
+
+	public ReservationDTO getReservationDetails(Long guestId, Long reservationId) {
+		Reservation reservation = reservationRepository.findOne(reservationId); 
+		Guest guest = guestRepository.findOne(guestId); 
+		// is our guest the owner of the reservation
+		// or INVITED to a reservation?
+		if(guest.getId() != reservation.getGuest().getId()) {
+			// invited
+			//InvitedToReservation invitation = invitati
+		}
+		
+		return null;
 	}
 }

@@ -198,6 +198,17 @@
             });
         }
 
+        function getReservationDetails(id) {
+             return $http({
+                method: 'GET',
+                url: '/rest/guest/get-reservation-details/'+ sessionService.getUserInfo().userId + '/' + id,
+                headers: {
+                    'Authorization': sessionService.getAuthToken()
+
+                }
+            });
+        }
+
     }
 
 })();

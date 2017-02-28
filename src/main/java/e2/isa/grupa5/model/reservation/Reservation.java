@@ -39,15 +39,7 @@ public class Reservation {
 	
 	@ManyToOne
 	private Guest guest;
-	
-	@JsonIgnore
-	@OneToMany
-	private List<ReservationRestaurantTable> reservedTables = new ArrayList<>();
-
-	@OneToMany
-	private List<GuestReservationOrder> orders = new ArrayList<>();
-	
-	
+		
 	public Reservation() {
 		
 	}
@@ -92,22 +84,5 @@ public class Reservation {
 		this.guest = guest;
 	}
 
-	public List<ReservationRestaurantTable> getReservedTables() {
-		return reservedTables;
-	}
-
-	public void setReservedTables(List<ReservationRestaurantTable> reservedTables) {
-		this.reservedTables = reservedTables;
-	}
-
-	public List<GuestReservationOrder> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<GuestReservationOrder> orders) {
-		this.orders = orders;
-	}
-	
-	
 	
 }

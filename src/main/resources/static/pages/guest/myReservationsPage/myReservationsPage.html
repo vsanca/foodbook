@@ -26,12 +26,17 @@
             <th>Termin od</th>
             <th>Termin do</th>
             <th>Restoran</th>
+            <th>Detalji</th>
         </tr>
         <tr ng-repeat="reservation in myReservations">
             <td>{{ reservation.id }}</td>
-            <td>{{ reservation.terminOd }}</td>
-            <td>{{ reservation.terminDo }}</td>  
-            <td>{{ reservation.restaurant.name }}</td>
+            <td>{{ reservation.terminOdStr }}</td>
+            <td>{{ reservation.terminDoStr }}</td>  
+            <td>{{ reservation.restaurantName }}</td>
+            <td> <button class="btn btn-sm btn-info" ng-click="openReservationDetails(reservation.id)">
+                Vidi detalje rezervacije
+            </button>
+            </td>
         </tr>
     </table>    
 </div>

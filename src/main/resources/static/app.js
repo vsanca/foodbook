@@ -71,6 +71,11 @@
 				templateUrl: 'pages/guest/reservePage/reserve3Page.html',
 				controller: 'Reserve3PageController'
 			})
+			.state('guest.reservationDetails', {
+				url: '/guest/reservation-details/:reservationId',
+				templateUrl: 'pages/guest/reservationDetails/reservationDetails.html',
+				controller: 'ReservationDetails'
+			})
 			.state('sysmanager', {
 				url: '/sm',
 				templateUrl: 'pages/sysmanager/profile.html',

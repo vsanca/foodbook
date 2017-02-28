@@ -24,6 +24,11 @@ public class InvitedToReservation {
 	
 	@ManyToOne
 	private Reservation reservation; 
+	
+	/**
+	 * 
+	 */
+	private boolean confirmed;
 
 	public InvitedToReservation() {
 		
@@ -52,5 +57,15 @@ public class InvitedToReservation {
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
 	}
+
+	public boolean isConfirmed() {
+		return confirmed;
+	}
+
+	public void setConfirmed(boolean confirmed) {
+		this.confirmed = confirmed;
+	}
+	
+	
 
 }

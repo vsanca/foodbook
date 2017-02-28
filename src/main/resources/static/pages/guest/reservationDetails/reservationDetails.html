@@ -1,0 +1,10 @@
+<style>
+
+</style>
+
+
+<div>
+ <button ng-if="$scope.userInfo.userId === $scope.reservationDetailsPage.guestId">Cancel reservation </button>
+ <button ng-if="$scope.userInfo.userId !== $scope.reservationDetailsPage.guestId && !$scope.reservationDetailsPage.confirmed">Confirm attendance </button>
+  <button ng-if="$scope.userInfo.userId !== $scope.reservationDetailsPage.guestId && $scope.reservationDetailsPage.confirmed">Cancel attendance </button>
+</div>
