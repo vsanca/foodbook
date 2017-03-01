@@ -19,3 +19,6 @@ Aplikacija u lokalu zahteva MySQL instancu servera. Po osnovnim podešavanjima a
 * password: **foodbook**
 
 Odgovarajuća podešavanja je moguće izmeniti i u *application.properties* datoteci.
+
+
+Aplikacija je hostovana i dostupna je na sledećem linku: https://bookfood.herokuapp.com
