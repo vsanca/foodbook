@@ -11,21 +11,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import e2.isa.grupa5.model.users.Bartender;
 import e2.isa.grupa5.model.users.BartenderDTO;
-import e2.isa.grupa5.model.users.Bidder;
-import e2.isa.grupa5.model.users.BidderDTO;
-
-import e2.isa.grupa5.model.users.Waiter;
-import e2.isa.grupa5.model.users.WaiterDTO;
 import e2.isa.grupa5.repository.bartender.BartenderRepository;
-import e2.isa.grupa5.repository.bidding.BidderRepository;
 
-import e2.isa.grupa5.repository.sysmanager.SystemManagerRepository;
-import e2.isa.grupa5.repository.waiter.WaiterRepository;
-import e2.isa.grupa5.service.systemmanager.SystemManagerService;
-import e2.isa.grupa5.service.waiter.WaiterService;
+
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

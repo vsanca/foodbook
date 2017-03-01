@@ -11,15 +11,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import e2.isa.grupa5.model.users.Bidder;
-import e2.isa.grupa5.model.users.BidderDTO;
 import e2.isa.grupa5.model.users.Chef;
 import e2.isa.grupa5.model.users.ChefDTO;
-import e2.isa.grupa5.repository.bidding.BidderRepository;
 import e2.isa.grupa5.repository.chef.ChefRepository;
-import e2.isa.grupa5.repository.sysmanager.SystemManagerRepository;
-import e2.isa.grupa5.service.systemmanager.SystemManagerService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
