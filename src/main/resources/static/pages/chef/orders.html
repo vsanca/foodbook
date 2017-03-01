@@ -1,44 +1,63 @@
-<div class="container-fluid">
+<div  class="col-md-6" style="border: 1px solid black">
+        <h1>Na čekanju: </h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Naziv Jela</th>
+                <th>Slika</th>
+                <th>Na čekanju</th>
 
-<div class="row">
-	<div class="col-md-8 col-lg-8 form">
-	
-		<form novalidate name="workersListForm">
-			
-			<h2 class="text-center">Prikaži porudžbine:</h2>
-			
-		<div class="row">
-  <div class="col-lg-6">
-    <div class="input-group">
-      <span class="input-group-addon">
-        <input type="checkbox"  aria-label="..." id="waitingID">
-      </span>
-      <input type="text" style="width: 200px; background:red; color:black;" class="form-control" aria-label="..." value="Na čekanju" readonly>
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-6 -->
-  <div class="col-lg-6">
-    <div class="input-group">
-      <span class="input-group-addon">
-        <input type="checkbox" aria-label="..." id="acceptedID">
-      </span>
-      <input style="width: 200px; background:yellow; color:black;" type="text" class="form-control" aria-label="..." value="Prihvaćene" readonly>
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-6 -->
-</div><!-- /.row -->
-			
-		
-			<table class="table table-striped" style="width:100%">
-			    
-			    <tr ng-repeat="o in myOrdersDTO" >
-			        <td style="width:100px; height:80px; vertical-align: middle">{{o.itemName}}</td>
-			         <td style="width:100px; height:80px"><img class="thumbnail" style="max-height: 80px; max-width: 80px; vertical-align: middle" ng-if="o.itemImgLink" src="{{o.itemImgLink}}"></td>
-			         <td style="width:100px; height:80px; vertical-align: middle"> <button ng-click="NEKA_FUNKCIJA()" class="btn btn-primary">Prihvati</button></td>
-			    </tr>
-			</table>
-			
-		</form>
-	</div>
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
 
+            <tr style="height: 70px;" ng-repeat="o in myOrdersDTO"  ng-if="o.accepted == 0 && o.created == 0 && o.itemType == 'FOOD'" >
 
-</div>
-</div>
+                <td>{{o.itemName}}</td>
+                <td ><img class="thumbnail" style="max-height: 80px; max-width: 80px; vertical-align: middle" ng-if="o.itemImgLink" src="{{o.itemImgLink}}"></td>
+
+                <td>
+                    <button type="button" style="vertical-align: middle" class="btn btn-primary btn-block" data-toggle="modal"
+                            ng-click="acceptOrder(o)" data-target="#modal-1">Prihvati
+                    </button>
+                </td>
+
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    
+    
+    
+    <div   class="col-md-6" style="border: 1px solid black">
+        <h1>Kuva se:</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Naziv</th>
+                <th>Slika Jela</th>
+                <th>Kuva se</th>
+
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+
+             <tr style="height: 70px;" ng-repeat="o in myOrdersDTO"  ng-if="o.accepted == 1 && o.created == 0 && o.chefId == chef.id && o.itemType == 'FOOD'" >
+
+                <td>{{o.itemName}}</td>
+                <td ><img class="thumbnail" style="max-height: 80px; max-width: 80px; vertical-align: middle" ng-if="o.itemImgLink" src="{{o.itemImgLink}}"></td>
+
+                <td>
+                    <button type="button" style="vertical-align: middle" class="btn btn-success btn-block" data-toggle="modal"
+                            ng-click="createOrder(o)" data-target="#modal-1">Gotovo
+                    </button>
+                </td>
+
+            </tr>
+
+            </tbody>
+        </table>
+    </div>

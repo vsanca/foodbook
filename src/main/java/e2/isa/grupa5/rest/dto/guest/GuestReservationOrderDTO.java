@@ -1,18 +1,15 @@
 package e2.isa.grupa5.rest.dto.guest;
 
-import java.util.concurrent.ThreadLocalRandom;
 
-import javax.persistence.Column;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 
 import e2.isa.grupa5.model.reservation.GuestReservationOrder;
-import e2.isa.grupa5.repository.reservation.GuestReservationOrderRepository;
+
 
 public class GuestReservationOrderDTO {
 
-	@Autowired
-	GuestReservationOrderRepository guestReservationOrderRepository;
+	
 	
 	private Long myId;
 	private String itemName;
@@ -23,10 +20,10 @@ public class GuestReservationOrderDTO {
 	private long bartenderId;
 	private Long reservationId;
 	private String itemType;
-	private boolean bePrepared;
-	private boolean isAccepted;
-	private boolean isCreated;
-	private boolean isDelivered;
+	private boolean bePrepared = false;
+	private boolean accepted = false;
+	private boolean created = false;
+	private boolean delivered = false;
 	
 	public GuestReservationOrderDTO(GuestReservationOrder order){
 		this.myId = order.getId();
@@ -39,8 +36,7 @@ public class GuestReservationOrderDTO {
 		else{
 			this.itemName = "";
 			this.itemImgLink = "";
-			int randomNum = 0;
-			this.itemId = randomNum;
+			this.itemId = 0;
 			this.itemType = "";
 		}
 		if(order.getWaiter() != null){
@@ -68,13 +64,13 @@ public class GuestReservationOrderDTO {
 		this.reservationId = order.getReservation().getId();
 		
 		this.bePrepared = order.isBePrepared();
-		this.isAccepted = order.isAccepted();
-		this.isCreated = order.isCreated();
-		this.isDelivered = order.isDelivered();
+		this.accepted = order.isAccepted();
+		this.created = order.isCreated();
+		this.delivered = order.isDelivered();
 	}
 
 	
-	
+
 	public Long getMyId() {
 		return myId;
 	}
@@ -89,6 +85,14 @@ public class GuestReservationOrderDTO {
 
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
+	}
+
+	public String getItemImgLink() {
+		return itemImgLink;
+	}
+
+	public void setItemImgLink(String itemImgLink) {
+		this.itemImgLink = itemImgLink;
 	}
 
 	public long getItemId() {
@@ -113,6 +117,14 @@ public class GuestReservationOrderDTO {
 
 	public void setChefId(long chefId) {
 		this.chefId = chefId;
+	}
+
+	public long getBartenderId() {
+		return bartenderId;
+	}
+
+	public void setBartenderId(long bartenderId) {
+		this.bartenderId = bartenderId;
 	}
 
 	public Long getReservationId() {
@@ -140,65 +152,30 @@ public class GuestReservationOrderDTO {
 	}
 
 	public boolean isAccepted() {
-		return isAccepted;
+		return accepted;
 	}
 
-	public void setAccepted(boolean isAccepted) {
-		this.isAccepted = isAccepted;
+	public void setAccepted(boolean accepted) {
+		this.accepted = accepted;
 	}
 
 	public boolean isCreated() {
-		return isCreated;
+		return created;
 	}
 
-	public void setCreated(boolean isCreated) {
-		this.isCreated = isCreated;
+	public void setCreated(boolean created) {
+		this.created = created;
 	}
 
 	public boolean isDelivered() {
-		return isDelivered;
+		return delivered;
 	}
 
-	public void setDelivered(boolean isDelivered) {
-		this.isDelivered = isDelivered;
+	public void setDelivered(boolean delivered) {
+		this.delivered = delivered;
 	}
 
-
-
-	public GuestReservationOrderRepository getGuestReservationOrderRepository() {
-		return guestReservationOrderRepository;
-	}
-
-
-
-	public void setGuestReservationOrderRepository(GuestReservationOrderRepository guestReservationOrderRepository) {
-		this.guestReservationOrderRepository = guestReservationOrderRepository;
-	}
-
-
-
-	public String getItemImgLink() {
-		return itemImgLink;
-	}
-
-
-
-	public void setItemImgLink(String itemImgLink) {
-		this.itemImgLink = itemImgLink;
-	}
-
-
-
-	public long getBartenderId() {
-		return bartenderId;
-	}
-
-
-
-	public void setBartenderId(long bartenderId) {
-		this.bartenderId = bartenderId;
-	}
 	
 	
-	
+		
 }

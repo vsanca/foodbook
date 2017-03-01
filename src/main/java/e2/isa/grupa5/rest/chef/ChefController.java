@@ -199,58 +199,89 @@ public class ChefController {
     }
     
     
-    @RequestMapping(value = "/chef/allUnfinishedOders/{cId}", method = RequestMethod.GET)
-	@PreAuthorize("isAuthenticated()")
-    public ResponseEntity getAllUnfinishedOders(@PathVariable long cId) {
-        
-    	Chef ch = chefRepository.findById(cId);
-		
-       List<GuestReservationOrder> myOrders = guestReservationOrderService.forChefReturnAllUnfinishedOrders(ch);
-        
-       if(myOrders == null){
-    	   System.out.println("Propo123");
-    	   return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    	   
-       }
-       else{
-    	   System.out.println("DOBARRR 123");
-    	   return new ResponseEntity<>(myOrders, HttpStatus.OK);
-       }
-        
-        
-    }
+    
     
     //test
     @RequestMapping(value = "/chef/allUnfinishedOdersTEST/{cId}", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
     public ResponseEntity getAllUnfinishedOdersTEST(@PathVariable long cId) {
         
-    	System.out.println("USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+    	Chef ch = chefRepository.findById(cId);
+		Restaurant r = ch.getRestaurant();
 		
-       List<GuestReservationOrder> myOrders = guestReservationOrderRepository.findAll();
-       if(myOrders == null){
-    	   return new ResponseEntity<>(myOrders, HttpStatus.NOT_FOUND);
-       }
+		List<GuestReservationOrder> allReservations = guestReservationOrderRepository.findAll();
+		
+		List<GuestReservationOrderDTO> allReservationsDTO = new ArrayList<GuestReservationOrderDTO>();
+		for(GuestReservationOrder g : allReservations){
+			GuestReservationOrderDTO gDTO = new GuestReservationOrderDTO(g);
+			allReservationsDTO.add(gDTO);
+		}
+    	if(allReservationsDTO.isEmpty()){
+    		return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+    	}
+    	else{
+    		return new ResponseEntity<>(allReservationsDTO, HttpStatus.OK);
+    	}
+		
+		
+    }
+    
+   
+    @RequestMapping(value = "/chef/acceptedOrder/{cId}/{dId}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+    public ResponseEntity setAcceptedOrder(@PathVariable Long cId, @PathVariable long dId) {
        
-       List<GuestReservationOrderDTO> myOrdersDTO = new ArrayList<GuestReservationOrderDTO>();
-       if(!myOrders.isEmpty()){
-    	   for(GuestReservationOrder o : myOrders){
-    		   GuestReservationOrderDTO gDTO = new GuestReservationOrderDTO(o);
-    		   myOrdersDTO.add(gDTO);
-    	   }
-       }
-       if(!myOrdersDTO.isEmpty()){
-    	   System.out.println("USPESNO IZASAO");
-    	   return new ResponseEntity<>(myOrdersDTO, HttpStatus.OK);
-       }
-       else{
-    	   return new ResponseEntity<>( HttpStatus.NOT_FOUND);
-       }
+    	
+    	
+       GuestReservationOrder r = guestReservationOrderRepository.findById(cId);
+       Chef ch = chefRepository.findById(dId);
+       r.setChef(ch);
+       r.setAccepted(true);
+       guestReservationOrderRepository.save(r);
        
-	   
+       List<GuestReservationOrder> allReservations = guestReservationOrderRepository.findAll();
+		
+		List<GuestReservationOrderDTO> allReservationsDTO = new ArrayList<GuestReservationOrderDTO>();
+		for(GuestReservationOrder g : allReservations){
+			GuestReservationOrderDTO gDTO = new GuestReservationOrderDTO(g);
+			allReservationsDTO.add(gDTO);
+		}
+	   	if(allReservationsDTO.isEmpty()){
+	   		return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+	   	}
+	   	else{
+	   		return new ResponseEntity<>(allReservationsDTO, HttpStatus.OK);
+	   	}
+      
+    }
+    
+    
+    
+  
+    @RequestMapping(value = "/chef/createdOrder/{cId}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+    public ResponseEntity setCreatedOrder(@PathVariable long cId) {
        
-        
-        
+       GuestReservationOrder r = guestReservationOrderRepository.findById(cId);
+       
+       r.setCreated(true);
+       
+       guestReservationOrderRepository.save(r);  
+       
+       List<GuestReservationOrder> allReservations = guestReservationOrderRepository.findAll();
+		
+		List<GuestReservationOrderDTO> allReservationsDTO = new ArrayList<GuestReservationOrderDTO>();
+		for(GuestReservationOrder g : allReservations){
+			GuestReservationOrderDTO gDTO = new GuestReservationOrderDTO(g);
+			allReservationsDTO.add(gDTO);
+		}
+	   	if(allReservationsDTO.isEmpty()){
+	   		return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+	   	}
+	   	else{
+	   		return new ResponseEntity<>(allReservationsDTO, HttpStatus.OK);
+	   	}
+    
     }
 	
 	
