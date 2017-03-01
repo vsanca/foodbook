@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "menu_item")
-public class MenuItem implements Serializable {
+public class MenuItem {
 
 	@Id
 	@GeneratedValue
@@ -35,13 +35,10 @@ public class MenuItem implements Serializable {
 	@Column(name = "price", nullable = false)
 	private double price;
 	
-	@JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "item_id", nullable = false)
     private Item item;
 
-	
-	@JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id", nullable = false)
     private Menu menu;
