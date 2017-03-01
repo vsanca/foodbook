@@ -80,17 +80,18 @@ public class RestaurantManagerController {
 		} 
 	}
 	
-	@RequestMapping(value = "/rmanager/changePassword/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/rmanager/changePassword", method = RequestMethod.POST)
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity changePassword(@RequestBody RestaurantManagerDTO rmDTO, @PathVariable long id) {
+	public ResponseEntity changePassword(@RequestBody RestaurantManagerDTO rmDTO) {
 		
-		RestaurantManager rm = restaurantManagerRepository.findById(id);
+		RestaurantManager rm = restaurantManagerRepository.findById(rmDTO.getId());
 		
 		if(rm != null) {
 			
 			try {
-				if(rmDTO.getNewPassword().equals(rmDTO.getNewPasswordRepeat()) && rmDTO.getNewPassword()!=null && rmDTO.getNewPassword()!="") {
+				if(passwordEncoder.matches(rmDTO.getOldPassword(), rm.getPassword()) && rmDTO.getNewPassword()!=null && rmDTO.getNewPassword()!="") {
 					rm.setPassword(passwordEncoder.encode(rmDTO.getNewPassword()));
+					rm.setPassword_set(true);
 					
 					rm = restaurantManagerRepository.save(rm);
 					

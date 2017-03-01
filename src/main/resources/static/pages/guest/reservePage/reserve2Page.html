@@ -8,6 +8,7 @@
                 <li class="active"><a href="#/guest/restaurants-page"><span class="glyphicon glyphicon-home"></span>Restorani</a></li>
                 <li class="active"><a href="#/guest/friends-page"><span class="glyphicon glyphicon-list-alt"></span>Prijatelji</a></li>
                 <li class="active"><a href="#/guest/profile-page"><span class="glyphicon glyphicon-list-alt"></span>Moj nalog</a></li>
+                <li class="active"><a href="#/guest/myReservations-page"><span class="glyphicon glyphicon-list-alt"></span>Moj rezervacije</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <button ng-click="logoff()"> Log out </button>
@@ -17,6 +18,9 @@
     </nav>
     <div>
 
+        <button class="btn btn-info" ng-click="reserve(reserve2Page.restaurantId)">
+                    Dalje >>
+            </button>
         <div>
             <strong>Restoran:</strong><span>{{reserve2Page.name}}</span>
             <strong>Datum i vreme:</strong><span>{{date}}</span>
@@ -29,9 +33,6 @@
             </div>
 
 
-            <button ng-click="reserve(reserve2Page.restaurantId)">
-                    Dalje >>
-            </button>
 
         </div>
 

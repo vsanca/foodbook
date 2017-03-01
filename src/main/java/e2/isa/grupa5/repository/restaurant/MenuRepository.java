@@ -1,8 +1,11 @@
 package e2.isa.grupa5.repository.restaurant;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import e2.isa.grupa5.model.restaurant.Menu;
+import e2.isa.grupa5.model.restaurant.Restaurant;
 
 /**
  * 
@@ -11,6 +14,7 @@ import e2.isa.grupa5.model.restaurant.Menu;
  */
 public interface MenuRepository extends JpaRepository<Menu, Long> {
 
-	public Menu findById(long id);
+	Menu findById(long id);
+	List<Menu> findByRestaurant(Restaurant restaurant);
 	
 }

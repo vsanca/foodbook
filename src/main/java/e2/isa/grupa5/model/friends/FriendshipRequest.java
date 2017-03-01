@@ -24,10 +24,10 @@ public class FriendshipRequest {
 	private boolean confirmed;
 
 	@OneToOne
-	private Guest from;
+	private Guest fromGuest;
 
 	@OneToOne
-	private Guest to;
+	private Guest toGuest;
 
 	public FriendshipRequest() {
 
@@ -50,19 +50,19 @@ public class FriendshipRequest {
 	}
 
 	public Guest getFrom() {
-		return from;
+		return fromGuest;
 	}
 
 	public void setFrom(Guest from) {
-		this.from = from;
+		this.fromGuest = from;
 	}
 
 	public Guest getTo() {
-		return to;
+		return toGuest;
 	}
 
 	public void setTo(Guest to) {
-		this.to = to;
+		this.toGuest = to;
 	}
 
 }

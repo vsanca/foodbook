@@ -1,5 +1,7 @@
 package e2.isa.grupa5.service;
 
+import e2.isa.grupa5.model.reservation.Reservation;
+import e2.isa.grupa5.model.users.Guest;
 import e2.isa.grupa5.model.users.SystemManager;
 import e2.isa.grupa5.model.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,12 @@ import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-/**
- * Created by Viktor on 12/16/2016.
- */
 
+/**
+ * 
+ * @author Korisnik
+ *
+ */
 @Service
 public class MailService {
 
@@ -31,22 +35,48 @@ public class MailService {
 
     @Async
     public void sendMail(User user) throws MailException{
+    	  SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+          simpleMailMessage.setTo(user.getEmail());
+          simpleMailMessage.setFrom("panel@reservation4.me");
+          simpleMailMessage.setSubject("Registration");
 
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setTo(user.getEmail());
-        simpleMailMessage.setFrom("panel@reservation4.me");
-        simpleMailMessage.setSubject("Registration");
+          String mailContent = "Thank You for registering on FoodBook! Please follow this link to confirm your registration :{URL_VALUE} \n\n";
+         
+          
+          String url = "http://localhost:8080/#/guest/confirm-registration?token=" + user.getId();
+          mailContent = mailContent.replace("{URL_VALUE}", url);
+          
+   
+          System.out.println("BEFORE SENDING TO "+user.getEmail());
 
-        String mailContent = "Thank You for registering on FoodBook! Please follow this link to confirm your registration : localhost:8080/#/confirmRegistration \n\n";
+          simpleMailMessage.setText(mailContent);
+          javaMailSender.send(simpleMailMessage);
 
-
-        System.out.println("BEFORE SENDING TO "+user.getEmail());
-
-        System.out.println(javaMailSender.toString());
-
-        simpleMailMessage.setText(mailContent);
-        javaMailSender.send(simpleMailMessage);
-
-        System.out.println("AFTER SENDING TO "+user.getEmail());
+          System.out.println("AFTER SENDING TO "+user.getEmail());
     }
+
+	public void sendReservationInvitationMail(Guest guest, Reservation created) {
+		  SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+	      simpleMailMessage.setTo(guest.getEmail());
+	        simpleMailMessage.setFrom("panel@reservation4.me");
+	        simpleMailMessage.setSubject("Invitation");
+
+	        String mailContent = "You have been invited to attent a reservation at " + created.getRestaurant().getName() 
+	        		+ " please follow this link to confirm your attendance :{URL_VALUE} \n\n";
+	       
+	        
+	        String url = "http://localhost:8080/#/guest/reservation-details/" + created.getId();
+	        mailContent = mailContent.replace("{URL_VALUE}", url);
+	        
+	 
+	        System.out.println("BEFORE SENDING TO "+guest.getEmail());
+
+	        simpleMailMessage.setText(mailContent);
+	        javaMailSender.send(simpleMailMessage);
+
+	        System.out.println("AFTER SENDING TO "+ guest.getEmail());
+		
+	}
+
+	
 }

@@ -1,5 +1,7 @@
 package e2.isa.grupa5.model.restaurant;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +21,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="restaurant")
-public class Restaurant {
+public class Restaurant implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

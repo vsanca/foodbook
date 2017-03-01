@@ -3,6 +3,7 @@ package e2.isa.grupa5.rest.dto.guest;
 import java.util.List;
 
 public class ProfilePageDTO {
+	private long id; 
 	private String name;
 	private String surname;
 	private String address;
@@ -52,6 +53,14 @@ public class ProfilePageDTO {
 
 	public void setFriends(List<ProfilePageDTO> friends) {
 		this.friends = friends;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }

@@ -1,110 +1,107 @@
 <div class="container">
-  <nav class="navbar navbar-default" role="navigation">
-      <!-- Brand and toggle get grouped for better mobile display -->
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-              <li class="active"><a href="#/guest/restaurants-page"><span class="glyphicon glyphicon-home"></span>Restorani</a></li>
-              <li class="active"><a href="#/guest/friends-page"><span class="glyphicon glyphicon-list-alt"></span>Prijatelji</a></li>
-              <li class="active"><a href="#/guest/profile-page"><span class="glyphicon glyphicon-list-alt"></span>Moj nalog</a></li>
-          </ul>
-           <ul class="nav navbar-nav navbar-right">
-            <button ng-click="logoff()"> Log out </button>
-          </ul>
-      </div>
-      <!-- /.navbar-collapse -->
-  </nav>
-<div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#/guest/restaurants-page"><span class="glyphicon glyphicon-home"></span>Restorani</a></li>
+                <li class="active"><a href="#/guest/friends-page"><span class="glyphicon glyphicon-list-alt"></span>Prijatelji</a></li>
+                <li class="active"><a href="#/guest/profile-page"><span class="glyphicon glyphicon-list-alt"></span>Moj nalog</a></li>
+                <li class="active"><a href="#/guest/myReservations-page"><span class="glyphicon glyphicon-list-alt"></span>Moj rezervacije</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <button ng-click="logoff()"> Log out </button>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+    <div>
 
-<div>
-    <h4>Moje posete</h4>
-    <table border="1">
-        <tr>
-            <th>Restoran</th>
-            <th>Datum</th>
-            <th>Rejting</th>
-            <th>Prijatelji</th>
-        </tr>
-        <tr ng-repeat="hp in homePage">
-            <td>{{ hp.restaurantName }}</td>
-            <td>{{ hp.date }}</td>
-            <td>{{ hp.rating }}</td>
-            <td>{{ hp.friends }}</td>  
-        </tr>
-    </table>
-
-
-    <hr>
-
-    <div id="custom-search-input" style="display:inline-block">
-                            <div class="input-group col-md-2">
-                                <input type="text" ng-model="search.$" class=" search-query form-control" placeholder="Bilo šta" />
-                                <span class="input-group-btn">
+        <div>
+            <div id="custom-search-input" style="display:inline-block">
+                <div class="input-group col-md-2">
+                    <input type="text" ng-model="search.$" class=" search-query form-control" placeholder="Bilo šta" />
+                    <span class="input-group-btn">
                                     <button class="btn btn-danger" type="button">
                                         <span class=" glyphicon glyphicon-search"></span>
-                                    </button>
-                                </span>
-                            </div>
-    </div>
-    
-    <div id="custom-search-input" style="display:inline-block">
-                            <div class="input-group col-md-2">
-                                <input type="text" ng-model="search.restaurantName" class=" search-query form-control" placeholder="Samo naziv restorana" />
-                                <span class="input-group-btn">
+                    </button>
+                    </span>
+                </div>
+            </div>
+
+            <div id="custom-search-input" style="display:inline-block">
+                <div class="input-group col-md-2">
+                    <input type="text" ng-model="search.restaurantName" class=" search-query form-control" placeholder="Samo naziv restorana"
+                    />
+                    <span class="input-group-btn">
                                     <button class="btn btn-danger" type="button">
                                         <span class=" glyphicon glyphicon-search"></span>
-                                    </button>
-                                </span>
-                            </div>
-    </div>
+                    </button>
+                    </span>
+                </div>
+            </div>
 
-    <div id="custom-search-input" style="display:inline-block">
-                            <div class="input-group col-md-2">
-                                <input type="text" ng-model="search.date" class=" search-query form-control" placeholder="Samo datum" />
-                                <span class="input-group-btn">
+            <div id="custom-search-input" style="display:inline-block">
+                <div class="input-group col-md-2">
+                    <input type="text" ng-model="search.date" class=" search-query form-control" placeholder="Samo datum" />
+                    <span class="input-group-btn">
                                     <button class="btn btn-danger" type="button">
                                         <span class=" glyphicon glyphicon-search"></span>
-                                    </button>
-                                </span>
-                            </div>
-    </div>
+                    </button>
+                    </span>
+                </div>
+            </div>
 
-    <div id="custom-search-input" style="display:inline-block">
-                            <div class="input-group col-md-2">
-                                <input type="text" ng-model="search.rating" class=" search-query form-control" placeholder="Samo rejting" />
-                                <span class="input-group-btn">
+            <div id="custom-search-input" style="display:inline-block">
+                <div class="input-group col-md-2">
+                    <input type="text" ng-model="search.rating" class=" search-query form-control" placeholder="Samo rejting" />
+                    <span class="input-group-btn">
                                     <button class="btn btn-danger" type="button">
                                         <span class=" glyphicon glyphicon-search"></span>
-                                    </button>
-                                </span>
-                            </div>
-    </div>
+                    </button>
+                    </span>
+                </div>
+            </div>
 
-    <div id="custom-search-input" style="display:inline-block">
-                            <div class="input-group col-md-2">
-                                <input type="text" ng-model="search.friends" class=" search-query form-control" placeholder="Samo prijatelji" />
-                                <span class="input-group-btn">
+            <div id="custom-search-input" style="display:inline-block">
+                <div class="input-group col-md-2">
+                    <input type="text" ng-model="search.friends" class=" search-query form-control" placeholder="Samo prijatelji" />
+                    <span class="input-group-btn">
                                     <button class="btn btn-danger" type="button">
                                         <span class=" glyphicon glyphicon-search"></span>
-                                    </button>
-                                </span>
-                            </div>
-    </div>
+                    </button>
+                    </span>
+                </div>
+            </div>
+            <h4>Moje posete</h4>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="table-responsive">
+                            <table id="searchObjResults" class="table table-bordred table-striped">
 
-    <table id="searchObjResults" border="1">
-    <tr>
-            <th>Restoran</th>
-            <th>Datum</th>
-            <th>Rejting</th>
-            <th>Prijatelji</th>
-    </tr>
-    <tr ng-repeat="hpObj in homePage | filter:search">
-        <td>{{ hpObj.restaurantName }}</td>
-        <td>{{ hpObj.date }}</td>
-        <td>{{ hpObj.rating }}</td>
-        <td>{{ hpObj.friends }}</td>  
-    </tr>
-    </table>
-    
-</div>
+                                <thead>
+                                    <tr>
+                                        <th>Restoran</th>
+                                        <th>Datum</th>
+                                        <th>Rejting</th>
+                                        <th>Prijatelji</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr ng-repeat="hpObj in homePage | filter:search">
+                                        <td>{{ hpObj.restaurantName }}</td>
+                                        <td>{{ hpObj.date }}</td>
+                                        <td>{{ hpObj.rating }}</td>
+                                        <td>{{ hpObj.friends }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

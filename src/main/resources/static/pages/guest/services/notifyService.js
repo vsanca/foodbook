@@ -9,7 +9,7 @@
 
     notifyService.$inject = ['$http', 'notify', '$rootScope'];
 
-    // hail satan
+
     function notifyService( $http, notify, $rootScope) {
         
 

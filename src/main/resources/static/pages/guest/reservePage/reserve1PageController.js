@@ -34,8 +34,8 @@
       reservationObj.duration = $scope.duration;
       reservationObj.name = $scope.reserve1Page.restaurantName; 
       reservationObj.date = $scope.dt; 
-      reservationObj.arrival = $scope.mytime; 
-      reservationObj.restaurantId = $stateParams.restaurantId; 
+      reservationObj.arrival = $scope.picker2.date; 
+      reservationObj.restaurantId = parseInt($stateParams.restaurantId); 
       sessionService.setReservationInfo(reservationObj);
       $state.go('reserve2');
     }
@@ -141,21 +141,18 @@
       return '';
     }
 
- $scope.mytime = new Date();
+ 
+$scope.picker2 = {
+        date: new Date('2015-03-01T12:30:00Z'),
+        timepickerOptions: {
+            readonlyInput: false,
+            showMeridian: false
+        }
+    };
 
-  $scope.hstep = 1;
-  $scope.mstep = 15;
-
-  $scope.options = {
-    hstep: [1, 2, 3],
-    mstep: [1, 5, 10, 15, 25, 30]
-  };
-
-  $scope.ismeridian = false;
-
-  $scope.changed = function () {
-    console.log('Time changed to: ' + $scope.mytime);
-  };
+$scope.openCalendar = function(e, picker) {
+        $scope.picker2.open = true;
+};
 
 
 

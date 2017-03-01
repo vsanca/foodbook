@@ -83,6 +83,7 @@
             let value = localStorage.getItem('reservationInfo');
             if(value === null) {
                 return {
+                    guestId: getUserInfo().userId,
                     name: "",
                     date: new Date(),
                     arrival: new Date(),
@@ -110,8 +111,16 @@
          */
         function setReservationInfo(reservationInfo) {
             if(reservationInfo === null) {
-                localStorage.removeItem('reservationInfo');
-                return;
+                reservationInfo = {
+                    guestId: getUserInfo().userId,
+                    name: "",
+                    date: new Date(),
+                    arrival: new Date(),
+                    duration: 0,
+                    tables: [],
+                    invitedFriends: [], 
+                    restaurantId: 0
+                };
             }
             localStorage.setItem('reservationInfo', JSON.stringify(reservationInfo));
         }

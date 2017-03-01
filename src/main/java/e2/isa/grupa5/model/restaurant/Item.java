@@ -1,5 +1,7 @@
 package e2.isa.grupa5.model.restaurant;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,7 +22,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "item")
-public class Item {
+public class Item implements Serializable {
 	
 	@Id
 	@GeneratedValue

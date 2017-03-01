@@ -6,7 +6,7 @@
 (function () {
 	'use strict';
 
-	angular.module('foodbook', ['ngRoute', 'cgNotify', 'ui.router', 'ui.bootstrap', 'google-signin', 'ngMap', 'ngFacebook', 'chart.js', 'dndLists']).config(function ($stateProvider, $urlRouterProvider, $httpProvider, GoogleSigninProvider, $facebookProvider) {
+	angular.module('foodbook', ['ngRoute', 'cgNotify', 'ui.router', 'ui.bootstrap', 'google-signin', 'ngMap', 'ngFacebook', 'chart.js', 'dndLists', 'ui.bootstrap.datetimepicker']).config(function ($stateProvider, $urlRouterProvider, $httpProvider, GoogleSigninProvider, $facebookProvider) {
 
 		GoogleSigninProvider.init({
 			client_id: '277007967599-r0p7jnm56vbvie9cgrar7gistmlb9mcu.apps.googleusercontent.com',
@@ -31,8 +31,8 @@
 				templateUrl: 'pages/guest/profilePage/profilePage.html',
 				controller: 'ProfilePageController'
 			})
-			.state('guest-confirm', {
-				url: '/guest/confirm-registration',
+			.state('guest-confirm/:guestId', {
+				url: '/guest/confirm-registration/:guestId',
 				templateUrl: 'pages/guest/confirmRegistration/confirmRegistration.html',
 				controller: 'ConfirmRegistrationController'
 			})
@@ -40,6 +40,11 @@
 				url: '/guest/home-page',
 				templateUrl: 'pages/guest/homePage/homePage.html',
 				controller: 'HomePageController'
+			})
+			.state('guest-reservations', {
+				url: '/guest/myReservations-page',
+				templateUrl: 'pages/guest/myReservationsPage/myReservationsPage.html',
+				controller: 'MyReservationsPageController'
 			})
 			.state('guest-friends', {
 				url: '/guest/friends-page',
@@ -56,10 +61,20 @@
 				templateUrl: 'pages/guest/reservePage/reserve1Page.html',
 				controller: 'Reserve1PageController'
 			})
-			.state('reserve2/:restaurantId', {
-				url: '/guest/reserve2-page/:restaurantId',
+			.state('reserve2', {
+				url: '/guest/reserve2-page',
 				templateUrl: 'pages/guest/reservePage/reserve2Page.html',
 				controller: 'Reserve2PageController'
+			})
+			.state('reserve3', {
+				url: '/guest/reserve3-page',
+				templateUrl: 'pages/guest/reservePage/reserve3Page.html',
+				controller: 'Reserve3PageController'
+			})
+			.state('reservationDetails/:reservationId', {
+				url: '/guest/reservation-details/:reservationId',
+				templateUrl: 'pages/guest/reservationDetails/reservationDetails.html',
+				controller: 'ReservationDetailsController'
 			})
 			.state('sysmanager', {
 				url: '/sm',

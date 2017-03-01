@@ -1,99 +1,223 @@
 <div class="container">
-  <nav class="navbar navbar-default" role="navigation">
-      <!-- Brand and toggle get grouped for better mobile display -->
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-              <li class="active"><a href="#/guest/restaurants-page"><span class="glyphicon glyphicon-home"></span>Restorani</a></li>
-              <li class="active"><a href="#/guest/friends-page"><span class="glyphicon glyphicon-list-alt"></span>Prijatelji</a></li>
-              <li class="active"><a href="#/guest/profile-page"><span class="glyphicon glyphicon-list-alt"></span>Moj nalog</a></li>
-          </ul>
-            
-          <ul class="nav navbar-nav navbar-right">
-            <button ng-click="logoff()"> Log out </button>
-          </ul>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#/guest/restaurants-page"><span class="glyphicon glyphicon-home"></span>Restorani</a></li>
+                <li class="active"><a href="#/guest/friends-page"><span class="glyphicon glyphicon-list-alt"></span>Prijatelji</a></li>
+                <li class="active"><a href="#/guest/profile-page"><span class="glyphicon glyphicon-list-alt"></span>Moj nalog</a></li>
+                <li class="active"><a href="#/guest/myReservations-page"><span class="glyphicon glyphicon-list-alt"></span>Moj rezervacije</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <button ng-click="logoff()"> Log out </button>
+            </ul>
 
 
-      </div>
-      <!-- /.navbar-collapse -->
-  </nav>
-<div>
-
-<div style="display:inline-block">
-    <img src="/img/defaultImage.jpg" style="width: 200px; height: 200px">
-        <strong>Ime:</strong><input type="text" ng-model="profilePage.name">
-        <strong>Prezime:</strong><input type="text" ng-model="profilePage.surname">
-        <strong>Adresa:</strong><input type="text" ng-model="profilePage.address">
-        <strong>Broj poseta:</strong><span>{{profilePage.numberOfVisits}}</span>
-    
-</div>
-
-<div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
     <div>
-        <h4>Moji prijatelji</h4>
-        <table border="1">
-            <tr>
-                <th>Ime</th>
-                <th>Prezime</th>
-            </tr>
-            <tr ng-repeat="friend in profilePage.friends">
-                <td>{{ friend.name }}</td>  
-                <td>{{ friend.surname }}</td>  
-            </tr>
-        </table>
+
+        <!--  <img src="/img/defaultImage.jpg" style="width: 200px; height: 200px">-->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="table-responsive">
+                        <table id="searchObjResults" class="table table-bordred table-striped">
+
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>Ime:</strong>
+                                    </td>
+                                    <td>
+                                        <input type="text" ng-model="profilePage.name">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Prezime:</strong>
+                                    </td>
+                                    <td>
+                                        <input type="text" ng-model="profilePage.surname">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Adresa:</strong>
+                                    </td>
+                                    <td>
+                                        <input type="text" ng-model="profilePage.address">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Broj poseta:</strong>
+                                    </td>
+                                    <td>
+                                        {{profilePage.numberOfVisits}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <hr>
-    <div style="display:inline-block">
-        <div id="custom-search-input" style="display:inline-block">
-                                <div class="input-group col-md-2" style="display:inline-block">
-                                    <input type="text" ng-model="search.$" class=" search-query form-control" placeholder="Bilo šta" />
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-danger  inline" type="button">
-                                            <span class=" glyphicon glyphicon-search"></span>
-                                        </button>
-                                    </span>
-                                </div>
-        </div>
-        
-        <div id="custom-search-input1" style="display:inline-block">
-                                <div class="input-group col-md-2" style="display:inline-block" >
-                                    <input type="text" ng-model="search.name" class=" search-query form-control" placeholder="Samo ime" />
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-danger  inline" type="button">
-                                            <span class=" glyphicon glyphicon-search"></span>
-                                        </button>
-                                    </span>
-                                </div>
-        </div>
 
-        <div id="custom-search-input2" style="display:inline-block">
-                                <div class="input-group col-md-2" style="display:inline-block" >
-                                    <input type="text" ng-model="search.surname" class=" search-query form-control" placeholder="Samo prezime" />
-                                    <span class="input-group-btn">
+    <div>
+        <div style="display:inline-block">
+            <div id="custom-search-input" style="display:inline-block">
+                <div class="input-group col-md-2" style="display:inline-block">
+                    <input type="text" ng-model="search.$" class=" search-query form-control" placeholder="Bilo šta" />
+                    <span class="input-group-btn">
+                                        <button class="btn btn-danger  inline" type="button">
+                                            <span class=" glyphicon glyphicon-search"></span>
+                    </button>
+                    </span>
+                </div>
+            </div>
+
+            <div id="custom-search-input1" style="display:inline-block">
+                <div class="input-group col-md-2" style="display:inline-block">
+                    <input type="text" ng-model="search.name" class=" search-query form-control" placeholder="Samo ime" />
+                    <span class="input-group-btn">
+                                        <button class="btn btn-danger  inline" type="button">
+                                            <span class=" glyphicon glyphicon-search"></span>
+                    </button>
+                    </span>
+                </div>
+            </div>
+
+            <div id="custom-search-input2" style="display:inline-block">
+                <div class="input-group col-md-2" style="display:inline-block">
+                    <input type="text" ng-model="search.surname" class=" search-query form-control" placeholder="Samo prezime" />
+                    <span class="input-group-btn">
                                         <button class="btn btn-danger inline" type="button">
                                             <span class=" glyphicon glyphicon-search"></span>
-                                        </button>
-                                    </span>
-                                </div>
+                    </button>
+                    </span>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <table id="searchObjResults" border="1">
-    <tr>
-                <th>Ime</th>
-                <th>Prezime</th>
-    </tr>
-    <tr ng-repeat="friendObj in profilePage.friends | filter:search">
-        <td>{{friendObj.name}}</td>
-        <td>{{friendObj.surname}}</td>
-    </tr>
-    </table>
 
-    <button ng-click="saveChanges()">
+        <h4>Moji prijatelji</h4>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="table-responsive">
+                        <table id="searchObjResults" class="table table-bordred table-striped">
+
+                            <thead>
+                                <tr>
+                                    <th>Ime</th>
+                                    <th>Prezime</th>
+                                    <th>Ukloni</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="friendObj in profilePage.friends | filter:search">
+                                    <td>{{friendObj.name}}</td>
+                                    <td>{{friendObj.surname}}</td>
+                                    <td>
+                                            <button class="btn btn-primary btn-xs" data-title="Ukloni" data-toggle="modal" ng-click="ukloni(friendObj.id)"> Ukloni </button></p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<hr>
+
+ <div class="container">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="table-responsive">
+                            <table id="searchObjResults" class="table table-bordred table-striped">
+
+                                <thead>
+                                    <tr>
+                                        <th>id</th>
+                                        <th>Ime</th>
+                                        <th>Prezime</th>
+                                        <th>Dodaj</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr ng-repeat="add in addPeople">
+                                        <td>{{ add.id }}</td>
+                                        <td>{{ add.name }}</td>
+                                        <td>{{ add.surname }}</td>
+                                        <td>
+                                            <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" ng-click="dodaj(add.id)"> Dodaj </button></p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="table-responsive">
+                            <table id="searchObjResults" class="table table-bordred table-striped">
+
+                                <thead>
+                                    <tr>
+                                        <th>id</th>
+                                        <th>Ime</th>
+                                        <th>Prezime</th>
+                                        <th>Prihvati</th>
+                                        <th>Odbaci</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr ng-repeat="accept in acceptPeople">
+                                        <td>{{ accept.id }}</td>
+                                        <td>{{ accept.name }}</td>
+                                        <td>{{ accept.surname }}</td>
+                                        <td>
+                                            <button class="btn btn-primary btn-xs" data-title="Prihvati" data-toggle="modal" ng-click="prihvati(accept.id)"> Prihvati </button>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-primary btn-xs" data-title="Odbaci" data-toggle="modal" ng-click="odbaci(accept.id)"> Odbaci </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        <button class="btn btn-primary btn-xs" data-title="Save changes" data-toggle="modal" ng-click="saveChanges()">
     Save changes
     </button>
 
-</div>
-
+    </div>

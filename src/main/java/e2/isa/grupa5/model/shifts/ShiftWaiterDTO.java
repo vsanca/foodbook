@@ -1,5 +1,6 @@
 package e2.isa.grupa5.model.shifts;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  * @author Viktor
  *
  */
-public class ShiftWaiterDTO extends ShiftDTO{
+public class ShiftWaiterDTO extends ShiftDTO implements Serializable{
 	
 	private List<Integer> areas;
 

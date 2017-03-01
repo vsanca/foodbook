@@ -2,6 +2,7 @@
 
 <div class="row">
 
+<div class="col-md-2 col-lg-2 columns form"></div>
 <div class="col-md-8 col-lg-8 columns form">
 
     <form novalidate name="registerBidderForm">
@@ -24,7 +25,7 @@
             <label for="inputBidderPassword">Lozinka</label>
             <input type="password" required ng-model="bidder.password" id="inputBidderPassword" class="form-control" placeholder="Lozinka" required>
         </div>
-        <p><a type="submit" class="btn btn-success btn-block" ng-click="createBidder()">Kreiraj</a></p>
+        <p><a type="submit" class="btn btn-success btn-block" ng-disabled="!bidder.name || !bidder.surname || !bidder.email || !bidder.password" ng-click="createBidder()">Kreiraj</a></p>
         <p><a type="submit" class="btn btn-danger btn-block" ng-click="cancel()">Odustani</a></p>
         
     </form>

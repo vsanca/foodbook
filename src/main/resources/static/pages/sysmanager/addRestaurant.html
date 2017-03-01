@@ -4,7 +4,7 @@
 
 	<div class="col-md-8 col-lg-8 columns form">
 	
-	    <form novalidate name="registerRestaurantForm">
+	    <form name="registerRestaurantForm">
 	        
 	        <h4 class="text-center">Novi restoran</h4>
 	        
@@ -28,7 +28,7 @@
 	            <label for="inputRestaurantEmail">E-mail</label>
 	            <input type="text" required ng-model="restaurant.email" id="inputRestaurantEmail" class="form-control" placeholder="restaurant@mail.com">
 	        </div>
-	        <p><a type="submit" class="btn btn-success btn-block" ng-click="createRestaurant()">Kreiraj restoran</a></p>
+	        <p><a type="submit" class="btn btn-success btn-block" ng-disabled="!restaurant.name || !restaurant.description || !restaurant.address || !restaurant.phone || !restaurant.email" ng-click="createRestaurant()">Kreiraj restoran</a></p>
 	        <p><a type="submit" class="btn btn-danger btn-block" ng-click="cancel()">Odustani</a></p>
 	        
 	    </form>

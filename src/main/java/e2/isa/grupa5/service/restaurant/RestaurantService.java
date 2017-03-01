@@ -86,6 +86,10 @@ public class RestaurantService {
 		
 		double res = 0;
 		
+		if(restaurantGrades == null){
+			return res;
+		}
+		
 		for(GradeDTO gDTO : restaurantGrades) {
 			res += gDTO.getAtmosphereGrade();
 		}
@@ -101,6 +105,10 @@ public class RestaurantService {
 		
 		double res = 0;
 		
+		if(restaurantGrades == null){
+			return res;
+		}
+		
 		for(GradeDTO gDTO : restaurantGrades) {
 			res += gDTO.getMealGrade();
 		}
@@ -115,6 +123,10 @@ public class RestaurantService {
 	public double calculateWaiterGrade(List<GradeDTO> restaurantGrades) {
 	
 	double res = 0;
+	
+	if(restaurantGrades == null){
+		return res;
+	}
 	
 	for(GradeDTO gDTO : restaurantGrades) {
 		res += gDTO.getWaiterGrade();

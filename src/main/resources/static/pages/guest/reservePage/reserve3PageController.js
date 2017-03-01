@@ -9,28 +9,32 @@
 
     angular.module('foodbook').controller('Reserve3PageController', Reserve3PageController);
 
-    Reserve3PageController.$inject = ['$scope', '$state', '$location', 'sessionService', 'guestService', '$stateParams', 'authenticationService'];
+    Reserve3PageController.$inject = ['$scope', '$state', '$location', 'sessionService', 'guestService', '$stateParams', 'authenticationService', '$interval', 'notifyService'];
 
-    function Reserve3PageController($scope, $state, $location, sessionService, guestService, $stateParams, authenticationService) {
+    function Reserve3PageController($scope, $state, $location, sessionService, guestService, $stateParams, authenticationService, $interval, notifyService) {
         $scope.reserve3Page = sessionService.getReservationInfo();
-       
+
 
         $scope.userInfo = sessionService.getUserInfo();
 
-       
+
         $scope.date = $scope.reserve3Page.date.toString();
 
         console.log("Reservation page 3 ready!");
         $scope.models = {
             selected: null,
-            lists: {"allFriends": [], "invitedFriends": []}
+            lists: { "allFriends": [], "invitedFriends": [] }
         };
 
-        // Generate initial model
-    for (var i = 1; i <= 3; ++i) {
-        $scope.models.lists.allFriends.push({label: "Item A" + i});
-        $scope.models.lists.invitedFriends.push({label: "Item B" + i});
-    }
+       guestService.getGuestFriends($scope.userInfo.userId).then(function (response) {
+            $scope.friendsDTO = response.data;
+            // Generate initial model
+            for (let i = 0; i < $scope.friendsDTO.length; i++) {
+                $scope.models.lists.allFriends.push({ id:$scope.friendsDTO[i].id, label: $scope.friendsDTO[i].nameAndSurname });
+
+            }
+        });
+
 
         $scope.logoff = function () {
             alert("logoff called");
@@ -39,7 +43,25 @@
         }
 
         $scope.reserve = function (id) {
-            $state.go('reserve3');
+             notifyService.showInfo("Creating your reservation...");
+            let reservationInfo = sessionService.getReservationInfo();
+            for(let i = 0; i < $scope.models.lists.invitedFriends.length; i++) {
+                reservationInfo.invitedFriends.push($scope.models.lists.invitedFriends[i].id)
+            }
+            sessionService.setReservationInfo(null);
+            guestService.createReservation(reservationInfo).then(function(response) {
+                if(!response.data.success) {
+                    notifyService.showError("Error:" + response.data.errorInfo);
+                    return;
+                }
+                 console.log(response);
+                  console.log("createReservation() completed");
+                   notifyService.showSuccess("Reservation created!");
+                 $state.go('guest-reservations');
+            }, function(err) {
+                notifyService.showError("Failed to create reservation server error");
+        });
+           
         }
 
 

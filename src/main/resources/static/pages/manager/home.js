@@ -36,4 +36,17 @@ angular.module('foodbook').controller('managerHomeController', function($scope, 
 		});
 	};
 	
+	$scope.changePassword = function () {
+		$http.post('user/rmanager/changePassword/', $scope.user,
+				{ headers: { 'Authorization': sessionService.getAuthToken() } })
+				.success(function (data) {
+					notifyService.showSuccess('Uspešno izmenjena lozinka.');
+					$('#myModalPassword').modal('hide');
+				})
+				.error(function() {
+					notifyService.showError('Greška prilikom izmene lozinke.');
+					$('#myModalPassword').modal('hide');
+				});
+	};
+	
 });
