@@ -1,2 +1,63 @@
-<h1>BARTENDER: My Orders</h1>
+<div  class="col-md-6" style="border: 1px solid black">
+        <h1>Na čekanju:  </h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Naziv Pica</th>
+                <th>Slika</th>
+                <th>Na čekanju</th>
 
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr style="height: 70px;" ng-repeat="o in myOrdersDTO"  ng-if="o.accepted == 0 && o.created == 0 && o.itemType == 'DRINK'" >
+
+                <td>{{o.itemName}}</td>
+                <td ><img class="thumbnail" style="max-height: 80px; max-width: 80px; vertical-align: middle" ng-if="o.itemImgLink" src="{{o.itemImgLink}}"></td>
+
+                <td>
+                    <button type="button" style="vertical-align: middle" class="btn btn-primary btn-block" data-toggle="modal"
+                            ng-click="acceptOrder(o)" data-target="#modal-1">Prihvati
+                    </button>
+                </td>
+
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    
+    
+    
+    <div   class="col-md-6" style="border: 1px solid black">
+        <h1>Pravi se se:</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Naziv</th>
+                <th>Slika Pica</th>
+                <th>Pravi se</th>
+
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+
+             <tr style="height: 70px;" ng-repeat="o in myOrdersDTO"  ng-if="o.accepted == 1 && o.created == 0   o.itemType == 'DRINK'" >
+
+                <td>{{o.itemName}}</td>
+                <td ><img class="thumbnail" style="max-height: 80px; max-width: 80px; vertical-align: middle" ng-if="o.itemImgLink" src="{{o.itemImgLink}}"></td>
+
+                <td>
+                    <button type="button" style="vertical-align: middle" class="btn btn-success btn-block" data-toggle="modal"
+                            ng-click="createOrder(o)" data-target="#modal-1">Gotovo
+                    </button>
+                </td>
+
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
