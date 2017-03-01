@@ -11,7 +11,7 @@ import e2.isa.grupa5.model.grade.GradeDTO;
 import e2.isa.grupa5.model.reservation.Reservation;
 import e2.isa.grupa5.model.restaurant.Restaurant;
 import e2.isa.grupa5.repository.grade.GradeRepository;
-import e2.isa.grupa5.repository.guest.ReservationRepository;
+import e2.isa.grupa5.repository.reservation.ReservationRepository;
 
 /**
  * 
