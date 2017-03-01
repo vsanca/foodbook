@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import e2.isa.grupa5.model.restaurant.MenuItem;
+import e2.isa.grupa5.model.users.Bartender;
 import e2.isa.grupa5.model.users.Chef;
 import e2.isa.grupa5.model.users.Guest;
 import e2.isa.grupa5.model.users.Waiter;
@@ -50,6 +51,10 @@ public class GuestReservationOrder implements Serializable {
 	@JsonIgnore
 	@ManyToOne
 	Chef chef;
+	
+	@JsonIgnore
+	@ManyToOne
+	Bartender bartender;
 	
 	@Column(name="be_prepared")
 	boolean bePrepared;
@@ -143,6 +148,14 @@ public class GuestReservationOrder implements Serializable {
 
 	public void setChef(Chef chef) {
 		this.chef = chef;
+	}
+
+	public Bartender getBartender() {
+		return bartender;
+	}
+
+	public void setBartender(Bartender bartender) {
+		this.bartender = bartender;
 	}
 	
 	

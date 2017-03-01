@@ -663,7 +663,7 @@ public class TestController {
 		reservationRepository.save(rez2); 
 		
 		GuestReservationOrder order1 = new GuestReservationOrder();
-		order1.setReservation(res1);
+		order1.setReservation(rez1);
 		order1.setItem(mi1);
 		order1.setGuest(g);
 		order1.setWaiter(wt1);
@@ -673,7 +673,7 @@ public class TestController {
 		guestReservationOrderRepository.save(order1);
 		
 		GuestReservationOrder order2 = new GuestReservationOrder();
-		order2.setReservation(res1);
+		order2.setReservation(rez1);
 		order2.setItem(mi2);
 		order2.setGuest(g);
 		order2.setWaiter(wt1);
@@ -681,6 +681,17 @@ public class TestController {
 		order2.setCreated(false);
 		order2.setAccepted(false);
 		guestReservationOrderRepository.save(order2);
+		
+		GuestReservationOrder order3 = new GuestReservationOrder();
+		order3.setReservation(rez1);
+		order3.setItem(mi3);
+		order3.setGuest(g);
+		order3.setWaiter(wt1);
+		order3.setChef(ch1);
+		order3.setCreated(false);
+		order3.setAccepted(true);
+		guestReservationOrderRepository.save(order3);
+		
 		
 		
 		

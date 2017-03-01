@@ -35,6 +35,7 @@ import e2.isa.grupa5.repository.reservation.GuestReservationOrderRepository;
 import e2.isa.grupa5.repository.reservation.ReservationRepository;
 import e2.isa.grupa5.repository.restaurant.MenuItemRepository;
 import e2.isa.grupa5.repository.shifts.ShiftChefRepository;
+import e2.isa.grupa5.rest.dto.guest.GuestReservationOrderDTO;
 import e2.isa.grupa5.service.chef.ChefService;
 import e2.isa.grupa5.service.reservation.GuestReservationOrderService;
 
@@ -198,55 +199,89 @@ public class ChefController {
     }
     
     
-    @RequestMapping(value = "/chef/allUnfinishedOders/{cId}", method = RequestMethod.GET)
-	@PreAuthorize("isAuthenticated()")
-    public ResponseEntity getAllUnfinishedOders(@PathVariable long cId) {
-        
-    	Chef ch = chefRepository.findById(cId);
-		
-       List<GuestReservationOrder> myOrders = guestReservationOrderService.forChefReturnAllUnfinishedOrders(ch);
-        
-       if(myOrders == null){
-    	   System.out.println("Propo123");
-    	   return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    	   
-       }
-       else{
-    	   System.out.println("DOBARRR 123");
-    	   return new ResponseEntity<>(myOrders, HttpStatus.OK);
-       }
-        
-        
-    }
+    
     
     //test
     @RequestMapping(value = "/chef/allUnfinishedOdersTEST/{cId}", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
     public ResponseEntity getAllUnfinishedOdersTEST(@PathVariable long cId) {
         
-    	System.out.println("USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+    	Chef ch = chefRepository.findById(cId);
+		Restaurant r = ch.getRestaurant();
 		
-       List<GuestReservationOrder> myOrders = guestReservationOrderRepository.findAll();
-       if(myOrders == null){
-    	   System.out.println("NULLLLLLLLLLLLLLLLLl");
-       }
-       for(GuestReservationOrder g : myOrders){
-    	   System.out.println("-------------------------------------");
-    	   System.out.println("ID: " +g.getId());
-    	   System.out.println("-------------------------------------");
-    	   System.out.println("-------------------------------------");
-    	   System.out.println("ID: " +g.getItem().getPrice());
-    	   System.out.println("-------------------------------------");
-    	   System.out.println("-------------------------------------");
-    	   System.out.println("ID: " +g.getItem().getItem().getName());
-    	   System.out.println("-------------------------------------");
-       }
+		List<GuestReservationOrder> allReservations = guestReservationOrderRepository.findAll();
+		
+		List<GuestReservationOrderDTO> allReservationsDTO = new ArrayList<GuestReservationOrderDTO>();
+		for(GuestReservationOrder g : allReservations){
+			GuestReservationOrderDTO gDTO = new GuestReservationOrderDTO(g);
+			allReservationsDTO.add(gDTO);
+		}
+    	if(allReservationsDTO.isEmpty()){
+    		return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+    	}
+    	else{
+    		return new ResponseEntity<>(allReservationsDTO, HttpStatus.OK);
+    	}
+		
+		
+    }
+    
+   
+    @RequestMapping(value = "/chef/acceptedOrder/{cId}/{dId}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+    public ResponseEntity setAcceptedOrder(@PathVariable Long cId, @PathVariable long dId) {
        
-       System.out.println("DOBARRR");
-	   return new ResponseEntity<>(myOrders, HttpStatus.OK);
+    	
+    	
+       GuestReservationOrder r = guestReservationOrderRepository.findById(cId);
+       Chef ch = chefRepository.findById(dId);
+       r.setChef(ch);
+       r.setAccepted(true);
+       guestReservationOrderRepository.save(r);
        
-        
-        
+       List<GuestReservationOrder> allReservations = guestReservationOrderRepository.findAll();
+		
+		List<GuestReservationOrderDTO> allReservationsDTO = new ArrayList<GuestReservationOrderDTO>();
+		for(GuestReservationOrder g : allReservations){
+			GuestReservationOrderDTO gDTO = new GuestReservationOrderDTO(g);
+			allReservationsDTO.add(gDTO);
+		}
+	   	if(allReservationsDTO.isEmpty()){
+	   		return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+	   	}
+	   	else{
+	   		return new ResponseEntity<>(allReservationsDTO, HttpStatus.OK);
+	   	}
+      
+    }
+    
+    
+    
+  
+    @RequestMapping(value = "/chef/createdOrder/{cId}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+    public ResponseEntity setCreatedOrder(@PathVariable long cId) {
+       
+       GuestReservationOrder r = guestReservationOrderRepository.findById(cId);
+       
+       r.setCreated(true);
+       
+       guestReservationOrderRepository.save(r);  
+       
+       List<GuestReservationOrder> allReservations = guestReservationOrderRepository.findAll();
+		
+		List<GuestReservationOrderDTO> allReservationsDTO = new ArrayList<GuestReservationOrderDTO>();
+		for(GuestReservationOrder g : allReservations){
+			GuestReservationOrderDTO gDTO = new GuestReservationOrderDTO(g);
+			allReservationsDTO.add(gDTO);
+		}
+	   	if(allReservationsDTO.isEmpty()){
+	   		return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+	   	}
+	   	else{
+	   		return new ResponseEntity<>(allReservationsDTO, HttpStatus.OK);
+	   	}
+    
     }
 	
 	
