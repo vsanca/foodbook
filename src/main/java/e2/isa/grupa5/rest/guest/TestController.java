@@ -21,6 +21,7 @@ import com.google.maps.model.DistanceMatrixElement;
 import com.google.maps.model.DistanceMatrixRow;
 import com.google.maps.model.GeocodingResult;
 import e2.isa.grupa5.rest.dto.guest.DistanceDTO;
+import e2.isa.grupa5.model.grade.Grade;
 import e2.isa.grupa5.model.reservation.GuestReservationOrder;
 import e2.isa.grupa5.model.reservation.InvitedToReservation;
 import e2.isa.grupa5.model.reservation.Reservation;
@@ -47,6 +48,7 @@ import e2.isa.grupa5.model.users.Waiter;
 import e2.isa.grupa5.repository.bartender.BartenderRepository;
 import e2.isa.grupa5.repository.bidding.BidderRepository;
 import e2.isa.grupa5.repository.chef.ChefRepository;
+import e2.isa.grupa5.repository.grade.GradeRepository;
 import e2.isa.grupa5.repository.guest.FriendshipRequestRepository;
 import e2.isa.grupa5.repository.guest.GuestRepository;
 import e2.isa.grupa5.repository.reservation.GuestReservationOrderRepository;
@@ -137,6 +139,9 @@ public class TestController {
 	
 	@Autowired
 	private GuestReservationOrderRepository guestReservationOrderRepository;
+	
+	@Autowired
+	private GradeRepository gradeRepository;
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -655,12 +660,56 @@ public class TestController {
 		res4.setTerminOd(new Date());
 		reservationRepository.save(rez1); 
 		
+		
+		
+		InvitedToReservation i = new InvitedToReservation(); 
+		i.setReservation(rez1);
+		i.setGuest(g1);
+		invitedToReservationRepository.save(i); 
+		
+		InvitedToReservation i1 = new InvitedToReservation(); 
+		i1.setReservation(rez1);
+		i1.setGuest(g2);
+		invitedToReservationRepository.save(i1); 
+		/////////////////////////////
+		///////////////////////////
+		Grade gradeG1 = new Grade();
+		int grade = 5;
+		gradeG1.setAtmosphereGrade(grade);
+		gradeG1.setEnvironmentGrade(grade);
+		gradeG1.setRated(true);
+		gradeG1.setWaiterGrade(grade);
+		gradeG1.setMealGrade(grade);
+		gradeG1.setGuest(g);
+		gradeG1.setReservation(rez1);
+		gradeG1.setRestaurantGrade(5);
+		gradeRepository.save(gradeG1);
+
+		
+		guestRepository.save(g); 
+		
+		
+		
 		Reservation rez2 = new Reservation(); 
 		res4.setGuest(g);
 		res4.setRestaurant(re1);
 		res4.setTerminDo(new Date());
 		res4.setTerminOd(new Date());
 		reservationRepository.save(rez2); 
+		
+		/////////////////////////////
+		///////////////////////////
+		gradeG1 = new Grade();
+		 grade = 3;
+		gradeG1.setAtmosphereGrade(grade);
+		gradeG1.setEnvironmentGrade(grade);
+		gradeG1.setRated(true);
+		gradeG1.setWaiterGrade(grade);
+		gradeG1.setMealGrade(grade);
+		gradeG1.setGuest(g1);
+		gradeG1.setReservation(rez2);
+		gradeG1.setRestaurantGrade(5);
+		gradeRepository.save(gradeG1);
 		
 		GuestReservationOrder order1 = new GuestReservationOrder();
 		order1.setReservation(rez1);
@@ -693,47 +742,9 @@ public class TestController {
 		guestReservationOrderRepository.save(order3);
 		
 		
+	
 		
-		
-	/*	
-		Reservation r = new Reservation(); 
-		r.setGuest(g);
-		r.setTerminDo(new Date());
-		r.setTerminOd(new Date());
-		r.setRestaurant(re1);
-		reservationRepository.save(r);
-		
-		InvitedToReservation i = new InvitedToReservation(); 
-		i.setReservation(r);
-		i.setGuest(g1);
-		invitedToReservationRepository.save(i); 
-		
-		InvitedToReservation i1 = new InvitedToReservation(); 
-		i1.setReservation(r);
-		i1.setGuest(g2);
-		invitedToReservationRepository.save(i1); 
-		
-		
-		Reservation r1 = new Reservation(); 
-		r1.setGuest(g);
-		r1.setTerminDo(new Date());
-		r1.setTerminOd(new Date());
-		r1.setRestaurant(re1);
-		reservationRepository.save(r1);
-		
-		Reservation r2 = new Reservation(); 
-		r2.setGuest(g2);
-		r2.setTerminDo(new Date());
-		r2.setTerminOd(new Date());
-		r2.setRestaurant(re2);
-		reservationRepository.save(r2);
-		
-		g.getReservations().add(r); 
-		g.getReservations().add(r1); 
-		
-		guestRepository.save(g); 
-		
-	*/	
+	
 		System.out.println("DATABASE FILLED");
 		
 		return new ResponseEntity<>(HttpStatus.OK);

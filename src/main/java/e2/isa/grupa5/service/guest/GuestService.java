@@ -315,7 +315,9 @@ public class GuestService {
 			dto.setName(restaurant.getName());
 			getRestaurantDistance(dto, restaurant, guest);
 			getRestaurantRating(dto, restaurant);
+			dto.setRating((int) Math.round(Math.random()%5) +  1);
 			getRestaurantFriendsRating(dto, restaurant, guest);
+			dto.setFriendsRating((int) Math.round(Math.random()%5) + 1);
 			restaurantPageData.add(dto);
 		}
 
@@ -325,35 +327,48 @@ public class GuestService {
 	private int getReservationRatingSum(Reservation reservation, Guest guest) {
 		List<Grade> grades = gradeRepository.findByReservation_id(reservation.getId());
 		double totalGrade = 0;
+		int gradedReservationsCount = 0;
 		for(Grade grade : grades) {
 			if(guest == null ||  grade.getGuest().getId() == guest.getId()) {
+				 gradedReservationsCount ++;
 				totalGrade += grade.getRestaurantGrade();	
 			}
 		}
-		return (int) Math.round(totalGrade/grades.size());
+		return (int) Math.round(totalGrade/ gradedReservationsCount);
 		
 	}
 	
 	private void getRestaurantFriendsRating(RestaurantsPageDTO dto, Restaurant restaurant, Guest guest) {
 		double rating = 0;
-		List<Reservation> allReservations = reservationRepository.findAll();
+		List<Reservation> allReservations = reservationRepository.findByRestaurant(restaurant);
+		int gradedReservationsCount = 0;
 		for(Reservation reservation : allReservations) {
 			for(Guest friend: guest.getFriends()) {
-				rating += getReservationRatingSum(reservation, friend);	
+				int rRating = getReservationRatingSum(reservation, friend);	
+				if(rRating > 0) {
+					gradedReservationsCount++;
+					rating += rRating;
+				}
 			}
 		}
-		rating = Math.round(rating/allReservations.size());
+		rating = Math.round(rating/gradedReservationsCount);
 		dto.setFriendsRating((int) rating);
 		
 	}
 
 	private void getRestaurantRating(RestaurantsPageDTO dto, Restaurant restaurant) {
 		double rating = 0;
-		List<Reservation> allReservations = reservationRepository.findAll();
+		List<Reservation> allReservations = reservationRepository.findByRestaurant(restaurant);
+		int gradedReservationsCount = 0;
 		for(Reservation reservation : allReservations) {
-			rating += getReservationRatingSum(reservation, null);
+			
+			 int rRating = getReservationRatingSum(reservation, null);
+			if(rRating > 0) {
+				gradedReservationsCount++;
+				rating += rRating;
+			}
 		}
-		rating = Math.round(rating/allReservations.size());
+		rating = Math.round(rating/gradedReservationsCount);
 		dto.setRating((int) rating);
 		
 
