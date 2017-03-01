@@ -2,6 +2,7 @@
 
 <div class="row">
 
+<div class="col-md-2 col-lg-2 columns form"></div>
 <div class="col-md-8 col-lg-8 columns form">
 
     <form novalidate name="registerSysManagerForm">
@@ -28,7 +29,7 @@
             <label for="inputSysManagerPassword">Lozinka</label>
             <input type="password" required ng-model="sysmanager_new.password" id="inputSysManagerPassword" class="form-control" placeholder="Lozinka" required>
         </div>
-        <p><a type="submit" class="btn btn-success btn-block" ng-click="createSysManager()">Kreiraj</a></p>
+        <p><a type="submit" class="btn btn-success btn-block" ng-disabled="!sysmanager_new.name || !sysmanager_new.surname || !sysmanager_new.email || !sysmanager_new.address|| !sysmanager_new.password" ng-click="createSysManager()">Kreiraj</a></p>
         <p><a type="submit" class="btn btn-danger btn-block" ng-click="cancel()">Odustani</a></p>
         
     </form>

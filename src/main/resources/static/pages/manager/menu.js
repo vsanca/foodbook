@@ -29,6 +29,7 @@ angular.module('foodbook').controller('managerMenuController', function($scope, 
 	};
 	
 	$scope.closeModal = function() {
+		$scope.menuItem = {};
 		$('#newItemModal').modal('hide');
 	};
 	

@@ -3,7 +3,7 @@
 <div class="row">
 	<div class="col-md-8 col-lg-8 form">
 	
-	    <form novalidate name="restaurantForm">
+	    <form name="restaurantForm">
 	        
 	        <h4 class="text-center">Podaci restorana</h4>
 	        
@@ -39,7 +39,7 @@
 	            <input type="text" required ng-model="user.phoneNumber" id="inputManagerPhone" class="form-control">     
 	      	</div>
 	        -->
-	        <p><a type="submit" class="btn btn-success btn-block" ng-click="modifyRestaurant()">Sačuvaj</a></p>
+	        <p><a type="submit" class="btn btn-success btn-block" ng-disabled="restaurantForm.$invalid" ng-click="modifyRestaurant()">Sačuvaj</a></p>
 	        <p><a type="submit" class="btn btn-danger btn-block" ng-click="cancel()">Odustani</a></p>
 	        
 	    </form>

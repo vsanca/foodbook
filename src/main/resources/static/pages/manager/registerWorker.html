@@ -2,9 +2,10 @@
 
 <div class="row">
 
+<div class="col-md-2 col-lg-2"></div>
 <div class="col-md-8 col-lg-8 columns form">
 
-    <form novalidate name="registerWorkerForm">
+    <form name="registerWorkerForm">
         
         <h4 class="text-center">Registracija zaposlenih</h4>
         
@@ -53,7 +54,7 @@
             </select>
         </div>
         
-        <p><a type="submit" class="btn btn-success btn-block" ng-click="createWorker()">Kreiraj</a></p>
+        <p><a type="submit" class="btn btn-success btn-block" ng-disabled="registerWorkerForm.$invalid" ng-click="createWorker()">Kreiraj</a></p>
         <p><a type="submit" class="btn btn-danger btn-block" ng-click="cancel()">Odustani</a></p>
         
     </form>

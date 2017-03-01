@@ -89,7 +89,7 @@
 			      </div>
 			      <div class="modal-footer">
 				        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closeModal()">Odustani</button>
-				        <button type="button" class="btn btn-success" ng-click="createShift()">Kreiraj smenu</button>
+				        <button type="button" class="btn btn-success" ng-disabled="newShiftForm.$invalid" ng-click="createShift()">Kreiraj smenu</button>
 			      </div>
 		    </div>
 	  </div>
