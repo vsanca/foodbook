@@ -1,4 +1,44 @@
-<h1>CHEF: My Orders</h1>
+<div class="container-fluid">
 
-<img src="img/food.jpg" class="img-rounded" alt="Muko moja :)" width="350" height="350">
+<div class="row">
+	<div class="col-md-8 col-lg-8 form">
+	
+		<form novalidate name="workersListForm">
+			
+			<h2 class="text-center">Prikaži porudžbine:</h2>
+			
+		<div class="row">
+  <div class="col-lg-6">
+    <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox"  aria-label="..." id="waitingID">
+      </span>
+      <input type="text" style="width: 200px; background:red; color:black;" class="form-control" aria-label="..." value="Na čekanju" readonly>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+  <div class="col-lg-6">
+    <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" aria-label="..." id="acceptedID">
+      </span>
+      <input style="width: 200px; background:yellow; color:black;" type="text" class="form-control" aria-label="..." value="Prihvaćene" readonly>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+			
+		
+			<table class="table table-striped" style="width:100%">
+			    
+			    <tr ng-repeat="order in orders " style="width:250px">
+			        <td style="width:100px; height:80px; vertical-align: middle">{{order.item.name}}</td>
+			         <td style="width:100px; height:80px"><img class="thumbnail" style="max-height: 80px; max-width: 80px; vertical-align: middle" ng-if="order.item.image_link" src="{{order.item.image_link}}"></td>
+			        <td style="width:100px; height:80px; vertical-align: middle"> <button ng-click="NEKA_FUNKCIJA()" class="btn btn-primary">Prihvati</button></td>
+			    </tr>
+			</table>
+			
+		</form>
+	</div>
 
+
+</div>
+</div>

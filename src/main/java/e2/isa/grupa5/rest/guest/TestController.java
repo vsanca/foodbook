@@ -21,8 +21,7 @@ import com.google.maps.model.DistanceMatrixElement;
 import com.google.maps.model.DistanceMatrixRow;
 import com.google.maps.model.GeocodingResult;
 import e2.isa.grupa5.rest.dto.guest.DistanceDTO;
-
-
+import e2.isa.grupa5.model.reservation.GuestReservationOrder;
 import e2.isa.grupa5.model.reservation.InvitedToReservation;
 import e2.isa.grupa5.model.reservation.Reservation;
 import e2.isa.grupa5.model.restaurant.Item;
@@ -50,6 +49,7 @@ import e2.isa.grupa5.repository.bidding.BidderRepository;
 import e2.isa.grupa5.repository.chef.ChefRepository;
 import e2.isa.grupa5.repository.guest.FriendshipRequestRepository;
 import e2.isa.grupa5.repository.guest.GuestRepository;
+import e2.isa.grupa5.repository.reservation.GuestReservationOrderRepository;
 import e2.isa.grupa5.repository.reservation.InvitedToReservationRepository;
 import e2.isa.grupa5.repository.reservation.ReservationRepository;
 import e2.isa.grupa5.repository.restaurant.ItemRepository;
@@ -134,6 +134,9 @@ public class TestController {
 	
 	@Autowired
 	private ShiftBartenderRepository shiftBartenderRepository;
+	
+	@Autowired
+	private GuestReservationOrderRepository guestReservationOrderRepository;
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -645,6 +648,39 @@ public class TestController {
 		
 		
 		
+		Reservation rez1 = new Reservation(); 
+		res4.setGuest(g);
+		res4.setRestaurant(re1);
+		res4.setTerminDo(new Date());
+		res4.setTerminOd(new Date());
+		reservationRepository.save(rez1); 
+		
+		Reservation rez2 = new Reservation(); 
+		res4.setGuest(g);
+		res4.setRestaurant(re1);
+		res4.setTerminDo(new Date());
+		res4.setTerminOd(new Date());
+		reservationRepository.save(rez2); 
+		
+		GuestReservationOrder order1 = new GuestReservationOrder();
+		order1.setReservation(res1);
+		order1.setItem(mi1);
+		order1.setGuest(g);
+		order1.setWaiter(wt1);
+		order1.setChef(ch1);
+		order1.setCreated(false);
+		order1.setAccepted(false);
+		guestReservationOrderRepository.save(order1);
+		
+		GuestReservationOrder order2 = new GuestReservationOrder();
+		order2.setReservation(res1);
+		order2.setItem(mi2);
+		order2.setGuest(g);
+		order2.setWaiter(wt1);
+		order2.setChef(ch1);
+		order2.setCreated(false);
+		order2.setAccepted(false);
+		guestReservationOrderRepository.save(order2);
 		
 		
 		
