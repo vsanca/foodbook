@@ -17,7 +17,13 @@
 
     $scope.restaurantsPage = []; 
     $scope.currentSort = "name";
-    
+    $scope.range = function(n) {
+        var x = new Array(Math.round(n));
+        for(let i = 0; i < x.length; i++) {
+          x[i] = i+1;
+        }
+        return x;
+    };
     $scope.changeSort = function(sortBy) {
       $scope.currentSort = sortBy;
     };

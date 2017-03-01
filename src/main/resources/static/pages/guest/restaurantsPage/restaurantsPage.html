@@ -94,8 +94,8 @@
                                     <tr ng-repeat="restaurantObj in restaurantsPage | filter:search | orderBy : currentSort">
                                         <td>{{ restaurantObj.name }}</td>
                                         <td>{{ restaurantObj.distance.distanceKm }}</td>
-                                        <td>{{ restaurantObj.rating }}</td>
-                                        <td>{{ restaurantObj.friendsRating }}</td>
+                                        <td><span ng-repeat="star in range(restaurantObj.rating)">★</span></td>
+                                        <td><span ng-repeat="star in range(restaurantObj.friendsRating)">★</span></td>
                                         <td>
                                             <button class="btn btn-primary btn-xs" data-title="Rezervisi" data-toggle="modal" ng-click="reserve(restaurantObj.id)">
                                                 Rezerviši
