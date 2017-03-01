@@ -31,8 +31,8 @@
 				templateUrl: 'pages/guest/profilePage/profilePage.html',
 				controller: 'ProfilePageController'
 			})
-			.state('guest-confirm', {
-				url: '/guest/confirm-registration',
+			.state('guest-confirm/:guestId', {
+				url: '/guest/confirm-registration/:guestId',
 				templateUrl: 'pages/guest/confirmRegistration/confirmRegistration.html',
 				controller: 'ConfirmRegistrationController'
 			})

@@ -1,3 +1,11 @@
+<style>
+.invalid {
+     border: 1px solid red;
+}
+
+</style>
+
+
 <div>
     <div class="container">
         <div class="carousel-caption">
@@ -6,11 +14,14 @@
                           placeholder="Enter your name"></p>
                 <p><input type="text" class="form-control form-control-lg" ng-model="newGuest.surname"
                           placeholder="Enter your surname"></p>
+                <p><input type="text" class="form-control form-control-lg" ng-model="newGuest.address"
+                          placeholder="Enter your address"></p>
                 <p><input type="email" class="form-control form-control-lg" ng-model="newGuest.email"
-                          placeholder="Enter your email"></p>
-                <p><input required id="txtPassword" type="password" class="form-control" ng-model="newGuest.password"
+                        required   placeholder="Enter your email"></p>
+                <p><input   ng-class="passwordCssClass"  ng-blur="checkPasswords()" required id="txtPassword"
+                 type="password" class="form-control" ng-model="newGuest.password"
                           placeholder="Enter your password"></p>
-                <p><input required id="txtPasswordConfirm" data-match="#txtPassword" type="password" class="form-control" 
+                <p><input ng-class="passwordCssClass"  ng-blur="checkPasswords()" ng-model="confirmPassword" required id="txtPasswordConfirm" data-match="#txtPassword" type="password" class="form-control" 
                           placeholder="Enter your password" data-match-error="Passwords have to be equal"></p>
                 <p>
                     <button type="submit" class="btn btn-primary" ng-click="registerGuest()">Register</button>

@@ -9,9 +9,9 @@
 
     angular.module('foodbook').controller('ReservationDetailsController', ReservationDetailsController);
 
-    ReservationDetailsController.$inject = ['$scope', '$state', 'sessionService', 'guestService', '$stateParams', 'notifyService'];
+    ReservationDetailsController.$inject = ['$scope', '$state', 'sessionService', 'guestService', '$stateParams', 'notifyService', '$window', '$timeout' ];
 
-    function ReservationDetailsController($scope, $state, sessionService, guestService, $stateParams, notifyService) {
+    function ReservationDetailsController($scope, $state, sessionService, guestService, $stateParams, notifyService, $window, $timeout) {
 
         $scope.userInfo = sessionService.getUserInfo();
         $scope.reservationId = $stateParams.reservationId;
@@ -80,6 +80,9 @@
             guestService.confirmAttendance($scope.reservationId).then(function (response) {
                 notifyService.showInfo("Attendance confirmed");
                 $scope.reservationDetailsPage.confirmed = true;
+                $timeout(function() {
+                    $window.location.reload();
+                }, 2000);
             }, function (error) {
                 notifyService.showError("Failed to update reservation orders!");
             });
@@ -90,6 +93,9 @@
             guestService.cancelAttendance($scope.reservationId).then(function (response) {
                 notifyService.showInfo("Attendance canceled");
                 $scope.reservationDetailsPage.confirmed = false;
+                $timeout(function() {
+                    $window.location.reload();
+                }, 2000);
             }, function (error) {
                 notifyService.showError("Failed to update reservation orders!");
             });
@@ -99,6 +105,10 @@
         $scope.updateReservationOrders = function () {
             guestService.updateReservationOrders($scope.reservationId, $scope.models.lists.guestOrders).then(function (response) {
                 notifyService.showInfo("Updated reservation orders!");
+
+                $timeout(function() {
+                    $window.location.reload();
+                }, 2000);
             }, function (error) {
                 notifyService.showError("Failed to update reservation orders!");
             });

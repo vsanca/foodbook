@@ -23,11 +23,11 @@
     });
 
     $scope.logoff = function() {
-      alert("logoff called");
+      alert("loging you off");
       authenticationService.logoff(); 
       $state.go('login'); 
     
-    }
+    };
    
   }
 })();

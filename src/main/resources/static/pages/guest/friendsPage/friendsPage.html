@@ -8,31 +8,16 @@
                 <li class="active"><a href="#/guest/restaurants-page"><span class="glyphicon glyphicon-home"></span>Restorani</a></li>
                 <li class="active"><a href="#/guest/friends-page"><span class="glyphicon glyphicon-list-alt"></span>Prijatelji</a></li>
                 <li class="active"><a href="#/guest/profile-page"><span class="glyphicon glyphicon-list-alt"></span>Moj nalog</a></li>
-                <li class="active"><a href="#/guest/myReservations-page"><span class="glyphicon glyphicon-list-alt"></span>Moj rezrvacijee</a></li>
+                <li class="active"><a href="#/guest/myReservations-page"><span class="glyphicon glyphicon-list-alt"></span>Moj rezervacije</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <button ng-click="logoff()"> Log out </button>
             </ul>
         </div>
-        <!-- /.navbar-collapse -->
     </nav>
     <div>
 
         <div>
-            <table border="1">
-                <tr>
-                    <th>Ime i prezime</th>
-                    <th>Poseta</th>
-                </tr>
-                <tr ng-repeat="friend in friendsPage">
-                    <td>{{ friend.nameAndSurname }}</td>
-                    <td>{{ friend.numberOfVisits }}</td>
-                </tr>
-            </table>
-
-            <hr>
-
-
             <div id="custom-search-input" style="display:inline-block">
                 <div class="input-group col-md-2">
                     <input type="text" ng-model="search.$" class=" search-query form-control" placeholder="Bilo šta" />
@@ -66,51 +51,103 @@
                 </div>
             </div>
 
-            <table id="searchObjResults" border="1">
-                <tr>
-                    <th>Ime i prezime</th>
-                    <th>Poseta</th>
-                </tr>
-                <tr ng-repeat="friendObj in friendsPage | filter:search">
-                    <td>{{ friendObj.nameAndSurname }}</td>
-                    <td>{{ friendObj.numberOfVisits }}</td>
-                </tr>
-            </table>
 
 
-            <table border="1">
-                <tr>
-                    <th>id</th>
-                    <th>Ime</th>
-                    <th>Prezime</th>
-                    <th>Dodaj</th>
-                </tr>
-                <tr ng-repeat="add in addPeople">
-                    <td>{{ add.id }}</td>
-                    <td>{{ add.name }}</td>
-                    <td>{{ add.surname }}</td>
-                    <td><button ng-click="dodaj(add.id)"> Dodaj </button></td>
-                </tr>
-            </table>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="table-responsive">
+                            <table id="searchObjResults" class="table table-bordred table-striped">
+
+                                <thead>
+                                    <tr>
+                                        <th>Ime i prezime <button class="btn btn-primary  btn-xs" ng-click="changeSort('nameAndSurname')">↓</button></th>
+                                        <th>Poseta <button class="btn btn-primary  btn-xs" ng-click="changeSort('numberOfVisits')">↓</button> </th>
+                                        <th>Ukloni</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr ng-repeat="friendObj in friendsPage | filter:search | orderBy : currentSort">
+                                        <td>{{ friendObj.nameAndSurname }}</td>
+                                        <td>{{ friendObj.numberOfVisits }}</td>
+                                        <td>
+                                            <button class="btn btn-primary btn-xs" data-title="Ukloni" data-toggle="modal" ng-click="ukloni(friendObj.id)"> Ukloni </button>                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
-            <table border="1">
-                <tr>
-                    <th>id</th>
-                    <th>Ime</th>
-                    <th>Prezime</th>
-                    <th>Prihvati</th>
-                    <th>Odbaci</th>
-                </tr>
-                <tr ng-repeat="accept in acceptPeople">
-                    <td>{{ accept.id }}</td>
-                    <td>{{ accept.name }}</td>
-                    <td>{{ accept.surname }}</td>
-                    <td><button ng-click="prihvati(accept.id)"> Prihvati </button></td>
-                    <td><button ng-click="odbaci(accept.id)"> Odbaci </button></td>
-                </tr>
-            </table>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="table-responsive">
+                            <table id="searchObjResults" class="table table-bordred table-striped">
 
+                                <thead>
+                                    <tr>
+                                        <th>id</th>
+                                        <th>Ime</th>
+                                        <th>Prezime</th>
+                                        <th>Dodaj</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr ng-repeat="add in addPeople">
+                                        <td>{{ add.id }}</td>
+                                        <td>{{ add.name }}</td>
+                                        <td>{{ add.surname }}</td>
+                                        <td>
+                                            <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" ng-click="dodaj(add.id)"> Dodaj </button></p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="table-responsive">
+                            <table id="searchObjResults" class="table table-bordred table-striped">
+
+                                <thead>
+                                    <tr>
+                                        <th>id</th>
+                                        <th>Ime</th>
+                                        <th>Prezime</th>
+                                        <th>Prihvati</th>
+                                        <th>Odbaci</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr ng-repeat="accept in acceptPeople">
+                                        <td>{{ accept.id }}</td>
+                                        <td>{{ accept.name }}</td>
+                                        <td>{{ accept.surname }}</td>
+                                        <td>
+                                            <button class="btn btn-primary btn-xs" data-title="Prihvati" data-toggle="modal" ng-click="prihvati(accept.id)"> Prihvati </button>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-primary btn-xs" data-title="Odbaci" data-toggle="modal" ng-click="odbaci(accept.id)"> Odbaci </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
         </div>
+    </div>

@@ -1,4 +1,4 @@
- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
 
 <div class="container">
     <nav class="navbar navbar-default" role="navigation">
@@ -8,10 +8,10 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#/guest/restaurants-page"><span class="glyphicon glyphicon-home"></span>Restorani</a></li>
-              <li class="active"><a href="#/guest/friends-page"><span class="glyphicon glyphicon-list-alt"></span>Prijatelji</a></li>
-              <li class="active"><a href="#/guest/profile-page"><span class="glyphicon glyphicon-list-alt"></span>Moj nalog</a></li>
-              <li class="active"><a href="#/guest/myReservations-page"><span class="glyphicon glyphicon-list-alt"></span>Moj rezrvacijee</a></li>
-          </ul>
+                <li class="active"><a href="#/guest/friends-page"><span class="glyphicon glyphicon-list-alt"></span>Prijatelji</a></li>
+                <li class="active"><a href="#/guest/profile-page"><span class="glyphicon glyphicon-list-alt"></span>Moj nalog</a></li>
+                <li class="active"><a href="#/guest/myReservations-page"><span class="glyphicon glyphicon-list-alt"></span>Moj rezervacije</a></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <button ng-click="logoff()"> Log out </button>
             </ul>
@@ -21,7 +21,7 @@
     <div>
 
         <div>
-            <strong>Restoran:</strong><span>{{reserve1Page.restaurantName}}</span>
+            <strong>Restoran:</strong><span>{{ reserve1Page.restaurantName}}</span>
             <br>
             <strong>Datum i vreme:</strong>
             <!-- 
@@ -60,9 +60,8 @@
                     <label class="col-sm-2 control-label">Time</label>
                     <div class="col-sm-10">
                         <p class="input-group">
-                            <input type="text" class="form-control" datetime-picker="HH:mm" ng-model="picker2.date" is-open="picker2.open"
-                                enable-date="false" timepicker-options="picker2.timepickerOptions" close-on-selection="true"
-                            />
+                            <input type="text" class="form-control" datetime-picker="HH:mm" ng-model="picker2.date" is-open="picker2.open" enable-date="false"
+                                timepicker-options="picker2.timepickerOptions" close-on-selection="true" />
                             <span class="input-group-btn">
                   <button type="button" class="btn btn-default" ng-click="openCalendar($event, 'picker2')"><i class="fa fa-clock-o"></i></button>
               </span>
