@@ -6,6 +6,7 @@ public class GuestOrderDTO {
 	private long menuItemId;
 	private boolean bePrepared;
 
+
 	public void setMenuItemName(String name) {
 		this.menuItemName = name;;
 		

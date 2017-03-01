@@ -1,5 +1,7 @@
 package e2.isa.grupa5.rest.dto.guest;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -10,9 +12,30 @@ import java.util.List;
 public class ReservationDetailsDTO {
 
 	private boolean confirmed;
-	private List<GuestOrderDTO> guestOrders;
-	private List<GuestOrderDTO> allOrders;
+	private List<GuestOrderDTO> guestOrders = new ArrayList<>();
+	private List<GuestOrderDTO> allOrders = new ArrayList<>();
 	private boolean success;
+	private Date terminOd;
+	
+	private long guestId;
+	
+	
+
+	public long getGuestId() {
+		return guestId;
+	}
+
+	public void setGuestId(long guestId) {
+		this.guestId = guestId;
+	}
+
+	public Date getTerminOd() {
+		return terminOd;
+	}
+
+	public void setTerminOd(Date terminOd) {
+		this.terminOd = terminOd;
+	}
 
 	public void setConfirmed(boolean confirmed) {
 		this.confirmed = confirmed;

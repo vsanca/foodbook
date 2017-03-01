@@ -1,4 +1,4 @@
-package e2.isa.grupa5.repository.guest;
+package e2.isa.grupa5.repository.reservation;
 
 import java.util.List;
 
@@ -13,6 +13,8 @@ import e2.isa.grupa5.model.users.Guest;
 public interface GuestReservationOrderRepository extends JpaRepository<GuestReservationOrder, Long> {
 	
 	List<GuestReservationOrder> findByReservationAndGuest(Reservation reservation, Guest guest);
+
+	List<GuestReservationOrder> findByReservation(Reservation reservation);
 	
 }
 

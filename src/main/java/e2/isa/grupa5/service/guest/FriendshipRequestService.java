@@ -22,7 +22,7 @@ public class FriendshipRequestService {
 
 		public List<FriendshipRequest> findSentFriendshipRequests(Long id) {
 			Guest guest = guestRepository.findOne(id);
-			return friendshipRepository.findByFrom(guest);
+			return friendshipRepository.findByFromGuest(guest);
 		}
 
 		public FriendshipRequest sendFriendshipRequest(Long fromId, Long toId) {

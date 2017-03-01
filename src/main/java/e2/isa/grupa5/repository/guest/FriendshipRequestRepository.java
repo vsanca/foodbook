@@ -9,8 +9,8 @@ import e2.isa.grupa5.model.users.Guest;
 
 public interface FriendshipRequestRepository extends JpaRepository<FriendshipRequest, Long> {
 
-	List<FriendshipRequest> findByFrom(Guest from);
+	List<FriendshipRequest> findByFromGuest(Guest from);
 	FriendshipRequest findById(Long id);
-	List<FriendshipRequest> findByTo(Guest to);
+	List<FriendshipRequest> findByToGuest(Guest to);
 
 }

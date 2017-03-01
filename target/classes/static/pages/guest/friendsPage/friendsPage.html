@@ -1,80 +1,116 @@
 <div class="container">
-  <nav class="navbar navbar-default" role="navigation">
-      <!-- Brand and toggle get grouped for better mobile display -->
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-              <li class="active"><a href="#/guest/restaurants-page"><span class="glyphicon glyphicon-home"></span>Restorani</a></li>
-              <li class="active"><a href="#/guest/friends-page"><span class="glyphicon glyphicon-list-alt"></span>Prijatelji</a></li>
-              <li class="active"><a href="#/guest/profile-page"><span class="glyphicon glyphicon-list-alt"></span>Moj nalog</a></li>
-          </ul>
-           <ul class="nav navbar-nav navbar-right">
-            <button ng-click="logoff()"> Log out </button>
-          </ul>
-      </div>
-      <!-- /.navbar-collapse -->
-  </nav>
-<div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#/guest/restaurants-page"><span class="glyphicon glyphicon-home"></span>Restorani</a></li>
+                <li class="active"><a href="#/guest/friends-page"><span class="glyphicon glyphicon-list-alt"></span>Prijatelji</a></li>
+                <li class="active"><a href="#/guest/profile-page"><span class="glyphicon glyphicon-list-alt"></span>Moj nalog</a></li>
+                <li class="active"><a href="#/guest/myReservations-page"><span class="glyphicon glyphicon-list-alt"></span>Moj rezrvacijee</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <button ng-click="logoff()"> Log out </button>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+    <div>
 
-<div>
-    <table border="1">
-        <tr>
-            <th>Ime i prezime</th>
-            <th>Poseta</th>
-        </tr>
-        <tr ng-repeat="friend in friendsPage">
-            <td>{{ friend.nameAndSurname }}</td>
-            <td>{{ friend.numberOfVisits }}</td>
-        </tr>
-    </table>
+        <div>
+            <table border="1">
+                <tr>
+                    <th>Ime i prezime</th>
+                    <th>Poseta</th>
+                </tr>
+                <tr ng-repeat="friend in friendsPage">
+                    <td>{{ friend.nameAndSurname }}</td>
+                    <td>{{ friend.numberOfVisits }}</td>
+                </tr>
+            </table>
 
-    <hr>
+            <hr>
 
 
-    <div id="custom-search-input" style="display:inline-block">
-                            <div class="input-group col-md-2">
-                                <input type="text" ng-model="search.$" class=" search-query form-control" placeholder="Bilo šta" />
-                                <span class="input-group-btn">
+            <div id="custom-search-input" style="display:inline-block">
+                <div class="input-group col-md-2">
+                    <input type="text" ng-model="search.$" class=" search-query form-control" placeholder="Bilo šta" />
+                    <span class="input-group-btn">
                                     <button class="btn btn-danger" type="button">
                                         <span class=" glyphicon glyphicon-search"></span>
-                                    </button>
-                                </span>
-                            </div>
-    </div>
-    
-    <div id="custom-search-input" style="display:inline-block">
-                            <div class="input-group col-md-2">
-                                <input type="text" ng-model="search.nameAndSurname" class=" search-query form-control" placeholder="Samo ime i prezime" />
-                                <span class="input-group-btn">
+                    </button>
+                    </span>
+                </div>
+            </div>
+
+            <div id="custom-search-input" style="display:inline-block">
+                <div class="input-group col-md-2">
+                    <input type="text" ng-model="search.nameAndSurname" class=" search-query form-control" placeholder="Samo ime i prezime" />
+                    <span class="input-group-btn">
                                     <button class="btn btn-danger" type="button">
                                         <span class=" glyphicon glyphicon-search"></span>
-                                    </button>
-                                </span>
-                            </div>
-    </div>
+                    </button>
+                    </span>
+                </div>
+            </div>
 
-    <div id="custom-search-input" style="display:inline-block">
-                            <div class="input-group col-md-2">
-                                <input type="text" ng-model="search.numberOfVisits" class=" search-query form-control" placeholder="Samo broj poseta" />
-                                <span class="input-group-btn">
+            <div id="custom-search-input" style="display:inline-block">
+                <div class="input-group col-md-2">
+                    <input type="text" ng-model="search.numberOfVisits" class=" search-query form-control" placeholder="Samo broj poseta" />
+                    <span class="input-group-btn">
                                     <button class="btn btn-danger" type="button">
                                         <span class=" glyphicon glyphicon-search"></span>
-                                    </button>
-                                </span>
-                            </div>
-    </div>
- 
-    <table id="searchObjResults" border="1">
-    <tr>
-            <th>Ime i prezime</th>
-            <th>Poseta</th>
-    </tr>
-    <tr ng-repeat="friendObj in friendsPage | filter:search">
-        <td>{{ friendObj.nameAndSurname }}</td>
-        <td>{{ friendObj.numberOfVisits }}</td>
-    </tr>
-    </table>
+                    </button>
+                    </span>
+                </div>
+            </div>
 
-    
-</div>
+            <table id="searchObjResults" border="1">
+                <tr>
+                    <th>Ime i prezime</th>
+                    <th>Poseta</th>
+                </tr>
+                <tr ng-repeat="friendObj in friendsPage | filter:search">
+                    <td>{{ friendObj.nameAndSurname }}</td>
+                    <td>{{ friendObj.numberOfVisits }}</td>
+                </tr>
+            </table>
+
+
+            <table border="1">
+                <tr>
+                    <th>id</th>
+                    <th>Ime</th>
+                    <th>Prezime</th>
+                    <th>Dodaj</th>
+                </tr>
+                <tr ng-repeat="add in addPeople">
+                    <td>{{ add.id }}</td>
+                    <td>{{ add.name }}</td>
+                    <td>{{ add.surname }}</td>
+                    <td><button ng-click="dodaj(add.id)"> Dodaj </button></td>
+                </tr>
+            </table>
+
+
+            <table border="1">
+                <tr>
+                    <th>id</th>
+                    <th>Ime</th>
+                    <th>Prezime</th>
+                    <th>Prihvati</th>
+                    <th>Odbaci</th>
+                </tr>
+                <tr ng-repeat="accept in acceptPeople">
+                    <td>{{ accept.id }}</td>
+                    <td>{{ accept.name }}</td>
+                    <td>{{ accept.surname }}</td>
+                    <td><button ng-click="prihvati(accept.id)"> Prihvati </button></td>
+                    <td><button ng-click="odbaci(accept.id)"> Odbaci </button></td>
+                </tr>
+            </table>
+
+
+
+        </div>

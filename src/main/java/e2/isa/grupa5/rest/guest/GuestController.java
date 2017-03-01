@@ -17,13 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import e2.isa.grupa5.model.grade.Grade;
 import e2.isa.grupa5.model.grade.GradeDTO;
-import e2.isa.grupa5.model.reservation.Reservation;
 import e2.isa.grupa5.model.users.Guest;
 import e2.isa.grupa5.model.users.User;
 import e2.isa.grupa5.repository.grade.GradeRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
+import e2.isa.grupa5.rest.dto.guest.AcceptPeopleDTO;
+import e2.isa.grupa5.rest.dto.guest.AddPeopleDTO;
 import e2.isa.grupa5.rest.dto.guest.CreateNewReservationDTO;
 import e2.isa.grupa5.rest.dto.guest.FriendsPageDTO;
+import e2.isa.grupa5.rest.dto.guest.GuestOrderDTO;
 import e2.isa.grupa5.rest.dto.guest.HomePageDTO;
 import e2.isa.grupa5.rest.dto.guest.ProfilePageDTO;
 import e2.isa.grupa5.rest.dto.guest.ReservationDTO;
@@ -199,8 +201,8 @@ public class GuestController {
 
 	}
 	
-	
-	
+	///////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Any authenticated user can access profile-page-info
 	 * 
@@ -209,12 +211,172 @@ public class GuestController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/get-reservation-details/{guest-id}/{reservation-id}")
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<?> getGuestReservations(@PathVariable(value = "guest-id") Long guestId, @PathVariable(value = "reservation-id") Long reservationId) {
+	public ResponseEntity<?> getGuestReservationDetails(@PathVariable(value = "guest-id") Long guestId, @PathVariable(value = "reservation-id") Long reservationId) {
 		ReservationDetailsDTO reservation = guestService.getReservationDetails(guestId, reservationId);
 
 		return new ResponseEntity<>(reservation, HttpStatus.OK);
 
 	}
+	
+	/**
+	 * 
+	 * @param guestId
+	 * @param reservationId
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/cancel-attendance/{guest-id}/{reservation-id}")
+	@Transactional
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<?> cancelAttendance(@PathVariable(value = "guest-id") Long guestId, @PathVariable(value = "reservation-id") Long reservationId) {
+		ReservationDetailsDTO reservation = guestService.cancelAttendance(guestId, reservationId);
+
+		return new ResponseEntity<>(reservation, HttpStatus.OK);
+
+	}
+	
+	
+	/**
+	 * 
+	 * @param guestId
+	 * @param reservationId
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/confirm-attendance/{guest-id}/{reservation-id}")
+	@Transactional
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<?> confirmAttendance(@PathVariable(value = "guest-id") Long guestId, @PathVariable(value = "reservation-id") Long reservationId) {
+		ReservationDetailsDTO reservation = guestService.confirmAttendance(guestId, reservationId);
+
+		return new ResponseEntity<>(reservation, HttpStatus.OK);
+
+	}
+	
+	/**
+	 * 
+	 * @param guestId
+	 * @param reservationId
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/cancel-reservation/{guest-id}/{reservation-id}")
+	@Transactional
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<?> cancelReservation(@PathVariable(value = "guest-id") Long guestId, @PathVariable(value = "reservation-id") Long reservationId) {
+		ReservationDetailsDTO reservation = guestService.cancelReservation(guestId, reservationId);
+
+		return new ResponseEntity<>(reservation, HttpStatus.OK);
+
+	}
+	
+	
+	/**
+	 * 
+	 * @param guestId
+	 * @param reservationId
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.POST, value = "/update-reservation-orders/{guest-id}/{reservation-id}", consumes = MediaType.APPLICATION_JSON)
+	@Transactional
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<?> updateReservationOrders(@PathVariable(value = "guest-id") Long guestId, 
+			@PathVariable(value = "reservation-id") Long reservationId,
+			@RequestBody List<GuestOrderDTO> dto
+			) {
+		ReservationDetailsDTO reservation = guestService.updateReservationOrders(guestId, reservationId, dto);
+
+		return new ResponseEntity<>(reservation, HttpStatus.OK);
+
+	}
+	///////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////
+
+	@RequestMapping(value = "/create-new-reservation", method = RequestMethod.POST)
+	@Transactional
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity createNewReservation(@RequestBody CreateNewReservationDTO dto) {
+		CreateNewReservationDTO responseDto = guestService.createNewReservation(dto);
+		
+		return new ResponseEntity<>(responseDto, HttpStatus.OK);
+
+
+	}
+	
+		/**
+	 * Any authenticated user can access profile-page-info
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/add-people/{guest-id}")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<?> addPeople(@PathVariable(value = "guest-id") Long id) {
+		List<AddPeopleDTO> add = guestService.addPeople(id);
+
+		return new ResponseEntity<>(add, HttpStatus.OK);
+
+	}
+	
+	/**
+	 * Any authenticated user can access profile-page-info
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/send-friendship-request/{friend-id}/{guest-id}")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<?> sendFriendshipRequest(@PathVariable(value = "friend-id") Long friendId, @PathVariable(value = "guest-id") Long guestId) {
+		guestService.sendFriendshipRequest(friendId, guestId);
+
+		return new ResponseEntity<>(HttpStatus.OK);
+
+	}
+	
+	
+	/**
+	 * Any authenticated user can access profile-page-info
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/accept-people/{guest-id}")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<?> acceptPeople(@PathVariable(value = "guest-id") Long id) {
+		List<AcceptPeopleDTO> requests = guestService.acceptPeople(id);
+
+		return new ResponseEntity<>(requests, HttpStatus.OK);
+
+	}
+	
+	
+	/**
+	 * Any authenticated user can access profile-page-info
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/accept-friendship-request/{friend-id}/{guest-id}")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<?> acceptFriendshipRequest(@PathVariable(value = "friend-id") Long friendId, @PathVariable(value = "guest-id") Long guestId) {
+		guestService.acceptFriendshipRequest(friendId, guestId);
+
+		return new ResponseEntity<>(HttpStatus.OK);
+
+	}
+	
+	/**
+	 * Any authenticated user can access profile-page-info
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/reject-friendship-request/{friend-id}/{guest-id}")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<?> rejectFriendshipRequest(@PathVariable(value = "friend-id") Long friendId, @PathVariable(value = "guest-id") Long guestId) {
+		guestService.rejectFriendshipRequest(friendId, guestId);
+
+		return new ResponseEntity<>(HttpStatus.OK);
+
+	}
+	
 	/**
 	 * Rating reservation
 	 * 
@@ -242,16 +404,7 @@ public class GuestController {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 	}
-
-	@RequestMapping(value = "/create-new-reservation", method = RequestMethod.POST)
-	@Transactional
-	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity createNewReservation(@RequestBody CreateNewReservationDTO dto) {
-		CreateNewReservationDTO responseDto = guestService.createNewReservation(dto);
-		
-		return new ResponseEntity<>(responseDto, HttpStatus.OK);
-
-
-	}
+	
+	
 
 }
