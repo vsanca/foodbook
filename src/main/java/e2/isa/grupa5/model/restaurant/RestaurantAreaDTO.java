@@ -1,5 +1,6 @@
 package e2.isa.grupa5.model.restaurant;
 
+import java.io.Serializable;
 
 /**
  * {@link RestaurantArea} for use in communication (DTO).
@@ -11,7 +12,7 @@ package e2.isa.grupa5.model.restaurant;
  * @author Viktor
  *
  */
-public class RestaurantAreaDTO {
+public class RestaurantAreaDTO implements Serializable{
 	
 	private long restaurantManagerId;
 	private String name;

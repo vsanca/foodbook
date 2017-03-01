@@ -1,6 +1,8 @@
 package e2.isa.grupa5.model.restaurant;
 
-public class ReportObjectDTO {
+import java.io.Serializable;
+
+public class ReportObjectDTO implements Serializable {
 	
 	private String name;
 	private int value;

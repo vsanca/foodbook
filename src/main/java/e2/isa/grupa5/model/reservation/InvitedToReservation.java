@@ -2,6 +2,8 @@ package e2.isa.grupa5.model.reservation;
 
 import e2.isa.grupa5.model.users.Guest;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,18 +12,22 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="InvitedToReservation")
-public class InvitedToReservation {
+public class InvitedToReservation implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="invited_to_reservation_id")
 	private Long id;
 	
+	@JsonIgnore
 	@ManyToOne
 	private Guest guest;
 	
+	@JsonIgnore
 	@ManyToOne
 	private Reservation reservation; 
 	

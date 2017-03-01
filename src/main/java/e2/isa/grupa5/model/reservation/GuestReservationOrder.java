@@ -1,5 +1,7 @@
 package e2.isa.grupa5.model.reservation;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import e2.isa.grupa5.model.restaurant.MenuItem;
 import e2.isa.grupa5.model.users.Chef;
@@ -21,25 +24,30 @@ import e2.isa.grupa5.model.users.Waiter;
  *
  */
 @Entity
-public class GuestReservationOrder {
+public class GuestReservationOrder implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private Long id;
 	
+	@JsonIgnore
 	@ManyToOne
 	Reservation reservation;
 	
+	@JsonIgnore
 	@ManyToOne
 	MenuItem item;
 	
+	@JsonIgnore
 	@ManyToOne
 	Guest guest;
 	
+	@JsonIgnore
 	@ManyToOne
 	Waiter waiter;
 	
+	@JsonIgnore
 	@ManyToOne
 	Chef chef;
 	

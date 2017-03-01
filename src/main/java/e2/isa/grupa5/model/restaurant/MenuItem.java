@@ -1,6 +1,8 @@
 package e2.isa.grupa5.model.restaurant;
 
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "menu_item")
-public class MenuItem {
+public class MenuItem implements Serializable {
 
 	@Id
 	@GeneratedValue
@@ -33,6 +35,7 @@ public class MenuItem {
 	@Column(name = "price", nullable = false)
 	private double price;
 	
+	@JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "item_id", nullable = false)
     private Item item;

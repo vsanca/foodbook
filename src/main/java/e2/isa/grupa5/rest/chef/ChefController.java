@@ -207,10 +207,12 @@ public class ChefController {
        List<GuestReservationOrder> myOrders = guestReservationOrderService.forChefReturnAllUnfinishedOrders(ch);
         
        if(myOrders == null){
+    	   System.out.println("Propo123");
     	   return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     	   
        }
        else{
+    	   System.out.println("DOBARRR 123");
     	   return new ResponseEntity<>(myOrders, HttpStatus.OK);
        }
         
@@ -224,17 +226,25 @@ public class ChefController {
         
     	System.out.println("USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
 		
-       List<MenuItem> myOrders = menuItemRepository.findAll();
-        
+       List<GuestReservationOrder> myOrders = guestReservationOrderRepository.findAll();
        if(myOrders == null){
-    	   System.out.println("Propo");
-    	   return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    	   
+    	   System.out.println("NULLLLLLLLLLLLLLLLLl");
        }
-       else{
-    	   System.out.println("DOBARRR");
-    	   return new ResponseEntity<>(myOrders, HttpStatus.OK);
+       for(GuestReservationOrder g : myOrders){
+    	   System.out.println("-------------------------------------");
+    	   System.out.println("ID: " +g.getId());
+    	   System.out.println("-------------------------------------");
+    	   System.out.println("-------------------------------------");
+    	   System.out.println("ID: " +g.getItem().getPrice());
+    	   System.out.println("-------------------------------------");
+    	   System.out.println("-------------------------------------");
+    	   System.out.println("ID: " +g.getItem().getItem().getName());
+    	   System.out.println("-------------------------------------");
        }
+       
+       System.out.println("DOBARRR");
+	   return new ResponseEntity<>(myOrders, HttpStatus.OK);
+       
         
         
     }

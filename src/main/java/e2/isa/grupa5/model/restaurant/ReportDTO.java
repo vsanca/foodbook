@@ -1,5 +1,6 @@
 package e2.isa.grupa5.model.restaurant;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * @author Viktor
  *
  */
-public class ReportDTO {
+public class ReportDTO implements Serializable{
 	
 	private Date start_interval;
 	private Date end_interval;
