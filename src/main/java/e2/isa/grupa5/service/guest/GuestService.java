@@ -14,19 +14,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import e2.isa.grupa5.repository.guest.FriendshipRequestRepository;
-import e2.isa.grupa5.rest.dto.guest.AddPeopleDTO;
-import e2.isa.grupa5.rest.dto.guest.SendFriendshipRequestDTO;
-import e2.isa.grupa5.model.friends.FriendshipRequest;
-
-
-
 
 import com.google.maps.DistanceMatrixApi;
 import com.google.maps.GeoApiContext;
 import com.google.maps.model.DistanceMatrix;
 import com.google.maps.model.DistanceMatrixRow;
 
+import e2.isa.grupa5.model.friends.FriendshipRequest;
 import e2.isa.grupa5.model.grade.Grade;
 import e2.isa.grupa5.model.reservation.GuestReservationOrder;
 import e2.isa.grupa5.model.reservation.InvitedToReservation;
@@ -40,6 +34,7 @@ import e2.isa.grupa5.model.users.Guest;
 import e2.isa.grupa5.model.users.User;
 import e2.isa.grupa5.model.users.UserRoles;
 import e2.isa.grupa5.repository.grade.GradeRepository;
+import e2.isa.grupa5.repository.guest.FriendshipRequestRepository;
 import e2.isa.grupa5.repository.guest.GuestRepository;
 import e2.isa.grupa5.repository.reservation.GuestReservationOrderRepository;
 import e2.isa.grupa5.repository.reservation.InvitedToReservationRepository;
@@ -49,6 +44,8 @@ import e2.isa.grupa5.repository.restaurant.MenuItemRepository;
 import e2.isa.grupa5.repository.restaurant.MenuRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantTableRepository;
+import e2.isa.grupa5.rest.dto.guest.AcceptPeopleDTO;
+import e2.isa.grupa5.rest.dto.guest.AddPeopleDTO;
 import e2.isa.grupa5.rest.dto.guest.CreateNewReservationDTO;
 import e2.isa.grupa5.rest.dto.guest.DistanceDTO;
 import e2.isa.grupa5.rest.dto.guest.FriendsPageDTO;
@@ -679,28 +676,62 @@ public class GuestService {
 		// datog korisnika, ALI NISU CONFIRMED!!!! !isConfirned()
 	}
 
-	public List<FriendshipRequest> acceptPeople(Long id) {
+	public List<AcceptPeopleDTO> acceptPeople(Long id) {
 		Guest guest = guestRepository.findOne(id); 
 		List<FriendshipRequest> requests = friendshipRequestRepository.findByToGuest(guest); 
-		List<FriendshipRequest> dto = new ArrayList<>(); 
+		List<AcceptPeopleDTO> acceptPeopleDTO = new ArrayList<>(); 
 		for(FriendshipRequest request : requests) {
 			if(!request.isConfirmed()) {
-				dto.add(request); 
+				AcceptPeopleDTO dto = new AcceptPeopleDTO();
+				dto.setId(request.getFrom().getId());
+				dto.setConfirmed(false);
+				dto.setName(request.getFrom().getName());
+				dto.setSurname(request.getFrom().getSurname());
+				if(!contains(acceptPeopleDTO, dto)) {
+					acceptPeopleDTO.add(dto);
+				}
+				 
 			}
 		}
-		return dto;
+		return acceptPeopleDTO;
 	}
 
-	public void acceptFriendshipRequest(Long id) {
-		FriendshipRequest request = friendshipRequestRepository.findOne(id); 
-		request.setConfirmed(true);
-		friendshipRequestRepository.save(request); 
-		Guest guest = guestRepository.findOne(request.getTo().getId()); 
-		Guest friend = guestRepository.findOne(request.getFrom().getId()); 
-		guest.getFriends().add(friend); 
-		friend.getFriends().add(guest); 
-		guestRepository.save(guest); 
-		guestRepository.save(friend); 
+	private boolean contains(List<AcceptPeopleDTO> acceptPeopleDTO, AcceptPeopleDTO dto) {
+		for(AcceptPeopleDTO accept : acceptPeopleDTO) {
+			if(accept.getId() == dto.getId()) {
+				return true; 
+			}
+		}
+		return false;
 	}
 
+	public void acceptFriendshipRequest(Long friendId, Long guestId) {
+		Guest guest = guestRepository.findOne(guestId); 
+		Guest friend = guestRepository.findOne(friendId); 
+		List<FriendshipRequest> invited = friendshipRequestRepository.findByFromGuest(friend); 
+		
+		for(FriendshipRequest i : invited) {
+			if(i.getTo().getId() == guest.getId()) {
+				i.setConfirmed(true);
+				friendshipRequestRepository.save(i); 
+				guest.getFriends().add(friend); 
+				friend.getFriends().add(guest); 
+				guestRepository.save(guest); 
+				guestRepository.save(friend); 
+			}
+		}		
+	}
+
+	public void rejectFriendshipRequest(Long friendId, Long guestId) {
+		Guest guest = guestRepository.findOne(guestId); 
+		Guest friend = guestRepository.findOne(friendId); 
+		List<FriendshipRequest> invited = friendshipRequestRepository.findByFromGuest(friend); 
+		
+		for(FriendshipRequest i : invited) {
+			if(i.getTo().getId() == guest.getId()) {
+				i.setConfirmed(false);
+				friendshipRequestRepository.delete(i); 
+			}
+		}		
+	}
 }

@@ -31,9 +31,9 @@
             confirmAttendance: confirmAttendance,
             cancelAttendance: cancelAttendance,
             updateReservationOrders: updateReservationOrders,
-			addPeople: addPeople,
+            addPeople: addPeople,
             acceptPeople: acceptPeople,
-            acceptFriendshipRequest: acceptFriendshipRequest, 
+            acceptFriendshipRequest: acceptFriendshipRequest,
             sendFriendshipRequest: sendFriendshipRequest
 
         };
@@ -209,9 +209,9 @@
         }
 
         function getReservationDetails(id) {
-             return $http({
+            return $http({
                 method: 'GET',
-                url: '/rest/guest/get-reservation-details/'+ sessionService.getUserInfo().userId + '/' + id,
+                url: '/rest/guest/get-reservation-details/' + sessionService.getUserInfo().userId + '/' + id,
                 headers: {
                     'Authorization': sessionService.getAuthToken()
 
@@ -220,9 +220,9 @@
         }
 
         function cancelReservation(id) {
-             return $http({
+            return $http({
                 method: 'GET',
-                url: '/rest/guest/cancel-reservation/'+ sessionService.getUserInfo().userId + '/' + id,
+                url: '/rest/guest/cancel-reservation/' + sessionService.getUserInfo().userId + '/' + id,
                 headers: {
                     'Authorization': sessionService.getAuthToken()
 
@@ -230,11 +230,11 @@
             });
         }
 
-        
+
         function confirmAttendance(id) {
-             return $http({
+            return $http({
                 method: 'GET',
-                url: '/rest/guest/confirm-attendance/'+ sessionService.getUserInfo().userId + '/' + id,
+                url: '/rest/guest/confirm-attendance/' + sessionService.getUserInfo().userId + '/' + id,
                 headers: {
                     'Authorization': sessionService.getAuthToken()
 
@@ -243,9 +243,9 @@
         }
 
         function cancelAttendance(id) {
-             return $http({
+            return $http({
                 method: 'GET',
-                url: '/rest/guest/cancel-attendance/'+ sessionService.getUserInfo().userId + '/' + id,
+                url: '/rest/guest/cancel-attendance/' + sessionService.getUserInfo().userId + '/' + id,
                 headers: {
                     'Authorization': sessionService.getAuthToken()
                 }
@@ -253,10 +253,10 @@
         }
 
         function updateReservationOrders(id, guestOrders) {
-             return $http({
+            return $http({
                 method: 'POST',
                 data: guestOrders,
-                url: '/rest/guest/update-reservation-orders/'+ sessionService.getUserInfo().userId + '/' + id,
+                url: '/rest/guest/update-reservation-orders/' + sessionService.getUserInfo().userId + '/' + id,
                 headers: {
                     'Authorization': sessionService.getAuthToken()
 
@@ -264,7 +264,7 @@
             });
         }
 
-        
+
         function addPeople(id) {
             return $http({
                 method: 'GET',
@@ -291,7 +291,7 @@
         function sendFriendshipRequest(id) {
             return $http({
                 method: 'GET',
-                url: '/rest/guest/send-friendship-request/' + sessionService.getUserInfo().userId + '/' + id,
+                url: '/rest/guest/send-friendship-request/' + id + '/' + sessionService.getUserInfo().userId,
                 headers: {
                     'Authorization': sessionService.getAuthToken()
 
@@ -302,7 +302,7 @@
         function acceptFriendshipRequest(id) {
             return $http({
                 method: 'GET',
-                url: '/rest/guest/accept-friendship-request/' + id,
+                url: '/rest/guest/accept-friendship-request/' + id + '/' + sessionService.getUserInfo().userId,
                 headers: {
                     'Authorization': sessionService.getAuthToken()
 
@@ -310,6 +310,18 @@
             });
         }
 
+
+
+        function rejectFriendshipRequest(id) {
+            return $http({
+                method: 'GET',
+                url: '/rest/guest/reject-friendship-request/' + id + '/' + sessionService.getUserInfo().userId,
+                headers: {
+                    'Authorization': sessionService.getAuthToken()
+
+                }
+            });
+        }
 
     }
 

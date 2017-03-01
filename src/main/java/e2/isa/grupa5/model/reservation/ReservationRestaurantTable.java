@@ -22,7 +22,7 @@ public class ReservationRestaurantTable {
 	
 
 	@OneToOne
-	RestaurantTable table;
+	RestaurantTable myTable;
 
 	public Long getId() {
 		return id;
@@ -41,11 +41,11 @@ public class ReservationRestaurantTable {
 	}
 
 	public RestaurantTable getTable() {
-		return table;
+		return myTable;
 	}
 
 	public void setTable(RestaurantTable table) {
-		this.table = table;
+		this.myTable = table;
 	}
 	
 	

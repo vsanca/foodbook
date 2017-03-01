@@ -2,7 +2,6 @@ package e2.isa.grupa5.rest.guest;
 
 import java.util.List;
 
-import javax.print.attribute.standard.Media;
 import javax.transaction.Transactional;
 import javax.ws.rs.core.MediaType;
 
@@ -18,11 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import e2.isa.grupa5.model.grade.Grade;
 import e2.isa.grupa5.model.grade.GradeDTO;
-import e2.isa.grupa5.model.reservation.Reservation;
 import e2.isa.grupa5.model.users.Guest;
 import e2.isa.grupa5.model.users.User;
 import e2.isa.grupa5.repository.grade.GradeRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
+import e2.isa.grupa5.rest.dto.guest.AcceptPeopleDTO;
+import e2.isa.grupa5.rest.dto.guest.AddPeopleDTO;
 import e2.isa.grupa5.rest.dto.guest.CreateNewReservationDTO;
 import e2.isa.grupa5.rest.dto.guest.FriendsPageDTO;
 import e2.isa.grupa5.rest.dto.guest.GuestOrderDTO;
@@ -37,9 +37,6 @@ import e2.isa.grupa5.service.UserService;
 import e2.isa.grupa5.service.grade.GradeService;
 import e2.isa.grupa5.service.guest.GuestService;
 import e2.isa.grupa5.service.restaurant.RestaurantTableService;
-import e2.isa.grupa5.model.friends.FriendshipRequest;
-import e2.isa.grupa5.rest.dto.guest.AddPeopleDTO;
-import e2.isa.grupa5.rest.dto.guest.SendFriendshipRequestDTO;
 
 /**
  * Funkcionalnost 2.8 - ocenjivanje restorana
@@ -326,7 +323,7 @@ public class GuestController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/send-friendship-request/{friend-id}/{guest-id}")
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<?> addPeople(@PathVariable(value = "friend-id") Long friendId, @PathVariable(value = "guest-id") Long guestId) {
+	public ResponseEntity<?> sendFriendshipRequest(@PathVariable(value = "friend-id") Long friendId, @PathVariable(value = "guest-id") Long guestId) {
 		guestService.sendFriendshipRequest(friendId, guestId);
 
 		return new ResponseEntity<>(HttpStatus.OK);
@@ -343,7 +340,7 @@ public class GuestController {
 	@RequestMapping(method = RequestMethod.GET, value = "/accept-people/{guest-id}")
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<?> acceptPeople(@PathVariable(value = "guest-id") Long id) {
-		List<FriendshipRequest> requests = guestService.acceptPeople(id);
+		List<AcceptPeopleDTO> requests = guestService.acceptPeople(id);
 
 		return new ResponseEntity<>(requests, HttpStatus.OK);
 
@@ -356,10 +353,25 @@ public class GuestController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET, value = "/accept-friendship-request/{request-id}")
+	@RequestMapping(method = RequestMethod.GET, value = "/accept-friendship-request/{friend-id}/{guest-id}")
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<?> acceptFriendshipRequest(@PathVariable(value = "request-id") Long id) {
-		guestService.acceptFriendshipRequest(id);
+	public ResponseEntity<?> acceptFriendshipRequest(@PathVariable(value = "friend-id") Long friendId, @PathVariable(value = "guest-id") Long guestId) {
+		guestService.acceptFriendshipRequest(friendId, guestId);
+
+		return new ResponseEntity<>(HttpStatus.OK);
+
+	}
+	
+	/**
+	 * Any authenticated user can access profile-page-info
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/reject-friendship-request/{friend-id}/{guest-id}")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<?> rejectFriendshipRequest(@PathVariable(value = "friend-id") Long friendId, @PathVariable(value = "guest-id") Long guestId) {
+		guestService.rejectFriendshipRequest(friendId, guestId);
 
 		return new ResponseEntity<>(HttpStatus.OK);
 
@@ -392,6 +404,7 @@ public class GuestController {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 	}
-
+	
+	
 
 }
