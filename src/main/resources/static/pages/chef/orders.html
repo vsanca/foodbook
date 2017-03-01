@@ -29,10 +29,10 @@
 		
 			<table class="table table-striped" style="width:100%">
 			    
-			    <tr ng-repeat="o in myOrders" >
-			        <td style="width:100px; height:80px; vertical-align: middle">{{o.item}}</td>
-			        <!-- <td style="width:100px; height:80px"><img class="thumbnail" style="max-height: 80px; max-width: 80px; vertical-align: middle" ng-if="order.item.item.image_link" src="{{order.item.item.image_link}}"></td>
-			         --> <td style="width:100px; height:80px; vertical-align: middle"> <button ng-click="NEKA_FUNKCIJA()" class="btn btn-primary">Prihvati</button></td>
+			    <tr ng-repeat="o in myOrdersDTO" >
+			        <td style="width:100px; height:80px; vertical-align: middle">{{o.itemName}}</td>
+			         <td style="width:100px; height:80px"><img class="thumbnail" style="max-height: 80px; max-width: 80px; vertical-align: middle" ng-if="o.itemImgLink" src="{{o.itemImgLink}}"></td>
+			         <td style="width:100px; height:80px; vertical-align: middle"> <button ng-click="NEKA_FUNKCIJA()" class="btn btn-primary">Prihvati</button></td>
 			    </tr>
 			</table>
 			

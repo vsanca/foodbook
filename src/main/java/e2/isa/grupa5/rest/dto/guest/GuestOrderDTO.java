@@ -8,7 +8,7 @@ public class GuestOrderDTO {
 
 
 	public void setMenuItemName(String name) {
-		this.menuItemName = name;;
+		this.menuItemName = name;
 		
 	}
 

@@ -35,6 +35,7 @@ import e2.isa.grupa5.repository.reservation.GuestReservationOrderRepository;
 import e2.isa.grupa5.repository.reservation.ReservationRepository;
 import e2.isa.grupa5.repository.restaurant.MenuItemRepository;
 import e2.isa.grupa5.repository.shifts.ShiftChefRepository;
+import e2.isa.grupa5.rest.dto.guest.GuestReservationOrderDTO;
 import e2.isa.grupa5.service.chef.ChefService;
 import e2.isa.grupa5.service.reservation.GuestReservationOrderService;
 
@@ -228,22 +229,25 @@ public class ChefController {
 		
        List<GuestReservationOrder> myOrders = guestReservationOrderRepository.findAll();
        if(myOrders == null){
-    	   System.out.println("NULLLLLLLLLLLLLLLLLl");
-       }
-       for(GuestReservationOrder g : myOrders){
-    	   System.out.println("-------------------------------------");
-    	   System.out.println("ID: " +g.getId());
-    	   System.out.println("-------------------------------------");
-    	   System.out.println("-------------------------------------");
-    	   System.out.println("ID: " +g.getItem().getPrice());
-    	   System.out.println("-------------------------------------");
-    	   System.out.println("-------------------------------------");
-    	   System.out.println("ID: " +g.getItem().getItem().getName());
-    	   System.out.println("-------------------------------------");
+    	   return new ResponseEntity<>(myOrders, HttpStatus.NOT_FOUND);
        }
        
-       System.out.println("DOBARRR");
-	   return new ResponseEntity<>(myOrders, HttpStatus.OK);
+       List<GuestReservationOrderDTO> myOrdersDTO = new ArrayList<GuestReservationOrderDTO>();
+       if(!myOrders.isEmpty()){
+    	   for(GuestReservationOrder o : myOrders){
+    		   GuestReservationOrderDTO gDTO = new GuestReservationOrderDTO(o);
+    		   myOrdersDTO.add(gDTO);
+    	   }
+       }
+       if(!myOrdersDTO.isEmpty()){
+    	   System.out.println("USPESNO IZASAO");
+    	   return new ResponseEntity<>(myOrdersDTO, HttpStatus.OK);
+       }
+       else{
+    	   return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+       }
+       
+	   
        
         
         
