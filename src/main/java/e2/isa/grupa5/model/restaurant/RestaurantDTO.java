@@ -1,5 +1,6 @@
 package e2.isa.grupa5.model.restaurant;
 
+import java.io.Serializable;
 import java.util.List;
 
 import e2.isa.grupa5.model.grade.GradeDTO;
@@ -13,7 +14,7 @@ import e2.isa.grupa5.model.grade.GradeDTO;
  * @author Viktor
  *
  */
-public class RestaurantDTO {
+public class RestaurantDTO implements Serializable{
 	
 	private long id;
 	private String name;

@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import e2.isa.grupa5.model.reservation.GuestReservationOrder;
+import e2.isa.grupa5.model.reservation.Reservation;
+import e2.isa.grupa5.model.restaurant.MenuItem;
+import e2.isa.grupa5.model.restaurant.Restaurant;
 import e2.isa.grupa5.model.shifts.ShiftChef;
 import e2.isa.grupa5.model.shifts.ShiftChefDTO;
 import e2.isa.grupa5.model.shifts.ShiftWaiter;
@@ -27,8 +31,12 @@ import e2.isa.grupa5.model.users.ChefDTO;
 import e2.isa.grupa5.model.users.Waiter;
 import e2.isa.grupa5.model.users.WaiterDTO;
 import e2.isa.grupa5.repository.chef.ChefRepository;
+import e2.isa.grupa5.repository.reservation.GuestReservationOrderRepository;
+import e2.isa.grupa5.repository.reservation.ReservationRepository;
+import e2.isa.grupa5.repository.restaurant.MenuItemRepository;
 import e2.isa.grupa5.repository.shifts.ShiftChefRepository;
 import e2.isa.grupa5.service.chef.ChefService;
+import e2.isa.grupa5.service.reservation.GuestReservationOrderService;
 
 /**
  * 
@@ -51,6 +59,18 @@ public class ChefController {
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	ReservationRepository reservationRepository;
+	
+	@Autowired
+	GuestReservationOrderRepository guestReservationOrderRepository;
+	
+	@Autowired
+	GuestReservationOrderService guestReservationOrderService;
+	
+	@Autowired
+	MenuItemRepository menuItemRepository;
 	
 	
 	
@@ -175,6 +195,58 @@ public class ChefController {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity getChefShift(@PathVariable long id) {
         return new ResponseEntity<>(shiftChefRepository.findByChef_Id(id), HttpStatus.OK);
+    }
+    
+    
+    @RequestMapping(value = "/chef/allUnfinishedOders/{cId}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+    public ResponseEntity getAllUnfinishedOders(@PathVariable long cId) {
+        
+    	Chef ch = chefRepository.findById(cId);
+		
+       List<GuestReservationOrder> myOrders = guestReservationOrderService.forChefReturnAllUnfinishedOrders(ch);
+        
+       if(myOrders == null){
+    	   System.out.println("Propo123");
+    	   return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    	   
+       }
+       else{
+    	   System.out.println("DOBARRR 123");
+    	   return new ResponseEntity<>(myOrders, HttpStatus.OK);
+       }
+        
+        
+    }
+    
+    //test
+    @RequestMapping(value = "/chef/allUnfinishedOdersTEST/{cId}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+    public ResponseEntity getAllUnfinishedOdersTEST(@PathVariable long cId) {
+        
+    	System.out.println("USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+		
+       List<GuestReservationOrder> myOrders = guestReservationOrderRepository.findAll();
+       if(myOrders == null){
+    	   System.out.println("NULLLLLLLLLLLLLLLLLl");
+       }
+       for(GuestReservationOrder g : myOrders){
+    	   System.out.println("-------------------------------------");
+    	   System.out.println("ID: " +g.getId());
+    	   System.out.println("-------------------------------------");
+    	   System.out.println("-------------------------------------");
+    	   System.out.println("ID: " +g.getItem().getPrice());
+    	   System.out.println("-------------------------------------");
+    	   System.out.println("-------------------------------------");
+    	   System.out.println("ID: " +g.getItem().getItem().getName());
+    	   System.out.println("-------------------------------------");
+       }
+       
+       System.out.println("DOBARRR");
+	   return new ResponseEntity<>(myOrders, HttpStatus.OK);
+       
+        
+        
     }
 	
 	

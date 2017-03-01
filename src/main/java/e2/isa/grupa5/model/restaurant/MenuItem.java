@@ -1,6 +1,8 @@
 package e2.isa.grupa5.model.restaurant;
 
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,8 +39,6 @@ public class MenuItem {
     @JoinColumn(name = "item_id", nullable = false)
     private Item item;
 
-	
-	@JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id", nullable = false)
     private Menu menu;

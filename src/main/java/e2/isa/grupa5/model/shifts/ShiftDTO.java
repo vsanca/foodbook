@@ -1,5 +1,6 @@
 package e2.isa.grupa5.model.shifts;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Date;
  * @author Viktor
  *
  */
-public class ShiftDTO {
+public class ShiftDTO implements Serializable{
 
 	private long workerId;
 	private String workerType;

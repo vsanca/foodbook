@@ -1,5 +1,6 @@
 package e2.isa.grupa5.model.reservation;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +22,7 @@ import e2.isa.grupa5.model.users.Guest;
 
 @Entity
 @Table(name="Reservation")
-public class Reservation {
+public class Reservation implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -37,6 +38,7 @@ public class Reservation {
 	@Column(name="reservation_end")
 	private Date terminDo; 
 	
+	@JsonIgnore
 	@ManyToOne
 	private Guest guest;
 		
