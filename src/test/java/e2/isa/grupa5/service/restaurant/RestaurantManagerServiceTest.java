@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import e2.isa.grupa5.model.restaurant.Restaurant;
 import e2.isa.grupa5.model.users.RestaurantManager;
+import e2.isa.grupa5.model.users.RestaurantManagerDTO;
 import e2.isa.grupa5.repository.restaurant.RestaurantManagerRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantRepository;
 
@@ -30,7 +31,7 @@ public class RestaurantManagerServiceTest {
 	@Autowired
 	private RestaurantManagerRepository rmRepo;
 	
-	private long mId;
+	private long mId, rId;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -51,6 +52,7 @@ public class RestaurantManagerServiceTest {
 		r.setPhone("12345");
 		
 		r = rRepo.save(r);
+		rId = r.getId();
 		
 		RestaurantManager rm = new RestaurantManager();
 		rm.setActive(true);
@@ -87,12 +89,40 @@ public class RestaurantManagerServiceTest {
 
 	@Test
 	public void testCreate() {
-		fail("Not yet implemented");
+		
+		RestaurantManagerDTO rmDTO = new RestaurantManagerDTO();
+		rmDTO.setAddress("address1");
+		rmDTO.setEmail("email1");
+		rmDTO.setName("name1");
+		rmDTO.setPassword("password1");
+		rmDTO.setSurname("surname1");
+		rmDTO.setRestaurantId(rId);
+		
+		RestaurantManager rm = rmService.create(rmDTO);
+		
+		assertNotNull(rm);
+		assertEquals(rm.getName(), rmDTO.getName());
+		assertEquals(rm.getAddress(), rmDTO.getAddress());
 	}
 
 	@Test
 	public void testEdit() {
-		fail("Not yet implemented");
+		
+		RestaurantManagerDTO rmDTO = new RestaurantManagerDTO();
+		rmDTO.setAddress("address1");
+		rmDTO.setEmail("email");
+		rmDTO.setName("name1");
+		rmDTO.setPassword("password1");
+		rmDTO.setSurname("surname1");
+		rmDTO.setRestaurantId(rId);
+		rmDTO.setId(mId);
+		
+		RestaurantManager rm = rmService.edit(rmDTO);
+		
+		assertNotNull(rm);
+		assertEquals(rm.getName(), rmDTO.getName());
+		assertEquals(rm.getAddress(), rmDTO.getAddress());
+		
 	}
 
 }
