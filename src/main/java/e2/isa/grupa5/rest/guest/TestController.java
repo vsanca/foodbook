@@ -741,6 +741,35 @@ public class TestController {
 		order3.setAccepted(true);
 		guestReservationOrderRepository.save(order3);
 		
+		GuestReservationOrder order4 = new GuestReservationOrder();
+		order3.setReservation(rez1);
+		order3.setItem(mi4);
+		order3.setGuest(g);
+		order3.setWaiter(wt1);
+		order3.setChef(ch1);
+		order3.setCreated(false);
+		order3.setAccepted(true);
+		guestReservationOrderRepository.save(order4);
+		
+		GuestReservationOrder oder5 = new GuestReservationOrder();
+		oder5.setReservation(rez1);
+		oder5.setItem(mi5);
+		oder5.setGuest(g);
+		oder5.setWaiter(wt1);
+		oder5.setChef(ch1);
+		oder5.setCreated(false);
+		oder5.setAccepted(true);
+		guestReservationOrderRepository.save(oder5);
+		
+		GuestReservationOrder oder6 = new GuestReservationOrder();
+		oder6.setReservation(rez1);
+		oder6.setItem(mi6);
+		oder6.setGuest(g);
+		oder6.setWaiter(wt1);
+		oder6.setChef(ch1);
+		oder6.setCreated(false);
+		oder6.setAccepted(true);
+		guestReservationOrderRepository.save(oder6);
 		
 	
 		
