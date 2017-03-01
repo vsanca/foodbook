@@ -32,10 +32,14 @@ angular.module('foodbook').controller('sysmanagerHomeController', function($scop
 				{ headers: { 'Authorization': sessionService.getAuthToken() } })
 				.success(function (data) {
 					notifyService.showSuccess('Uspešno izmenjena lozinka.');
+					$scope.sysmanager.oldPassword = "";
+					$scope.sysmanager.newPassword = "";
 					$('#myModalPass').modal('hide');
 				})
 				.error(function() {
 					notifyService.showError('Greška prilikom izmene lozinke.');
+					$scope.sysmanager.oldPassword = "";
+					$scope.sysmanager.newPassword = "";
 					$('#myModalPass').modal('hide');
 				});
 	};

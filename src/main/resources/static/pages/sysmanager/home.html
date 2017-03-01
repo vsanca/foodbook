@@ -1,10 +1,10 @@
 <div class="container-fluid">
 
 <div class="row">
+<div class="col-md-3 col-lg-3 columns form"></div>
+<div class="col-md-6 col-lg-6 columns form">
 
-<div class="col-md-8 col-lg-8 columns form">
-
-    <form novalidate name="registerForm">
+    <form name="registerForm">
         
         <h4 class="text-center">Izmeni podatke</h4>
         
@@ -20,7 +20,7 @@
             <label for="inputSysManagerAddress">Adresa</label>
             <input type="text" required ng-model="sysmanager.address" id="inputSysManagerAddress" class="form-control">
         </div>
-        <p><a type="submit" class="btn btn-success btn-block" ng-click="modifySysManager()">Sačuvaj</a></p>
+        <p><a type="submit" class="btn btn-success btn-block" ng-disabled="!sysmanager.name || !sysmanager.surname || !sysmanager.address" ng-click="modifySysManager()">Sačuvaj</a></p>
         <p><a type="submit" class="btn btn-danger btn-block" ng-click="cancel()">Odustani</a></p>
         <p><a type="submit" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModalPass">Promeni Lozinku</a></p>
     </form>
@@ -42,7 +42,7 @@
       	<form>
           <div class="form-group">
             <label for="pswd" class="control-label">Trenutna lozinka</label>
-            <input type="password" class="form-control" ng-model="sysmanager.oldPassword" id="pswd">
+            <input type="password" class="form-control" ng-model="sysmanager.oldPassword" id="pswd" placeholder="**************">
           </div>
           <div class="npswd">
             <label for="message-text" class="control-label">Nova lozinka</label>
