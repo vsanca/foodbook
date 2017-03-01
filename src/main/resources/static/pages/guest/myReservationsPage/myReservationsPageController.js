@@ -39,7 +39,7 @@
     });
    
     $scope.openReservationDetails = function(id) {
-      $state.go('reservation.details/:reservationId', {reservationId: id}); 
+      $state.go('reservationDetails/:reservationId', {reservationId: id}); 
     };
 
   }

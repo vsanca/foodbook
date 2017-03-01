@@ -9,9 +9,9 @@
 
   angular.module('foodbook').controller('FriendsPageController', FriendsPageController);
 
-  FriendsPageController.$inject = ['$scope', '$state', '$location', 'sessionService', 'guestService', 'authenticationService'];
+  FriendsPageController.$inject = ['$scope', '$state', '$route', '$location', 'sessionService', 'guestService', 'authenticationService'];
 
-  function FriendsPageController($scope, $state, $location, sessionService, guestService, authenticationService) {
+  function FriendsPageController($scope, $state, $route, $location, sessionService, guestService, authenticationService) {
     $scope.userInfo = sessionService.getUserInfo();
 
     $scope.friendsPage = []; 
@@ -22,12 +22,44 @@
 
     });
 
+    guestService.addPeople($scope.userInfo.userId).then(function (response) {
+        $scope.addPeople = response.data; 
+    }, function (error) {
+
+    });
+
+    $scope.dodaj = function(id) {
+      guestService.sendFriendshipRequest(id).then(function (response) {
+        
+        alert("uspesno kreiran zahtev za prijateljstvo");
+       $route.reload(); 
+    }, function (error) {
+
+    });
+
+    };
+
+    guestService.acceptPeople($scope.userInfo.userId).then(function (response) {
+        $scope.acceptPeople = response.data; 
+    }, function (error) {
+
+    });
+
+    $scope.accept = function(id) {
+      guestService.acceptFriendshipRequest(id).then(function (response) {
+       
+        alert("uspesno prihvacen zahtev za prijateljstvo");
+        
+    }, function (error) {
+
+    });
+    }
     $scope.logoff = function() {
       alert("logoff called");
       authenticationService.logoff(); 
       $state.go('login'); 
     
-    }
+    };
 
    
   }

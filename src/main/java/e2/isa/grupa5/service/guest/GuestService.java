@@ -14,6 +14,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import e2.isa.grupa5.repository.guest.FriendshipRequestRepository;
+import e2.isa.grupa5.rest.dto.guest.AddPeopleDTO;
+import e2.isa.grupa5.rest.dto.guest.SendFriendshipRequestDTO;
+import e2.isa.grupa5.model.friends.FriendshipRequest;
+
+
+
 
 import com.google.maps.DistanceMatrixApi;
 import com.google.maps.GeoApiContext;
@@ -60,6 +67,10 @@ public class GuestService {
 
 	@Autowired
 	private GuestRepository guestRepository;
+	
+	@Autowired
+	private FriendshipRequestRepository friendshipRequestRepository; 
+
 
 	@Autowired
 	private ReservationRepository reservationRepository;
@@ -490,7 +501,8 @@ public class GuestService {
 		
 		return reservationsDTO;
 	}
-
+	///////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////
 	public ReservationDetailsDTO getReservationDetails(Long guestId, Long reservationId) {
 		ReservationDetailsDTO responseDTO = new ReservationDetailsDTO();
 		Reservation reservation = reservationRepository.findOne(reservationId); 
@@ -499,7 +511,12 @@ public class GuestService {
 		// or INVITED to a reservation?
 		if(guest.getId() != reservation.getGuest().getId()) {
 			// invited
-			InvitedToReservation invitation = invitedToReservationRepository.findOne(guestId); 
+			List<InvitedToReservation> invites = invitedToReservationRepository.findByReservationAndGuest(reservation, guest);
+			if(invites == null || invites.size() != 1) {
+				logger.error("FAILED TO ACQUIRE INVITATION ...getReservation details failed!!!");
+		    	return responseDTO;
+			}
+			InvitedToReservation invitation	 = invites.get(0);
 			responseDTO.setConfirmed(invitation.isConfirmed());
 		}
 		// get guest orders for this Reservation
@@ -527,6 +544,8 @@ public class GuestService {
 		
 		responseDTO.setAllOrders(allOrdersDto);
 		responseDTO.setGuestOrders(guestOrdersDto);
+		responseDTO.setTerminOd(reservation.getTerminOd());
+		responseDTO.setGuestId(reservation.getGuest().getId());
 		responseDTO.setSuccess(true);
 		
 		return responseDTO;
@@ -545,7 +564,143 @@ public class GuestService {
 		GuestOrderDTO orderDto = new GuestOrderDTO();
 		orderDto.setMenuItemName(guestOrder.getItem().getItem().getName());
 		orderDto.setMenuItemId(guestOrder.getItem().getId());
-		orderDto.setBePrepared(orderDto.isBePrepared());
+		orderDto.setBePrepared(guestOrder.isBePrepared());
 		guestOrdersDto.add(orderDto);
 	}
+
+	public ReservationDetailsDTO cancelAttendance(Long guestId, Long reservationId) {
+		ReservationDetailsDTO response = new ReservationDetailsDTO();
+		List<InvitedToReservation> invitations = invitedToReservationRepository.findByReservationAndGuest(reservationRepository.findOne(reservationId), guestRepository.findOne(guestId));
+		if(invitations == null || invitations.size() != 1) {
+			logger.error("failed to fetch invitation for guestId: reservationId:" + guestId + ", " + reservationId);
+			return response;
+		}
+		InvitedToReservation invitation = invitations.get(0);
+		invitation.setConfirmed(false);
+		invitedToReservationRepository.save(invitation);
+		response.setSuccess(true);
+		return response;
+	}
+
+	public ReservationDetailsDTO confirmAttendance(Long guestId, Long reservationId) {
+		ReservationDetailsDTO response = new ReservationDetailsDTO();
+		List<InvitedToReservation> invitations = invitedToReservationRepository.findByReservationAndGuest(reservationRepository.findOne(reservationId), guestRepository.findOne(guestId));
+		if(invitations == null || invitations.size() != 1) {
+			logger.error("failed to fetch invitation for guestId: reservationId:" + guestId + ", " + reservationId);
+			return response;
+		}
+		InvitedToReservation invitation = invitations.get(0);
+		invitation.setConfirmed(true);
+		invitedToReservationRepository.save(invitation);
+		response.setSuccess(true);
+		return response;
+	}
+
+	public ReservationDetailsDTO cancelReservation(Long guestId, Long reservationId) {
+		ReservationDetailsDTO responseDTO = new ReservationDetailsDTO();
+		Reservation reservation = reservationRepository.findOne(reservationId);
+		List<InvitedToReservation> invitations = invitedToReservationRepository.findByReservation(reservation);
+		for(InvitedToReservation invited : invitations) {
+			invitedToReservationRepository.delete(invited);
+		}
+		
+		List<GuestReservationOrder> orders = guestOrderRepository.findByReservation(reservation);
+		for (GuestReservationOrder order : orders) {
+			guestOrderRepository.delete(order);
+		}
+		
+		reservationRepository.delete(reservation);
+		responseDTO.setSuccess(true);
+		
+		return responseDTO; 
+	}
+
+	public ReservationDetailsDTO updateReservationOrders(Long guestId, Long reservationId, List<GuestOrderDTO> dto) {
+		ReservationDetailsDTO responseDTO = new ReservationDetailsDTO();
+		Reservation reservation = reservationRepository.findOne(reservationId);
+		// DELETE OLD ORDERS AND SET NEW
+		List<GuestReservationOrder> orders = guestOrderRepository.findByReservationAndGuest(reservation, guestRepository.findOne(guestId));
+		for (GuestReservationOrder order : orders) {
+			guestOrderRepository.delete(order);
+		}
+		for(GuestOrderDTO orderDTO : dto) {
+			MenuItem item = menuItemRepository.findById(orderDTO.getMenuItemId());
+			GuestReservationOrder order = new GuestReservationOrder();
+			order.setReservation(reservation);
+			order.setGuest(guestRepository.findOne(guestId));
+			order.setItem(item);
+			order.setBePrepared(orderDTO.isBePrepared());
+			guestOrderRepository.save(order);
+		}
+		
+		responseDTO.setSuccess(true);
+		return responseDTO;
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////
+	
+		public List<AddPeopleDTO> addPeople(Long id) {
+		Guest guest = guestRepository.findOne(id); 
+		List<Guest> people = guestRepository.findAll(); 
+		List<AddPeopleDTO> addPeopleDto = new ArrayList<>(); 
+		
+		for(Guest p : people) {	
+				if(guest.getId() != p.getId() && !isFriend(guest.getFriends(), p)) {
+					AddPeopleDTO dto = new AddPeopleDTO(); 
+					dto.setId(p.getId());
+					dto.setName(p.getName());
+					dto.setSurname(p.getSurname());
+					dto.setFriend(false);
+					addPeopleDto.add(dto); 
+				}
+			}	
+		return addPeopleDto ;
+	}
+	
+	private boolean isFriend(List<Guest> friends, Guest p) {
+		for(Guest friend : friends) {
+			if(friend.getId() == p.getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void sendFriendshipRequest(Long friendId, Long guestId) {
+		FriendshipRequest request = new FriendshipRequest();
+		Guest guest = guestRepository.findOne(guestId); 
+		Guest friend = guestRepository.findOne(friendId); 
+		request.setFrom(guest);
+		request.setTo(friend);
+		friendshipRequestRepository.save(request); 
+		
+		// get-all-friends metoda za drugu  tableu u kojoj se ispisuju svi friendship requests koji su za 
+		// datog korisnika, ALI NISU CONFIRMED!!!! !isConfirned()
+	}
+
+	public List<FriendshipRequest> acceptPeople(Long id) {
+		Guest guest = guestRepository.findOne(id); 
+		List<FriendshipRequest> requests = friendshipRequestRepository.findByToGuest(guest); 
+		List<FriendshipRequest> dto = new ArrayList<>(); 
+		for(FriendshipRequest request : requests) {
+			if(!request.isConfirmed()) {
+				dto.add(request); 
+			}
+		}
+		return dto;
+	}
+
+	public void acceptFriendshipRequest(Long id) {
+		FriendshipRequest request = friendshipRequestRepository.findOne(id); 
+		request.setConfirmed(true);
+		friendshipRequestRepository.save(request); 
+		Guest guest = guestRepository.findOne(request.getTo().getId()); 
+		Guest friend = guestRepository.findOne(request.getFrom().getId()); 
+		guest.getFriends().add(friend); 
+		friend.getFriends().add(guest); 
+		guestRepository.save(guest); 
+		guestRepository.save(friend); 
+	}
+
 }
