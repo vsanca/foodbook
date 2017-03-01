@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import e2.isa.grupa5.model.restaurant.Restaurant;
 import e2.isa.grupa5.model.restaurant.RestaurantArea;
 import e2.isa.grupa5.model.restaurant.RestaurantTable;
+import e2.isa.grupa5.model.restaurant.RestaurantTableDTO;
 import e2.isa.grupa5.model.users.RestaurantManager;
 import e2.isa.grupa5.repository.restaurant.RestaurantAreaRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantManagerRepository;
@@ -105,6 +106,7 @@ public class RestaurantTableServiceTest {
 	@After
 	public void tearDown() throws Exception {
 		
+		rmRepo.deleteAll();
 		rtRepo.deleteAll();
 		raRepo.deleteAll();
 		rRepo.deleteAll();
@@ -113,6 +115,18 @@ public class RestaurantTableServiceTest {
 	@Test
 	public void testCreate() {
 		
+		RestaurantTableDTO rtDTO = new RestaurantTableDTO();
+		rtDTO.setArea(raId);
+		rtDTO.setFabricTable("");
+		rtDTO.setName("sto");
+		rtDTO.setSeats(5);
+		
+		RestaurantTable rt = rtService.create(rtDTO);
+		
+		assertNotNull(rt);
+		assertEquals(rtDTO.getArea(), rt.getArea().getId());
+		assertEquals(rtDTO.getName(), rt.getName());
+		assertEquals(rtDTO.getSeats(), rt.getSeats());
 	}
 
 	@Test
@@ -126,7 +140,10 @@ public class RestaurantTableServiceTest {
 
 	@Test
 	public void testFindAllByManagerId() {
+		List<RestaurantTable> rts= rtService.findAllByManagerId(mId);
 		
+		assertNotNull(rts);
+		assertTrue(rts.size()==2);
 	}
 
 }
