@@ -152,6 +152,7 @@ public class GuestService {
 		List<ProfilePageDTO> friendsDTO = new ArrayList<>();
 		for (Guest friend : friends) {
 			ProfilePageDTO friendDTO = new ProfilePageDTO();
+			friendDTO.setId(friend.getId());
 			friendDTO.setName(friend.getName());
 			friendDTO.setSurname(friend.getSurname());
 			friendsDTO.add(friendDTO);
@@ -163,6 +164,10 @@ public class GuestService {
 
 	public boolean verifyGuest(long id) {
 		Guest guest = guestRepository.findOne(id);
+		System.out.println("********************************");
+		System.out.println(id);
+		System.out.println("********************************");
+		
 		if (guest == null) {
 			return false;
 		}
@@ -230,9 +235,13 @@ public class GuestService {
 			Date date = reservation.getTerminOd();
 			// Using DateFormat format method we can create a string
 			// representation of a date with the defined format.
-			String reportDate = df.format(date);
+			if(date != null) {
+				String reportDate = df.format(date);
+				dto.setDate(reportDate);
+			}
+			
 
-			dto.setDate(reportDate);
+			
 			List<InvitedToReservation> friends = invitedToReservationRepository.findByReservation(reservation);
 
 			StringBuilder builder = new StringBuilder();
@@ -270,7 +279,7 @@ public class GuestService {
 			numberOfVisits += reservationRepository.countByGuest(friend);
 			numberOfVisits += invitedToReservationRepository.countByGuest(friend);
 			dto.setNumberOfVisits(numberOfVisits);
-
+			dto.setId(friend.getId());
 			friendPageData.add(dto);
 		}
 
@@ -371,6 +380,8 @@ public class GuestService {
 				System.out.println("DISTANCEE:" + row.elements[0].distance);
 				distanceDTO.setDistanceKm(row.elements[0].distance.inMeters / 1000.0);
 				distanceDTO.setDistanceM(row.elements[0].distance.inMeters);
+				dto.setDistance(distanceDTO);
+				return;
 			}
 
 		} catch (Exception e) {
@@ -509,7 +520,7 @@ public class GuestService {
 		if(guest.getId() != reservation.getGuest().getId()) {
 			// invited
 			List<InvitedToReservation> invites = invitedToReservationRepository.findByReservationAndGuest(reservation, guest);
-			if(invites == null || invites.size() != 1) {
+			if(invites == null || invites.size() == 0) {
 				logger.error("FAILED TO ACQUIRE INVITATION ...getReservation details failed!!!");
 		    	return responseDTO;
 			}
@@ -733,5 +744,17 @@ public class GuestService {
 				friendshipRequestRepository.delete(i); 
 			}
 		}		
+	}
+
+	public void deleteFriend(Long friendId, Long guestId) {
+		Guest guest = guestRepository.findOne(guestId); 
+		List<Guest> friends = guest.getFriends(); 
+		for(int i = 0; i < friends.size(); i++) {
+			if(friends.get(i).getId() == friendId) {
+				friends.remove(i); 
+			}
+		}
+		guest.setFriends(friends);
+		guestRepository.save(guest); 
 	}
 }

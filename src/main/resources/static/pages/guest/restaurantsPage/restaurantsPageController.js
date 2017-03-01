@@ -9,14 +9,19 @@
 
   angular.module('foodbook').controller('RestaurantsPageController', RestaurantsPageController);
 
-  RestaurantsPageController.$inject = ['$scope', '$state', '$location', 'sessionService', 'guestService', 'authenticationService'];
+  RestaurantsPageController.$inject = ['$scope', '$state', '$location', 'sessionService', 'notifyService', 'guestService', 'authenticationService'];
 
-  function RestaurantsPageController($scope, $state, $location, sessionService, guestService, authenticationService) {
-    alert("restaurants blabla");
+  function RestaurantsPageController($scope, $state, $location, sessionService, notifyService,  guestService, authenticationService) {
+
     $scope.userInfo = sessionService.getUserInfo();
 
     $scope.restaurantsPage = []; 
-
+    $scope.currentSort = "name";
+    
+    $scope.changeSort = function(sortBy) {
+      $scope.currentSort = sortBy;
+    };
+    notifyService.showInfo("Loading restaurant data...Please wait...");
     guestService.getRestaurantsPageInfo($scope.userInfo.userId).then(function (response) {
         $scope.restaurantsPage = response.data; 
     }, function (error) {
@@ -24,7 +29,7 @@
     });
 
     $scope.logoff = function() {
-      alert("logoff called");
+      notifyService.showInfo("Logging off...");
       authenticationService.logoff(); 
       $state.go('login'); 
     
@@ -32,7 +37,7 @@
 
     $scope.reserve = function(id) {
       $state.go('reserve1/:restaurantId', {restaurantId: id}); 
-    }
+    };
    
   }
 })();

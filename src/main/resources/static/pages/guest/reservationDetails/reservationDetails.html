@@ -55,7 +55,7 @@
   <button class="btn btn-danger"  ng-click="cancelReservation()" ng-if="userInfo.userId === reservationDetailsPage.guestId">Cancel reservation </button>
   <button class="btn btn-success" ng-click="confirmAttendance()" ng-if="userInfo.userId !== reservationDetailsPage.guestId && !reservationDetailsPage.confirmed">Confirm attendance </button>
   <button class="btn btn-danger" ng-click="cancelAttendance()" ng-if="userInfo.userId !== reservationDetailsPage.guestId && reservationDetailsPage.confirmed">Cancel attendance </button>
-  <button class="btn btn-info" ng-click="updateReservationOrders()">Update reservation orders</button>
+  <button class="btn btn-info" ng-disabled="userInfo.userId !== reservationDetailsPage.guestId && !reservationDetailsPage.confirmed"  ng-click="updateReservationOrders()">Update reservation orders</button>
 </div>
 
 <div>

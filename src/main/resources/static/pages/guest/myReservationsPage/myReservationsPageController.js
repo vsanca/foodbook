@@ -9,17 +9,18 @@
 
   angular.module('foodbook').controller('MyReservationsPageController', MyReservationsPageController);
 
-  MyReservationsPageController.$inject = ['$scope', '$state', 'sessionService', 'guestService', 'notifyService', 'authenticationService'];
+  MyReservationsPageController.$inject = ['$scope', '$state', 'sessionService', 'guestService', 'notifyService', 'authenticationService', '$window'];
 
-  function MyReservationsPageController($scope, $state, sessionService, guestService, notifyService, authenticationService) {
+  function MyReservationsPageController($scope, $state, sessionService, guestService, notifyService, authenticationService, $window) {
     $scope.userInfo = sessionService.getUserInfo();
   
     $scope.logoff = function() {
-      alert("logoff called");
+
       authenticationService.logoff(); 
-      $state.go('login'); 
+      $state.go('login');
+      
     
-    }
+    };
 
     guestService.getGuestReservations($scope.userInfo.userId).then(function (response) {
        for(let i = 0; i < response.data.length; i++) {
@@ -33,7 +34,6 @@
        
        $scope.myReservations = response.data; 
 
-       alert("MYRESERVATION!");
     }, function (error) {
       notifyService.showError('Greska pri ucitavanju podataka za prikaz reservacija!');
     });

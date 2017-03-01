@@ -8,7 +8,7 @@
                 <li class="active"><a href="#/guest/restaurants-page"><span class="glyphicon glyphicon-home"></span>Restorani</a></li>
                 <li class="active"><a href="#/guest/friends-page"><span class="glyphicon glyphicon-list-alt"></span>Prijatelji</a></li>
                 <li class="active"><a href="#/guest/profile-page"><span class="glyphicon glyphicon-list-alt"></span>Moj nalog</a></li>
-                <li class="active"><a href="#/guest/myReservations-page"><span class="glyphicon glyphicon-list-alt"></span>Moj rezrvacijee</a></li>
+                <li class="active"><a href="#/guest/myReservations-page"><span class="glyphicon glyphicon-list-alt"></span>Moj rezervacije</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <button ng-click="logoff()"> Log out </button>
@@ -19,30 +19,6 @@
     <div>
 
         <div>
-            <table border="1">
-                <tr>
-                    <th>Ime restorana</th>
-                    <th>Udaljenost</th>
-                    <th>Rejting</th>
-                    <th>Prijatelji</th>
-                    <th>Rezervacija</th>
-                </tr>
-                <tr ng-repeat="restaurant in restaurantsPage">
-                    <td>{{ restaurant.name }}</td>
-                    <td>{{ restaurant.distance }}</td>
-                    <td>{{ restaurant.rating }}</td>
-                    <td>{{ restaurant.friends }}</td>
-                    <td>
-                        <button ng-click="reserve(restaurant.id)">
-                    Rezerviši
-                </button>
-                    </td>
-                </tr>
-            </table>
-
-            <hr>
-
-
             <div id="custom-search-input" style="display:inline-block">
                 <div class="input-group col-md-2">
                     <input type="text" ng-model="search.$" class=" search-query form-control" placeholder="Bilo šta" />
@@ -98,20 +74,39 @@
                 </div>
             </div>
 
-            <table id="searchObjResults" border="1">
-                <tr>
-                    <th>Ime restorana</th>
-                    <th>Udaljenost</th>
-                    <th>Rejting</th>
-                    <th>Prijatelji</th>
-                </tr>
-                <tr ng-repeat="restaurantObj in restaurantsPage | filter:search">
-                    <td>{{ restaurant.name }}</td>
-                    <td>{{ restaurant.distance }}</td>
-                    <td>{{ restaurant.rating }}</td>
-                    <td>{{ restaurant.friendsRating }}</td>
-                </tr>
-            </table>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="table-responsive">
+                            <table id="searchObjResults" class="table table-bordred table-striped">
 
+                                <thead>
+                                    <tr>
+                                        <th> Ime restorana  <button class="btn btn-primary  btn-xs" ng-click="changeSort('name')">↓</button></th>
+                                        <th>Udaljenost[km] <button class="btn btn-primary  btn-xs" ng-click="changeSort('distance.distanceKm')">↓</button></th>
+                                        <th>Rejting <button class="btn btn-primary  btn-xs" ng-click="changeSort('rating')">↓</button></th>
+                                        <th>Prijatelji <button class="btn btn-primary  btn-xs" ng-click="changeSort('friendsRating')">↓</button></th>
+                                        <th>Rezervacija</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr ng-repeat="restaurantObj in restaurantsPage | filter:search | orderBy : currentSort">
+                                        <td>{{ restaurantObj.name }}</td>
+                                        <td>{{ restaurantObj.distance.distanceKm }}</td>
+                                        <td>{{ restaurantObj.rating }}</td>
+                                        <td>{{ restaurantObj.friendsRating }}</td>
+                                        <td>
+                                            <button class="btn btn-primary btn-xs" data-title="Rezervisi" data-toggle="modal" ng-click="reserve(restaurantObj.id)">
+                                                Rezerviši
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
