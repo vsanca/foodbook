@@ -1,4 +1,4 @@
-# foodbook
+# foodbook .
 
 [![Build Status](https://travis-ci.org/vsanca/foodbook.svg?branch=master)](https://travis-ci.org/vsanca/foodbook)
 
