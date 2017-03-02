@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import e2.isa.grupa5.model.reservation.GuestReservationOrder;
+import e2.isa.grupa5.model.restaurant.Restaurant;
 import e2.isa.grupa5.model.restaurant.RestaurantTable;
 import e2.isa.grupa5.model.shifts.ShiftWaiter;
 import e2.isa.grupa5.model.shifts.ShiftWaiterDTO;
@@ -25,9 +27,11 @@ import e2.isa.grupa5.model.users.RestaurantManager;
 import e2.isa.grupa5.model.users.RestaurantManagerDTO;
 import e2.isa.grupa5.model.users.Waiter;
 import e2.isa.grupa5.model.users.WaiterDTO;
+import e2.isa.grupa5.repository.reservation.GuestReservationOrderRepository;
 import e2.isa.grupa5.repository.restaurant.RestaurantTableRepository;
 import e2.isa.grupa5.repository.shifts.ShiftWaiterRepository;
 import e2.isa.grupa5.repository.waiter.WaiterRepository;
+import e2.isa.grupa5.rest.dto.guest.GuestReservationOrderDTO;
 import e2.isa.grupa5.service.waiter.WaiterService;
 
 /**
@@ -54,6 +58,10 @@ public class WaiterController {
 	
 	@Autowired
 	RestaurantTableRepository restaurantTableRepository;
+	
+	@Autowired
+	GuestReservationOrderRepository guestReservationOrderRepository;
+	
 	
 	@RequestMapping(value = "/waiter/create", method = RequestMethod.POST)
 	@PreAuthorize("isAuthenticated()")
@@ -177,4 +185,63 @@ public class WaiterController {
     public ResponseEntity getBartenderShift(@PathVariable long id) {
         return new ResponseEntity<>(shiftWaiterRepository.findByWaiter_Id(id), HttpStatus.OK);
     }
+    
+  //--------------------------------------------------------------------
+  
+    //test
+    @RequestMapping(value = "/waiter/allUnfinishedOdersTEST/{cId}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+    public ResponseEntity getAllUnfinishedOdersTEST(@PathVariable long cId) {
+        
+    	Waiter wt = waiterRepository.findById(cId);
+		Restaurant r = wt.getRestaurant();
+		
+		List<GuestReservationOrder> allReservations = guestReservationOrderRepository.findAll();
+		
+		List<GuestReservationOrderDTO> allReservationsDTO = new ArrayList<GuestReservationOrderDTO>();
+		for(GuestReservationOrder g : allReservations){
+			GuestReservationOrderDTO gDTO = new GuestReservationOrderDTO(g);
+			allReservationsDTO.add(gDTO);
+		}
+    	if(allReservationsDTO.isEmpty()){
+    		return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+    	}
+    	else{
+    		return new ResponseEntity<>(allReservationsDTO, HttpStatus.OK);
+    	}
+		
+		
+    }
+    
+   
+    @RequestMapping(value = "/waiter/acceptedOrder/{cId}/{dId}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+    public ResponseEntity setAcceptedOrder(@PathVariable Long cId, @PathVariable long dId) {
+       
+    	
+    	
+       GuestReservationOrder r = guestReservationOrderRepository.findById(cId);
+       Waiter wt = waiterRepository.findById(dId);
+       r.setWaiter(wt);
+       r.setDelivered(true);
+       guestReservationOrderRepository.save(r);
+       
+       List<GuestReservationOrder> allReservations = guestReservationOrderRepository.findAll();
+		
+		List<GuestReservationOrderDTO> allReservationsDTO = new ArrayList<GuestReservationOrderDTO>();
+		for(GuestReservationOrder g : allReservations){
+			GuestReservationOrderDTO gDTO = new GuestReservationOrderDTO(g);
+			allReservationsDTO.add(gDTO);
+		}
+	   	if(allReservationsDTO.isEmpty()){
+	   		return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+	   	}
+	   	else{
+	   		return new ResponseEntity<>(allReservationsDTO, HttpStatus.OK);
+	   	}
+      
+    }
+    
+    
+      
 }

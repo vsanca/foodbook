@@ -152,7 +152,6 @@ public class GuestService {
 		List<ProfilePageDTO> friendsDTO = new ArrayList<>();
 		for (Guest friend : friends) {
 			ProfilePageDTO friendDTO = new ProfilePageDTO();
-			friendDTO.setId(friend.getId());
 			friendDTO.setName(friend.getName());
 			friendDTO.setSurname(friend.getSurname());
 			friendsDTO.add(friendDTO);
@@ -164,10 +163,6 @@ public class GuestService {
 
 	public boolean verifyGuest(long id) {
 		Guest guest = guestRepository.findOne(id);
-		System.out.println("********************************");
-		System.out.println(id);
-		System.out.println("********************************");
-		
 		if (guest == null) {
 			return false;
 		}
@@ -235,13 +230,9 @@ public class GuestService {
 			Date date = reservation.getTerminOd();
 			// Using DateFormat format method we can create a string
 			// representation of a date with the defined format.
-			if(date != null) {
-				String reportDate = df.format(date);
-				dto.setDate(reportDate);
-			}
-			
+			String reportDate = df.format(date);
 
-			
+			dto.setDate(reportDate);
 			List<InvitedToReservation> friends = invitedToReservationRepository.findByReservation(reservation);
 
 			StringBuilder builder = new StringBuilder();
@@ -279,7 +270,7 @@ public class GuestService {
 			numberOfVisits += reservationRepository.countByGuest(friend);
 			numberOfVisits += invitedToReservationRepository.countByGuest(friend);
 			dto.setNumberOfVisits(numberOfVisits);
-			dto.setId(friend.getId());
+
 			friendPageData.add(dto);
 		}
 
@@ -315,9 +306,7 @@ public class GuestService {
 			dto.setName(restaurant.getName());
 			getRestaurantDistance(dto, restaurant, guest);
 			getRestaurantRating(dto, restaurant);
-			dto.setRating((int) Math.round(Math.random()%5) +  1);
 			getRestaurantFriendsRating(dto, restaurant, guest);
-			dto.setFriendsRating((int) Math.round(Math.random()%5) + 1);
 			restaurantPageData.add(dto);
 		}
 
@@ -327,48 +316,35 @@ public class GuestService {
 	private int getReservationRatingSum(Reservation reservation, Guest guest) {
 		List<Grade> grades = gradeRepository.findByReservation_id(reservation.getId());
 		double totalGrade = 0;
-		int gradedReservationsCount = 0;
 		for(Grade grade : grades) {
 			if(guest == null ||  grade.getGuest().getId() == guest.getId()) {
-				 gradedReservationsCount ++;
 				totalGrade += grade.getRestaurantGrade();	
 			}
 		}
-		return (int) Math.round(totalGrade/ gradedReservationsCount);
+		return (int) Math.round(totalGrade/grades.size());
 		
 	}
 	
 	private void getRestaurantFriendsRating(RestaurantsPageDTO dto, Restaurant restaurant, Guest guest) {
 		double rating = 0;
-		List<Reservation> allReservations = reservationRepository.findByRestaurant(restaurant);
-		int gradedReservationsCount = 0;
+		List<Reservation> allReservations = reservationRepository.findAll();
 		for(Reservation reservation : allReservations) {
 			for(Guest friend: guest.getFriends()) {
-				int rRating = getReservationRatingSum(reservation, friend);	
-				if(rRating > 0) {
-					gradedReservationsCount++;
-					rating += rRating;
-				}
+				rating += getReservationRatingSum(reservation, friend);	
 			}
 		}
-		rating = Math.round(rating/gradedReservationsCount);
+		rating = Math.round(rating/allReservations.size());
 		dto.setFriendsRating((int) rating);
 		
 	}
 
 	private void getRestaurantRating(RestaurantsPageDTO dto, Restaurant restaurant) {
 		double rating = 0;
-		List<Reservation> allReservations = reservationRepository.findByRestaurant(restaurant);
-		int gradedReservationsCount = 0;
+		List<Reservation> allReservations = reservationRepository.findAll();
 		for(Reservation reservation : allReservations) {
-			
-			 int rRating = getReservationRatingSum(reservation, null);
-			if(rRating > 0) {
-				gradedReservationsCount++;
-				rating += rRating;
-			}
+			rating += getReservationRatingSum(reservation, null);
 		}
-		rating = Math.round(rating/gradedReservationsCount);
+		rating = Math.round(rating/allReservations.size());
 		dto.setRating((int) rating);
 		
 
@@ -395,8 +371,6 @@ public class GuestService {
 				System.out.println("DISTANCEE:" + row.elements[0].distance);
 				distanceDTO.setDistanceKm(row.elements[0].distance.inMeters / 1000.0);
 				distanceDTO.setDistanceM(row.elements[0].distance.inMeters);
-				dto.setDistance(distanceDTO);
-				return;
 			}
 
 		} catch (Exception e) {
@@ -535,7 +509,7 @@ public class GuestService {
 		if(guest.getId() != reservation.getGuest().getId()) {
 			// invited
 			List<InvitedToReservation> invites = invitedToReservationRepository.findByReservationAndGuest(reservation, guest);
-			if(invites == null || invites.size() == 0) {
+			if(invites == null || invites.size() != 1) {
 				logger.error("FAILED TO ACQUIRE INVITATION ...getReservation details failed!!!");
 		    	return responseDTO;
 			}
@@ -759,17 +733,5 @@ public class GuestService {
 				friendshipRequestRepository.delete(i); 
 			}
 		}		
-	}
-
-	public void deleteFriend(Long friendId, Long guestId) {
-		Guest guest = guestRepository.findOne(guestId); 
-		List<Guest> friends = guest.getFriends(); 
-		for(int i = 0; i < friends.size(); i++) {
-			if(friends.get(i).getId() == friendId) {
-				friends.remove(i); 
-			}
-		}
-		guest.setFriends(friends);
-		guestRepository.save(guest); 
 	}
 }

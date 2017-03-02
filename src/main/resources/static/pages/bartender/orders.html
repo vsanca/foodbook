@@ -1,9 +1,9 @@
 <div  class="col-md-6" style="border: 1px solid black">
-        <h1>Na čekanju:  </h1>
+        <h1>Na čekanju: </h1>
         <table class="table">
             <thead>
             <tr>
-                <th>Naziv Pica</th>
+                <th>Naziv Pića</th>
                 <th>Slika</th>
                 <th>Na čekanju</th>
 
@@ -32,20 +32,20 @@
     
     
     <div   class="col-md-6" style="border: 1px solid black">
-        <h1>Pravi se se:</h1>
+        <h1>Kuva se:</h1>
         <table class="table">
             <thead>
             <tr>
                 <th>Naziv</th>
-                <th>Slika Pica</th>
-                <th>Pravi se</th>
+                <th>Slika Pića</th>
+                <th>Spremanje u toku</th>
 
                 <th>&nbsp;</th>
             </tr>
             </thead>
             <tbody>
 
-             <tr style="height: 70px;" ng-repeat="o in myOrdersDTO"  ng-if="o.accepted == 1 && o.created == 0   o.itemType == 'DRINK'" >
+             <tr style="height: 70px;" ng-repeat="o in myOrdersDTO"  ng-if="o.accepted == 1 && o.created == 0 && o.bartenderId == chef.id && o.itemType == 'DRINK'" >
 
                 <td>{{o.itemName}}</td>
                 <td ><img class="thumbnail" style="max-height: 80px; max-width: 80px; vertical-align: middle" ng-if="o.itemImgLink" src="{{o.itemImgLink}}"></td>
@@ -60,4 +60,4 @@
 
             </tbody>
         </table>
-    </div>
+    </div> 

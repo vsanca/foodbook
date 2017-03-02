@@ -178,14 +178,17 @@ public class BartenderController {
     public ResponseEntity getBartenderShift(@PathVariable long id) {
         return new ResponseEntity<>(shiftBartenderRepository.findByBartender_Id(id), HttpStatus.OK);
     }
-	
+    
+    
+    //-------------------------------------------------------
     
   //test
     @RequestMapping(value = "/bartender/allUnfinishedOdersTEST/{cId}", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
-    public ResponseEntity getAllUnfinishedOdersTEST123(@PathVariable long cId) {
+    public ResponseEntity getAllUnfinishedOdersTEST(@PathVariable long cId) {
         
-    	
+    	Bartender bt = bartenderRepository.findById(cId);
+		Restaurant r = bt.getRestaurant();
 		
 		List<GuestReservationOrder> allReservations = guestReservationOrderRepository.findAll();
 		
@@ -207,13 +210,13 @@ public class BartenderController {
    
     @RequestMapping(value = "/bartender/acceptedOrder/{cId}/{dId}", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
-    public ResponseEntity setAcceptedOrder123(@PathVariable Long cId, @PathVariable long dId) {
+    public ResponseEntity setAcceptedOrder(@PathVariable Long cId, @PathVariable long dId) {
        
     	
     	
        GuestReservationOrder r = guestReservationOrderRepository.findById(cId);
-       Bartender ch = bartenderRepository.findById(dId);
-       r.setBartender(ch);
+       Bartender bt = bartenderRepository.findById(dId);
+       r.setBartender(bt);
        r.setAccepted(true);
        guestReservationOrderRepository.save(r);
        
@@ -238,11 +241,12 @@ public class BartenderController {
   
     @RequestMapping(value = "/bartender/createdOrder/{cId}", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
-    public ResponseEntity setCreatedOrder123(@PathVariable long cId) {
+    public ResponseEntity setCreatedOrder(@PathVariable long cId) {
        
        GuestReservationOrder r = guestReservationOrderRepository.findById(cId);
        
        r.setCreated(true);
+       
        
        guestReservationOrderRepository.save(r);  
        
@@ -261,5 +265,6 @@ public class BartenderController {
 	   	}
     
     }
+	
 	
 }

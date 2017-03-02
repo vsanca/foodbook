@@ -377,22 +377,6 @@ public class GuestController {
 
 	}
 	
-	
-	
-	/**
-	 * Any authenticated user can access profile-page-info
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(method = RequestMethod.GET, value = "/delete-friend/{friend-id}/{guest-id}")
-	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<?> deleteFriend(@PathVariable(value = "friend-id") Long friendId, @PathVariable(value = "guest-id") Long guestId) {
-		guestService.deleteFriend(friendId, guestId);
-
-		return new ResponseEntity<>(HttpStatus.OK);
-
-	}
 	/**
 	 * Rating reservation
 	 * 

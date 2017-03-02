@@ -266,6 +266,7 @@ public class ChefController {
        
        r.setCreated(true);
        
+       
        guestReservationOrderRepository.save(r);  
        
        List<GuestReservationOrder> allReservations = guestReservationOrderRepository.findAll();

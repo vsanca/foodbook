@@ -1,25 +1,25 @@
 <div  class="col-md-6" style="border: 1px solid black">
-        <h1>Na čekanju:  </h1>
+        <h1>Na čekanju: </h1>
         <table class="table">
             <thead>
             <tr>
-                <th>Naziv porudžbine</th>
+                <th>Naziv Porudžbine</th>
                 <th>Slika</th>
-                <th>Na čekanju</th>
+                <th>Čeka na dostavu</th>
 
                 <th>&nbsp;</th>
             </tr>
             </thead>
             <tbody>
 
-            <tr style="height: 70px;" ng-repeat="o in myOrdersDTO"  ng-if="o.accepted == 0 && o.created == 1 " >
+            <tr style="height: 70px;" ng-repeat="o in myOrdersDTO"  ng-if=" o.created == 1 && o.delivered == 0" >
 
                 <td>{{o.itemName}}</td>
                 <td ><img class="thumbnail" style="max-height: 80px; max-width: 80px; vertical-align: middle" ng-if="o.itemImgLink" src="{{o.itemImgLink}}"></td>
 
                 <td>
                     <button type="button" style="vertical-align: middle" class="btn btn-primary btn-block" data-toggle="modal"
-                            ng-click="acceptOrder(o)" data-target="#modal-1">Prihvati
+                            ng-click="acceptOrder(o)" data-target="#modal-1">Dostavljeno
                     </button>
                 </td>
 
@@ -31,33 +31,4 @@
     
     
     
-    <div   class="col-md-6" style="border: 1px solid black">
-        <h1>Dostavlja se:</h1>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Naziv</th>
-                <th>Slika porudžbine</th>
-                <th>Dostavlja se</th>
-
-                <th>&nbsp;</th>
-            </tr>
-            </thead>
-            <tbody>
-
-             <tr style="height: 70px;" ng-repeat="o in myOrdersDTO"  ng-if="o.accepted == 1 && o.created == 0   o.itemType == 'DRINK'" >
-
-                <td>{{o.itemName}}</td>
-                <td ><img class="thumbnail" style="max-height: 80px; max-width: 80px; vertical-align: middle" ng-if="o.itemImgLink" src="{{o.itemImgLink}}"></td>
-
-                <td>
-                    <button type="button" style="vertical-align: middle" class="btn btn-success btn-block" data-toggle="modal"
-                            ng-click="createOrder(o)" data-target="#modal-1">Dostavljeno
-                    </button>
-                </td>
-
-            </tr>
-
-            </tbody>
-        </table>
-    </div>
+    
