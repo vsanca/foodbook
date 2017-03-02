@@ -213,6 +213,7 @@ angular.module('foodbook').controller('bidderNewBiddingController', function($sc
 							
 						}
 						notifyService.showSuccess('Uspešno dodata ponuda.');
+						$state.go('bidder.overview');
 					});
 			
 		} else { // update
@@ -246,6 +247,8 @@ angular.module('foodbook').controller('bidderNewBiddingController', function($sc
 							
 						}
 						notifyService.showSuccess('Uspešno ažurirana ponuda.');
+						
+				        $state.go('bidder.overview');
 					});
 			
 		}

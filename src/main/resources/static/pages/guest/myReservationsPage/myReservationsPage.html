@@ -1,42 +1,58 @@
 <div class="container">
-  <nav class="navbar navbar-default" role="navigation">
-      <!-- Brand and toggle get grouped for better mobile display -->
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-              <li class="active"><a href="#/guest/restaurants-page"><span class="glyphicon glyphicon-home"></span>Restorani</a></li>
-              <li class="active"><a href="#/guest/friends-page"><span class="glyphicon glyphicon-list-alt"></span>Prijatelji</a></li>
-              <li class="active"><a href="#/guest/profile-page"><span class="glyphicon glyphicon-list-alt"></span>Moj nalog</a></li>
-              <li class="active"><a href="#/guest/myReservations-page"><span class="glyphicon glyphicon-list-alt"></span>Moj rezrvacijee</a></li>
-          </ul>
-           <ul class="nav navbar-nav navbar-right">
-            <button ng-click="logoff()"> Log out </button>
-          </ul>
-      </div>
-      <!-- /.navbar-collapse -->
-  </nav>
-<div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+           <ul class="nav navbar-nav">
+                <li><a href="#/guest/home-page"><span class="glyphicon glyphicon-home"></span>Pocetna strana</a></li>
+                <li><a href="#/guest/restaurants-page"><span class="glyphicon glyphicon-list-alt"></span>Restorani</a></li>
+                <li><a href="#/guest/friends-page"><span class="glyphicon glyphicon-list-alt"></span>Prijatelji</a></li>
+                <li><a href="#/guest/profile-page"><span class="glyphicon glyphicon-list-alt"></span>Moj nalog</a></li>
+                <li class="active"><a href="#/guest/myReservations-page"><span class="glyphicon glyphicon-list-alt"></span>Moj rezervacije</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <button ng-click="logoff()"> Log out </button>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+    <div>
 
-<div>
-    <h4>Moje rezervacije</h4>
-    <table border="1">
-        <tr>
-            <th>Id</th>
-            <th>Termin od</th>
-            <th>Termin do</th>
-            <th>Restoran</th>
-            <th>Detalji</th>
-        </tr>
-        <tr ng-repeat="reservation in myReservations">
-            <td>{{ reservation.id }}</td>
-            <td>{{ reservation.terminOdStr }}</td>
-            <td>{{ reservation.terminDoStr }}</td>  
-            <td>{{ reservation.restaurantName }}</td>
-            <td> <button class="btn btn-sm btn-info" ng-click="openReservationDetails(reservation.id)">
-                Vidi detalje rezervacije
-            </button>
-            </td>
-        </tr>
-    </table>    
-</div>
+        <div>
+            <h4>Moje rezervacije</h4>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="table-responsive">
+                            <table id="searchObjResults" class="table table-bordred table-striped">
+
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Termin od</th>
+                                        <th>Termin do</th>
+                                        <th>Restoran</th>
+                                        <th>Detalji</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr ng-repeat="reservation in myReservations">
+                                        <td>{{ reservation.id }}</td>
+                                        <td>{{ reservation.terminOdStr }}</td>
+                                        <td>{{ reservation.terminDoStr }}</td>
+                                        <td>{{ reservation.restaurantName }}</td>
+                                        <td> <button class="btn btn-sm btn-info" ng-click="openReservationDetails(reservation.id)">
+                                                Vidi detalje rezervacije
+                                             </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>

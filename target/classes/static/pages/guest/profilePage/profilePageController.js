@@ -9,9 +9,9 @@
 
   angular.module('foodbook').controller('ProfilePageController', ProfilePageController);
 
-  ProfilePageController.$inject = ['$scope', '$state', 'sessionService', 'guestService', 'notifyService', 'authenticationService'];
+  ProfilePageController.$inject = ['$scope', '$window', '$state', 'sessionService', 'guestService', 'notifyService', 'authenticationService', '$route'];
 
-  function ProfilePageController($scope, $state, sessionService, guestService, notifyService, authenticationService) {
+  function ProfilePageController($scope, $window, $state, sessionService, guestService, notifyService, authenticationService, $route) {
     $scope.userInfo = sessionService.getUserInfo();
 
     $scope.profilePage = {
@@ -30,8 +30,66 @@
       });
     }
   
+
+ guestService.addPeople($scope.userInfo.userId).then(function (response) {
+      $scope.addPeople = response.data;
+    }, function (error) {
+
+    });
+
+    $scope.dodaj = function (id) {
+      guestService.sendFriendshipRequest(id).then(function (response) {
+
+        notifyService.showInfo("uspesno kreiran zahtev za prijateljstvo");
+        $window.location.reload();
+      }, function (error) {
+
+      });
+
+    };
+
+    guestService.acceptPeople($scope.userInfo.userId).then(function (response) {
+      $scope.acceptPeople = response.data;
+    }, function (error) {
+
+    });
+
+    $scope.prihvati = function (id) {
+      guestService.acceptFriendshipRequest(id).then(function (response) {
+
+        notifyService.showInfo("uspesno prihvacen zahtev za prijateljstvo");
+        $state.go('guest-friends'); 
+
+      }, function (error) {
+
+      });
+    }
+
+    $scope.odbaci = function (id) {
+      guestService.rejectFriendshipRequest(id).then(function (response) {
+
+        notifyService.showInfo("uspesno odbijen zahtev za prijateljstvo");
+        $window.location.reload();
+
+      }, function (error) {
+
+      });
+    }
+
+$scope.ukloni = function (id) {
+      guestService.deleteFriend(id).then(function (response) {
+
+        notifyService.showInfo("uspesno izbrisan prijatelj" + id);
+        $window.location.reload();
+      }, function (error) {
+
+      });
+    }
+
+
+
     $scope.logoff = function() {
-      alert("logoff called");
+      notifyService.showInfo("logoff called");
       authenticationService.logoff(); 
       $state.go('login'); 
     

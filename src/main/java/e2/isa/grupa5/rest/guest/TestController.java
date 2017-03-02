@@ -21,8 +21,8 @@ import com.google.maps.model.DistanceMatrixElement;
 import com.google.maps.model.DistanceMatrixRow;
 import com.google.maps.model.GeocodingResult;
 import e2.isa.grupa5.rest.dto.guest.DistanceDTO;
-
-
+import e2.isa.grupa5.model.grade.Grade;
+import e2.isa.grupa5.model.reservation.GuestReservationOrder;
 import e2.isa.grupa5.model.reservation.InvitedToReservation;
 import e2.isa.grupa5.model.reservation.Reservation;
 import e2.isa.grupa5.model.restaurant.Item;
@@ -48,8 +48,10 @@ import e2.isa.grupa5.model.users.Waiter;
 import e2.isa.grupa5.repository.bartender.BartenderRepository;
 import e2.isa.grupa5.repository.bidding.BidderRepository;
 import e2.isa.grupa5.repository.chef.ChefRepository;
+import e2.isa.grupa5.repository.grade.GradeRepository;
 import e2.isa.grupa5.repository.guest.FriendshipRequestRepository;
 import e2.isa.grupa5.repository.guest.GuestRepository;
+import e2.isa.grupa5.repository.reservation.GuestReservationOrderRepository;
 import e2.isa.grupa5.repository.reservation.InvitedToReservationRepository;
 import e2.isa.grupa5.repository.reservation.ReservationRepository;
 import e2.isa.grupa5.repository.restaurant.ItemRepository;
@@ -134,6 +136,12 @@ public class TestController {
 	
 	@Autowired
 	private ShiftBartenderRepository shiftBartenderRepository;
+	
+	@Autowired
+	private GuestReservationOrderRepository guestReservationOrderRepository;
+	
+	@Autowired
+	private GradeRepository gradeRepository;
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -253,7 +261,7 @@ public class TestController {
 		
 		Guest g = new Guest(); 
 		g.setActive(true);
-		g.setAddress("g adresa");
+		g.setAddress("Narodnog fronta 35, Novi Sad 21102");
 		g.setEmail("g@g.com");
 		g.setName("g");
 		g.setSurname("g");
@@ -263,7 +271,7 @@ public class TestController {
 		
 		Guest g1 = new Guest(); 
 		g1.setActive(true);
-		g1.setAddress("g1 adresa");
+		g1.setAddress("Narodnog fronta 2, Novi Sad 21102");
 		g1.setEmail("g1@g1.com");
 		g1.setName("g1");
 		g1.setSurname("g1");
@@ -273,7 +281,7 @@ public class TestController {
 		
 		Guest g2 = new Guest(); 
 		g2.setActive(true);
-		g2.setAddress("g2 adresa");
+		g2.setAddress("Narodnog fronta 58, Novi Sad 21102");
 		g2.setEmail("g2@g2.com");
 		g2.setName("g2");
 		g2.setSurname("g2");
@@ -283,7 +291,7 @@ public class TestController {
 		
 		Guest g3 = new Guest(); 
 		g3.setActive(true);
-		g3.setAddress("g3 adresa");
+		g3.setAddress("Narodnog fronta 32, Novi Sad 21102");
 		g3.setEmail("g3@g3.com");
 		g3.setName("g3");
 		g3.setSurname("g3");
@@ -293,7 +301,7 @@ public class TestController {
 		
 		Guest g4 = new Guest(); 
 		g4.setActive(true);
-		g4.setAddress("g4 adresa");
+		g4.setAddress("Narodnog fronta 2, Novi Sad 21102");
 		g4.setEmail("g4@g4.com");
 		g4.setName("g4");
 		g4.setSurname("g4");
@@ -303,7 +311,7 @@ public class TestController {
 		
 		Guest g5 = new Guest(); 
 		g5.setActive(true);
-		g5.setAddress("g5 adresa");
+		g5.setAddress("Narodnog fronta 23, Novi Sad 21102");
 		g5.setEmail("g5@g5.com");
 		g5.setName("g5");
 		g5.setSurname("g5");
@@ -313,7 +321,7 @@ public class TestController {
 		
 		Guest g6 = new Guest(); 
 		g6.setActive(true);
-		g6.setAddress("g6 adresa");
+		g6.setAddress("Narodnog fronta 24, Novi Sad 21102");
 		g6.setEmail("g6@g6.com");
 		g6.setName("g6");
 		g6.setSurname("g6");
@@ -323,7 +331,7 @@ public class TestController {
 		
 		Guest g7 = new Guest(); 
 		g7.setActive(true);
-		g7.setAddress("g7 adresa");
+		g7.setAddress("Narodnog fronta 31, Novi Sad 21102");
 		g7.setEmail("g7@g7.com");
 		g7.setName("g7");
 		g7.setSurname("g7");
@@ -333,7 +341,7 @@ public class TestController {
 		
 		Guest g8 = new Guest(); 
 		g8.setActive(true);
-		g8.setAddress("g8 adresa");
+		g8.setAddress("Narodnog fronta 23, Novi Sad 21102");
 		g8.setEmail("g8@g8.com");
 		g8.setName("g8");
 		g8.setSurname("g8");
@@ -343,7 +351,7 @@ public class TestController {
 		
 		Guest g9 = new Guest(); 
 		g9.setActive(true);
-		g9.setAddress("g9 adresa");
+		g9.setAddress("Narodnog fronta 33, Novi Sad 21102");
 		g9.setEmail("g9@g9.com");
 		g9.setName("g9");
 		g9.setSurname("g9");
@@ -353,7 +361,7 @@ public class TestController {
 		
 		Guest g10 = new Guest(); 
 		g10.setActive(true);
-		g10.setAddress("g10 adresa");
+		g10.setAddress("Narodnog fronta 33, Novi Sad 21102");
 		g10.setEmail("g10@g10.com");
 		g10.setName("g10");
 		g10.setSurname("g10");
@@ -386,7 +394,7 @@ public class TestController {
 		guestRepository.save(g3); 
 		
 		Restaurant r = new Restaurant(); 
-		r.setAddress("Restaurant 0");
+		r.setAddress("Trg Dositeja Obradovića, Novi Sad 106314");
 		r.setDescription("Restoran 0");
 		r.setEmail("r@r.com");
 		r.setName("r");
@@ -394,7 +402,7 @@ public class TestController {
 		restaurantRepository.save(r); 
 		
 		Restaurant r1 = new Restaurant(); 
-		r1.setAddress("Restaurant 1");
+		r1.setAddress("Trg Dositeja Obradovića, Novi Sad 106314");
 		r1.setDescription("Restoran 1");
 		r1.setEmail("r1@r1.com");
 		r1.setName("r1");
@@ -402,7 +410,7 @@ public class TestController {
 		restaurantRepository.save(r1); 
 		
 		Restaurant r2 = new Restaurant(); 
-		r2.setAddress("Restaurant 2");
+		r2.setAddress("Trg Dositeja Obradovića, Novi Sad 106314");
 		r2.setDescription("Restoran 2");
 		r2.setEmail("r2@r2.com");
 		r2.setName("r2");
@@ -410,7 +418,7 @@ public class TestController {
 		restaurantRepository.save(r2); 
 		
 		Restaurant r3 = new Restaurant(); 
-		r3.setAddress("Restaurant 3");
+		r3.setAddress("Trg Dositeja Obradovića, Novi Sad 106314");
 		r3.setDescription("Restoran 3");
 		r3.setEmail("r3@r3.com");
 		r3.setName("r3");
@@ -418,7 +426,7 @@ public class TestController {
 		restaurantRepository.save(r3); 
 		
 		Restaurant r4 = new Restaurant(); 
-		r4.setAddress("Restaurant 4");
+		r4.setAddress("Trg Dositeja Obradovića, Novi Sad 106314");
 		r4.setDescription("Restoran 4");
 		r4.setEmail("r4@r4.com");
 		r4.setName("r4");
@@ -426,7 +434,7 @@ public class TestController {
 		restaurantRepository.save(r4); 
 		
 		Restaurant r5 = new Restaurant(); 
-		r5.setAddress("Restaurant 5");
+		r5.setAddress("Trg Dositeja Obradovića, Novi Sad 106314");
 		r5.setDescription("Restoran 5");
 		r5.setEmail("r5@r5.com");
 		r5.setName("r5");
@@ -645,48 +653,127 @@ public class TestController {
 		
 		
 		
+		Reservation rez1 = new Reservation(); 
+		res4.setGuest(g);
+		res4.setRestaurant(re1);
+		res4.setTerminDo(new Date());
+		res4.setTerminOd(new Date());
+		reservationRepository.save(rez1); 
 		
 		
-		
-	/*	
-		Reservation r = new Reservation(); 
-		r.setGuest(g);
-		r.setTerminDo(new Date());
-		r.setTerminOd(new Date());
-		r.setRestaurant(re1);
-		reservationRepository.save(r);
 		
 		InvitedToReservation i = new InvitedToReservation(); 
-		i.setReservation(r);
+		i.setReservation(rez1);
 		i.setGuest(g1);
 		invitedToReservationRepository.save(i); 
 		
 		InvitedToReservation i1 = new InvitedToReservation(); 
-		i1.setReservation(r);
+		i1.setReservation(rez1);
 		i1.setGuest(g2);
 		invitedToReservationRepository.save(i1); 
-		
-		
-		Reservation r1 = new Reservation(); 
-		r1.setGuest(g);
-		r1.setTerminDo(new Date());
-		r1.setTerminOd(new Date());
-		r1.setRestaurant(re1);
-		reservationRepository.save(r1);
-		
-		Reservation r2 = new Reservation(); 
-		r2.setGuest(g2);
-		r2.setTerminDo(new Date());
-		r2.setTerminOd(new Date());
-		r2.setRestaurant(re2);
-		reservationRepository.save(r2);
-		
-		g.getReservations().add(r); 
-		g.getReservations().add(r1); 
+		/////////////////////////////
+		///////////////////////////
+		Grade gradeG1 = new Grade();
+		int grade = 5;
+		gradeG1.setAtmosphereGrade(grade);
+		gradeG1.setEnvironmentGrade(grade);
+		gradeG1.setRated(true);
+		gradeG1.setWaiterGrade(grade);
+		gradeG1.setMealGrade(grade);
+		gradeG1.setGuest(g);
+		gradeG1.setReservation(rez1);
+		gradeG1.setRestaurantGrade(5);
+		gradeRepository.save(gradeG1);
+
 		
 		guestRepository.save(g); 
 		
-	*/	
+		
+		
+		Reservation rez2 = new Reservation(); 
+		res4.setGuest(g);
+		res4.setRestaurant(re1);
+		res4.setTerminDo(new Date());
+		res4.setTerminOd(new Date());
+		reservationRepository.save(rez2); 
+		
+		/////////////////////////////
+		///////////////////////////
+		gradeG1 = new Grade();
+		 grade = 3;
+		gradeG1.setAtmosphereGrade(grade);
+		gradeG1.setEnvironmentGrade(grade);
+		gradeG1.setRated(true);
+		gradeG1.setWaiterGrade(grade);
+		gradeG1.setMealGrade(grade);
+		gradeG1.setGuest(g1);
+		gradeG1.setReservation(rez2);
+		gradeG1.setRestaurantGrade(5);
+		gradeRepository.save(gradeG1);
+		
+		GuestReservationOrder order1 = new GuestReservationOrder();
+		order1.setReservation(rez1);
+		order1.setItem(mi1);
+		order1.setGuest(g);
+		order1.setWaiter(wt1);
+		order1.setChef(ch1);
+		order1.setCreated(false);
+		order1.setAccepted(false);
+		guestReservationOrderRepository.save(order1);
+		
+		GuestReservationOrder order2 = new GuestReservationOrder();
+		order2.setReservation(rez1);
+		order2.setItem(mi2);
+		order2.setGuest(g);
+		order2.setWaiter(wt1);
+		order2.setChef(ch1);
+		order2.setCreated(false);
+		order2.setAccepted(false);
+		guestReservationOrderRepository.save(order2);
+		
+		GuestReservationOrder order3 = new GuestReservationOrder();
+		order3.setReservation(rez1);
+		order3.setItem(mi3);
+		order3.setGuest(g);
+		order3.setWaiter(wt1);
+		order3.setChef(ch1);
+		order3.setCreated(false);
+		order3.setAccepted(true);
+		guestReservationOrderRepository.save(order3);
+		
+		GuestReservationOrder order4 = new GuestReservationOrder();
+		order3.setReservation(rez1);
+		order3.setItem(mi4);
+		order3.setGuest(g);
+		order3.setWaiter(wt1);
+		order3.setChef(ch1);
+		order3.setCreated(false);
+		order3.setAccepted(true);
+		guestReservationOrderRepository.save(order4);
+		
+		GuestReservationOrder oder5 = new GuestReservationOrder();
+		oder5.setReservation(rez1);
+		oder5.setItem(mi5);
+		oder5.setGuest(g);
+		oder5.setWaiter(wt1);
+		oder5.setChef(ch1);
+		oder5.setCreated(false);
+		oder5.setAccepted(true);
+		guestReservationOrderRepository.save(oder5);
+		
+		GuestReservationOrder oder6 = new GuestReservationOrder();
+		oder6.setReservation(rez1);
+		oder6.setItem(mi6);
+		oder6.setGuest(g);
+		oder6.setWaiter(wt1);
+		oder6.setChef(ch1);
+		oder6.setCreated(false);
+		oder6.setAccepted(true);
+		guestReservationOrderRepository.save(oder6);
+		
+	
+		
+	
 		System.out.println("DATABASE FILLED");
 		
 		return new ResponseEntity<>(HttpStatus.OK);

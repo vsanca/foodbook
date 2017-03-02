@@ -15,12 +15,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import e2.isa.grupa5.model.reservation.GuestReservationOrder;
+import e2.isa.grupa5.model.restaurant.Restaurant;
 import e2.isa.grupa5.model.shifts.ShiftBartender;
 import e2.isa.grupa5.model.shifts.ShiftBartenderDTO;
 import e2.isa.grupa5.model.users.Bartender;
 import e2.isa.grupa5.model.users.BartenderDTO;
+import e2.isa.grupa5.model.users.Chef;
 import e2.isa.grupa5.repository.bartender.BartenderRepository;
+import e2.isa.grupa5.repository.reservation.GuestReservationOrderRepository;
 import e2.isa.grupa5.repository.shifts.ShiftBartenderRepository;
+import e2.isa.grupa5.rest.dto.guest.GuestReservationOrderDTO;
 import e2.isa.grupa5.service.bartender.BartenderService;
 
 
@@ -46,6 +52,9 @@ public class BartenderController {
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	GuestReservationOrderRepository guestReservationOrderRepository;
 	
 	
 	@RequestMapping(value = "/bartender/profile/{id}", method = RequestMethod.GET)
@@ -168,6 +177,89 @@ public class BartenderController {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity getBartenderShift(@PathVariable long id) {
         return new ResponseEntity<>(shiftBartenderRepository.findByBartender_Id(id), HttpStatus.OK);
+    }
+	
+    
+  //test
+    @RequestMapping(value = "/bartender/allUnfinishedOdersTEST/{cId}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+    public ResponseEntity getAllUnfinishedOdersTEST123(@PathVariable long cId) {
+        
+    	
+		
+		List<GuestReservationOrder> allReservations = guestReservationOrderRepository.findAll();
+		
+		List<GuestReservationOrderDTO> allReservationsDTO = new ArrayList<GuestReservationOrderDTO>();
+		for(GuestReservationOrder g : allReservations){
+			GuestReservationOrderDTO gDTO = new GuestReservationOrderDTO(g);
+			allReservationsDTO.add(gDTO);
+		}
+    	if(allReservationsDTO.isEmpty()){
+    		return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+    	}
+    	else{
+    		return new ResponseEntity<>(allReservationsDTO, HttpStatus.OK);
+    	}
+		
+		
+    }
+    
+   
+    @RequestMapping(value = "/bartender/acceptedOrder/{cId}/{dId}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+    public ResponseEntity setAcceptedOrder123(@PathVariable Long cId, @PathVariable long dId) {
+       
+    	
+    	
+       GuestReservationOrder r = guestReservationOrderRepository.findById(cId);
+       Bartender ch = bartenderRepository.findById(dId);
+       r.setBartender(ch);
+       r.setAccepted(true);
+       guestReservationOrderRepository.save(r);
+       
+       List<GuestReservationOrder> allReservations = guestReservationOrderRepository.findAll();
+		
+		List<GuestReservationOrderDTO> allReservationsDTO = new ArrayList<GuestReservationOrderDTO>();
+		for(GuestReservationOrder g : allReservations){
+			GuestReservationOrderDTO gDTO = new GuestReservationOrderDTO(g);
+			allReservationsDTO.add(gDTO);
+		}
+	   	if(allReservationsDTO.isEmpty()){
+	   		return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+	   	}
+	   	else{
+	   		return new ResponseEntity<>(allReservationsDTO, HttpStatus.OK);
+	   	}
+      
+    }
+    
+    
+    
+  
+    @RequestMapping(value = "/bartender/createdOrder/{cId}", method = RequestMethod.GET)
+	@PreAuthorize("isAuthenticated()")
+    public ResponseEntity setCreatedOrder123(@PathVariable long cId) {
+       
+       GuestReservationOrder r = guestReservationOrderRepository.findById(cId);
+       
+       r.setCreated(true);
+       
+       guestReservationOrderRepository.save(r);  
+       
+       List<GuestReservationOrder> allReservations = guestReservationOrderRepository.findAll();
+		
+		List<GuestReservationOrderDTO> allReservationsDTO = new ArrayList<GuestReservationOrderDTO>();
+		for(GuestReservationOrder g : allReservations){
+			GuestReservationOrderDTO gDTO = new GuestReservationOrderDTO(g);
+			allReservationsDTO.add(gDTO);
+		}
+	   	if(allReservationsDTO.isEmpty()){
+	   		return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+	   	}
+	   	else{
+	   		return new ResponseEntity<>(allReservationsDTO, HttpStatus.OK);
+	   	}
+    
     }
 	
 }

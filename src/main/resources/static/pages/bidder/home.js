@@ -39,9 +39,11 @@ angular.module('foodbook').controller('bidderHomeController', function($scope, $
 		$http.post('user/bidder/changePassword/', $scope.bidder,
 				{ headers: { 'Authorization': sessionService.getAuthToken() } })
 				.success(function (data) {
+					$('#myModal').modal('hide');
 					notifyService.showSuccess('Uspešno izmenjena lozinka.');
 				})
 				.error(function() {
+					$('#myModal').modal('hide');
 					notifyService.showError('Greška prilikom izmene lozinke.');
 				});
 	};

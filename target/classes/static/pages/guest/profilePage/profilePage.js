@@ -12,7 +12,7 @@
   ProfilePageController.$inject = ['$scope', '$http', 'guestService'];
 
   function ProfilePageController($scope, $http, guestService) {
-    alert("Poyyy");
+
 
     $scope.init = function () {
 

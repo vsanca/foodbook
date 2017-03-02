@@ -13,6 +13,7 @@ public class RestaurantManagerDTO extends UserDTO{
 	
 	private long restaurantId;
 	
+	private String oldPassword;
 	private String newPassword;
 	private String newPasswordRepeat;
 	
@@ -42,6 +43,14 @@ public class RestaurantManagerDTO extends UserDTO{
 
 	public void setNewPasswordRepeat(String newPasswordRepeat) {
 		this.newPasswordRepeat = newPasswordRepeat;
+	}
+
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
 	}
 	
 }

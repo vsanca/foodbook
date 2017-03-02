@@ -14,12 +14,13 @@
     console.log("LoginController ready!");
     
     // možda ovakva provera da li je već ulogovan, pa odgovarajući redirect, isprobano - radi ali zakomentarisano da bi se moglo lakše testirati
-    /*
+ 
     if(sessionService.getUserInfo() !== null) {
-    	var role = sessionService.getUserInfo().role
+      console.log("User is logged in...redirecting...");
+    	var role = sessionService.getUserInfo().role;
     	
     	if (role === userRoles["GUEST"]) {
-        	$state.go('guest-profile')
+        	$state.go('guest-home')
         } else if (role === userRoles['CHEF']) {
         	$state.go('chef')
         } else if (role === userRoles['WAITER']) {
@@ -35,7 +36,6 @@
         }
     	
     }
-    */
     
     $scope.user = {
       username: null,

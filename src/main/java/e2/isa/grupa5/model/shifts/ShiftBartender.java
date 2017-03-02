@@ -2,6 +2,8 @@ package e2.isa.grupa5.model.shifts;
 
 
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,7 +22,7 @@ import e2.isa.grupa5.model.users.Bartender;
  */
 @Entity
 @Table(name = "shift_bartender")
-public class ShiftBartender {
+public class ShiftBartender implements Serializable{
 	
 	@Id
 	@GeneratedValue

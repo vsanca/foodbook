@@ -31,8 +31,8 @@
 				templateUrl: 'pages/guest/profilePage/profilePage.html',
 				controller: 'ProfilePageController'
 			})
-			.state('guest-confirm', {
-				url: '/guest/confirm-registration',
+			.state('guest-confirm/:guestId', {
+				url: '/guest/confirm-registration/:guestId',
 				templateUrl: 'pages/guest/confirmRegistration/confirmRegistration.html',
 				controller: 'ConfirmRegistrationController'
 			})
@@ -257,14 +257,15 @@
 	// required DependencyInjection
 	run.$inject = ["$rootScope", "$location", '$state', 'sessionService'];
 
-	function run($rootScope, $location, sessionService) {
+	function run($rootScope, $location, $state, sessionService) {
 		console.log("Application ready to go!");
 
-		if (sessionService.getUserInfo === null && $location.path() !== 'pages/guest/confirm-registration') {
+		if (sessionService.getUserInfo() === null && $location.path().indexOf("confirm") === -1) {
+			console.log("Redirecting to login...app.js->run()");
 			$state.go('login');
 		}
 	$rootScope.$on("$routeChangeStart", function (event, next, current) {
-            if (sessionService().getUserInfo() === null) {
+            if (sessionService.getUserInfo() === null) {
                 // no logged user, we should be going to #login
                 if (next.templateUrl !== "pages/user/login.html" && next.templateUrl !== "pages/guest/register/registerGuest.html" && next.templateUrl !== "pages/guest/confirmRegistration/confirmRegistration.html") {
                     console.log("Not logged in! Redirecting to login...");

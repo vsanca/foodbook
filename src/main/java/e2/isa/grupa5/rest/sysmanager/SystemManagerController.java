@@ -4,12 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import e2.isa.grupa5.model.users.Bidder;
+import e2.isa.grupa5.model.users.BidderDTO;
 import e2.isa.grupa5.model.users.SystemManager;
 import e2.isa.grupa5.model.users.SystemManagerDTO;
 import e2.isa.grupa5.repository.sysmanager.SystemManagerRepository;
@@ -38,6 +41,9 @@ public class SystemManagerController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@PreAuthorize("isAuthenticated()")
@@ -85,5 +91,33 @@ public class SystemManagerController {
 		} else {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity changePassword(@RequestBody SystemManagerDTO smDTO) {
+		
+		SystemManager sm = systemManagerRepository.findById(smDTO.getId());
+				
+		if(sm != null) {
+			
+			try {
+				if(passwordEncoder.matches(smDTO.getOldPassword(), sm.getPassword()) && smDTO.getNewPassword()!=null && smDTO.getNewPassword()!="") {
+					sm.setPassword(passwordEncoder.encode(smDTO.getNewPassword()));
+					sm.setPassword_set(true);
+					
+					sm = systemManagerRepository.save(sm);
+					
+					return new ResponseEntity<>(HttpStatus.OK);
+					
+				} else {
+					return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				}
+			} catch (Exception e) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} 
 	}
 }

@@ -1,10 +1,17 @@
 package e2.isa.grupa5.rest.dto.guest;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AddPeopleDTO {
 	private long id; 
 	private String name;  
 	private String surname;
 	private boolean friend;
+	
+	public AddPeopleDTO() {
+		
+	}
 	
 	public long getId() {
 		return id;

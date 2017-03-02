@@ -43,7 +43,7 @@ public class MailService {
           String mailContent = "Thank You for registering on FoodBook! Please follow this link to confirm your registration :{URL_VALUE} \n\n";
          
           
-          String url = "http://localhost:8080/#/guest/confirm-registration?token=" + user.getId();
+          String url = "http://localhost:8080/#/guest/confirm-registration/" + user.getId();
           mailContent = mailContent.replace("{URL_VALUE}", url);
           
    

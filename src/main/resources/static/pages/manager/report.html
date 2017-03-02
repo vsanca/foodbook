@@ -18,7 +18,7 @@
 		      	<div class="form-group thumbnail">
 		            <label for="gradesByMeal">Ocena pojedinačnog jela</label>
 		            <select required ng-options="meal.item.name for meal in meals" ng-model="selectedMeal" id="gradesByMeal" class="form-control" required></select>
-		        	<button id="allGrades" type="button" class="btn btn-primary btn-block" ng-click="getGradesForMeal()" ng-disabled="selectedMeal===undefined || selectedMeal===''">Prikaz ocena za jelo</button>
+		        	<button id="allGrades" type="button" class="btn btn-primary btn-block" ng-click="getGradesForMeal()" ng-disabled="!selectedMeal">Prikaz ocena za jelo</button>
 		        </div>
 				<div class="form-group thumbnail">
 		            <label for="gradesByWaiter">Ocena konobara</label>
@@ -31,7 +31,7 @@
 						<option value="DNEVNI">Dnevni izveštaj</option>
 						<option value="NEDELJNI">Nedeljni izveštaj</option>
 		            </select>
-		            <button id="visits" type="button" class="btn btn-primary btn-block" ng-click="getVisits()">Prikaz posećenosti</button>
+		            <button id="visits" type="button" class="btn btn-primary btn-block" ng-disabled="!reportDTO.type" ng-click="getVisits()">Prikaz posećenosti</button>
 		        </div>
 		        <div class="form-group thumbnail">
 		            <label for="revenueInPeriod">Prihodi u periodu</label>
@@ -42,7 +42,7 @@
 		            <label for="revenueInPeriodTo">Datum do</label>
 		            <input type="date" class="form-control" ng-model="reportDTO.end_interval" id="revenueInPeriodTo">
 		            </div>
-		            <button id="revenueInPeriod" type="button" class="btn btn-primary btn-block" ng-click="getRevenueInDateInterval()">Prikaz prihoda u periodu</button>
+		            <button id="revenueInPeriod" type="button" class="btn btn-primary btn-block" ng-disabled="!reportDTO.start_interval || !reportDTO.end_interval" ng-click="getRevenueInDateInterval()">Prikaz prihoda u periodu</button>
 		        </div>
 		        <div class="form-group thumbnail">
 		            <label for="waiterRevenues">Prihodi po konobarima</label>

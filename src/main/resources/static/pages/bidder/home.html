@@ -2,9 +2,10 @@
 
 <div class="row">
 
+<div class="col-md-2 col-lg-2 columns form"></div>
 <div class="col-md-8 col-lg-8 columns form">
 
-    <form novalidate name="registerBidderForm">
+    <form name="registerBidderForm">
         
         <h4 class="text-center">Profil ponuđača</h4>
         
@@ -20,7 +21,7 @@
             <label for="inputBidderEmail">E-mail adresa</label>
             <input type="text" required ng-model="bidder.email" id="inputBidderEmail" class="form-control" placeholder="petar.petrovic@mail.com">
         </div>
-        <p><a type="submit" class="btn btn-success btn-block" ng-click="modifyBidder()">Ažuriraj</a></p>
+        <p><a type="submit" class="btn btn-success btn-block" ng-disabled="registerBidderForm.$invalid" ng-click="modifyBidder()">Ažuriraj</a></p>
         <p><a type="submit" class="btn btn-danger btn-block" ng-click="cancel()">Odustani</a></p>
         <p><a type="submit" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal">Promeni Lozinku</a></p>
     </form>
@@ -39,20 +40,20 @@
         <h4 class="modal-title" id="myModalLabel">Promenite lozinku!</h4>
       </div>
       <div class="modal-body">
-      	<form>
+      	<form name="changeBidderPassword">
           <div class="form-group">
             <label for="pswd" class="control-label">Trenutna lozinka</label>
-            <input type="password" class="form-control" ng-model="bidder.oldPassword" id="pswd">
+            <input type="password" required class="form-control" ng-model="bidder.oldPassword" id="pswd" placeholder="**************">
           </div>
           <div class="npswd">
             <label for="message-text" class="control-label">Nova lozinka</label>
-            <input type="password" class="form-control" ng-model="bidder.newPassword" id="npswd" placeholder="**************">
+            <input type="password" required class="form-control" ng-model="bidder.newPassword" id="npswd" placeholder="**************">
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
-        <button type="button" class="btn btn-primary" ng-click="changePassword()">Potvrdi</button>
+        <button type="button" class="btn btn-primary" ng-disabled="changeBidderPassword.$invalid" ng-click="changePassword()">Potvrdi</button>
       </div>
     </div>
   </div>

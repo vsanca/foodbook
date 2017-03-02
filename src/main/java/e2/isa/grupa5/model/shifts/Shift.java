@@ -1,5 +1,6 @@
 package e2.isa.grupa5.model.shifts;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -26,7 +27,7 @@ import e2.isa.grupa5.model.users.Waiter;
  */
 @Entity
 @Table(name = "shift")
-public class Shift {
+public class Shift implements Serializable{
 	
 	@Id
 	@GeneratedValue

@@ -34,7 +34,9 @@
             addPeople: addPeople,
             acceptPeople: acceptPeople,
             acceptFriendshipRequest: acceptFriendshipRequest,
-            sendFriendshipRequest: sendFriendshipRequest
+            sendFriendshipRequest: sendFriendshipRequest, 
+            rejectFriendshipRequest: rejectFriendshipRequest, 
+            deleteFriend: deleteFriend
 
         };
 
@@ -322,6 +324,19 @@
                 }
             });
         }
+
+        
+        function deleteFriend(id) {
+            return $http({
+                method: 'GET',
+                url: '/rest/guest/delete-friend/' + id + '/' + sessionService.getUserInfo().userId,
+                headers: {
+                    'Authorization': sessionService.getAuthToken()
+
+                }
+            });
+        }
+
 
     }
 

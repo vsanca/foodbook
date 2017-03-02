@@ -1,5 +1,7 @@
 package e2.isa.grupa5.model.shifts;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,7 +22,7 @@ import e2.isa.grupa5.model.users.Chef;
  */
 @Entity
 @Table(name = "shift_chef")
-public class ShiftChef {
+public class ShiftChef implements Serializable{
 	
 	@Id
 	@GeneratedValue
