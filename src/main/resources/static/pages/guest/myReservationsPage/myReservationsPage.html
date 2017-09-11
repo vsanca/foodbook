@@ -30,6 +30,7 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
+                                        <th>Datum</th>
                                         <th>Termin od</th>
                                         <th>Termin do</th>
                                         <th>Restoran</th>
@@ -40,6 +41,7 @@
                                 <tbody>
                                     <tr ng-repeat="reservation in myReservations">
                                         <td>{{ reservation.id }}</td>
+                                        <td>{{ reservation.datum }} </td>
                                         <td>{{ reservation.terminOdStr }}</td>
                                         <td>{{ reservation.terminDoStr }}</td>
                                         <td>{{ reservation.restaurantName }}</td>

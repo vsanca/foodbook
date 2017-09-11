@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -21,6 +23,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JwtTokenUtil implements Serializable {
 
+	private final Log logger = LogFactory.getLog(this.getClass());
+
+	
     private static final long serialVersionUID = 2;
 
     static final String CLAIM_KEY_USERNAME = "sub";
@@ -79,6 +84,7 @@ public class JwtTokenUtil implements Serializable {
     }
 
     private Date generateExpirationDate() {
+    	logger.info(new Date(System.currentTimeMillis() + expiration * 1000)); 
         return new Date(System.currentTimeMillis() + expiration * 1000);
     }
 

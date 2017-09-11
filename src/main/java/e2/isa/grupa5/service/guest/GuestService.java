@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.maps.DistanceMatrixApi;
@@ -251,6 +252,8 @@ public class GuestService {
 			}
 
 			dto.setFriends(builder.toString());
+			getRestaurantRating(dto, reservation.getRestaurant());
+			
 			homePageData.add(dto);
 		}
 
@@ -373,6 +376,24 @@ public class GuestService {
 		
 
 	}
+	
+	private void getRestaurantRating(HomePageDTO dto, Restaurant restaurant) {
+		double rating = 0;
+		List<Reservation> allReservations = reservationRepository.findByRestaurant(restaurant);
+		int gradedReservationsCount = 0;
+		for(Reservation reservation : allReservations) {
+			
+			 int rRating = getReservationRatingSum(reservation, null);
+			if(rRating > 0) {
+				gradedReservationsCount++;
+				rating += rRating;
+			}
+		}
+		rating = Math.round(rating/gradedReservationsCount);
+		dto.setRating((int) rating);
+		
+
+	}
 
 	private void getRestaurantDistance(RestaurantsPageDTO dto, Restaurant restaurant, Guest guest) {
 		DistanceDTO distanceDTO = new DistanceDTO();
@@ -426,7 +447,22 @@ public class GuestService {
 		
 		return friends;
 	}
+	
+	
+	/*** 
+	 * 
+	 * ISOLATION_SERIALIZABLE - A constant indicating that dirty reads, non-repeatable reads and phantom
+	 * reads are prevented. !!!!!!!!!!!!!!!!!!!
+	 *  This level includes the prohibitions in
+	 * {@code ISOLATION_REPEATABLE_READ} and further prohibits the situation
+	 * where one transaction reads all rows that satisfy a {@code WHERE}
+	 * condition, a second transaction inserts a row that satisfies that
+	 * {@code WHERE} condition, and the first transaction rereads for the
+	 * same condition, retrieving the additional "phantom" row in the second read.
+	 * @see java.sql.Connection#TRANSACTION_SERIALIZABLE
+	 */
 
+	@Transactional(isolation=Isolation.SERIALIZABLE)
 	public CreateNewReservationDTO createNewReservation(CreateNewReservationDTO dto) {
 		CreateNewReservationDTO responseDTO = new CreateNewReservationDTO();
 		Guest guest = guestRepository.findOne(dto.getGuestId());
@@ -482,14 +518,23 @@ public class GuestService {
 	private boolean tablesAvailable(Date from, Date to, Restaurant restaurant, List<Long> tables) {
 		List<Reservation> reservations = reservationRepository.findByRestaurant(restaurant);
 		for(Reservation reservation : reservations) {
-			if(reservation.getTerminOd().getTime() >= from.getTime() && reservation.getTerminDo().getTime() > from.getTime()) {
-				List<ReservationRestaurantTable> reservedTables = reservationRestaurantTableRepository.findByReservation(reservation);
-				for(ReservationRestaurantTable reservedTable : reservedTables) {
+			if((reservation.getTerminOd().getTime() <= from.getTime() && from.getTime() <= reservation.getTerminDo().getTime()) || 
 					
+					(from.getTime() <= reservation.getTerminOd().getTime() && to.getTime() >= reservation.getTerminOd().getTime())
+					
+					) {
+				//List<ReservationRestaurantTable> reservedTables = reservationRestaurantTableRepository.findByReservation(reservation);
+				List<ReservationRestaurantTable> reservedTables = reservationRestaurantTableRepository.findAll();
+				
+				for(ReservationRestaurantTable reservedTable : reservedTables) {
+					if(!reservedTable.getReservation().getId().equals(reservation.getId())) {
+						continue;
+					}
 					// check if any of currently reserved tables
 					// match the newly reserved tables
 					for(Long tableId : tables) {
-						if(tableId.equals(reservedTable.getId())) {
+						if(tableId.equals(reservedTable.getTable().getId())) {
+							
 							return false; // cannot reserve
 						}
 					}
@@ -520,7 +565,7 @@ public class GuestService {
 				dto.setRestaurantName(r.getRestaurant().getName());
 			}
 			
-			dto.setTerminDo(r.getTerminOd());
+			dto.setTerminDo(r.getTerminDo());
 			dto.setTerminOd(r.getTerminOd());
 			reservationsDTO.add(dto); 
 		}

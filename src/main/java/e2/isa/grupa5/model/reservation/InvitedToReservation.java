@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -35,10 +36,27 @@ public class InvitedToReservation implements Serializable {
 	 * 
 	 */
 	private boolean confirmed;
+	
+//	@Version
+    private int version;
+	
+	
 
 	public InvitedToReservation() {
 		
 	}
+	
+	public int getVersion() {
+		return version;
+	}
+
+
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+
 
 	public Long getId() {
 		return id;

@@ -17,7 +17,8 @@
 
     $scope.reserve2Page = sessionService.getReservationInfo();
     initializeTables();
-    $scope.date = $scope.reserve2Page.date.toString();
+    $scope.dt = $scope.reserve2Page.date;
+    $scope.hm = $scope.reserve2Page.arrival; 
 
     $scope.logoff = function () {
       alert("logoff called");
@@ -33,8 +34,8 @@
     $scope.reserve = function (id) {
       let reservationObj = sessionService.getReservationInfo();
       reservationObj.tables = [];
-      for(let tableId in $scope.selectable) {
-        tables.push(tableId);
+      for(let tableId in $scope.selectedTables) {
+        reservationObj.tables.push(tableId);
       }
       sessionService.setReservationInfo(reservationObj);
       $state.go('reserve3');

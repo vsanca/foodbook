@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 /**
  * Describes a restaurant instance.
@@ -43,6 +44,9 @@ public class Restaurant implements Serializable{
 	@Column(name = "email", nullable = false)
 	private String email;
 	
+//	@Version
+    private int version;
+	
 	public Restaurant() {
 		
 	}
@@ -55,6 +59,16 @@ public class Restaurant implements Serializable{
 		this.email = mail;
 	}
 	
+	
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
 	public long getId() {
 		return id;
 	}

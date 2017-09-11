@@ -3,7 +3,10 @@ package e2.isa.grupa5.repository.reservation;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.LockModeType;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Repository;
 
 import e2.isa.grupa5.model.reservation.Reservation;
@@ -20,5 +23,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 	List<Reservation> findByTerminDo(Date termindo);
 	List<Reservation> findByTerminOd(Date terminod);
 	Long countByGuest(Guest guest);
+	
+	@Lock(LockModeType.PESSIMISTIC_WRITE)
+	Reservation save(Reservation reservation);
 	
 }

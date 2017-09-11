@@ -18,7 +18,7 @@
         $scope.userInfo = sessionService.getUserInfo();
 
 
-        $scope.date = $scope.reserve3Page.date.toString();
+        $scope.dt = $scope.reserve3Page.date;
 
         console.log("Reservation page 3 ready!");
         $scope.models = {

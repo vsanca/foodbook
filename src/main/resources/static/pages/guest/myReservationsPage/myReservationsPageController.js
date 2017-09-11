@@ -26,9 +26,10 @@
        for(let i = 0; i < response.data.length; i++) {
          response.data[i].terminOdStr = "";
          let asDate = new Date(response.data[i].terminOd);
-          response.data[i].terminOdStr = "" + (asDate.getMonth() + 1) + "." + asDate.getDate() + "." + asDate.getFullYear();
+          response.data[i].datum = "" + (asDate.getMonth() + 1) + "." + asDate.getDate() + "." + asDate.getFullYear();
+          response.data[i].terminOdStr =  "" + asDate.getHours() + ":" + asDate.getMinutes();
           asDate = new Date(response.data[i].terminDo);         
-          response.data[i].terminDoStr = "" + (asDate.getMonth() +1 ) + "." + asDate.getDate() + "." + asDate.getFullYear();
+          response.data[i].terminDoStr = "" + asDate.getHours() + ":" + asDate.getMinutes();
 
        }
        

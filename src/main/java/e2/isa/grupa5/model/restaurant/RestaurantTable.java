@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 /**
  * A table in {@link RestaurantArea} in {@link Restaurant}.
@@ -41,6 +42,9 @@ public class RestaurantTable implements Serializable{
     @JoinColumn(name = "area_id", nullable = false)
     private RestaurantArea area;
 	
+//	@Version
+    private int version;
+	
 	public RestaurantTable() {
 		
 	}
@@ -50,6 +54,16 @@ public class RestaurantTable implements Serializable{
 		this.seats = seats;
 		this.area = area;
 		this.fabricTable = fabric;
+	}
+
+	
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public long getId() {

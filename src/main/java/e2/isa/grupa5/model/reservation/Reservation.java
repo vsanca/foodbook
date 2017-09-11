@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -42,9 +43,26 @@ public class Reservation implements Serializable {
 	@ManyToOne
 	private Guest guest;
 		
+//	@Version
+    private int version;
+	
 	public Reservation() {
 		
 	}
+
+	
+	
+	public int getVersion() {
+		return version;
+	}
+
+
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+
 
 	public Long getId() {
 		return id;

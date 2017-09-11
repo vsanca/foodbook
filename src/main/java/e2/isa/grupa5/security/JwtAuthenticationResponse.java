@@ -29,8 +29,17 @@ public class JwtAuthenticationResponse implements Serializable {
      * 
      */
     private final UserRoles role;
+    
+    
 
-    public JwtAuthenticationResponse(String token, long userId, UserRoles role) {
+    public JwtAuthenticationResponse() {
+		super();
+		  this.token = null;
+	        this.role = null;
+	        this.userId = 0;
+	}
+
+	public JwtAuthenticationResponse(String token, long userId, UserRoles role) {
         this.token = token;
         this.role = role;
         this.userId = userId;

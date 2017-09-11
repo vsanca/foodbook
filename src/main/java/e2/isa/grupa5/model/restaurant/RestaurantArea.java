@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 /**
  * Defined area in a {@link Restaurant}.
@@ -46,6 +47,9 @@ public class RestaurantArea implements Serializable{
 			color = "blue";
 	}
 	
+//	@Version
+    private int version;
+	
 	public RestaurantArea() {
 		
 	}
@@ -53,6 +57,16 @@ public class RestaurantArea implements Serializable{
 	public RestaurantArea(String name, Restaurant restaurant) {
 		this.name = name;
 		this.restaurant = restaurant;
+	}
+
+	
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public long getId() {

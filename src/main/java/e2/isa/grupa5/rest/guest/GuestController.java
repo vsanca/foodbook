@@ -290,9 +290,10 @@ public class GuestController {
 	///////////////////////////////////////////////////////////////////////////////////
 
 	@RequestMapping(value = "/create-new-reservation", method = RequestMethod.POST)
-	@Transactional
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity createNewReservation(@RequestBody CreateNewReservationDTO dto) {
+	public ResponseEntity createNewReservation(@RequestBody CreateNewReservationDTO dto) throws InterruptedException {
+		Thread.sleep(2000); 
+		
 		CreateNewReservationDTO responseDto = guestService.createNewReservation(dto);
 		
 		return new ResponseEntity<>(responseDto, HttpStatus.OK);
